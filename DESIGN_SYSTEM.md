@@ -1,5 +1,7 @@
 # AURINOVA Design System
 
+开发预览路由：`/dev/design-system`
+
 ## 视觉原则
 
 - **Precision Grid**：核心内容沿 1392px 容器和 1px 结构线对齐。

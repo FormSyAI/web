@@ -21,8 +21,11 @@ npm run build
 - `app/globals.css`：设计 token、基础排版、组件样式与响应式规则。
 - `components/site/`：站点级组件；移动导航和轮播交互集中在客户端组件中。
 - `app/page.tsx`：首页区块组合，尽量保持为纯展示层。
+- `app/dev/design-system/page.tsx`：设计 token 与组件的开发预览路由。
 
 修改文案或卡片时优先编辑 `content/site.ts`。新增视觉值时先补充全局 token，再在组件样式中引用，避免散落重复色值和间距。
+
+设计系统预览：`/dev/design-system`
 
 ## 页面结构
 
