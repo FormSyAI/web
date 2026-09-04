@@ -11,17 +11,29 @@ import {
 import { siteContent } from '@/content/site';
 
 function HeroSignal() {
-  const bars = [14, 20, 18, 26, 34, 31, 39, 46, 42, 50, 57, 53, 62, 70, 66, 76, 82, 78, 88, 94];
+  const bars = [
+    14, 20, 18, 26, 34, 31, 39, 46, 42, 50, 57, 53, 62, 70, 66, 76, 82, 78, 88,
+    94,
+  ];
 
   return (
-    <div className="hero-visual hero-signal" aria-label="任务完成率提升与成功任务成本优化示意图">
+    <div
+      className="hero-visual hero-signal"
+      aria-label="任务完成率提升与成功任务成本优化示意图"
+    >
       <span className="corner corner-tl" />
       <span className="corner corner-tr" />
       <span className="corner corner-bl" />
       <span className="corner corner-br" />
       <div className="signal-legend">
-        <span><i className="legend-violet" />任务完成率</span>
-        <span><i className="legend-orange" />成功任务成本</span>
+        <span>
+          <i className="legend-violet" />
+          任务完成率
+        </span>
+        <span>
+          <i className="legend-orange" />
+          成功任务成本
+        </span>
       </div>
       <div className="signal-chart" aria-hidden="true">
         {bars.map((value, index) => (
@@ -36,7 +48,9 @@ function HeroSignal() {
       </div>
       <span className="axis-label axis-left">COST / SUCCESSFUL TASK</span>
       <span className="axis-label axis-right">TASK SUCCESS</span>
-      <span className="signal-wordmark">FORM<span>SY</span></span>
+      <span className="signal-wordmark">
+        FORM<span>SY</span>
+      </span>
     </div>
   );
 }
@@ -51,7 +65,10 @@ function ContextFlywheel() {
   ];
 
   return (
-    <div className="hero-visual flywheel" aria-label="Context to Weights 企业学习闭环">
+    <div
+      className="hero-visual flywheel"
+      aria-label="Context to Weights 企业学习闭环"
+    >
       <span className="corner corner-tl" />
       <span className="corner corner-tr" />
       <span className="corner corner-bl" />
@@ -63,7 +80,10 @@ function ContextFlywheel() {
       </div>
       <ol className="flywheel-stages">
         {stages.map(([index, label], itemIndex) => (
-          <li key={label} style={{ '--stage-index': itemIndex } as React.CSSProperties}>
+          <li
+            key={label}
+            style={{ '--stage-index': itemIndex } as React.CSSProperties}
+          >
             <span>{index}</span>
             <strong>{label}</strong>
           </li>
@@ -96,7 +116,11 @@ export function HeroShowcase() {
   }, [api]);
 
   return (
-    <section className="hero section-grid" aria-roledescription="carousel" aria-label="FormSy 产品主张">
+    <section
+      className="hero section-grid"
+      aria-roledescription="carousel"
+      aria-label="FormSy 产品主张"
+    >
       <Carousel opts={{ loop: true }} setApi={setApi} className="hero-carousel">
         <CarouselContent className="hero-carousel-content">
           {siteContent.heroSlides.map((slide) => (
@@ -111,15 +135,25 @@ export function HeroShowcase() {
                   </h1>
                   <p className="hero-description">{slide.description}</p>
                   <div className="button-row">
-                    <a className="button button-primary" href={slide.primaryCta.href}>
+                    <a
+                      className="button button-primary"
+                      href={slide.primaryCta.href}
+                    >
                       {slide.primaryCta.label}
                     </a>
-                    <a className="button button-secondary" href={slide.secondaryCta.href}>
+                    <a
+                      className="button button-secondary"
+                      href={slide.secondaryCta.href}
+                    >
                       {slide.secondaryCta.label}
                     </a>
                   </div>
                 </div>
-                {slide.visual === 'signal' ? <HeroSignal /> : <ContextFlywheel />}
+                {slide.visual === 'signal' ? (
+                  <HeroSignal />
+                ) : (
+                  <ContextFlywheel />
+                )}
               </div>
             </CarouselItem>
           ))}

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 
+import './design-system.css';
+
 export const metadata: Metadata = {
   title: 'Design System · AURINOVA',
   description: 'AURINOVA / FormSy 设计系统开发预览。',

@@ -32,7 +32,9 @@ function SectionHeading({
   inverse = false,
 }: SectionHeadingProps) {
   return (
-    <div className={`section-heading section-heading-${align}${inverse ? ' section-heading-inverse' : ''}`}>
+    <div
+      className={`section-heading section-heading-${align}${inverse ? ' section-heading-inverse' : ''}`}
+    >
       <p className="eyebrow">{eyebrow}</p>
       <h2>{title}</h2>
       {description && <p className="section-description">{description}</p>}
@@ -40,9 +42,20 @@ function SectionHeading({
   );
 }
 
-function ArrowLink({ label, href, inverse = false }: { label: string; href: string; inverse?: boolean }) {
+function ArrowLink({
+  label,
+  href,
+  inverse = false,
+}: {
+  label: string;
+  href: string;
+  inverse?: boolean;
+}) {
   return (
-    <a className={`arrow-link${inverse ? ' arrow-link-inverse' : ''}`} href={href}>
+    <a
+      className={`arrow-link${inverse ? ' arrow-link-inverse' : ''}`}
+      href={href}
+    >
       <span>{label}</span>
       <ArrowRight size={18} aria-hidden="true" />
     </a>
@@ -54,9 +67,11 @@ function EcosystemRail() {
     <section className="ecosystem" aria-label="兼容生态">
       <div className="shell ecosystem-window">
         <div className="ecosystem-track">
-          {[...siteContent.ecosystem, ...siteContent.ecosystem].map((item, index) => (
-            <span key={`${item}-${index}`}>{item}</span>
-          ))}
+          {[...siteContent.ecosystem, ...siteContent.ecosystem].map(
+            (item, index) => (
+              <span key={`${item}-${index}`}>{item}</span>
+            ),
+          )}
         </div>
       </div>
     </section>
@@ -83,7 +98,11 @@ function ControlPanel() {
             <span className="control-index">0{index + 1}</span>
             <span className="control-label">{label}</span>
             <strong>{value}</strong>
-            {index === rows.length - 1 ? <CircleCheck size={18} /> : <span className="control-pulse" />}
+            {index === rows.length - 1 ? (
+              <CircleCheck size={18} />
+            ) : (
+              <span className="control-pulse" />
+            )}
           </div>
         ))}
       </div>
@@ -95,7 +114,11 @@ function ControlPanel() {
   );
 }
 
-function PlatformCard({ item }: { item: (typeof siteContent.platforms)[number] }) {
+function PlatformCard({
+  item,
+}: {
+  item: (typeof siteContent.platforms)[number];
+}) {
   return (
     <article className={`platform-card platform-card-${item.tone}`}>
       <div className="platform-index">{item.index}</div>
@@ -111,10 +134,16 @@ function PlatformCard({ item }: { item: (typeof siteContent.platforms)[number] }
             </li>
           ))}
         </ul>
-        <ArrowLink label="查看架构" href={item.href} inverse={item.tone === 'dark'} />
+        <ArrowLink
+          label="查看架构"
+          href={item.href}
+          inverse={item.tone === 'dark'}
+        />
       </div>
       <div className="platform-pixel-field" aria-hidden="true">
-        {Array.from({ length: 56 }, (_, index) => <span key={index} />)}
+        {Array.from({ length: 56 }, (_, index) => (
+          <span key={index} />
+        ))}
       </div>
     </article>
   );
@@ -135,7 +164,9 @@ function OperatingLoop() {
             <li key={step.index}>
               <div className="loop-step-head">
                 <span>{step.index}</span>
-                {index < siteContent.operatingLoop.steps.length - 1 && <ChevronRight size={17} />}
+                {index < siteContent.operatingLoop.steps.length - 1 && (
+                  <ChevronRight size={17} />
+                )}
               </div>
               <strong>{step.label}</strong>
               <small>{step.detail}</small>
@@ -151,12 +182,17 @@ function ArchitectureMap() {
   return (
     <div className="architecture-map">
       {siteContent.architecture.columns.map((column, columnIndex) => (
-        <article className={`architecture-column architecture-column-${columnIndex + 1}`} key={column.index}>
+        <article
+          className={`architecture-column architecture-column-${columnIndex + 1}`}
+          key={column.index}
+        >
           <div className="architecture-number">{column.index}</div>
           <p>{column.label}</p>
           <h3>{column.title}</h3>
           <ul>
-            {column.items.map((item) => <li key={item}>{item}</li>)}
+            {column.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
           </ul>
           {columnIndex < siteContent.architecture.columns.length - 1 && (
             <span className="architecture-connector" aria-hidden="true">
@@ -174,7 +210,9 @@ const solutionIcons = [Gauge, ShieldCheck, LockKeyhole, Network];
 export default function Home() {
   return (
     <main id="top">
-      <a className="skip-link" href="#main-content">跳到主要内容</a>
+      <a className="skip-link" href="#main-content">
+        跳到主要内容
+      </a>
 
       <div className="announcement">
         <a href={siteContent.announcement.href}>
@@ -193,8 +231,13 @@ export default function Home() {
           <div className="shell framed manifesto-grid">
             <div className="manifesto-copy reveal">
               <p className="eyebrow">{siteContent.brand.description}</p>
-              <h2>“把每一次 Agent Run，转化为可控制、可验证、可复用的企业 Workflow Episode。”</h2>
-              <p>FORM<span>SY</span> · CONTEXT COMPUTE PLATFORM</p>
+              <h2>
+                “把每一次 Agent Run，转化为可控制、可验证、可复用的企业 Workflow
+                Episode。”
+              </h2>
+              <p>
+                FORM<span>SY</span> · CONTEXT COMPUTE PLATFORM
+              </p>
             </div>
             <ControlPanel />
           </div>
@@ -209,7 +252,9 @@ export default function Home() {
               align="center"
             />
             <div className="platform-grid">
-              {siteContent.platforms.map((item) => <PlatformCard item={item} key={item.title} />)}
+              {siteContent.platforms.map((item) => (
+                <PlatformCard item={item} key={item.title} />
+              ))}
             </div>
           </div>
         </section>
@@ -302,7 +347,10 @@ export default function Home() {
             <div className="resource-grid">
               {siteContent.resources.items.map((item) => (
                 <a className="resource-card" href={item.href} key={item.title}>
-                  <div className={`resource-visual resource-visual-${item.accent}`} aria-hidden="true">
+                  <div
+                    className={`resource-visual resource-visual-${item.accent}`}
+                    aria-hidden="true"
+                  >
                     <span className="resource-code">FORM / SY</span>
                     <span className="resource-crosshair" />
                     <ArrowUpRight size={26} />
@@ -323,17 +371,25 @@ export default function Home() {
               <h2>{siteContent.cta.title}</h2>
               <p>{siteContent.cta.description}</p>
               <div className="button-row">
-                <a className="button button-light" href={siteContent.cta.primary.href}>
+                <a
+                  className="button button-light"
+                  href={siteContent.cta.primary.href}
+                >
                   {siteContent.cta.primary.label}
                   <ArrowRight size={17} />
                 </a>
-                <a className="button button-dark-outline" href={siteContent.cta.secondary.href}>
+                <a
+                  className="button button-dark-outline"
+                  href={siteContent.cta.secondary.href}
+                >
                   {siteContent.cta.secondary.label}
                 </a>
               </div>
             </div>
             <div className="cta-pixels" aria-hidden="true">
-              {Array.from({ length: 72 }, (_, index) => <span key={index} />)}
+              {Array.from({ length: 72 }, (_, index) => (
+                <span key={index} />
+              ))}
             </div>
           </div>
         </section>
@@ -350,7 +406,11 @@ export default function Home() {
             {siteContent.footer.groups.map((group) => (
               <div className="footer-group" key={group.title}>
                 <h3>{group.title}</h3>
-                {group.links.map((link) => <a href={link.href} key={link.label}>{link.label}</a>)}
+                {group.links.map((link) => (
+                  <a href={link.href} key={link.label}>
+                    {link.label}
+                  </a>
+                ))}
               </div>
             ))}
           </div>

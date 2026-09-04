@@ -10,8 +10,9 @@
 
 # testing
 /coverage
+*.tsbuildinfo
 
-# next.js
+# framework caches
 /.next/
 /.vinext/
 /out/

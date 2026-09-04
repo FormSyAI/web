@@ -2,6 +2,8 @@
 
 开发预览路由：`/dev/design-system`
 
+路由专属样式位于 `app/dev/design-system/design-system.css`，全站 token 和基础规则保留在 `app/globals.css`。
+
 ## 视觉原则
 
 - **Precision Grid**：核心内容沿 1392px 容器和 1px 结构线对齐。

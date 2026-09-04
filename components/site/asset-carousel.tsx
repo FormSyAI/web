@@ -1,6 +1,12 @@
 'use client';
 
-import { Boxes, Database, GitBranch, ScanLine, ShieldCheck } from 'lucide-react';
+import {
+  Boxes,
+  Database,
+  GitBranch,
+  ScanLine,
+  ShieldCheck,
+} from 'lucide-react';
 
 import {
   Carousel,
@@ -31,7 +37,7 @@ export function AssetCarousel() {
           const Icon = assetIcons[item.code];
           return (
             <CarouselItem key={item.code} className="asset-slide">
-              <article className="asset-card">
+              <div className="asset-card">
                 <div className="asset-card-topline">
                   <Icon size={22} strokeWidth={1.5} aria-hidden="true" />
                   <span>{item.code}</span>
@@ -40,9 +46,11 @@ export function AssetCarousel() {
                 <h3>{item.title}</h3>
                 <p className="asset-description">{item.description}</p>
                 <div className="asset-tags">
-                  {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                  {item.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
                 </div>
-              </article>
+              </div>
             </CarouselItem>
           );
         })}

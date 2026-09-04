@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
 import {
   Sheet,
@@ -21,47 +21,68 @@ export function SiteHeader() {
       <div className="shell header-inner">
         <Brand />
         <nav className="desktop-nav" aria-label="主导航">
-          {siteContent.navigation.map((item, index) => (
+          {siteContent.navigation.map((item) => (
             <a href={item.href} key={item.href}>
               {item.label}
-              {index < 3 && <ChevronDown size={14} aria-hidden="true" />}
             </a>
           ))}
         </nav>
         <div className="header-actions">
-          <a className="text-link" href="#resources">文档</a>
-          <a className="button button-primary button-small" href="#architecture">开始构建</a>
+          <a className="text-link" href="#resources">
+            文档
+          </a>
+          <a
+            className="button button-primary button-small"
+            href="#architecture"
+          >
+            开始构建
+          </a>
           <Sheet>
             <SheetTrigger
               render={
-                <button className="menu-button" type="button" aria-label="打开导航菜单" />
+                <button
+                  className="menu-button"
+                  type="button"
+                  aria-label="打开导航菜单"
+                >
+                  <Menu size={23} />
+                </button>
               }
-            >
-              <Menu size={23} />
-            </SheetTrigger>
+            />
             <SheetContent
               className="mobile-sheet"
               side="right"
               aria-describedby="mobile-navigation-description"
             >
               <SheetHeader className="mobile-sheet-header">
-                <SheetTitle><Brand /></SheetTitle>
+                <SheetTitle>
+                  <Brand />
+                </SheetTitle>
                 <SheetDescription id="mobile-navigation-description">
                   {siteContent.brand.product} · {siteContent.brand.description}
                 </SheetDescription>
               </SheetHeader>
               <nav className="mobile-nav" aria-label="移动端导航">
                 {siteContent.navigation.map((item, index) => (
-                  <SheetClose key={item.href} render={<a href={item.href} />}>
-                    <span>{item.label}</span>
-                    <span className="mobile-nav-index">0{index + 1}</span>
-                  </SheetClose>
+                  <SheetClose
+                    key={item.href}
+                    render={
+                      <a href={item.href}>
+                        <span>{item.label}</span>
+                        <span className="mobile-nav-index">0{index + 1}</span>
+                      </a>
+                    }
+                  />
                 ))}
               </nav>
               <div className="mobile-sheet-footer">
-                <SheetClose render={<a className="button button-primary" href="#architecture" />}>
-                  查看产品架构
-                </SheetClose>
+                <SheetClose
+                  render={
+                    <a className="button button-primary" href="#architecture">
+                      查看产品架构
+                    </a>
+                  }
+                />
                 <p>{siteContent.brand.company}</p>
               </div>
             </SheetContent>

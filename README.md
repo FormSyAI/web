@@ -20,6 +20,7 @@ npm run build
 - `content/site.ts`：导航、首屏、产品能力、架构、验证数据、资源与页脚文案。
 - `app/globals.css`：设计 token、基础排版、组件样式与响应式规则。
 - `components/site/`：站点级组件；移动导航和轮播交互集中在客户端组件中。
+- `components/ui/`：当前页面实际使用的 Shadcn/Base UI 基础组件。
 - `app/page.tsx`：首页区块组合，尽量保持为纯展示层。
 - `app/dev/design-system/page.tsx`：设计 token 与组件的开发预览路由。
 

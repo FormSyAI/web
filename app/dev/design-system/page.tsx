@@ -11,6 +11,7 @@ import {
   Search,
   Sparkles,
 } from 'lucide-react';
+import Link from 'next/link';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -22,10 +23,30 @@ import { Brand } from '@/components/site/brand';
 
 const colors = [
   { name: 'Ink', token: '--ink', value: '#121216', usage: '主文字 / 深色表面' },
-  { name: 'Paper', token: '--paper', value: '#FFFFFF', usage: '页面 / 反色文字' },
-  { name: 'Violet 500', token: '--violet-500', value: '#642CFF', usage: '品牌 / 主操作' },
-  { name: 'Violet 700', token: '--violet-700', value: '#3D168F', usage: '深色强调面' },
-  { name: 'Orange 500', token: '--orange-500', value: '#F1542D', usage: '成本 / 风险信号' },
+  {
+    name: 'Paper',
+    token: '--paper',
+    value: '#FFFFFF',
+    usage: '页面 / 反色文字',
+  },
+  {
+    name: 'Violet 500',
+    token: '--violet-500',
+    value: '#642CFF',
+    usage: '品牌 / 主操作',
+  },
+  {
+    name: 'Violet 700',
+    token: '--violet-700',
+    value: '#3D168F',
+    usage: '深色强调面',
+  },
+  {
+    name: 'Orange 500',
+    token: '--orange-500',
+    value: '#F1542D',
+    usage: '成本 / 风险信号',
+  },
   { name: 'Line', token: '--line', value: '#DEDEE3', usage: '网格 / 边界' },
 ] as const;
 
@@ -72,13 +93,20 @@ function SpecHeader({
 }
 
 function StatusDot({ tone }: { tone: 'success' | 'warning' | 'neutral' }) {
-  return <span className={`ds-status-dot ds-status-dot-${tone}`} aria-hidden="true" />;
+  return (
+    <span
+      className={`ds-status-dot ds-status-dot-${tone}`}
+      aria-hidden="true"
+    />
+  );
 }
 
 export default function DesignSystemPage() {
   return (
     <main className="ds-page" id="top">
-      <a className="skip-link" href="#ds-main">跳到主要内容</a>
+      <a className="skip-link" href="#ds-main">
+        跳到主要内容
+      </a>
 
       <header className="ds-topbar">
         <div className="ds-topbar-brand">
@@ -88,10 +116,10 @@ export default function DesignSystemPage() {
         <div className="ds-topbar-meta">
           <span>DEV PREVIEW</span>
           <span>V1.0</span>
-          <a href="/">
+          <Link href="/">
             <ArrowLeft size={15} aria-hidden="true" />
             返回官网
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -121,15 +149,25 @@ export default function DesignSystemPage() {
               <p className="ds-kicker">AURINOVA / FORMSY</p>
               <h1>Design System</h1>
               <p>
-                企业 AI 基础设施的视觉与交互基线。所有示例直接使用官网共享 token 和组件。
+                企业 AI 基础设施的视觉与交互基线。所有示例直接使用官网共享 token
+                和组件。
               </p>
             </div>
             <div className="ds-intro-signature" aria-label="设计系统状态">
               <span className="ds-signature-mark">A / F</span>
               <dl>
-                <div><dt>MODE</dt><dd>Precision Grid</dd></div>
-                <div><dt>RADIUS</dt><dd>Square</dd></div>
-                <div><dt>BASE UNIT</dt><dd>4 px</dd></div>
+                <div>
+                  <dt>MODE</dt>
+                  <dd>Precision Grid</dd>
+                </div>
+                <div>
+                  <dt>RADIUS</dt>
+                  <dd>Square</dd>
+                </div>
+                <div>
+                  <dt>BASE UNIT</dt>
+                  <dd>4 px</dd>
+                </div>
               </dl>
             </div>
           </section>
@@ -143,11 +181,17 @@ export default function DesignSystemPage() {
             />
 
             <div className="ds-block">
-              <div className="ds-block-label"><span>COLOR TOKENS</span><code>CSS VARIABLES</code></div>
+              <div className="ds-block-label">
+                <span>COLOR TOKENS</span>
+                <code>CSS VARIABLES</code>
+              </div>
               <div className="ds-color-grid">
                 {colors.map((color) => (
                   <article className="ds-color-card" key={color.token}>
-                    <div className="ds-color-swatch" style={{ background: `var(${color.token})` }}>
+                    <div
+                      className="ds-color-swatch"
+                      style={{ background: `var(${color.token})` }}
+                    >
                       <span>{color.value}</span>
                     </div>
                     <div>
@@ -161,12 +205,17 @@ export default function DesignSystemPage() {
             </div>
 
             <div className="ds-block">
-              <div className="ds-block-label"><span>SPACING SCALE</span><code>4 PX BASE</code></div>
+              <div className="ds-block-label">
+                <span>SPACING SCALE</span>
+                <code>4 PX BASE</code>
+              </div>
               <div className="ds-spacing-list">
                 {spacing.map((item) => (
                   <div className="ds-spacing-row" key={item.name}>
                     <code>{item.name}</code>
-                    <div><span style={{ width: `${item.value * 3}px` }} /></div>
+                    <div>
+                      <span style={{ width: `${item.value * 3}px` }} />
+                    </div>
                     <strong>{item.value}px</strong>
                   </div>
                 ))}
@@ -184,19 +233,34 @@ export default function DesignSystemPage() {
 
             <div className="ds-type-table">
               <div className="ds-type-row ds-type-display">
-                <div><code>DISPLAY 01</code><span>76 / 84 · 520</span></div>
+                <div>
+                  <code>DISPLAY 01</code>
+                  <span>76 / 84 · 520</span>
+                </div>
                 <p>拥有自己的企业智能</p>
               </div>
               <div className="ds-type-row ds-type-heading">
-                <div><code>HEADING 02</code><span>48 / 54 · 520</span></div>
+                <div>
+                  <code>HEADING 02</code>
+                  <span>48 / 54 · 520</span>
+                </div>
                 <p>面向可信结果的运行层</p>
               </div>
               <div className="ds-type-row ds-type-body">
-                <div><code>BODY 01</code><span>18 / 31 · 400</span></div>
-                <p>把代码、文档、测试、工具输出与执行反馈，编译成 Agent 可使用、可验证、可审计的任务上下文。</p>
+                <div>
+                  <code>BODY 01</code>
+                  <span>18 / 31 · 400</span>
+                </div>
+                <p>
+                  把代码、文档、测试、工具输出与执行反馈，编译成 Agent
+                  可使用、可验证、可审计的任务上下文。
+                </p>
               </div>
               <div className="ds-type-row ds-type-mono">
-                <div><code>MONO 01</code><span>12 / 18 · 650</span></div>
+                <div>
+                  <code>MONO 01</code>
+                  <span>12 / 18 · 650</span>
+                </div>
                 <p>CONTEXT COMPUTE · EVIDENCE · FINISH GATE</p>
               </div>
             </div>
@@ -212,54 +276,108 @@ export default function DesignSystemPage() {
 
             <div className="ds-control-grid">
               <div className="ds-demo-panel">
-                <div className="ds-block-label"><span>BUTTONS</span><code>ACTIONS</code></div>
+                <div className="ds-block-label">
+                  <span>BUTTONS</span>
+                  <code>ACTIONS</code>
+                </div>
                 <div className="ds-demo-row">
-                  <Button className="ds-ui-button ds-ui-button-primary" size="lg">
+                  <Button
+                    className="ds-ui-button ds-ui-button-primary"
+                    size="lg"
+                  >
                     开始构建 <ArrowRight data-icon="inline-end" />
                   </Button>
-                  <Button className="ds-ui-button" variant="outline" size="lg">查看架构</Button>
-                  <Button className="ds-ui-button" variant="ghost" size="lg">了解更多</Button>
-                  <Button className="ds-ui-button" disabled size="lg">不可用</Button>
-                  <Button className="ds-ui-icon-button" variant="outline" size="icon-lg" aria-label="新增">
+                  <Button className="ds-ui-button" variant="outline" size="lg">
+                    查看架构
+                  </Button>
+                  <Button className="ds-ui-button" variant="ghost" size="lg">
+                    了解更多
+                  </Button>
+                  <Button className="ds-ui-button" disabled size="lg">
+                    不可用
+                  </Button>
+                  <Button
+                    className="ds-ui-icon-button"
+                    variant="outline"
+                    size="icon-lg"
+                    aria-label="新增"
+                  >
                     <Plus />
                   </Button>
                 </div>
               </div>
 
               <div className="ds-demo-panel">
-                <div className="ds-block-label"><span>STATUS & TAGS</span><code>SEMANTIC</code></div>
+                <div className="ds-block-label">
+                  <span>STATUS & TAGS</span>
+                  <code>SEMANTIC</code>
+                </div>
                 <div className="ds-demo-row">
                   <Badge className="ds-ui-badge">PRIMARY</Badge>
-                  <Badge className="ds-ui-badge" variant="outline">EVIDENCE</Badge>
-                  <Badge className="ds-ui-badge ds-ui-badge-success" variant="outline">
+                  <Badge className="ds-ui-badge" variant="outline">
+                    EVIDENCE
+                  </Badge>
+                  <Badge
+                    className="ds-ui-badge ds-ui-badge-success"
+                    variant="outline"
+                  >
                     <CircleCheck data-icon="inline-start" /> VERIFIED
                   </Badge>
-                  <Badge className="ds-ui-badge ds-ui-badge-warning" variant="outline">RISK</Badge>
+                  <Badge
+                    className="ds-ui-badge ds-ui-badge-warning"
+                    variant="outline"
+                  >
+                    RISK
+                  </Badge>
                 </div>
                 <div className="ds-status-list">
-                  <span><StatusDot tone="success" />运行正常</span>
-                  <span><StatusDot tone="warning" />需要关注</span>
-                  <span><StatusDot tone="neutral" />等待执行</span>
+                  <span>
+                    <StatusDot tone="success" />
+                    运行正常
+                  </span>
+                  <span>
+                    <StatusDot tone="warning" />
+                    需要关注
+                  </span>
+                  <span>
+                    <StatusDot tone="neutral" />
+                    等待执行
+                  </span>
                 </div>
               </div>
 
               <div className="ds-demo-panel ds-demo-panel-wide">
-                <div className="ds-block-label"><span>FORM FIELDS</span><code>INPUT</code></div>
+                <div className="ds-block-label">
+                  <span>FORM FIELDS</span>
+                  <code>INPUT</code>
+                </div>
                 <div className="ds-form-grid">
-                  <label>
+                  <label htmlFor="ds-task-name">
                     <span>任务名称</span>
-                    <Input className="ds-ui-input" placeholder="例如：修复支付超时" />
+                    <Input
+                      id="ds-task-name"
+                      className="ds-ui-input"
+                      placeholder="例如：修复支付超时"
+                    />
                   </label>
-                  <label>
+                  <label htmlFor="ds-asset-search">
                     <span>搜索资产</span>
                     <div className="ds-input-with-icon">
                       <Search size={17} aria-hidden="true" />
-                      <Input className="ds-ui-input" placeholder="TOCS、ACF、Policy…" />
+                      <Input
+                        id="ds-asset-search"
+                        className="ds-ui-input"
+                        placeholder="TOCS、ACF、Policy…"
+                      />
                     </div>
                   </label>
-                  <label className="ds-form-wide">
+                  <label className="ds-form-wide" htmlFor="ds-validation-notes">
                     <span>验证说明</span>
-                    <Textarea className="ds-ui-textarea" placeholder="描述完成标准和所需证据" />
+                    <Textarea
+                      id="ds-validation-notes"
+                      className="ds-ui-textarea"
+                      placeholder="描述完成标准和所需证据"
+                    />
                   </label>
                   <div className="ds-switch-row ds-form-wide">
                     <div>
@@ -294,7 +412,9 @@ export default function DesignSystemPage() {
                   <p>ENTERPRISE EDGE</p>
                   <h3>Context Compute</h3>
                   <span>计算任务状态、证据、完成标准与恢复路径。</span>
-                  <a href="#patterns">查看模式 <ArrowRight size={17} /></a>
+                  <a href="#patterns">
+                    查看模式 <ArrowRight size={17} />
+                  </a>
                 </div>
               </TabsContent>
               <TabsContent value="dark">
@@ -304,7 +424,9 @@ export default function DesignSystemPage() {
                   <p>INFERENCE LAYER</p>
                   <h3>Workload Intelligence</h3>
                   <span>统一模型路由、缓存、验证与算力调度。</span>
-                  <a href="#patterns">查看模式 <ArrowRight size={17} /></a>
+                  <a href="#patterns">
+                    查看模式 <ArrowRight size={17} />
+                  </a>
                 </div>
               </TabsContent>
               <TabsContent value="brand">
@@ -313,8 +435,12 @@ export default function DesignSystemPage() {
                   <Sparkles size={26} strokeWidth={1.4} />
                   <p>SOVEREIGN ASSET</p>
                   <h3>Private Learning Loop</h3>
-                  <span>把有效经验沉淀为企业自己的 Policy、Skill 与 Weights。</span>
-                  <a href="#patterns">查看模式 <ArrowRight size={17} /></a>
+                  <span>
+                    把有效经验沉淀为企业自己的 Policy、Skill 与 Weights。
+                  </span>
+                  <a href="#patterns">
+                    查看模式 <ArrowRight size={17} />
+                  </a>
                 </div>
               </TabsContent>
             </Tabs>
@@ -337,16 +463,23 @@ export default function DesignSystemPage() {
               </article>
 
               <article className="ds-flow-demo">
-                <div className="ds-block-label"><span>VALIDATED TASK FLOW</span><code>5 STEPS</code></div>
+                <div className="ds-block-label">
+                  <span>VALIDATED TASK FLOW</span>
+                  <code>5 STEPS</code>
+                </div>
                 <ol>
-                  {['目标', '上下文', '执行', '验证', '学习'].map((item, index) => (
-                    <li key={item}>
-                      <span>0{index + 1}</span>
-                      <strong>{item}</strong>
-                      {index < 4 && <ArrowRight size={14} aria-hidden="true" />}
-                      {index === 4 && <Check size={15} aria-hidden="true" />}
-                    </li>
-                  ))}
+                  {['目标', '上下文', '执行', '验证', '学习'].map(
+                    (item, index) => (
+                      <li key={item}>
+                        <span>0{index + 1}</span>
+                        <strong>{item}</strong>
+                        {index < 4 && (
+                          <ArrowRight size={14} aria-hidden="true" />
+                        )}
+                        {index === 4 && <Check size={15} aria-hidden="true" />}
+                      </li>
+                    ),
+                  )}
                 </ol>
               </article>
             </div>

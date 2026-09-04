@@ -129,7 +129,11 @@ export const siteContent = {
         index: '02',
         label: 'ENTERPRISE EDGE',
         title: 'Context Platform',
-        items: ['FormSy Runtime', 'Context Builder', 'Warehouse · Evolving Model'],
+        items: [
+          'FormSy Runtime',
+          'Context Builder',
+          'Warehouse · Evolving Model',
+        ],
       },
       {
         index: '03',
@@ -267,7 +271,8 @@ export const siteContent = {
   cta: {
     eyebrow: 'BUILD WITH FORMSY',
     title: '开始构建企业自己的智能闭环',
-    description: '从一个可验证的软件工程工作负载开始，连接现有 Agent、模型与企业系统。',
+    description:
+      '从一个可验证的软件工程工作负载开始，连接现有 Agent、模型与企业系统。',
     primary: { label: '查看产品架构', href: '#architecture' },
     secondary: { label: '了解核心能力', href: '#platform' },
   },
