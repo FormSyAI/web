@@ -31,6 +31,10 @@
   gap: 1.25rem;
 }
 
+.ds-topbar-brand .brand-logo {
+  width: 10rem;
+}
+
 .ds-topbar-brand > span {
   border-left: 1px solid var(--line);
   padding-left: 1.25rem;
@@ -200,7 +204,7 @@
   justify-content: space-between;
   padding: 2rem;
   color: white;
-  background: var(--violet-700);
+  background: var(--brand-blue-700);
 }
 
 .ds-signature-mark {
@@ -231,7 +235,7 @@
 }
 
 .ds-intro-signature dt {
-  color: #c6b8f6;
+  color: var(--brand-blue-100);
   font-size: 0.58rem;
   letter-spacing: 0.07em;
 }
@@ -548,9 +552,9 @@
 }
 
 .ds-ui-badge-warning {
-  border-color: var(--orange-300) !important;
-  color: #a23413 !important;
-  background: #fff3ed !important;
+  border-color: var(--brand-gold-300) !important;
+  color: var(--brand-gold-700) !important;
+  background: var(--brand-gold-100) !important;
 }
 
 .ds-status-list {
@@ -585,8 +589,8 @@
 }
 
 .ds-status-dot-warning {
-  background: var(--orange-500);
-  box-shadow: 0 0 0 4px rgb(241 84 45 / 10%);
+  background: var(--brand-gold-500);
+  box-shadow: 0 0 0 4px rgb(243 179 34 / 14%);
 }
 
 .ds-form-grid {
@@ -770,22 +774,25 @@
 }
 
 .ds-surface-brand {
-  border-color: var(--violet-700);
+  border-color: var(--brand-blue-700);
   color: white;
-  background: var(--violet-700);
+  background: var(--brand-blue-700);
 }
 
 .ds-surface-dark > p,
 .ds-surface-dark .ds-surface-index,
-.ds-surface-dark > span,
-.ds-surface-brand > p,
-.ds-surface-brand .ds-surface-index,
-.ds-surface-brand > span {
+.ds-surface-dark > span {
   color: #bcbcc5;
 }
 
+.ds-surface-brand > p,
+.ds-surface-brand .ds-surface-index,
+.ds-surface-brand > span {
+  color: var(--brand-blue-100);
+}
+
 .ds-surface-brand > svg {
-  color: var(--orange-300);
+  color: var(--brand-gold-300);
 }
 
 .ds-pattern-grid {
@@ -863,7 +870,7 @@
 .ds-flow-demo li:last-child {
   border-right: 1px solid var(--line);
   color: white;
-  background: var(--violet-700);
+  background: var(--brand-blue-700);
 }
 
 .ds-flow-demo li > span {
@@ -890,7 +897,7 @@
 .ds-flow-demo li:last-child > svg {
   top: 0.9rem;
   right: 0.9rem;
-  color: #cfc2ff;
+  color: var(--brand-blue-100);
   transform: none;
 }
 
@@ -1044,12 +1051,8 @@
 }
 
 @media (max-width: 520px) {
-  .ds-topbar .brand {
-    font-size: 0.95rem;
-  }
-
-  .ds-topbar .brand-mark {
-    display: none;
+  .ds-topbar-brand .brand-logo {
+    width: 8.5rem;
   }
 
   .ds-intro > div:first-child,

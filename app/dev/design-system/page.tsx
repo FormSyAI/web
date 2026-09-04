@@ -30,22 +30,22 @@ const colors = [
     usage: '页面 / 反色文字',
   },
   {
-    name: 'Violet 500',
-    token: '--violet-500',
-    value: '#642CFF',
+    name: 'Brand Blue 500',
+    token: '--brand-blue-500',
+    value: '#2C6CB5',
     usage: '品牌 / 主操作',
   },
   {
-    name: 'Violet 700',
-    token: '--violet-700',
-    value: '#3D168F',
+    name: 'Brand Blue 700',
+    token: '--brand-blue-700',
+    value: '#1C4A7F',
     usage: '深色强调面',
   },
   {
-    name: 'Orange 500',
-    token: '--orange-500',
-    value: '#F1542D',
-    usage: '成本 / 风险信号',
+    name: 'Brand Gold 500',
+    token: '--brand-gold-500',
+    value: '#F3B322',
+    usage: '重点 / 提醒信号',
   },
   { name: 'Line', token: '--line', value: '#DEDEE3', usage: '网格 / 边界' },
 ] as const;
@@ -177,7 +177,7 @@ export default function DesignSystemPage() {
               index="01"
               eyebrow="FOUNDATIONS"
               title="颜色与空间"
-              description="以高对比中性色承载信息，紫色聚焦品牌和操作，橙色只用于需要关注的成本与风险信号。"
+              description="以高对比中性色承载信息，源自 Logo 的深蓝聚焦品牌、主操作和信息状态，金色用于关键强调与提醒。"
             />
 
             <div className="ds-block">

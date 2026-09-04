@@ -1,7 +1,8 @@
 .fw-page {
-  --fw-purple: #6127ff;
-  --fw-purple-soft: #a37cff;
-  --fw-orange: #ff4b0b;
+  --fw-brand: var(--brand-blue-500);
+  --fw-brand-deep: var(--brand-blue-700);
+  --fw-brand-soft: var(--brand-blue-300);
+  --fw-highlight: var(--brand-gold-500);
   --fw-ink: #18181d;
   --fw-muted: #686b75;
   --fw-line: #e6eaf4;
@@ -11,7 +12,7 @@
   background: var(--fw-white);
   font-family:
     Inter, var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  scrollbar-color: var(--fw-purple) #f4f4f6;
+  scrollbar-color: var(--fw-brand) #f4f4f6;
 }
 
 .fw-page *,
@@ -25,10 +26,10 @@
 }
 .fw-page ::selection {
   color: white;
-  background: var(--fw-purple);
+  background: var(--fw-brand);
 }
 .fw-page :focus-visible {
-  outline: 2px solid var(--fw-purple);
+  outline: 2px solid var(--fw-brand);
   outline-offset: 3px;
 }
 .fw-page button {
@@ -57,10 +58,10 @@
   content: '';
   background: repeating-linear-gradient(
     90deg,
-    #6127ff 0 32px,
-    #4315b9 32px 64px,
-    #1d0d49 64px 96px,
-    #090313 96px 128px
+    #2c6cb5 0 32px,
+    #1c4a7f 32px 64px,
+    #0b2645 64px 96px,
+    #061423 96px 128px
   );
 }
 
@@ -83,7 +84,7 @@
   font-weight: 650;
 }
 .fw-announcement:hover {
-  color: #cdbdff;
+  color: var(--brand-blue-100);
 }
 
 .fw-header {
@@ -125,7 +126,7 @@
   width: 38px;
   height: 30px;
   display: inline-block;
-  color: var(--fw-purple);
+  color: var(--fw-brand);
 }
 .fw-mark i {
   position: absolute;
@@ -180,8 +181,8 @@
 .fw-header nav > a:hover,
 .fw-nav-item > button:hover,
 .fw-nav-item > button[aria-expanded='true'] {
-  color: var(--fw-purple);
-  background: rgb(137 80 255 / 7%);
+  color: var(--fw-brand);
+  background: rgb(44 108 181 / 8%);
 }
 .fw-nav-item {
   position: relative;
@@ -261,7 +262,7 @@
 }
 .fw-mega-list > a:hover,
 .fw-menu-feature:hover {
-  background: rgb(137 80 255 / 7%);
+  background: rgb(44 108 181 / 8%);
 }
 .fw-mega-list strong {
   font-size: 16px;
@@ -281,7 +282,7 @@
   padding: 48px;
 }
 .fw-menu-feature > strong {
-  color: var(--fw-purple);
+  color: var(--fw-brand);
   font-size: 14px;
 }
 .fw-menu-feature > p {
@@ -317,8 +318,8 @@
 .fw-audience-list a:hover,
 .fw-usecase-list a:hover,
 .fw-menu-link-grid a:hover {
-  color: var(--fw-purple);
-  background: rgb(137 80 255 / 7%);
+  color: var(--fw-brand);
+  background: rgb(44 108 181 / 8%);
 }
 .fw-usecase-list {
   width: 320px;
@@ -368,8 +369,8 @@
   border-radius: 8px;
 }
 .fw-model-menu > div a:hover {
-  color: var(--fw-purple);
-  background: rgb(137 80 255 / 7%);
+  color: var(--fw-brand);
+  background: rgb(44 108 181 / 8%);
 }
 .fw-model-menu img {
   object-fit: contain;
@@ -434,7 +435,7 @@
   gap: 8px;
 }
 .fw-featured-resources > a:hover strong {
-  color: var(--fw-purple);
+  color: var(--fw-brand);
 }
 .fw-featured-image {
   position: relative;
@@ -480,12 +481,12 @@
     border-color 0.16s ease;
 }
 .fw-primary-button {
-  border-color: var(--fw-purple);
+  border-color: var(--fw-brand);
   color: white !important;
-  background: var(--fw-purple);
+  background: var(--fw-brand);
 }
 .fw-primary-button:hover {
-  background: #4e18dc;
+  background: var(--fw-brand-deep);
 }
 .fw-secondary-button {
   background: white;
@@ -665,10 +666,10 @@
   display: block;
 }
 .fw-chart-legend .is-token {
-  background: var(--fw-purple);
+  background: var(--fw-brand);
 }
 .fw-chart-legend .is-spend {
-  background: var(--fw-orange);
+  background: var(--fw-highlight);
 }
 .fw-axis {
   position: absolute;
@@ -718,7 +719,7 @@
 .fw-token-stack {
   background-image: repeating-linear-gradient(
     to top,
-    #6b28ff 0 7px,
+    var(--fw-brand) 0 7px,
     transparent 7px 10px
   );
   opacity: 0.9;
@@ -727,7 +728,7 @@
   z-index: 1;
   background-image: repeating-linear-gradient(
     to top,
-    #ff4b0b 0 7px,
+    var(--fw-highlight) 0 7px,
     transparent 7px 10px
   );
 }
@@ -739,7 +740,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  color: var(--fw-purple);
+  color: var(--fw-brand);
 }
 .fw-fireworks-pin .fw-mark {
   transform: scale(0.8);
@@ -781,7 +782,7 @@
   background: #b9bbc1;
 }
 .fw-hero-dots button[aria-pressed='true']::before {
-  background: var(--fw-purple);
+  background: var(--fw-brand);
 }
 
 .fw-logo-wall {
@@ -935,7 +936,7 @@
 }
 .fw-pillar-title > span {
   flex: 0 0 20px;
-  color: var(--fw-purple-soft);
+  color: var(--fw-brand-soft);
   font-family: ui-monospace, monospace;
   font-size: 11px;
 }
@@ -972,7 +973,7 @@
   width: 5px;
   height: 5px;
   content: '';
-  background: var(--fw-purple);
+  background: var(--fw-brand);
 }
 .fw-pillar:first-child li::before {
   background: white;
@@ -1046,7 +1047,7 @@
   border-right: 1px solid var(--fw-line);
 }
 .fw-model-card:hover {
-  box-shadow: inset 0 -4px 0 var(--fw-purple);
+  box-shadow: inset 0 -4px 0 var(--fw-brand);
 }
 .fw-model-top {
   display: flex;
@@ -1058,7 +1059,7 @@
   object-fit: contain;
 }
 .fw-model-top em {
-  color: var(--fw-purple);
+  color: var(--fw-brand);
   font-size: 12px;
   font-style: normal;
   font-weight: 650;
@@ -1247,10 +1248,10 @@
 }
 .fw-update-card:hover {
   color: white;
-  background: var(--fw-purple);
+  background: var(--fw-brand);
 }
 .fw-update-card:hover .fw-update-meta {
-  color: #ded4ff;
+  color: var(--brand-blue-100);
 }
 .fw-update-card:hover .fw-update-image img {
   transform: scale(1.02);
@@ -1324,7 +1325,7 @@
   line-height: 1.35;
 }
 .fw-footer-group a:hover {
-  color: var(--fw-purple-soft);
+  color: var(--fw-brand-soft);
 }
 .fw-footer-bottom {
   min-height: 104px;
@@ -1381,7 +1382,7 @@
     font-weight: 600;
   }
   .fw-mobile-menu a:hover {
-    color: var(--fw-purple);
+    color: var(--fw-brand);
   }
   .fw-hero-grid {
     grid-template-columns: 1fr;

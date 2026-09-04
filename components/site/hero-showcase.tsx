@@ -27,11 +27,11 @@ function HeroSignal() {
       <span className="corner corner-br" />
       <div className="signal-legend">
         <span>
-          <i className="legend-violet" />
+          <i className="legend-blue" />
           任务完成率
         </span>
         <span>
-          <i className="legend-orange" />
+          <i className="legend-gold" />
           成功任务成本
         </span>
       </div>

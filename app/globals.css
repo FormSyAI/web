@@ -49,24 +49,26 @@
   --surface-deep: #09090b;
   --muted: #f1f1ef;
   --muted-foreground: #626269;
-  --primary: #642cff;
+  --primary: #2c6cb5;
   --primary-foreground: #ffffff;
   --secondary: #ffffff;
   --secondary-foreground: #121216;
-  --accent: #f1542d;
-  --accent-foreground: #ffffff;
+  --accent: #f3b322;
+  --accent-foreground: #121216;
   --destructive: #d83634;
   --border: #dedee3;
   --input: #dedee3;
-  --ring: #642cff;
-  --violet-50: #f7f4ff;
-  --violet-100: #ede7ff;
-  --violet-300: #baa6ff;
-  --violet-500: #642cff;
-  --violet-700: #3d168f;
-  --violet-900: #1a073e;
-  --orange-300: #ff9b72;
-  --orange-500: #f1542d;
+  --ring: #2c6cb5;
+  --brand-blue-50: #f2f7fc;
+  --brand-blue-100: #e4eef8;
+  --brand-blue-300: #8db8e3;
+  --brand-blue-500: #2c6cb5;
+  --brand-blue-700: #1c4a7f;
+  --brand-blue-900: #0b2645;
+  --brand-gold-100: #fff5d8;
+  --brand-gold-300: #f7d36b;
+  --brand-gold-500: #f3b322;
+  --brand-gold-700: #7a4a00;
   --ink: #121216;
   --paper: #ffffff;
   --line: #dedee3;
@@ -81,12 +83,12 @@
   --font-code: var(--font-geist-mono), 'SFMono-Regular', Consolas, monospace;
   --sidebar: #f8f8f7;
   --sidebar-foreground: #121216;
-  --sidebar-primary: #642cff;
+  --sidebar-primary: #2c6cb5;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ede7ff;
+  --sidebar-accent: #e4eef8;
   --sidebar-accent-foreground: #121216;
   --sidebar-border: #dedee3;
-  --sidebar-ring: #642cff;
+  --sidebar-ring: #2c6cb5;
 }
 
 .dark {
@@ -98,13 +100,13 @@
   --popover-foreground: #ffffff;
   --muted: #1c1c20;
   --muted-foreground: #a5a5ae;
-  --primary: #8059ff;
-  --primary-foreground: #ffffff;
+  --primary: #8db8e3;
+  --primary-foreground: #0b2645;
   --secondary: #17171a;
   --secondary-foreground: #ffffff;
   --border: #34343a;
   --input: #34343a;
-  --ring: #9a80ff;
+  --ring: #8db8e3;
 }
 
 * {
@@ -114,6 +116,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  scrollbar-color: var(--primary) var(--muted);
 }
 
 body {
@@ -130,6 +133,11 @@ body {
 ::selection {
   color: white;
   background: var(--primary);
+}
+
+input,
+textarea {
+  caret-color: var(--primary);
 }
 
 a {
@@ -238,15 +246,15 @@ button {
   background:
     linear-gradient(
       90deg,
-      rgb(100 44 255 / 92%) 0 16%,
+      rgb(44 108 181 / 92%) 0 16%,
       transparent 16% 84%,
-      rgb(100 44 255 / 92%) 84%
+      rgb(44 108 181 / 92%) 84%
     ),
     repeating-linear-gradient(
       90deg,
-      #351785 0 48px,
-      #291263 48px 96px,
-      #1a0b42 96px 144px
+      #1c4a7f 0 48px,
+      #14385f 48px 96px,
+      #0b2645 96px 144px
     ),
     #050506;
   font-family: var(--font-code);
@@ -294,22 +302,21 @@ button {
   width: fit-content;
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  font-size: 1.28rem;
-  font-weight: 670;
-  letter-spacing: -0.045em;
+  line-height: 0;
 }
 
 .brand-inverse {
   color: white;
 }
 
-.brand-mark {
-  width: 2rem;
-  height: 2rem;
-  display: grid;
-  place-items: center;
-  color: var(--primary);
+.brand-logo {
+  width: 11.625rem;
+  height: auto;
+  display: block;
+}
+
+.brand-inverse .brand-logo {
+  filter: brightness(0) invert(1);
 }
 
 .desktop-nav,
@@ -657,11 +664,11 @@ button {
   height: 12px;
 }
 
-.legend-violet {
-  background: var(--violet-500);
+.legend-blue {
+  background: var(--brand-blue-500);
 }
-.legend-orange {
-  background: var(--orange-500);
+.legend-gold {
+  background: var(--brand-gold-500);
 }
 
 .signal-chart {
@@ -693,7 +700,7 @@ button {
 .signal-blocks {
   background-image: linear-gradient(
     to bottom,
-    var(--violet-500) 0 6px,
+    var(--brand-blue-500) 0 6px,
     transparent 6px 9px
   );
   mask-image: linear-gradient(to top, #000 76%, transparent 100%);
@@ -702,7 +709,7 @@ button {
 .signal-cost {
   background-image: linear-gradient(
     to bottom,
-    var(--orange-500) 0 6px,
+    var(--brand-gold-500) 0 6px,
     transparent 6px 9px
   );
 }
@@ -860,7 +867,7 @@ button {
 .orbit-two {
   width: 240px;
   height: 240px;
-  border-bottom: 2px solid var(--orange-500);
+  border-bottom: 2px solid var(--brand-gold-500);
   border-left: 2px solid transparent;
   animation-direction: reverse;
   animation-duration: 11s;
@@ -993,7 +1000,7 @@ button {
   border: 1px solid #3b3b42;
   color: white;
   background: #101013;
-  box-shadow: 22px 22px 0 var(--violet-700);
+  box-shadow: 22px 22px 0 var(--brand-blue-700);
   font-family: var(--font-code);
 }
 
@@ -1064,14 +1071,14 @@ button {
 .control-pulse {
   width: 8px;
   height: 8px;
-  border: 1px solid var(--violet-300);
+  border: 1px solid var(--brand-blue-300);
   background: var(--primary);
   animation: pulse 1.8s ease-in-out infinite;
 }
 
 @keyframes pulse {
   50% {
-    box-shadow: 0 0 0 7px rgb(100 44 255 / 0%);
+    box-shadow: 0 0 0 7px rgb(44 108 181 / 0%);
     opacity: 0.72;
   }
 }
@@ -1213,7 +1220,7 @@ button {
 }
 
 .platform-card-dark .platform-pixel-field span:nth-child(4n) {
-  background: var(--orange-500);
+  background: var(--brand-gold-500);
 }
 
 .operating-loop-grid {
@@ -1240,7 +1247,7 @@ button {
 
 .loop-steps li:last-child {
   border-right: 1px solid #34343a;
-  background: var(--violet-700);
+  background: var(--brand-blue-700);
 }
 
 .loop-step-head {
@@ -1268,7 +1275,7 @@ button {
 
 .loop-steps li:last-child small,
 .loop-steps li:last-child .loop-step-head {
-  color: #cfc3ff;
+  color: var(--brand-blue-100);
 }
 
 .architecture-section {
@@ -1296,7 +1303,7 @@ button {
 
 .architecture-column-2 {
   color: white;
-  background: var(--violet-700);
+  background: var(--brand-blue-700);
 }
 
 .architecture-column-3 {
@@ -1322,7 +1329,7 @@ button {
 
 .architecture-column-2 > p,
 .architecture-column-2 .architecture-number {
-  color: #c6b6ff;
+  color: var(--brand-blue-100);
 }
 
 .architecture-column-3 > p,
@@ -1440,7 +1447,7 @@ button {
 
 .asset-card:hover {
   color: white;
-  background: var(--violet-700);
+  background: var(--brand-blue-700);
   transform: translateY(-5px);
 }
 
@@ -1456,7 +1463,7 @@ button {
 }
 
 .asset-card:hover .asset-card-topline {
-  color: var(--violet-300);
+  color: var(--brand-blue-300);
 }
 
 .asset-summary {
@@ -1469,7 +1476,7 @@ button {
 
 .asset-card:hover .asset-summary,
 .asset-card:hover .asset-description {
-  color: #d2c8f8;
+  color: var(--brand-blue-100);
 }
 
 .asset-card h3 {
@@ -1577,7 +1584,7 @@ button {
 }
 
 .metric-card:last-child strong {
-  color: var(--orange-500);
+  color: var(--brand-gold-500);
 }
 
 .metric-card h3 {
@@ -1677,7 +1684,7 @@ button {
   justify-content: space-between;
   padding: 1.5rem;
   color: white;
-  background-color: var(--violet-700);
+  background-color: var(--brand-blue-700);
   background-image:
     linear-gradient(rgb(255 255 255 / 12%) 1px, transparent 1px),
     linear-gradient(90deg, rgb(255 255 255 / 12%) 1px, transparent 1px);
@@ -1695,8 +1702,9 @@ button {
   transform: skew(-16deg);
 }
 
-.resource-visual-orange {
-  background-color: var(--orange-500);
+.resource-visual-gold {
+  color: var(--ink);
+  background-color: var(--brand-gold-500);
 }
 
 .resource-visual-ink {
@@ -1776,7 +1784,7 @@ button {
   align-items: center;
   overflow: hidden;
   border-inline: 1px solid #303036;
-  background: linear-gradient(122deg, #09090b 0 42%, #1d0a49 73%, #642cff 130%);
+  background: linear-gradient(122deg, #09090b 0 42%, #0b2645 73%, #2c6cb5 130%);
 }
 
 .cta-content {
@@ -1787,7 +1795,7 @@ button {
 }
 
 .cta-content .eyebrow {
-  color: #beb1eb;
+  color: var(--brand-blue-300);
 }
 
 .cta-content h2 {
@@ -1843,7 +1851,7 @@ button {
 
 .footer-brand > p {
   margin: 2.2rem 0 0.35rem;
-  color: var(--violet-300);
+  color: var(--brand-blue-300);
   font-family: var(--font-code);
   font-size: 0.72rem;
   font-weight: 700;
@@ -2099,7 +2107,7 @@ button {
 
   .announcement {
     min-height: 42px;
-    background: #160831;
+    background: var(--brand-blue-900);
     font-size: 0.69rem;
   }
 
@@ -2111,13 +2119,8 @@ button {
     min-height: 64px;
   }
 
-  .brand {
-    font-size: 1.05rem;
-  }
-
-  .brand-mark {
-    width: 1.7rem;
-    height: 1.7rem;
+  .brand-logo {
+    width: 10.25rem;
   }
 
   .header-actions .text-link,
@@ -2232,7 +2235,7 @@ button {
 
   .control-panel {
     margin-right: 0.8rem;
-    box-shadow: 12px 12px 0 var(--violet-700);
+    box-shadow: 12px 12px 0 var(--brand-blue-700);
   }
 
   .control-row {

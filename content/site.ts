@@ -250,14 +250,14 @@ export const siteContent = {
         title: '企业 Agent Context Platform 技术架构',
         description: '从 Runtime、Context Builder 到 AI Gateway 与推理运行层。',
         href: '#architecture',
-        accent: 'violet',
+        accent: 'blue',
       },
       {
         meta: 'CONTEXT COMPUTE · RESEARCH NOTE',
         title: '如何把任务反馈转化为可学习的因果切片',
         description: '理解 TOCS、ACF、ARCS 与 Policy 的演进关系。',
         href: '#assets',
-        accent: 'orange',
+        accent: 'gold',
       },
       {
         meta: 'ENTERPRISE AI · OPERATING MODEL',

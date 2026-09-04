@@ -1,6 +1,4 @@
-import { Sparkles } from 'lucide-react';
-
-import { siteContent } from '@/content/site';
+import Image from 'next/image';
 
 type BrandProps = {
   inverse?: boolean;
@@ -13,10 +11,13 @@ export function Brand({ inverse = false }: BrandProps) {
       href="#top"
       aria-label="AURINOVA 首页"
     >
-      <span className="brand-mark" aria-hidden="true">
-        <Sparkles size={22} strokeWidth={1.75} />
-      </span>
-      <span>{siteContent.brand.name}</span>
+      <Image
+        className="brand-logo"
+        src="/aurinova-logo.svg"
+        alt="AURINOVA"
+        width={1186}
+        height={204}
+      />
     </a>
   );
 }
