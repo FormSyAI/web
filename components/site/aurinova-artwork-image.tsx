@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/components/runtime/app-image';
 
 export function AurinovaArtworkImage({
   alt,

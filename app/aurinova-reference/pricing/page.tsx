@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowRight, Boxes, Gauge, Sparkles } from 'lucide-react';
-import Link from 'next/link';
+import { AppLink as Link } from '@/components/runtime/app-link';
 import { useEffect } from 'react';
 
 import { useI18n } from '@/components/i18n/i18n-provider';

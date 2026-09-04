@@ -11,7 +11,7 @@ import {
   Search,
   Sparkles,
 } from 'lucide-react';
-import Link from 'next/link';
+import { AppLink as Link } from '@/components/runtime/app-link';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';

@@ -16,7 +16,7 @@ AURINOVA presents specialized AI infrastructure and gives prospective customers 
 
 ## Capabilities and Constraints
 
-- React/Vinext website with maintainable, typed content dictionaries.
+- React/Vite website with maintainable, typed content dictionaries.
 - Simplified Chinese and English are first-class locales.
 - Pricing content must remain easy to update without editing presentation components.
 - Local validation and commits are the default; publishing requires an explicit request.

@@ -7,7 +7,8 @@ import {
   Mic2,
   ScanEye,
 } from 'lucide-react';
-import Image from 'next/image';
+import Image from '@/components/runtime/app-image';
+import { AppLink } from '@/components/runtime/app-link';
 import { useEffect, useRef, useState } from 'react';
 
 import { useI18n } from '@/components/i18n/i18n-provider';
@@ -43,9 +44,9 @@ function SiteLink({
   onClick?: () => void;
 }) {
   return (
-    <a className={className} href={href} onClick={onClick}>
+    <AppLink className={className} href={href} onClick={onClick}>
       {children}
-    </a>
+    </AppLink>
   );
 }
 

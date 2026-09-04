@@ -3,6 +3,7 @@ import {
   isSafeAuthReturnTo,
   normalizeAuthReturnTo,
 } from './redirect';
+import { withBasePath } from '@/components/runtime/app-link';
 
 export type AuthProvider = 'google' | 'github' | 'linkedin';
 export type AuthIntent = 'login' | 'signup';
@@ -84,10 +85,14 @@ type ApiErrorPayload = {
   fieldErrors?: AuthFieldErrors;
 };
 
-const authApiEnabled =
-  process.env.NEXT_PUBLIC_AURINOVA_AUTH_ENABLED?.toLowerCase() === 'true';
+const configuredAuthApiBaseUrl =
+  import.meta.env.VITE_AURINOVA_AUTH_API_BASE_URL?.trim() ?? '';
+const authApiEnabled = Boolean(
+  configuredAuthApiBaseUrl &&
+    import.meta.env.VITE_AURINOVA_AUTH_ENABLED?.toLowerCase() === 'true',
+);
 const configuredTurnstileSiteKey =
-  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? '';
+  import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim() ?? '';
 
 function safeLegalDocumentUrl(value?: string) {
   const candidate = value?.trim();
@@ -102,10 +107,10 @@ function safeLegalDocumentUrl(value?: string) {
 }
 
 const configuredTermsUrl = safeLegalDocumentUrl(
-  process.env.NEXT_PUBLIC_AURINOVA_TERMS_URL,
+  import.meta.env.VITE_AURINOVA_TERMS_URL,
 );
 const configuredDataAgreementUrl = safeLegalDocumentUrl(
-  process.env.NEXT_PUBLIC_AURINOVA_DATA_AGREEMENT_URL,
+  import.meta.env.VITE_AURINOVA_DATA_AGREEMENT_URL,
 );
 const signupApiEnabled = Boolean(
   authApiEnabled &&
@@ -207,7 +212,9 @@ async function request<T>(
   const timer = window.setTimeout(() => controller.abort(), requestTimeoutMs);
 
   try {
-    const response = await fetch(path, {
+    const response = await fetch(
+      new URL(path.replace(/^\//, ''), `${configuredAuthApiBaseUrl.replace(/\/$/, '')}/`),
+      {
       method: 'POST',
       cache: 'no-store',
       credentials: 'include',
@@ -219,8 +226,9 @@ async function request<T>(
         'X-AURINOVA-Auth-Request': 'auth-ui-v1',
       },
       body: JSON.stringify(body),
-      signal: controller.signal,
-    });
+        signal: controller.signal,
+      },
+    );
     const responseText = await response.text();
     let payload: unknown = {};
     if (responseText) {
@@ -312,7 +320,10 @@ export const authApi: AuthApi = {
     if (!authApiEnabled || (intent === 'signup' && !signupApiEnabled)) {
       return null;
     }
-    const url = new URL(`/api/auth/oauth/${provider}`, window.location.origin);
+    const url = new URL(
+      `api/auth/oauth/${provider}`,
+      `${configuredAuthApiBaseUrl.replace(/\/$/, '')}/`,
+    );
     url.searchParams.set('intent', intent);
     url.searchParams.set(
       'return_to',
@@ -325,6 +336,8 @@ export const authApi: AuthApi = {
 export const isAuthApiConfigured = authApiEnabled;
 export const isSignupApiConfigured = signupApiEnabled;
 export const turnstileSiteKey = configuredTurnstileSiteKey;
-export const authTermsUrl = configuredTermsUrl || '/aurinova-reference/terms';
+export const authTermsUrl =
+  configuredTermsUrl || withBasePath('/aurinova-reference/terms');
 export const authDataAgreementUrl =
-  configuredDataAgreementUrl || '/aurinova-reference/data-processing';
+  configuredDataAgreementUrl ||
+  withBasePath('/aurinova-reference/data-processing');

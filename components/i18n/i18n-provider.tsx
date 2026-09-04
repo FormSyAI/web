@@ -4,11 +4,11 @@ import * as React from 'react';
 
 import {
   defaultLocale,
-  isLocale,
   siteDictionaries,
   type Locale,
   type SiteContent,
 } from '@/content/i18n';
+import { stripBasePath } from '@/components/runtime/app-link';
 
 const STORAGE_KEY = 'aurinova-locale';
 
@@ -31,31 +31,7 @@ export function I18nProvider({
   const [locale, setLocale] = React.useState<Locale>(initialLocale);
 
   React.useEffect(() => {
-    let savedLocale: string | null = null;
-    try {
-      savedLocale = window.localStorage.getItem(STORAGE_KEY);
-    } catch {
-      // Browser storage can be unavailable in strict privacy contexts.
-    }
-    const preferredLocale = isLocale(savedLocale)
-      ? savedLocale
-      : window.navigator.language.toLowerCase().startsWith('en')
-        ? 'en-US'
-        : defaultLocale;
-    const timer = window.setTimeout(() => setLocale(preferredLocale), 0);
-    return () => window.clearTimeout(timer);
-  }, []);
-
-  React.useLayoutEffect(() => {
-    const pendingLocale = document.documentElement.dataset.localePending;
-    if (!pendingLocale || pendingLocale === locale) {
-      document.documentElement.style.removeProperty('visibility');
-      delete document.documentElement.dataset.localePending;
-    }
-  }, [locale]);
-
-  React.useEffect(() => {
-    const pathname = window.location.pathname;
+    const pathname = stripBasePath(window.location.pathname);
     const documentLocale = pathname.startsWith('/dev/design-system')
       ? 'zh-CN'
       : locale;
@@ -73,7 +49,6 @@ export function I18nProvider({
     } catch {
       // The switch still works for the current session without persistence.
     }
-    document.cookie = `${STORAGE_KEY}=${locale}; Path=/; Max-Age=31536000; SameSite=Lax`;
   }, [locale]);
 
   const value = React.useMemo<I18nContextValue>(

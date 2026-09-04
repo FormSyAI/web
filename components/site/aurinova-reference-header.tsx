@@ -1,8 +1,8 @@
 'use client';
 
 import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from '@/components/runtime/app-image';
+import { AppLink as Link } from '@/components/runtime/app-link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useI18n } from '@/components/i18n/i18n-provider';
@@ -56,9 +56,9 @@ function MenuLink({
   onClick: () => void;
 }) {
   return (
-    <a className={className} href={href} onClick={onClick}>
+    <Link className={className} href={href} onClick={onClick}>
       {children}
-    </a>
+    </Link>
   );
 }
 

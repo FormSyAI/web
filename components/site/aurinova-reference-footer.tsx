@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from '@/components/runtime/app-image';
+import { AppLink as Link } from '@/components/runtime/app-link';
 
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { aurinovaReferenceDictionaries } from '@/content/aurinova-reference.i18n';

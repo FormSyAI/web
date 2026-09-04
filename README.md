@@ -1,6 +1,6 @@
 # AURINOVA Web
 
-AURINOVA / FormSy 的 React 品牌官网。页面采用高信息密度、黑白分区、像素数据图形与工程化排版，并使用 FormSy 的产品材料组织中英文内容。
+AURINOVA / FormSy 的 React + Vite 静态品牌官网。页面采用高信息密度、黑白分区、像素数据图形与工程化排版，并使用 FormSy 的产品材料组织中英文内容。
 
 ## 本地运行
 
@@ -14,6 +14,8 @@ npm run dev
 ```bash
 npm run build
 ```
+
+构建结果位于 `dist/`，包含各个公开路径的静态入口，可直接交给静态托管平台。
 
 ## 维护入口
 
