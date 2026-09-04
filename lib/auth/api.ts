@@ -88,6 +88,31 @@ const authApiEnabled =
   process.env.NEXT_PUBLIC_AURINOVA_AUTH_ENABLED?.toLowerCase() === 'true';
 const configuredTurnstileSiteKey =
   process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? '';
+
+function safeLegalDocumentUrl(value?: string) {
+  const candidate = value?.trim();
+  if (!candidate) return '';
+  if (isSafeAuthReturnTo(candidate)) return normalizeAuthReturnTo(candidate);
+  try {
+    const url = new URL(candidate);
+    return url.protocol === 'https:' ? url.toString() : '';
+  } catch {
+    return '';
+  }
+}
+
+const configuredTermsUrl = safeLegalDocumentUrl(
+  process.env.NEXT_PUBLIC_AURINOVA_TERMS_URL,
+);
+const configuredDataAgreementUrl = safeLegalDocumentUrl(
+  process.env.NEXT_PUBLIC_AURINOVA_DATA_AGREEMENT_URL,
+);
+const signupApiEnabled = Boolean(
+  authApiEnabled &&
+  configuredTurnstileSiteKey &&
+  configuredTermsUrl &&
+  configuredDataAgreementUrl,
+);
 const requestTimeoutMs = 12_000;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -160,6 +185,19 @@ function parseSignupPreparation(payload: unknown): SignupPreparation {
   return { ...result, signupToken };
 }
 
+function parseSsoResult(payload: unknown): AuthResult {
+  const result = parseAuthResult(payload);
+  if (!result.redirectTo) {
+    throw new AuthApiError({
+      code: 'AUTH_SSO_REDIRECT_MISSING',
+      message:
+        'The authentication service did not return an identity-provider destination.',
+      status: 502,
+    });
+  }
+  return result;
+}
+
 async function request<T>(
   path: string,
   body: unknown,
@@ -175,6 +213,8 @@ async function request<T>(
       credentials: 'include',
       headers: {
         Accept: 'application/json',
+        'Accept-Language':
+          document.documentElement.lang === 'zh-CN' ? 'zh-CN' : 'en-US',
         'Content-Type': 'application/json',
         'X-AURINOVA-Auth-Request': 'auth-ui-v1',
       },
@@ -234,7 +274,7 @@ async function demoResult<T>(value: T): Promise<T> {
 
 export const authApi: AuthApi = {
   prepareSignup(email) {
-    if (!authApiEnabled) {
+    if (!signupApiEnabled) {
       return demoResult({ signupToken: 'preview-signup-token', preview: true });
     }
     return request(
@@ -245,7 +285,7 @@ export const authApi: AuthApi = {
   },
 
   completeSignup(input) {
-    if (!authApiEnabled) return demoResult({ preview: true });
+    if (!signupApiEnabled) return demoResult({ preview: true });
     return request('/api/auth/signup/complete', input, parseAuthResult);
   },
 
@@ -265,11 +305,13 @@ export const authApi: AuthApi = {
 
   resolveSso(input) {
     if (!authApiEnabled) return demoResult({ preview: true });
-    return request('/api/auth/sso/resolve', input, parseAuthResult);
+    return request('/api/auth/sso/resolve', input, parseSsoResult);
   },
 
   getOAuthUrl(provider, intent, returnTo) {
-    if (!authApiEnabled) return null;
+    if (!authApiEnabled || (intent === 'signup' && !signupApiEnabled)) {
+      return null;
+    }
     const url = new URL(`/api/auth/oauth/${provider}`, window.location.origin);
     url.searchParams.set('intent', intent);
     url.searchParams.set(
@@ -281,4 +323,8 @@ export const authApi: AuthApi = {
 };
 
 export const isAuthApiConfigured = authApiEnabled;
+export const isSignupApiConfigured = signupApiEnabled;
 export const turnstileSiteKey = configuredTurnstileSiteKey;
+export const authTermsUrl = configuredTermsUrl || '/aurinova-reference/terms';
+export const authDataAgreementUrl =
+  configuredDataAgreementUrl || '/aurinova-reference/data-processing';

@@ -19,7 +19,6 @@ export type AuthContent = {
     description: string;
     benefits: readonly { title: string; body: string; href: string }[];
     customerLead: string;
-    customerLink: string;
     testimonials: readonly {
       quote: string;
       person: string;
@@ -85,7 +84,7 @@ export type AuthContent = {
     passwordRules: {
       minLength: string;
       lowercase: string;
-      mixedCase: string;
+      uppercase: string;
       number: string;
       special: string;
       match: string;
@@ -141,9 +140,21 @@ export type AuthContent = {
     humanVerification: string;
     requiredPassword: string;
     ssoIdentifier: string;
+    invalidAccountId: string;
     genericError: string;
     providerReady: string;
     termsAcceptance: string;
+    apiErrors: {
+      credentials: string;
+      invalidRequest: string;
+      invalidResponse: string;
+      notConfigured: string;
+      rateLimited: string;
+      rejected: string;
+      ssoDestination: string;
+      timeout: string;
+      unavailable: string;
+    };
   };
 };
 
@@ -200,24 +211,23 @@ const en: AuthContent = {
         href: '/aurinova-reference#models',
       },
     ],
-    customerLead: 'What our customers are saying:',
-    customerLink: 'customers',
+    customerLead: 'Platform principles:',
     testimonials: [
       {
         quote:
-          'Uses AURINOVA infrastructure to support production coding experiences at large scale.',
-        person: 'Sualeh Asif, CPO',
-        company: 'CURSOR',
+          'Keep model choice, data, cost, and deployment capacity legible in one operational layer.',
+        person: 'PLATFORM PRINCIPLE 01',
+        company: 'AURINOVA',
       },
       {
         quote:
-          'Combines model serving and reinforcement learning to keep up with rapid coding-model progress.',
-        person: 'Malte Ubl, CTO',
-        company: 'VERCEL',
+          'Move from the first request to dedicated production capacity without changing the workflow.',
+        person: 'PLATFORM PRINCIPLE 02',
+        company: 'AURINOVA',
       },
     ],
-    previousTestimonial: 'Previous testimonial',
-    nextTestimonial: 'Next testimonial',
+    previousTestimonial: 'Previous platform principle',
+    nextTestimonial: 'Next platform principle',
     blog: 'Blog',
     docs: 'Docs',
     authenticationSection: 'Authentication',
@@ -291,7 +301,7 @@ const en: AuthContent = {
     passwordRules: {
       minLength: 'Password has at least 8 characters.',
       lowercase: 'Password has a lowercase letter.',
-      mixedCase: 'Password contains uppercase and lowercase characters.',
+      uppercase: 'Password has an uppercase letter.',
       number: 'Password has a number.',
       special: 'Password has a special character.',
       match: 'Passwords match.',
@@ -352,11 +362,26 @@ const en: AuthContent = {
     humanVerification: 'Complete the human verification.',
     requiredPassword: 'Enter your password.',
     ssoIdentifier: 'Enter a work email or account ID.',
+    invalidAccountId:
+      'Use letters, numbers, periods, underscores, or hyphens for the account ID.',
     genericError:
       'We could not complete that request. Check your connection and try again.',
     providerReady:
       '{provider} authentication is ready for the identity-service endpoint.',
     termsAcceptance: 'Accept the terms to create your account.',
+    apiErrors: {
+      credentials: 'The email or password could not be verified.',
+      invalidRequest: 'Review the highlighted fields and try again.',
+      invalidResponse:
+        'The account service returned an unexpected response. Try again shortly.',
+      notConfigured: 'Live authentication has not been enabled yet.',
+      rateLimited: 'Too many attempts. Wait a moment and try again.',
+      rejected: 'This authentication request could not be verified.',
+      ssoDestination:
+        'Your organization’s identity provider could not be opened. Try again or contact your administrator.',
+      timeout: 'The account service took too long to respond. Try again.',
+      unavailable: 'The account service is temporarily unavailable. Try again.',
+    },
   },
 };
 
@@ -412,22 +437,21 @@ const zh: AuthContent = {
         href: '/aurinova-reference#models',
       },
     ],
-    customerLead: '客户如此评价：',
-    customerLink: '客户',
+    customerLead: '平台原则：',
     testimonials: [
       {
-        quote: '使用 AURINOVA 基础设施，支撑大规模生产级编程体验。',
-        person: 'Sualeh Asif，CPO',
-        company: 'CURSOR',
+        quote: '在统一操作层中，让模型选择、数据、成本与部署容量清晰可控。',
+        person: '平台原则 01',
+        company: 'AURINOVA',
       },
       {
-        quote: '结合模型服务与强化学习，持续跟上编程模型的快速发展。',
-        person: 'Malte Ubl，CTO',
-        company: 'VERCEL',
+        quote: '从首次请求扩展到专属生产容量，同时保持一致的工作流程。',
+        person: '平台原则 02',
+        company: 'AURINOVA',
       },
     ],
-    previousTestimonial: '上一条客户评价',
-    nextTestimonial: '下一条客户评价',
+    previousTestimonial: '上一条平台原则',
+    nextTestimonial: '下一条平台原则',
     blog: '博客',
     docs: '文档',
     authenticationSection: '身份验证',
@@ -489,7 +513,7 @@ const zh: AuthContent = {
     passwordRules: {
       minLength: '密码至少包含 8 个字符。',
       lowercase: '密码包含小写字母。',
-      mixedCase: '密码同时包含大写和小写字母。',
+      uppercase: '密码包含大写字母。',
       number: '密码包含数字。',
       special: '密码包含特殊字符。',
       match: '两次输入的密码一致。',
@@ -546,9 +570,21 @@ const zh: AuthContent = {
     humanVerification: '请完成真人验证。',
     requiredPassword: '请输入密码。',
     ssoIdentifier: '请输入工作邮箱或账户 ID。',
+    invalidAccountId: '账户 ID 仅可包含字母、数字、点、下划线或连字符。',
     genericError: '请求未能完成。请检查网络后重试。',
     providerReady: '{provider} 身份验证已预留接口，可直接对接身份服务。',
     termsAcceptance: '请先同意相关条款，再创建账户。',
+    apiErrors: {
+      credentials: '邮箱或密码无法验证。',
+      invalidRequest: '请检查标出的内容后重试。',
+      invalidResponse: '账户服务返回了异常响应，请稍后重试。',
+      notConfigured: '正式身份验证尚未启用。',
+      rateLimited: '尝试次数过多，请稍候再试。',
+      rejected: '此身份验证请求无法通过校验。',
+      ssoDestination: '无法打开组织身份服务，请重试或联系管理员。',
+      timeout: '账户服务响应超时，请重试。',
+      unavailable: '账户服务暂时不可用，请稍后重试。',
+    },
   },
 };
 

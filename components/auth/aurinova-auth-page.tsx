@@ -30,7 +30,14 @@ import {
   type AuthProvider,
   type AuthScreen,
 } from '@/content/auth.i18n';
-import { authApi, AuthApiError, isAuthApiConfigured } from '@/lib/auth/api';
+import {
+  authApi,
+  authDataAgreementUrl,
+  authTermsUrl,
+  AuthApiError,
+  isAuthApiConfigured,
+  isSignupApiConfigured,
+} from '@/lib/auth/api';
 import {
   DEFAULT_AUTH_RETURN_TO,
   normalizeAuthReturnTo,
@@ -40,6 +47,7 @@ type Notice = { tone: 'error' | 'info' | 'success'; text: string } | null;
 type FieldErrors = Record<string, string>;
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const accountIdPattern = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 
 function format(template: string, values: Record<string, string>) {
   return Object.entries(values).reduce(
@@ -52,21 +60,72 @@ function focusField(id: string) {
   window.requestAnimationFrame(() => document.getElementById(id)?.focus());
 }
 
-function apiFailure(error: unknown, fallback: string) {
+function apiFailure(error: unknown, copy: AuthContent) {
   if (error instanceof AuthApiError) {
-    const fieldErrors = {
-      ...error.fieldErrors,
-      ...(error.fieldErrors.verificationToken &&
-      !error.fieldErrors.humanVerification
-        ? { humanVerification: error.fieldErrors.verificationToken }
-        : {}),
+    const localizedField = (field: string) => {
+      if (field === 'email' || field === 'workEmail') {
+        return copy.validation.invalidEmail;
+      }
+      if (field === 'fullName') return copy.validation.requiredName;
+      if (field === 'password') return copy.validation.requiredPassword;
+      if (field === 'accountId') return copy.validation.invalidAccountId;
+      if (field === 'verificationToken' || field === 'humanVerification') {
+        return copy.validation.humanVerification;
+      }
+      if (field === 'termsAccepted') {
+        return copy.validation.termsAcceptance;
+      }
+      return null;
     };
+    const fieldErrors =
+      error.code === 'AUTH_VALIDATION_FAILED'
+        ? Object.fromEntries(
+            Object.keys(error.fieldErrors).flatMap((field) => {
+              const localized = localizedField(field);
+              const target =
+                field === 'verificationToken' ? 'humanVerification' : field;
+              return localized ? [[target, localized]] : [];
+            }),
+          )
+        : {
+            ...error.fieldErrors,
+            ...(error.fieldErrors.verificationToken &&
+            !error.fieldErrors.humanVerification
+              ? { humanVerification: error.fieldErrors.verificationToken }
+              : {}),
+          };
+    const localizedMessages: Partial<Record<string, string>> = {
+      AUTH_CONTENT_TYPE_REQUIRED: copy.validation.apiErrors.invalidRequest,
+      AUTH_INVALID_JSON: copy.validation.apiErrors.invalidRequest,
+      AUTH_INVALID_REDIRECT: copy.validation.apiErrors.invalidResponse,
+      AUTH_INVALID_RESPONSE: copy.validation.apiErrors.invalidResponse,
+      AUTH_NETWORK_ERROR: copy.validation.apiErrors.unavailable,
+      AUTH_NOT_CONFIGURED: copy.validation.apiErrors.notConfigured,
+      AUTH_REQUEST_REJECTED: copy.validation.apiErrors.rejected,
+      AUTH_REQUEST_TOO_LARGE: copy.validation.apiErrors.invalidRequest,
+      AUTH_SSO_REDIRECT_MISSING: copy.validation.apiErrors.ssoDestination,
+      AUTH_TIMEOUT: copy.validation.apiErrors.timeout,
+      AUTH_UPSTREAM_ERROR: copy.validation.apiErrors.unavailable,
+      AUTH_VALIDATION_FAILED: copy.validation.apiErrors.invalidRequest,
+    };
+    const statusMessage =
+      error.status === 401
+        ? copy.validation.apiErrors.credentials
+        : error.status === 429
+          ? copy.validation.apiErrors.rateLimited
+          : error.status >= 500
+            ? copy.validation.apiErrors.unavailable
+            : undefined;
     return {
-      message: error.message || fallback,
+      message:
+        localizedMessages[error.code] ??
+        statusMessage ??
+        error.message ??
+        copy.validation.genericError,
       fieldErrors,
     };
   }
-  return { message: fallback, fieldErrors: {} };
+  return { message: copy.validation.genericError, fieldErrors: {} };
 }
 
 function safeRedirect(destination?: string) {
@@ -85,12 +144,8 @@ function currentReturnTo() {
   );
 }
 
-const termsHref =
-  process.env.NEXT_PUBLIC_AURINOVA_TERMS_URL?.trim() ||
-  '/aurinova-reference/terms';
-const dataAgreementHref =
-  process.env.NEXT_PUBLIC_AURINOVA_DATA_AGREEMENT_URL?.trim() ||
-  '/aurinova-reference/data-processing';
+const termsHref = authTermsUrl;
+const dataAgreementHref = authDataAgreementUrl;
 
 function GoogleMark() {
   return (
@@ -200,6 +255,7 @@ function PasswordField({
         autoComplete={
           id === 'login-password' ? 'current-password' : 'new-password'
         }
+        maxLength={256}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         error={error}
@@ -347,7 +403,7 @@ function getPasswordChecks(password: string, confirmation: string) {
   return {
     minLength: password.length >= 8,
     lowercase: hasLowercase,
-    mixedCase: hasLowercase && hasUppercase,
+    uppercase: hasUppercase,
     number: /\d/.test(password),
     special: /[^A-Za-z0-9]/.test(password),
     match: password.length > 0 && password === confirmation,
@@ -446,7 +502,7 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
       setStep('details');
       focusField('signup-name');
     } catch (error) {
-      const failure = apiFailure(error, copy.validation.genericError);
+      const failure = apiFailure(error, copy);
       setErrors(failure.fieldErrors);
       setNotice({ tone: 'error', text: failure.message });
     } finally {
@@ -493,7 +549,7 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
       });
       if (!safeRedirect(result.redirectTo)) setStep('success');
     } catch (error) {
-      const failure = apiFailure(error, copy.validation.genericError);
+      const failure = apiFailure(error, copy);
       setErrors(failure.fieldErrors);
       setNotice({ tone: 'error', text: failure.message });
     } finally {
@@ -510,7 +566,7 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
     } catch (error) {
       setNotice({
         tone: 'error',
-        text: apiFailure(error, copy.validation.genericError).message,
+        text: apiFailure(error, copy).message,
       });
     } finally {
       setPending(false);
@@ -521,12 +577,12 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
     return (
       <SuccessState
         title={
-          isAuthApiConfigured
+          isSignupApiConfigured
             ? copy.signup.successTitle
             : copy.preview.signupTitle
         }
         description={format(
-          isAuthApiConfigured
+          isSignupApiConfigured
             ? copy.signup.successDescription
             : copy.preview.signupDescription,
           { email },
@@ -534,7 +590,7 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
         actionHref="/aurinova-reference/login"
         actionLabel={copy.signup.goToLogin}
         secondaryAction={
-          isAuthApiConfigured ? (
+          isSignupApiConfigured ? (
             <>
               <Button
                 className="auth-text-button"
@@ -589,6 +645,7 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
             label={copy.signup.fullName}
             type="text"
             autoComplete="name"
+            maxLength={120}
             value={fullName}
             onChange={(event) => setFullName(event.target.value)}
             error={errors.fullName}
@@ -664,6 +721,7 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
           type="email"
           inputMode="email"
           autoComplete="email"
+          maxLength={254}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           error={errors.email}
@@ -738,7 +796,7 @@ function EmailLoginPanel({ copy }: { copy: AuthContent }) {
       });
       if (!safeRedirect(result.redirectTo)) setSuccess(true);
     } catch (error) {
-      const failure = apiFailure(error, copy.validation.genericError);
+      const failure = apiFailure(error, copy);
       setErrors(failure.fieldErrors);
       setNotice({ tone: 'error', text: failure.message });
     } finally {
@@ -779,6 +837,7 @@ function EmailLoginPanel({ copy }: { copy: AuthContent }) {
           type="email"
           inputMode="email"
           autoComplete="email"
+          maxLength={254}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           error={errors.email}
@@ -831,6 +890,11 @@ function SsoPanel({ copy }: { copy: AuthContent }) {
       focusField('sso-email');
       return;
     }
+    if (trimmedAccountId && !accountIdPattern.test(trimmedAccountId)) {
+      setErrors({ accountId: copy.validation.invalidAccountId });
+      focusField('sso-account-id');
+      return;
+    }
 
     setPending(true);
     setErrors({});
@@ -843,7 +907,7 @@ function SsoPanel({ copy }: { copy: AuthContent }) {
       });
       if (!safeRedirect(result.redirectTo)) setSuccess(true);
     } catch (error) {
-      const failure = apiFailure(error, copy.validation.genericError);
+      const failure = apiFailure(error, copy);
       setErrors(failure.fieldErrors);
       setNotice({ tone: 'error', text: failure.message });
     } finally {
@@ -883,6 +947,7 @@ function SsoPanel({ copy }: { copy: AuthContent }) {
           type="email"
           inputMode="email"
           autoComplete="email"
+          maxLength={254}
           placeholder={copy.sso.workEmailPlaceholder}
           value={workEmail}
           onChange={(event) => setWorkEmail(event.target.value)}
@@ -894,6 +959,7 @@ function SsoPanel({ copy }: { copy: AuthContent }) {
           label={copy.sso.accountId}
           type="text"
           autoComplete="organization"
+          maxLength={128}
           placeholder={copy.sso.accountIdPlaceholder}
           value={accountId}
           onChange={(event) => setAccountId(event.target.value)}
@@ -938,7 +1004,7 @@ function ResetPasswordPanel({ copy }: { copy: AuthContent }) {
     } catch (requestError) {
       setNotice({
         tone: 'error',
-        text: apiFailure(requestError, copy.validation.genericError).message,
+        text: apiFailure(requestError, copy).message,
       });
     } finally {
       setPending(false);
@@ -980,6 +1046,7 @@ function ResetPasswordPanel({ copy }: { copy: AuthContent }) {
           type="email"
           inputMode="email"
           autoComplete="email"
+          maxLength={254}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           error={error}
@@ -1084,6 +1151,8 @@ function BrandPanel({ copy }: { copy: AuthContent }) {
 export function AurinovaAuthPage({ screen }: { screen: AuthScreen }) {
   const { locale } = useI18n();
   const copy = authDictionaries[locale];
+  const isLiveScreen =
+    screen === 'signup' ? isSignupApiConfigured : isAuthApiConfigured;
 
   useEffect(() => {
     const meta = copy.meta[screen];
@@ -1121,7 +1190,7 @@ export function AurinovaAuthPage({ screen }: { screen: AuthScreen }) {
             {copy.shell.authenticationSection}
           </h2>
           <div className="auth-panel-content">
-            {!isAuthApiConfigured && (
+            {!isLiveScreen && (
               <output className="auth-preview-mode">
                 {copy.preview.banner}
               </output>

@@ -546,7 +546,8 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 .auth-human-verification input:focus-visible,
 .auth-consent input:focus-visible,
 .auth-turnstile:focus-visible,
-.auth-verification-unavailable:focus-visible {
+.auth-verification-unavailable:focus-visible,
+.auth-verification-recovery button:focus-visible {
   outline: 3px solid var(--auth-blue);
   outline-offset: 3px;
 }
@@ -757,6 +758,32 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 
 .auth-turnstile > div {
   max-width: 100%;
+}
+
+.auth-verification-recovery {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.auth-verification-recovery button {
+  min-width: 88px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--auth-blue);
+  color: var(--auth-blue-deep);
+  background: #fff;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-verification-recovery button:hover {
+  color: #fff;
+  background: var(--auth-blue-deep);
 }
 
 .auth-verification-unavailable {

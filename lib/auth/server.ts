@@ -1,3 +1,4 @@
+import { env as workerEnv } from 'cloudflare:workers';
 import { NextResponse, type NextRequest } from 'next/server';
 
 import { normalizeAuthReturnTo } from './redirect';
@@ -21,6 +22,20 @@ const authRequestHeader = 'auth-ui-v1';
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const accountIdPattern = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 
+type AuthRuntimeBindings = {
+  AURINOVA_AUTH_API_BASE_URL?: string;
+  AURINOVA_AUTH_COOKIE_NAMES?: string;
+  AURINOVA_AUTH_ENABLED?: string;
+};
+
+const authRuntimeBindings = workerEnv as unknown as AuthRuntimeBindings;
+
+function runtimeBinding(name: keyof AuthRuntimeBindings) {
+  const workerValue = authRuntimeBindings[name];
+  if (typeof workerValue === 'string') return workerValue;
+  return process.env[name];
+}
+
 function isRecord(value: unknown): value is JsonRecord {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
@@ -38,11 +53,11 @@ function jsonError(
 }
 
 function serverAuthEnabled() {
-  return process.env.AURINOVA_AUTH_ENABLED?.toLowerCase() === 'true';
+  return runtimeBinding('AURINOVA_AUTH_ENABLED')?.toLowerCase() === 'true';
 }
 
 function authServiceBaseUrl() {
-  const value = process.env.AURINOVA_AUTH_API_BASE_URL?.trim();
+  const value = runtimeBinding('AURINOVA_AUTH_API_BASE_URL')?.trim();
   if (!value) return null;
   try {
     const url = new URL(value);
@@ -245,7 +260,16 @@ function validatePayload(kind: AuthRequestKind, body: unknown): ValidatedBody {
     fieldErrors.email = 'Enter a valid email address.';
   }
   if (!fullName) fieldErrors.fullName = 'Enter your full name.';
-  if (!password) fieldErrors.password = 'Use at least 8 characters.';
+  if (
+    !password ||
+    !/[a-z]/.test(password) ||
+    !/[A-Z]/.test(password) ||
+    !/\d/.test(password) ||
+    !/[^A-Za-z0-9]/.test(password)
+  ) {
+    fieldErrors.password =
+      'Use at least 8 characters with upper- and lowercase letters, a number, and a special character.';
+  }
   if (!signupToken) fieldErrors.signupToken = 'The signup session has expired.';
   if (!verificationToken || verificationToken.startsWith('preview-')) {
     fieldErrors.verificationToken = 'Complete the human verification again.';
@@ -327,7 +351,8 @@ async function readValidatedBody(
 }
 
 function authCookieNames() {
-  const configured = process.env.AURINOVA_AUTH_COOKIE_NAMES?.split(',')
+  const configured = runtimeBinding('AURINOVA_AUTH_COOKIE_NAMES')
+    ?.split(',')
     .map((name) => name.trim())
     .filter(Boolean);
   return new Set(
@@ -370,16 +395,23 @@ function appendAllowedSetCookies(
   names: Set<string>,
 ) {
   for (const cookie of upstreamSetCookies(source)) {
+    if (cookie.length > 4096) continue;
     const separator = cookie.indexOf('=');
     const name = separator > 0 ? cookie.slice(0, separator).trim() : '';
     if (!names.has(name) || /;\s*domain=/i.test(cookie)) continue;
+    const hostOnly = name.startsWith('__Host-');
+    const path = cookie.match(/;\s*path=([^;]*)/i)?.[1]?.trim();
+    if (hostOnly && path && path !== '/') continue;
     let securedCookie = cookie;
     if (!/;\s*path=/i.test(securedCookie)) securedCookie += '; Path=/';
     if (!/;\s*samesite=/i.test(securedCookie))
       securedCookie += '; SameSite=Lax';
     if (!/;\s*httponly/i.test(securedCookie)) securedCookie += '; HttpOnly';
     if (
-      process.env.NODE_ENV === 'production' &&
+      (hostOnly ||
+        name.startsWith('__Secure-') ||
+        /;\s*samesite=none/i.test(securedCookie) ||
+        process.env.NODE_ENV === 'production') &&
       !/;\s*secure/i.test(securedCookie)
     ) {
       securedCookie += '; Secure';
@@ -409,6 +441,14 @@ export async function proxyAuthPost(
       Accept: 'application/json',
       'Content-Type': 'application/json',
     });
+    const acceptLanguage = request.headers.get('accept-language');
+    if (
+      acceptLanguage &&
+      acceptLanguage.length <= 128 &&
+      /^[A-Za-z0-9,;=._ *-]+$/.test(acceptLanguage)
+    ) {
+      headers.set('Accept-Language', acceptLanguage);
+    }
     const cookieNames = authCookieNames();
     const cookie = allowedCookieHeader(
       request.headers.get('cookie'),

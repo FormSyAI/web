@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { AuthContent } from '@/content/auth.i18n';
 import type { Locale } from '@/content/i18n';
-import { isAuthApiConfigured, turnstileSiteKey } from '@/lib/auth/api';
+import { isSignupApiConfigured, turnstileSiteKey } from '@/lib/auth/api';
 
 type TurnstileApi = {
   render: (
@@ -48,7 +48,10 @@ function loadTurnstile() {
       existing.addEventListener('load', finish, { once: true });
       existing.addEventListener(
         'error',
-        () => reject(new Error('Turnstile failed to load.')),
+        () => {
+          existing.remove();
+          reject(new Error('Turnstile failed to load.'));
+        },
         { once: true },
       );
       return;
@@ -62,12 +65,19 @@ function loadTurnstile() {
     script.addEventListener('load', finish, { once: true });
     script.addEventListener(
       'error',
-      () => reject(new Error('Turnstile failed to load.')),
+      () => {
+        script.remove();
+        reject(new Error('Turnstile failed to load.'));
+      },
       { once: true },
     );
     document.head.appendChild(script);
   });
-  return scriptPromise;
+  const pending = scriptPromise;
+  return pending.catch((error: unknown) => {
+    if (scriptPromise === pending) scriptPromise = null;
+    throw error;
+  });
 }
 
 export function HumanVerification({
@@ -85,9 +95,10 @@ export function HumanVerification({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loadFailed, setLoadFailed] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
 
   useEffect(() => {
-    if (!isAuthApiConfigured || !turnstileSiteKey || !containerRef.current) {
+    if (!isSignupApiConfigured || !turnstileSiteKey || !containerRef.current) {
       return;
     }
 
@@ -130,9 +141,9 @@ export function HumanVerification({
       if (widgetId && window.turnstile) window.turnstile.remove(widgetId);
       container.replaceChildren();
     };
-  }, [locale, onTokenChange]);
+  }, [locale, onTokenChange, retryKey]);
 
-  if (!isAuthApiConfigured) {
+  if (!isSignupApiConfigured) {
     return (
       <label
         className="auth-human-verification"
@@ -188,7 +199,22 @@ export function HumanVerification({
     >
       <div ref={containerRef} />
       {loadFailed && (
-        <p className="auth-field-error">{copy.preview.verificationLoadError}</p>
+        <div className="auth-verification-recovery" role="alert">
+          <p className="auth-field-error">
+            {copy.preview.verificationLoadError}
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              scriptPromise = null;
+              document.getElementById(scriptId)?.remove();
+              setLoadFailed(false);
+              setRetryKey((current) => current + 1);
+            }}
+          >
+            {copy.common.retry}
+          </button>
+        </div>
       )}
     </div>
   );
