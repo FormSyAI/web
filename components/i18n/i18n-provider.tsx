@@ -21,8 +21,14 @@ type I18nContextValue = {
 
 const I18nContext = React.createContext<I18nContextValue | null>(null);
 
-export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocale] = React.useState<Locale>(defaultLocale);
+export function I18nProvider({
+  children,
+  initialLocale = defaultLocale,
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+}) {
+  const [locale, setLocale] = React.useState<Locale>(initialLocale);
 
   React.useEffect(() => {
     let savedLocale: string | null = null;
@@ -39,6 +45,14 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     const timer = window.setTimeout(() => setLocale(preferredLocale), 0);
     return () => window.clearTimeout(timer);
   }, []);
+
+  React.useLayoutEffect(() => {
+    const pendingLocale = document.documentElement.dataset.localePending;
+    if (!pendingLocale || pendingLocale === locale) {
+      document.documentElement.style.removeProperty('visibility');
+      delete document.documentElement.dataset.localePending;
+    }
+  }, [locale]);
 
   React.useEffect(() => {
     const pathname = window.location.pathname;
@@ -59,6 +73,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // The switch still works for the current session without persistence.
     }
+    document.cookie = `${STORAGE_KEY}=${locale}; Path=/; Max-Age=31536000; SameSite=Lax`;
   }, [locale]);
 
   const value = React.useMemo<I18nContextValue>(

@@ -233,35 +233,54 @@
 }
 
 .fw-mega-menu {
+  --fw-menu-line: #cbd3e1;
+  --fw-menu-offset-x: 0px;
   position: absolute;
   z-index: 60;
   top: 72px;
   left: 50%;
   display: flex;
   overflow: hidden;
-  transform: translateX(-50%);
-  border: 1px solid var(--fw-line);
+  transform: translateX(calc(-50% + var(--fw-menu-offset-x)));
+  border: 1px solid var(--fw-menu-line);
   border-radius: 8px;
   background: white;
   box-shadow: 0 4px 12px rgb(0 0 0 / 4%);
-  animation: fw-menu-in 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fw-menu-in 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 @keyframes fw-menu-in {
   from {
-    opacity: 0.4;
-    clip-path: inset(0 0 100% 0 round 8px);
+    opacity: 0;
+    translate: 0 -8px;
+    clip-path: inset(0 0 12% 0 round 8px);
   }
   to {
     opacity: 1;
+    translate: 0 0;
     clip-path: inset(0 round 8px);
   }
 }
+.fw-mega-menu.is-closing {
+  pointer-events: none;
+  animation: fw-menu-out 140ms ease-in both;
+}
+@keyframes fw-menu-out {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+}
 .fw-product-menu {
+  --fw-menu-offset-x: clamp(100px, 10vw, 200px);
   width: 707px;
 }
 .fw-mega-list {
   width: 321px;
-  border-right: 1px solid var(--fw-line);
+  border-right: 1px solid var(--fw-menu-line);
 }
 .fw-mega-list > a {
   min-height: 96px;
@@ -269,7 +288,7 @@
   flex-direction: column;
   gap: 8px;
   padding: 16px 40px;
-  border-bottom: 1px solid var(--fw-line);
+  border-bottom: 1px solid var(--fw-menu-line);
 }
 .fw-mega-list > a:last-child {
   border-bottom: 0;
@@ -310,6 +329,7 @@
   font-size: 13px;
 }
 .fw-solutions-menu {
+  --fw-menu-offset-x: clamp(90px, 9vw, 184px);
   width: 643px;
 }
 .fw-audience-list {
@@ -317,7 +337,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 24px;
-  border-right: 1px solid var(--fw-line);
+  border-right: 1px solid var(--fw-menu-line);
 }
 .fw-audience-list a {
   min-height: 72px;
@@ -364,7 +384,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--fw-line);
+  border-bottom: 1px solid var(--fw-menu-line);
   font-family: ui-monospace, monospace;
   font-size: 13px;
   font-weight: 700;
@@ -404,7 +424,7 @@
   width: 42%;
 }
 .fw-resource-menu > div + div {
-  border-left: 1px solid var(--fw-line);
+  border-left: 1px solid var(--fw-menu-line);
 }
 .fw-resource-menu h3 {
   margin: 0;
@@ -427,7 +447,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 12px;
-  border-bottom: 1px solid var(--fw-line);
+  border-bottom: 1px solid var(--fw-menu-line);
   font-family: ui-monospace, monospace;
   font-size: 12px;
   font-weight: 700;
@@ -454,12 +474,14 @@
 .fw-featured-image {
   position: relative;
   height: 112px;
+  display: grid;
+  place-items: center;
   overflow: hidden;
+  padding: 28px;
   background:
     linear-gradient(135deg, rgb(44 108 181 / 12%), rgb(243 179 34 / 10%)), white;
 }
 .fw-featured-image img {
-  padding: 28px;
   object-fit: contain;
   transition: transform 180ms ease;
 }
@@ -607,13 +629,15 @@
   width: 663px;
   max-width: 100%;
   height: 364px;
+  display: grid;
+  place-items: center;
+  padding: 72px;
   transform: translateY(-7px);
   border: 1px solid var(--fw-line);
   background:
     linear-gradient(135deg, rgb(44 108 181 / 12%), rgb(243 179 34 / 9%)), white;
 }
 .fw-hero-art img {
-  padding: 72px;
   object-fit: contain;
 }
 .fw-spend-chart {
@@ -881,8 +905,11 @@
 .fw-video {
   position: relative;
   height: 264px;
+  display: grid;
+  place-items: center;
   overflow: hidden;
   margin-right: 107px;
+  padding: 68px;
   border: 1px solid #242a31;
   background:
     linear-gradient(135deg, rgb(44 108 181 / 28%), rgb(243 179 34 / 16%)),
@@ -892,7 +919,6 @@
   width: 100%;
   height: 100%;
   display: block;
-  padding: 68px;
   object-fit: contain;
 }
 
@@ -997,6 +1023,13 @@
   display: flex;
   gap: 12px;
   margin-top: auto;
+}
+.fw-pillar:first-child .fw-dark-outline-button {
+  border-color: white;
+}
+.fw-pillar:first-child .fw-dark-outline-button:hover {
+  color: var(--fw-ink) !important;
+  background: white;
 }
 .fw-platform {
   padding-bottom: 67px;
@@ -1237,15 +1270,25 @@
   position: relative;
   height: 190px;
   flex: 0 0 auto;
+  display: grid;
+  place-items: center;
   overflow: hidden;
   margin: -24px -24px 24px;
+  padding: 48px;
   background:
     linear-gradient(135deg, rgb(44 108 181 / 12%), rgb(243 179 34 / 10%)), white;
 }
 .fw-update-image img {
-  padding: 48px;
   object-fit: contain;
   transition: transform 180ms ease;
+}
+.fw-page img.fw-placeholder-logo {
+  position: static;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  padding: 0;
+  object-fit: contain;
 }
 .fw-update-meta {
   display: flex;

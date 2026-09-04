@@ -1,4 +1,12 @@
 .pr-page {
+  --fw-brand: var(--brand-blue-500);
+  --fw-brand-deep: var(--brand-blue-700);
+  --fw-brand-soft: var(--brand-blue-300);
+  --fw-highlight: var(--brand-gold-500);
+  --fw-ink: #18181d;
+  --fw-muted: #686b75;
+  --fw-line: #e6eaf4;
+  --fw-white: #fff;
   --pr-purple: var(--brand-blue-500);
   --pr-purple-deep: var(--brand-blue-900);
   --pr-ink: var(--ink);
