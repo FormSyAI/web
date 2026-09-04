@@ -1,6 +1,6 @@
 # Website content
 
-The production homepage and Fireworks reference route read visible copy from locale dictionaries in this directory.
+The production homepage and full AURINOVA route read visible copy from locale dictionaries in this directory.
 
 ### Production homepage
 
@@ -8,11 +8,11 @@ The production homepage and Fireworks reference route read visible copy from loc
 - `site.en.ts`: English (`en-US`)
 - `i18n.ts`: supported locales, default locale, dictionary registry, and shape validation
 
-### Fireworks reference
+### Full AURINOVA site
 
-- `fireworks-reference.ts`: English source content and shared asset URLs
-- `fireworks-reference.zh.ts`: Simplified Chinese copy; unchanged assets and links are inherited from the English source
-- `fireworks-reference.i18n.ts`: locale dictionary registry and route content types
+- `aurinova-reference.ts`: English content and shared asset URLs
+- `aurinova-reference.zh.ts`: Simplified Chinese copy; unchanged assets and links are inherited from the English source
+- `aurinova-reference.i18n.ts`: locale dictionary registry and route content types
 
 ## Updating copy
 
@@ -29,4 +29,4 @@ Common sections:
 
 The language preference is stored under `aurinova-locale` in browser storage. The first visit falls back to the browser language, with Chinese as the application default.
 
-Both `/` and `/fireworks-reference` share that preference, so switching language on one route updates the other route on the next visit.
+Both `/` and `/aurinova-reference` share that preference, so switching language on one route updates the other route on the next visit.

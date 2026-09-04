@@ -1,6 +1,6 @@
 # AURINOVA Web
 
-AURINOVA / FormSy 的 React 品牌官网。页面借鉴 Fireworks AI 的信息密度、黑白分区、像素数据图形与工程化排版，并使用 FormSy 的产品材料组织中文内容。
+AURINOVA / FormSy 的 React 品牌官网。页面采用高信息密度、黑白分区、像素数据图形与工程化排版，并使用 FormSy 的产品材料组织中英文内容。
 
 ## 本地运行
 
@@ -18,21 +18,22 @@ npm run build
 ## 维护入口
 
 - `content/site.ts`：导航、首屏、产品能力、架构、验证数据、资源与页脚文案。
-- `content/fireworks-reference.ts`：仅根据 Fireworks 官方公开页面整理的参考版本内容。
+- `content/aurinova-reference.ts`：AURINOVA 品牌版本的英文内容与共享资源。
+- `content/aurinova-reference.zh.ts`：AURINOVA 品牌版本的中文内容。
 - `app/globals.css`：设计 token、基础排版、组件样式与响应式规则。
 - `components/site/`：站点级组件；移动导航和轮播交互集中在客户端组件中。
 - `components/ui/`：当前页面实际使用的 Shadcn/Base UI 基础组件。
 - `app/page.tsx`：首页区块组合，尽量保持为纯展示层。
 - `app/dev/design-system/page.tsx`：设计 token 与组件的开发预览路由。
-- `app/fireworks-reference/page.tsx`：Fireworks.ai 首页信息架构参考版本。
+- `app/aurinova-reference/page.tsx`：AURINOVA 完整品牌版本。
 
 修改文案或卡片时优先编辑 `content/site.ts`。新增视觉值时先补充全局 token，再在组件样式中引用，避免散落重复色值和间距。
 
 设计系统预览：`/dev/design-system`
 
-Fireworks 参考版本：`/fireworks-reference`
+AURINOVA 完整版本：`/aurinova-reference`
 
-内容文档位于 `docs/CURRENT_SITE_CONTENT.md` 和 `docs/FIREWORKS_REFERENCE_CONTENT.md`。
+内容文档位于 `docs/CURRENT_SITE_CONTENT.md` 和 `docs/AURINOVA_REFERENCE_CONTENT.md`。
 
 ## 页面结构
 

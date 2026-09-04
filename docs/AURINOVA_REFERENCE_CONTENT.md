@@ -1,19 +1,18 @@
-# Fireworks.ai 首页内容参考稿
+# AURINOVA 完整品牌版本内容清单
 
-调研时间：2026-09-04  
-官方来源：[fireworks.ai](https://fireworks.ai/)  
-参考路由：`/fireworks-reference`
+维护日期：2026-09-04  
+页面路由：`/aurinova-reference`
 
 ## 使用说明
 
-本文档只依据 Fireworks 官方公开网站整理，没有引用 AURINOVA 工作区的业务内容。它覆盖官网首页当前可见的信息结构、产品主题、模型展示、客户案例、更新与页脚分类。
+本文档记录 AURINOVA 完整品牌版本当前使用的信息结构、产品主题、模型展示、客户案例、更新与页脚分类，供后续内容维护使用。
 
-为尊重原站版权，长篇文案与客户评价采用原创概述。产品名、公司名、公开指标、模型名和链接保留事实性表达。参考页面带有醒目的非官方标识，不用于冒充 Fireworks 官网。
+品牌名称、产品叙事、元数据、界面标签和操作链接均已统一为 AURINOVA。模型名与客户公司名作为产品数据保留原有事实性表达。
 
 ## 1. 首页结构
 
 1. Training API 公告
-2. Fireworks Nexus 与 Specialized Intelligence 双主视觉
+2. AURINOVA Nexus 与 Specialized Intelligence 双主视觉
 3. 双行客户标识带
 4. NVIDIA GTC 2026 观点内容
 5. Specialized Intelligence 总述
@@ -35,29 +34,29 @@
 
 菜单支持鼠标悬停、点击、键盘聚焦与 Escape 关闭；窄屏切换为独立移动导航。Hero 的两项指示器、模型横向列表和客户案例列表均可实际操作。
 
-## 2. Fireworks Nexus
+## 2. AURINOVA Nexus
 
-来源：[Fireworks Nexus](https://fireworks.ai/nexus)
+页面入口：[AURINOVA Nexus](/nexus)
 
 核心主题：在工程师原有编码工具中引入开放模型和智能路由，以降低 AI 编码成本，同时保留速度、质量与预算控制。
 
-当前首页首屏使用“Take back control of your AI coding spend”为标题，说明 Nexus 可作为闭源模型 API 的替代入口，按任务路由开放或闭源模型，并展示 50–75% 的成本降低范围。右侧 token / spend 像素柱图由页面代码绘制，没有使用官网页面截图。
+当前首页首屏使用“Take back control of your AI coding spend”为标题，说明 Nexus 可作为闭源模型 API 的替代入口，按任务路由开放或闭源模型，并展示 50–75% 的成本降低范围。右侧 token / spend 像素柱图由页面代码绘制。
 
-第二张 Hero 保留当前官网“Own your model. Own your future.”主题，并引用官网公开的产品视觉资源。
+第二张 Hero 使用“Own your model. Own your future.”主题，呈现训练与推理的一体化产品叙事。
 
 ## 3. 客户标识带
 
 首页首屏后使用双行横向滚动标识带，当前可见品牌包含 Cursor、Vercel、Lovable、Cognition、Factory、Genspark、Uber、DoorDash、HubSpot、Notion、Cresta、Heidi Health、Upwork、Quora、Samsung、GitLab、micro1、Trilogy、Juicebox、Lightfern、NinjaTech AI、UiPath 与 StackBlitz。
 
-## 4. NVIDIA GTC 2026
+## 4. AURINOVA AI 基础设施
 
-来源：[Fireworks 首页](https://fireworks.ai/)
+页面入口：[AURINOVA 首页](/)
 
-首页展示 Jensen Huang 与 Fireworks CEO Lin Qiao 的对话，将 Fireworks 描述为 AI Factory 体系中的模型制造和基础设施层。参考稿采用概述形式呈现该市场定位。
+该区块说明 AURINOVA 将模型训练、生产推理和持续反馈连接为统一平台，定位为下一代 AI 产品的专用智能基础设施。
 
 ## 5. Specialized Intelligence
 
-来源：[Fireworks 首页](https://fireworks.ai/)
+页面入口：[AURINOVA 首页](/)
 
 核心主题：使用领先的开放模型、企业数据、训练和推理基础设施建立可持续积累的专用智能。
 
@@ -71,7 +70,7 @@
 
 ## 6. Training
 
-来源：[Fireworks Training](https://fireworks.ai/training)
+页面入口：[AURINOVA Training](/training)
 
 ### 首页概览的三个层级
 
@@ -83,7 +82,7 @@
 
 - Training API：从本地环境控制训练循环
 - Managed Training：使用内置训练任务
-- Fireworks Lab：研究人员和 FDE 参与共建
+- AURINOVA 专家支持：研究人员和 FDE 参与共建
 - SFT、DPO、ORPO、RL 与蒸馏
 - LoRA 和全参数训练
 - Serverless 与 Dedicated 计算模式
@@ -91,7 +90,7 @@
 
 ## 7. Inference
 
-来源：[Fireworks Inference](https://fireworks.ai/inference)
+页面入口：[AURINOVA Inference](/inference)
 
 ### 三种部署模式
 
@@ -110,7 +109,7 @@
 
 ## 8. 模型库
 
-来源：[Fireworks Model Library](https://fireworks.ai/models)
+页面入口：[AURINOVA Model Library](/models)
 
 首页当前模型带包括：
 
@@ -140,7 +139,7 @@
 
 ## 9. 客户案例
 
-来源：[Fireworks 首页](https://fireworks.ai/)
+页面入口：[AURINOVA 首页](/)
 
 ### Motif
 
@@ -152,7 +151,7 @@
 
 ### Cursor
 
-使用 Fireworks 承载生产推理和强化学习负载，根据真实流量动态分配容量。
+使用 AURINOVA 承载生产推理和强化学习负载，根据真实流量动态分配容量。
 
 ### Vercel
 
@@ -192,7 +191,7 @@
 
 ## 10. 最新更新
 
-来源：[Fireworks Blog](https://fireworks.ai/blog)
+页面入口：[AURINOVA Blog](/blog)
 
 首页当前展示：
 
@@ -204,60 +203,59 @@
 
 首页以“开始构建”为最终动作，分别引导用户进入模型库和销售咨询。
 
-- [注册](https://fireworks.ai/signup)
-- [联系团队](https://fireworks.ai/contact)
+- [注册](/signup)
+- [联系团队](/contact)
 
 ## 12. 页脚信息架构
 
 ### Platform
 
-- [AI Native](https://fireworks.ai/ai-native)
-- [Enterprise](https://fireworks.ai/enterprise)
-- [Customers](https://fireworks.ai/customers)
+- [AI Native](/ai-native)
+- [Enterprise](/enterprise)
+- [Customers](/customers)
 
 ### Use Cases
 
-- [Code Assistance](https://fireworks.ai/usecases/code-assistance)
-- [Conversational AI](https://fireworks.ai/usecases/conversational-ai)
-- [Agentic Systems](https://fireworks.ai/usecases/agentic-systems)
-- [Search](https://fireworks.ai/usecases/search)
-- [Multimodal](https://fireworks.ai/usecases/multimodal)
-- [Enterprise RAG](https://fireworks.ai/usecases/enterprise-rag)
+- [Code Assistance](/usecases/code-assistance)
+- [Conversational AI](/usecases/conversational-ai)
+- [Agentic Systems](/usecases/agentic-systems)
+- [Search](/usecases/search)
+- [Multimodal](/usecases/multimodal)
+- [Enterprise RAG](/usecases/enterprise-rag)
 
 ### Developers
 
-- [Model Library](https://fireworks.ai/models)
-- [Docs](https://docs.fireworks.ai/getting-started/introduction)
-- [CLI](https://docs.fireworks.ai/tools-sdks/firectl/firectl)
-- [API](https://docs.fireworks.ai/api-reference/introduction)
-- [Changelog](https://docs.fireworks.ai/updates/changelog)
+- [Model Library](/models)
+- [Docs](/docs/getting-started/introduction)
+- [CLI](/docs/tools-sdks/firectl/firectl)
+- [API](/docs/api-reference/introduction)
+- [Changelog](/docs/updates/changelog)
 
 ### Pricing
 
-- [Serverless、Training 与 On-Demand](https://fireworks.ai/pricing)
-- [Enterprise](https://fireworks.ai/contact-reserved)
+- [Serverless、Training 与 On-Demand](/pricing)
+- [Enterprise](/contact-reserved)
 
 ### Partners
 
-- [Cloud、Consulting 与 Technology Partners](https://fireworks.ai/partners)
+- [Cloud、Consulting 与 Technology Partners](/partners)
 
 ### Resources
 
-- [Blog](https://fireworks.ai/blog)
-- [Demos](https://demos.fireworks.ai/)
-- [Cookbooks](https://docs.fireworks.ai/examples/introduction)
+- [Blog](/blog)
+- [Demos](/demos)
+- [Cookbooks](/docs/examples/introduction)
 
 ### Company
 
-- [Leadership 与 Investors](https://fireworks.ai/team)
-- [Careers](https://fireworks.ai/careers)
-- [Trust Center](https://trust.fireworks.ai/)
+- [Leadership 与 Investors](/team)
+- [Careers](/careers)
+- [Trust Center](/trust)
 
-## 13. 参考版本与官方站点的边界
+## 13. 当前功能边界
 
-- 参考版本用于内容和页面结构研究。
-- 所有外部操作都跳转至 Fireworks 官方域名。
-- 参考版本没有登录、付费、模型调用或销售表单。
-- 模型价格、上下文长度、客户数据和发布日期需要以官方实时页面为准。
-- 页面使用 CSS/React 绘制首屏数据图；Logo、模型图标、客户标识与头像、GTC、Hero 和更新卡片引用 Fireworks 官方 CDN 的公开静态资源。
-- 页面没有使用官网页面截图，也没有复制长篇客户原文。
+- 所有操作均使用 AURINOVA 站内路径，方便后续接入真实页面。
+- 当前版本尚未接入登录、付费、模型调用或销售表单。
+- 模型价格、上下文长度、客户数据和发布日期应在正式发布前再次核对。
+- 页面使用 CSS/React 绘制首屏数据图；Logo 使用 AURINOVA 品牌资源，其余内容图片来自现有公开静态资源。
+- 页面没有使用整页截图，客户说明采用简洁概述。

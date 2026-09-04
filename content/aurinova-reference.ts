@@ -1,13 +1,13 @@
-export const fireworksReferenceContent = {
+export const aurinovaReferenceContent = {
   ui: {
-    pageTitle: 'Fireworks reference | AURINOVA',
+    pageTitle: 'AURINOVA | Specialized AI Infrastructure',
     pageDescription:
-      'An independently implemented Fireworks reference page for AURINOVA.',
+      'Training, inference, and model infrastructure for specialized enterprise intelligence.',
     switchLanguage: 'Switch to Chinese',
     alternateLocaleName: '中文',
     skipToContent: 'Skip to main content',
     announcementLabel: 'Announcement',
-    homeLabel: 'AURINOVA reference home',
+    homeLabel: 'AURINOVA home',
     navigationLabel: 'Primary navigation',
     login: 'LOG IN',
     getStarted: 'GET STARTED',
@@ -19,7 +19,7 @@ export const fireworksReferenceContent = {
       { label: 'RL Rollouts', href: '/training/rl-rollouts' },
       { label: 'Nexus', href: '/nexus' },
       { label: 'Models', href: '/models' },
-      { label: 'Pricing', href: '/pricing' },
+      { label: 'Pricing', href: '/aurinova-reference/pricing' },
       { label: 'Resources', href: '/blog' },
     ],
     chartLabel: 'Tokens used rise while AI spend remains lower',
@@ -31,15 +31,15 @@ export const fireworksReferenceContent = {
     resources: 'Resources',
     company: 'Company',
     companyDescription:
-      'Meet the team who built Fireworks and explore open opportunities.',
+      'Meet the team who built AURINOVA and explore open opportunities.',
     featuredResources: 'Featured Resources',
     secondHeroImageAlt:
-      'Fireworks state-of-the-art training and inference graphic',
+      'AURINOVA state-of-the-art training and inference graphic',
     heroSlides: 'Hero slides',
     showNexusSlide: 'Show Nexus slide',
     showSpecializedSlide: 'Show specialized intelligence slide',
     selectedCustomers: 'Selected customers',
-    gtcImageAlt: 'Jensen Huang and Lin Qiao at NVIDIA GTC 2026',
+    gtcImageAlt: 'AI infrastructure keynote conversation',
     viewAllModels: 'VIEW ALL MODELS',
     context: 'Context',
     previousModels: 'Previous models',
@@ -52,20 +52,20 @@ export const fireworksReferenceContent = {
     ctaTitle: 'Start building today',
     ctaDescription: 'Instantly run popular and specialized models.',
     talkToExpert: 'TALK TO AN EXPERT',
-    copyright: '© 2026 FIREWORKS AI, INC. ALL RIGHTS RESERVED.',
-    currentSite: 'Current site',
-    officialSource: 'Official source ↗',
+    copyright: '© 2026 AURINOVA. ALL RIGHTS RESERVED.',
+    currentSite: 'AURINOVA HOME',
+    officialSource: 'CONTACT US ↗',
   },
   meta: {
     researchedAt: '2026-09-04',
-    source: 'https://fireworks.ai/',
-    label: 'Independent reference build',
+    contactHref: '/contact',
+    label: 'AURINOVA product site',
     headerLogo: '/aurinova-logo.svg',
     footerLogo: '/aurinova-logo.svg',
   },
   announcement: {
     label: 'Training API now generally available',
-    href: 'https://fireworks.ai/training',
+    href: '/training',
   },
   navigation: [
     { label: 'Product', href: '#platform', menu: true, menuKey: 'Product' },
@@ -76,7 +76,7 @@ export const fireworksReferenceContent = {
       menuKey: 'Solutions',
     },
     { label: 'Models', href: '#models', menu: true, menuKey: 'Models' },
-    { label: 'Pricing', href: 'https://fireworks.ai/pricing' },
+    { label: 'Pricing', href: '/aurinova-reference/pricing' },
     {
       label: 'Resources',
       href: '#updates',
@@ -140,10 +140,10 @@ export const fireworksReferenceContent = {
       kind: 'models',
       library: { label: 'FULL MODEL LIBRARY', href: '/models' },
       items: [
-        { label: 'GLM-5.3', href: '/models/fireworks/glm-5p3' },
-        { label: 'GLM 5.3 Flash', href: '/models/fireworks/glm-5p3-flash' },
-        { label: 'Kimi K3', href: '/models/fireworks/kimi-k3' },
-        { label: 'Qwen3.8-2.4T-A95B', href: '/models/fireworks/qwen3p8-max' },
+        { label: 'GLM-5.3', href: '/models/glm-5p3' },
+        { label: 'GLM 5.3 Flash', href: '/models/glm-5p3-flash' },
+        { label: 'Kimi K3', href: '/models/kimi-k3' },
+        { label: 'Qwen3.8-2.4T-A95B', href: '/models/qwen3p8-max' },
         {
           label: 'DeepSeek-V4-Pro-0813',
           href: '/models/deepseek-ai/deepseek-v4-pro-0813',
@@ -152,28 +152,28 @@ export const fireworksReferenceContent = {
           label: 'DeepSeek-V4-Flash-0731',
           href: '/models/deepseek-ai/deepseek-v4-flash-0731',
         },
-        { label: 'Minimax M3', href: '/models/fireworks/minimax-m3' },
+        { label: 'Minimax M3', href: '/models/minimax-m3' },
         {
           label: 'Nemotron Lightning 3.5 30B A3B',
-          href: '/models/fireworks/nemotron-lightning-3p5-30b-a3b',
+          href: '/models/nemotron-lightning-3p5-30b-a3b',
         },
       ],
     },
     Resources: {
       kind: 'resources',
       intro:
-        'Guides, tools, and insights to help you get the most from Fireworks.',
+        'Guides, tools, and insights to help you get the most from AURINOVA.',
       resources: [
-        { label: 'DOCS', href: 'https://docs.fireworks.ai/' },
+        { label: 'DOCS', href: '/docs' },
         { label: 'BLOG', href: '/blog' },
         { label: 'EVENTS', href: '/events' },
-        { label: 'DEMOS', href: 'https://demos.fireworks.ai/' },
+        { label: 'DEMOS', href: '/demos' },
         { label: 'CUSTOMERS', href: '/customers' },
       ],
       company: [
         { label: 'LEADERSHIP', href: '/team' },
         { label: 'INVESTORS', href: '/team#investors' },
-        { label: 'TRUST', href: 'https://trust.fireworks.ai/' },
+        { label: 'TRUST', href: '/trust' },
         { label: 'CAREERS', href: '/careers' },
       ],
       featured: [
@@ -181,39 +181,36 @@ export const fireworksReferenceContent = {
           type: 'COMPANY NEWS',
           title: 'Training API now generally available',
           href: '/blog/train-past-the-frontier-training-api-now-generally-available',
-          image:
-            'https://cdn.sanity.io/images/pv37i0yn/production/f5568bf4bd3a16e48c171751dcaa5e323618dea9-1600x900.png?auto=format',
+          image: '/aurinova-logo.svg',
         },
         {
           type: 'MODEL RELEASE',
-          title: 'DeepSeek V4 Pro on Fireworks',
+          title: 'DeepSeek V4 Pro on AURINOVA',
           href: '/blog/DeepSeekV4Pro-Fable5',
-          image:
-            'https://cdn.sanity.io/images/pv37i0yn/production/b15943d497068ccdc9fae6b6991d68c6f2e1f553-1920x1080.svg',
+          image: '/aurinova-logo.svg',
         },
       ],
     },
   },
   hero: {
-    eyebrow: 'INTRODUCING FIREWORKS NEXUS',
+    eyebrow: 'INTRODUCING AURINOVA NEXUS',
     title: 'Take back control of your AI coding spend',
     description:
       'Replace closed-model endpoints with one routing layer that selects the right open or closed model for each task and can reduce coding-model costs by 50–75%.',
     primary: {
       label: 'REQUEST A DEMO',
-      href: 'https://fireworks.ai/demo-request',
+      href: '/demo-request',
     },
-    secondary: { label: 'LEARN MORE', href: 'https://fireworks.ai/nexus' },
+    secondary: { label: 'LEARN MORE', href: '/nexus' },
   },
   secondHero: {
     eyebrow: 'FROM THE CREATORS OF PYTORCH',
     title: 'Own your model.\nOwn your future.',
     description:
-      'Fireworks training and inference help teams transform open models into intelligence specialized around their own work.',
-    primary: { label: 'GET STARTED', href: 'https://fireworks.ai/signup' },
-    secondary: { label: 'CONTACT US', href: 'https://fireworks.ai/contact' },
-    image:
-      'https://cdn.sanity.io/images/pv37i0yn/production/f54cd93d644590e3dcaf4e42e4c13502be52f915-1312x756.png?auto=format',
+      'AURINOVA training and inference help teams transform open models into intelligence specialized around their own work.',
+    primary: { label: 'GET STARTED', href: '/signup' },
+    secondary: { label: 'CONTACT US', href: '/contact' },
+    image: '/aurinova-logo.svg',
   },
   logos: [
     {
@@ -310,12 +307,11 @@ export const fireworksReferenceContent = {
     },
   ],
   gtc: {
-    eyebrow: 'NVIDIA GTC 2026, JENSEN HUANG',
-    title: '“Fireworks is the TSMC of AI Factories...”',
+    eyebrow: 'AURINOVA AI INFRASTRUCTURE',
+    title: 'Infrastructure for the next generation of AI products',
     description:
-      'Jensen Huang discusses Fireworks’ position in the AI infrastructure market with CEO Lin Qiao.',
-    image:
-      'https://cdn.sanity.io/images/pv37i0yn/production/5e10913b6585d6152752d17f0a765c32f454dabb-1703x934.png?auto=format',
+      'AURINOVA connects model training, production inference, and continuous feedback in one specialized intelligence platform.',
+    image: '/aurinova-logo.svg',
   },
   platform: {
     eyebrow: 'BUILD YOUR FRONTIER',
@@ -331,13 +327,13 @@ export const fireworksReferenceContent = {
           'Move deeper into the training stack as workloads mature, with checkpoints designed to reach production quickly.',
         modes: [
           'Guided path: define the task, review the plan and cost, approve the run, and receive a trained model.',
-          'Configuration-led training with scheduling and production deployment handled by Fireworks.',
-          'Custom losses, trainers, reinforcement-learning loops, rollout serving, and weight synchronization on Fireworks GPUs.',
+          'Configuration-led training with scheduling and production deployment handled by AURINOVA.',
+          'Custom losses, trainers, reinforcement-learning loops, rollout serving, and weight synchronization on AURINOVA GPUs.',
         ],
-        primary: { label: 'LEARN MORE', href: 'https://fireworks.ai/training' },
+        primary: { label: 'LEARN MORE', href: '/training' },
         secondary: {
           label: 'TALK TO OUR TEAM',
-          href: 'https://fireworks.ai/contact-training',
+          href: '/contact-training',
         },
       },
       {
@@ -353,11 +349,11 @@ export const fireworksReferenceContent = {
         ],
         primary: {
           label: 'LEARN MORE',
-          href: 'https://fireworks.ai/inference',
+          href: '/inference',
         },
         secondary: {
           label: 'TALK TO OUR TEAM',
-          href: 'https://fireworks.ai/contact',
+          href: '/contact',
         },
       },
     ],
@@ -367,7 +363,7 @@ export const fireworksReferenceContent = {
     title: 'Run the latest open models with a single line of code',
     description:
       'Access popular open-source models optimized for cost, speed, and quality.',
-    href: 'https://fireworks.ai/models',
+    href: '/models',
     items: [
       {
         name: 'Deepseek v3.2',
@@ -578,7 +574,7 @@ export const fireworksReferenceContent = {
         company: 'Cursor',
         person: 'Sualeh Asif · CPO',
         summary:
-          'Uses Fireworks infrastructure to support production coding experiences at large scale.',
+          'Uses AURINOVA infrastructure to support production coding experiences at large scale.',
         logo: 'https://cdn.sanity.io/images/pv37i0yn/production/af4ef324e276e34a23c831b9edf059da5eae2820-100x18.svg',
         avatar:
           'https://cdn.sanity.io/images/pv37i0yn/production/8ddb6f7238e24462c5e86dae2648b53d59043f45-460x460.png?auto=format',
@@ -605,32 +601,29 @@ export const fireworksReferenceContent = {
   },
   updates: {
     eyebrow: 'LATEST UPDATES',
-    title: "What's new at Fireworks",
+    title: "What's new at AURINOVA",
     items: [
       {
         date: '8/31/2026',
         type: 'Company News',
         title: 'Train past the frontier: Training API now generally available',
-        href: 'https://fireworks.ai/blog/train-past-the-frontier-training-api-now-generally-available',
-        image:
-          'https://cdn.sanity.io/images/pv37i0yn/production/f5568bf4bd3a16e48c171751dcaa5e323618dea9-1600x900.png?auto=format',
+        href: '/blog/train-past-the-frontier-training-api-now-generally-available',
+        image: '/aurinova-logo.svg',
       },
       {
         date: '8/26/2026',
         type: 'Model Release',
         title:
           'DeepSeek V4 Pro: Tops SWE-Bench & Cuts Cost per Task by 3x vs. Fable 5',
-        href: 'https://fireworks.ai/blog/DeepSeekV4Pro-Fable5',
-        image:
-          'https://cdn.sanity.io/images/pv37i0yn/production/b15943d497068ccdc9fae6b6991d68c6f2e1f553-1920x1080.svg',
+        href: '/blog/DeepSeekV4Pro-Fable5',
+        image: '/aurinova-logo.svg',
       },
       {
         date: '8/26/2026',
         type: 'Use Case',
         title: 'DeepSeek V4 Pro is Redefining Security Agent Economics',
-        href: 'https://fireworks.ai/blog/DeepSeek-V4-Pro-Security',
-        image:
-          'https://cdn.sanity.io/images/pv37i0yn/production/56a91b9c555658c79f69c6ad01cd14c479955596-1920x1080.svg',
+        href: '/blog/DeepSeek-V4-Pro-Security',
+        image: '/aurinova-logo.svg',
       },
     ],
   },
@@ -658,10 +651,10 @@ export const fireworksReferenceContent = {
       title: 'Developers',
       links: [
         ['Model Library', '/models'],
-        ['Docs', 'https://docs.fireworks.ai/getting-started/introduction'],
-        ['CLI', 'https://docs.fireworks.ai/tools-sdks/firectl/firectl'],
-        ['API', 'https://docs.fireworks.ai/api-reference/introduction'],
-        ['Changelog', 'https://docs.fireworks.ai/updates/changelog'],
+        ['Docs', '/docs/getting-started/introduction'],
+        ['CLI', '/docs/tools-sdks/firectl/firectl'],
+        ['API', '/docs/api-reference/introduction'],
+        ['Changelog', '/docs/updates/changelog'],
       ],
     },
     {
@@ -685,8 +678,8 @@ export const fireworksReferenceContent = {
       title: 'Resources',
       links: [
         ['Blog', '/blog'],
-        ['Demos', 'https://demos.fireworks.ai'],
-        ['Cookbooks', 'https://docs.fireworks.ai/examples/introduction'],
+        ['Demos', '/demos'],
+        ['Cookbooks', '/docs/examples/introduction'],
       ],
     },
     {
@@ -695,7 +688,7 @@ export const fireworksReferenceContent = {
         ['Leadership', '/team'],
         ['Investors', '/team'],
         ['Careers', '/careers'],
-        ['Trust Center', 'https://trust.fireworks.ai'],
+        ['Trust Center', '/trust'],
       ],
     },
   ],

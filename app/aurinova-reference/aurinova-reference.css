@@ -455,10 +455,12 @@
   position: relative;
   height: 112px;
   overflow: hidden;
-  background: #f1f2f6;
+  background:
+    linear-gradient(135deg, rgb(44 108 181 / 12%), rgb(243 179 34 / 10%)), white;
 }
 .fw-featured-image img {
-  object-fit: cover;
+  padding: 28px;
+  object-fit: contain;
   transition: transform 180ms ease;
 }
 .fw-featured-resources > a:hover img {
@@ -606,9 +608,13 @@
   max-width: 100%;
   height: 364px;
   transform: translateY(-7px);
+  border: 1px solid var(--fw-line);
+  background:
+    linear-gradient(135deg, rgb(44 108 181 / 12%), rgb(243 179 34 / 9%)), white;
 }
 .fw-hero-art img {
-  object-fit: cover;
+  padding: 72px;
+  object-fit: contain;
 }
 .fw-spend-chart {
   position: relative;
@@ -747,7 +753,7 @@
     transparent 7px 10px
   );
 }
-.fw-fireworks-pin {
+.fw-brand-pin {
   position: absolute;
   z-index: 3;
   top: 40px;
@@ -757,15 +763,15 @@
   flex-direction: column;
   color: var(--fw-brand);
 }
-.fw-fireworks-pin .fw-mark {
+.fw-brand-pin .fw-mark {
   transform: scale(0.8);
 }
-.fw-fireworks-pin > i {
+.fw-brand-pin > i {
   width: 1px;
   height: 34px;
   background: #17171b;
 }
-.fw-fireworks-pin > i::after {
+.fw-brand-pin > i::after {
   position: absolute;
   width: 6px;
   height: 6px;
@@ -877,23 +883,17 @@
   height: 264px;
   overflow: hidden;
   margin-right: 107px;
+  border: 1px solid #242a31;
+  background:
+    linear-gradient(135deg, rgb(44 108 181 / 28%), rgb(243 179 34 / 16%)),
+    #f7f9fc;
 }
 .fw-video img {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
-}
-.fw-video > span {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: 58px;
-  height: 58px;
-  display: grid;
-  place-items: center;
-  transform: translate(-50%, -50%);
-  color: #000;
-  background: white;
+  padding: 68px;
+  object-fit: contain;
 }
 
 .fw-bordered-shell {
@@ -1239,10 +1239,12 @@
   flex: 0 0 auto;
   overflow: hidden;
   margin: -24px -24px 24px;
-  background: #f2f3f7;
+  background:
+    linear-gradient(135deg, rgb(44 108 181 / 12%), rgb(243 179 34 / 10%)), white;
 }
 .fw-update-image img {
-  object-fit: cover;
+  padding: 48px;
+  object-fit: contain;
   transition: transform 180ms ease;
 }
 .fw-update-meta {
@@ -1498,7 +1500,7 @@
     width: 18px;
     height: 18px;
   }
-  .fw-fireworks-pin {
+  .fw-brand-pin {
     right: 58px;
   }
   .fw-logo-wall {

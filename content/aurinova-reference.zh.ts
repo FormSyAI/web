@@ -1,5 +1,5 @@
 import type { ContentShape } from './i18n';
-import { fireworksReferenceContent as en } from './fireworks-reference';
+import { aurinovaReferenceContent as en } from './aurinova-reference';
 
 const customerSummaries = [
   '通过单一 Azure 端点进行可重复的大规模评测，更快完成模型决策。',
@@ -11,7 +11,7 @@ const customerSummaries = [
   '迁移开放模型工作负载后，响应速度提升了三倍。',
   '将高速模型推理与自有调优、代码搜索及深度代码上下文结合。',
   '通过 Azure Foundry 运行开放模型，为注重速度、成本和质量的计算机使用产品提供支持。',
-  '使用 Fireworks 基础设施，支撑大规模生产级编程体验。',
+  '使用 AURINOVA 基础设施，支撑大规模生产级编程体验。',
   '使用 Training SDK，让研究人员专注于自主智能体研究。',
   '通过 Multi-LoRA 将企业私有数据应用于自定义 AI 训练。',
 ] as const;
@@ -54,17 +54,17 @@ const footerLabels = [
   },
 ] as const;
 
-export const fireworksReferenceContentZh = {
+export const aurinovaReferenceContentZh = {
   ...en,
   ui: {
     ...en.ui,
-    pageTitle: 'Fireworks 参考版 | AURINOVA',
-    pageDescription: 'AURINOVA 独立实现的 Fireworks 参考页面。',
+    pageTitle: 'AURINOVA | 专用智能基础设施',
+    pageDescription: '面向企业专用智能的训练、推理与模型基础设施。',
     switchLanguage: '切换到英文',
     alternateLocaleName: 'EN',
     skipToContent: '跳转到主要内容',
     announcementLabel: '公告',
-    homeLabel: 'AURINOVA 参考版首页',
+    homeLabel: 'AURINOVA 首页',
     navigationLabel: '主导航',
     login: '登录',
     getStarted: '开始使用',
@@ -87,14 +87,14 @@ export const fireworksReferenceContentZh = {
     useCases: '使用场景',
     resources: '资源',
     company: '公司',
-    companyDescription: '了解打造 Fireworks 的团队，探索开放职位。',
+    companyDescription: '了解打造 AURINOVA 的团队，探索开放职位。',
     featuredResources: '精选资源',
-    secondHeroImageAlt: 'Fireworks 前沿训练与推理图形',
+    secondHeroImageAlt: 'AURINOVA 前沿训练与推理图形',
     heroSlides: '首屏轮播',
     showNexusSlide: '显示 Nexus 内容',
     showSpecializedSlide: '显示专用智能内容',
     selectedCustomers: '精选客户',
-    gtcImageAlt: 'Jensen Huang 与 Lin Qiao 亮相 NVIDIA GTC 2026',
+    gtcImageAlt: 'AI 基础设施主题对谈',
     viewAllModels: '查看全部模型',
     context: '上下文',
     previousModels: '上一组模型',
@@ -107,17 +107,17 @@ export const fireworksReferenceContentZh = {
     ctaTitle: '今天就开始构建',
     ctaDescription: '立即运行热门模型和专用模型。',
     talkToExpert: '咨询专家',
-    copyright: '© 2026 FIREWORKS AI, INC. 保留所有权利。',
-    currentSite: '当前站点',
-    officialSource: '官方来源 ↗',
+    copyright: '© 2026 AURINOVA. 保留所有权利。',
+    currentSite: 'AURINOVA 首页',
+    officialSource: '联系我们 ↗',
   },
-  meta: { ...en.meta, label: '独立参考实现' },
+  meta: { ...en.meta, label: 'AURINOVA 产品网站' },
   announcement: { ...en.announcement, label: '训练 API 现已正式发布' },
   navigation: [
     { label: '产品', href: '#platform', menu: true, menuKey: 'Product' },
     { label: '解决方案', href: '#customers', menu: true, menuKey: 'Solutions' },
     { label: '模型', href: '#models', menu: true, menuKey: 'Models' },
-    { label: '定价', href: 'https://fireworks.ai/pricing' },
+    { label: '定价', href: '/pricing' },
     { label: '资源', href: '#updates', menu: true, menuKey: 'Resources' },
   ],
   megaMenus: {
@@ -170,7 +170,7 @@ export const fireworksReferenceContentZh = {
     },
     Resources: {
       ...en.megaMenus.Resources,
-      intro: '通过指南、工具和洞察，充分发挥 Fireworks 的价值。',
+      intro: '通过指南、工具和洞察，充分发挥 AURINOVA 的价值。',
       resources: [
         { ...en.megaMenus.Resources.resources[0], label: '文档' },
         { ...en.megaMenus.Resources.resources[1], label: '博客' },
@@ -193,14 +193,14 @@ export const fireworksReferenceContentZh = {
         {
           ...en.megaMenus.Resources.featured[1],
           type: '模型发布',
-          title: 'DeepSeek V4 Pro 登录 Fireworks',
+          title: 'DeepSeek V4 Pro 登录 AURINOVA',
         },
       ],
     },
   },
   hero: {
     ...en.hero,
-    eyebrow: 'FIREWORKS NEXUS 全新发布',
+    eyebrow: 'AURINOVA NEXUS 全新发布',
     title: '重新掌控你的 AI 编程支出',
     description:
       '用一层智能路由替代封闭模型端点，为每个任务选择合适的开放或封闭模型，将编程模型成本降低 50–75%。',
@@ -212,16 +212,16 @@ export const fireworksReferenceContentZh = {
     eyebrow: '来自 PYTORCH 核心创造者',
     title: '掌控你的模型。\n掌控你的未来。',
     description:
-      'Fireworks 训练与推理帮助团队将开放模型转化为围绕自身业务打造的专用智能。',
+      'AURINOVA 训练与推理帮助团队将开放模型转化为围绕自身业务打造的专用智能。',
     primary: { ...en.secondHero.primary, label: '开始使用' },
     secondary: { ...en.secondHero.secondary, label: '联系我们' },
   },
   gtc: {
     ...en.gtc,
-    eyebrow: 'NVIDIA GTC 2026，JENSEN HUANG',
-    title: '“Fireworks 就是 AI 工厂的台积电…”',
+    eyebrow: 'AURINOVA AI 基础设施',
+    title: '为下一代 AI 产品打造基础设施',
     description:
-      'Jensen Huang 与 CEO Lin Qiao 探讨 Fireworks 在 AI 基础设施市场中的定位。',
+      'AURINOVA 将模型训练、生产推理与持续反馈连接为统一的专用智能平台。',
   },
   platform: {
     ...en.platform,
@@ -238,8 +238,8 @@ export const fireworksReferenceContentZh = {
           '随着工作负载成熟，逐步深入训练栈，通过专为快速进入生产环境设计的检查点推进。',
         modes: [
           '引导路径：定义任务、审阅计划和成本、批准运行，并获得训练完成的模型。',
-          '由配置驱动的训练，排期与生产部署由 Fireworks 处理。',
-          '在 Fireworks GPU 上使用自定义损失、训练器、强化学习闭环、采样服务和权重同步。',
+          '由配置驱动的训练，排期与生产部署由 AURINOVA 处理。',
+          '在 AURINOVA GPU 上使用自定义损失、训练器、强化学习闭环、采样服务和权重同步。',
         ],
         primary: { ...en.platform.pillars[0].primary, label: '了解更多' },
         secondary: { ...en.platform.pillars[0].secondary, label: '联系团队' },
@@ -278,7 +278,7 @@ export const fireworksReferenceContentZh = {
   updates: {
     ...en.updates,
     eyebrow: '最新动态',
-    title: 'Fireworks 最新进展',
+    title: 'AURINOVA 最新进展',
     items: [
       {
         ...en.updates.items[0],
