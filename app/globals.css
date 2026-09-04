@@ -355,6 +355,39 @@ button {
   text-transform: uppercase;
 }
 
+.language-switcher {
+  min-width: 58px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.65rem;
+  color: var(--ink);
+  background: white;
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.language-switcher:hover {
+  border-color: var(--primary);
+  color: white;
+  background: var(--primary);
+}
+
+.language-switcher-compact {
+  width: 100%;
+  min-height: 44px;
+}
+
 .button {
   min-height: 46px;
   display: inline-flex;
@@ -383,6 +416,7 @@ button {
 .desktop-nav a:focus-visible,
 .brand:focus-visible,
 .text-link:focus-visible,
+.language-switcher:focus-visible,
 .arrow-link:focus-visible,
 .resource-card:focus-visible,
 .hero-pagination button:focus-visible {
@@ -2356,5 +2390,20 @@ button {
   .footer-bottom {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 420px) {
+  .header-actions {
+    gap: 0.55rem;
+  }
+
+  .brand-logo {
+    width: 8.75rem;
+  }
+
+  .language-switcher {
+    min-width: 48px;
+    padding-inline: 0.45rem;
   }
 }

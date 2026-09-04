@@ -13,7 +13,53 @@ export type PlatformItem = {
   tone: 'dark' | 'light';
 };
 
-export const siteContent = {
+export const siteContentZh = {
+  ui: {
+    pageTitle: 'AURINOVA · FormSy 企业 Agent Context Platform',
+    pageDescription:
+      '把企业知识、工具输出、执行轨迹与验证信号，计算成可行动、可验证、可审计的任务上下文。',
+    localeName: '中文',
+    alternateLocaleName: 'EN',
+    switchLanguage: 'Switch to English',
+    skipToContent: '跳到主要内容',
+    homeLabel: 'AURINOVA 首页',
+    navigationLabel: '主导航',
+    mobileNavigationLabel: '移动端导航',
+    openMenu: '打开导航菜单',
+    docs: '文档',
+    startBuilding: '开始构建',
+    viewArchitecture: '查看架构',
+    viewProductArchitecture: '查看产品架构',
+    ecosystemLabel: '兼容生态',
+    productClaimLabel: 'FormSy 产品主张',
+    heroPaginationLabel: '切换主视觉',
+    showSlide: '显示第 {index} 张',
+    signalLabel: '任务完成率提升与成功任务成本优化示意图',
+    signalSuccess: '任务完成率',
+    signalCost: '成功任务成本',
+    flywheelLabel: 'Context to Weights 企业学习闭环',
+    controlPanelLabel: 'FormSy 任务控制面板示意',
+    controlRows: [
+      ['TASK', 'fix/payment-timeout'],
+      ['CONTEXT', '24 evidence refs'],
+      ['MODEL', 'routed · qwen-class'],
+      ['GATE', '6 / 6 checks passed'],
+    ],
+    live: 'LIVE',
+    evidenceComplete: 'EVIDENCE COMPLETE',
+    validatedResult: 'VALIDATED RESULT',
+    manifestoQuote:
+      '“把每一次 Agent Run，转化为可控制、可验证、可复用的企业 Workflow Episode。”',
+    manifestoSignature: 'CONTEXT COMPUTE PLATFORM',
+    architectureFootnotes: [
+      'TRACE / EVIDENCE / FEEDBACK',
+      'MODEL REQUEST / SCHEDULING SIGNAL',
+    ],
+    governancePath: '查看治理路径',
+    exploreCapabilities: '探索全部能力',
+    assetCarouselLabel: '企业主权上下文资产',
+    footerTagline: 'ENTERPRISE SOVEREIGN AI INFRASTRUCTURE',
+  },
   brand: {
     name: 'AURINOVA',
     company: '锦曜新宸科技',
@@ -322,4 +368,4 @@ export const siteContent = {
   },
 } as const;
 
-export type SiteContent = typeof siteContent;
+export type SiteContentZh = typeof siteContentZh;

@@ -2,15 +2,16 @@
 
 import * as React from 'react';
 
+import { useI18n } from '@/components/i18n/i18n-provider';
 import {
   type CarouselApi,
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { siteContent } from '@/content/site';
 
 function HeroSignal() {
+  const { content } = useI18n();
   const bars = [
     14, 20, 18, 26, 34, 31, 39, 46, 42, 50, 57, 53, 62, 70, 66, 76, 82, 78, 88,
     94,
@@ -19,7 +20,7 @@ function HeroSignal() {
   return (
     <div
       className="hero-visual hero-signal"
-      aria-label="任务完成率提升与成功任务成本优化示意图"
+      aria-label={content.ui.signalLabel}
     >
       <span className="corner corner-tl" />
       <span className="corner corner-tr" />
@@ -28,11 +29,11 @@ function HeroSignal() {
       <div className="signal-legend">
         <span>
           <i className="legend-blue" />
-          任务完成率
+          {content.ui.signalSuccess}
         </span>
         <span>
           <i className="legend-gold" />
-          成功任务成本
+          {content.ui.signalCost}
         </span>
       </div>
       <div className="signal-chart" aria-hidden="true">
@@ -56,6 +57,7 @@ function HeroSignal() {
 }
 
 function ContextFlywheel() {
+  const { content } = useI18n();
   const stages = [
     ['01', 'CONTEXT'],
     ['02', 'EVAL'],
@@ -65,10 +67,7 @@ function ContextFlywheel() {
   ];
 
   return (
-    <div
-      className="hero-visual flywheel"
-      aria-label="Context to Weights 企业学习闭环"
-    >
+    <div className="hero-visual flywheel" aria-label={content.ui.flywheelLabel}>
       <span className="corner corner-tl" />
       <span className="corner corner-tr" />
       <span className="corner corner-bl" />
@@ -96,6 +95,7 @@ function ContextFlywheel() {
 }
 
 export function HeroShowcase() {
+  const { content } = useI18n();
   const [api, setApi] = React.useState<CarouselApi>();
   const [active, setActive] = React.useState(0);
 
@@ -119,11 +119,11 @@ export function HeroShowcase() {
     <section
       className="hero section-grid"
       aria-roledescription="carousel"
-      aria-label="FormSy 产品主张"
+      aria-label={content.ui.productClaimLabel}
     >
       <Carousel opts={{ loop: true }} setApi={setApi} className="hero-carousel">
         <CarouselContent className="hero-carousel-content">
-          {siteContent.heroSlides.map((slide) => (
+          {content.heroSlides.map((slide) => (
             <CarouselItem key={slide.id} className="hero-slide">
               <div className="shell hero-grid">
                 <div className="hero-copy">
@@ -158,13 +158,19 @@ export function HeroShowcase() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="hero-pagination" aria-label="切换主视觉">
-          {siteContent.heroSlides.map((slide, index) => (
+        <div
+          className="hero-pagination"
+          aria-label={content.ui.heroPaginationLabel}
+        >
+          {content.heroSlides.map((slide, index) => (
             <button
               key={slide.id}
               className={active === index ? 'is-active' : ''}
               type="button"
-              aria-label={`显示第 ${index + 1} 张`}
+              aria-label={content.ui.showSlide.replace(
+                '{index}',
+                String(index + 1),
+              )}
               aria-current={active === index ? 'true' : undefined}
               onClick={() => api?.scrollTo(index)}
             />

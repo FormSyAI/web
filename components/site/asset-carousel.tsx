@@ -15,7 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { siteContent } from '@/content/site';
+import { useI18n } from '@/components/i18n/i18n-provider';
 
 const assetIcons = {
   TOCS: ScanLine,
@@ -26,14 +26,16 @@ const assetIcons = {
 } as const;
 
 export function AssetCarousel() {
+  const { content } = useI18n();
+
   return (
     <Carousel
       opts={{ align: 'start', dragFree: true }}
       className="asset-carousel"
-      aria-label="企业主权上下文资产"
+      aria-label={content.ui.assetCarouselLabel}
     >
       <CarouselContent className="asset-carousel-track">
-        {siteContent.assets.items.map((item) => {
+        {content.assets.items.map((item) => {
           const Icon = assetIcons[item.code];
           return (
             <CarouselItem key={item.code} className="asset-slide">

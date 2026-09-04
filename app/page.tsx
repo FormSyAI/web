@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ArrowRight,
   ArrowUpRight,
@@ -10,11 +12,12 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 
+import { useI18n } from '@/components/i18n/i18n-provider';
 import { AssetCarousel } from '@/components/site/asset-carousel';
 import { Brand } from '@/components/site/brand';
 import { HeroShowcase } from '@/components/site/hero-showcase';
 import { SiteHeader } from '@/components/site/site-header';
-import { siteContent } from '@/content/site';
+import type { SiteContent } from '@/content/i18n';
 
 type SectionHeadingProps = {
   eyebrow: string;
@@ -63,15 +66,15 @@ function ArrowLink({
 }
 
 function EcosystemRail() {
+  const { content } = useI18n();
+
   return (
-    <section className="ecosystem" aria-label="兼容生态">
+    <section className="ecosystem" aria-label={content.ui.ecosystemLabel}>
       <div className="shell ecosystem-window">
         <div className="ecosystem-track">
-          {[...siteContent.ecosystem, ...siteContent.ecosystem].map(
-            (item, index) => (
-              <span key={`${item}-${index}`}>{item}</span>
-            ),
-          )}
+          {[...content.ecosystem, ...content.ecosystem].map((item, index) => (
+            <span key={`${item}-${index}`}>{item}</span>
+          ))}
         </div>
       </div>
     </section>
@@ -79,18 +82,14 @@ function EcosystemRail() {
 }
 
 function ControlPanel() {
-  const rows = [
-    ['TASK', 'fix/payment-timeout'],
-    ['CONTEXT', '24 evidence refs'],
-    ['MODEL', 'routed · qwen-class'],
-    ['GATE', '6 / 6 checks passed'],
-  ];
+  const { content } = useI18n();
+  const rows = content.ui.controlRows;
 
   return (
-    <div className="control-panel" aria-label="FormSy 任务控制面板示意">
+    <div className="control-panel" aria-label={content.ui.controlPanelLabel}>
       <div className="control-panel-header">
         <span>FORMSY / RUN_0274</span>
-        <span className="status-dot">LIVE</span>
+        <span className="status-dot">{content.ui.live}</span>
       </div>
       <div className="control-panel-body">
         {rows.map(([label, value], index) => (
@@ -107,18 +106,16 @@ function ControlPanel() {
         ))}
       </div>
       <div className="control-panel-footer">
-        <span>EVIDENCE COMPLETE</span>
-        <span>VALIDATED RESULT</span>
+        <span>{content.ui.evidenceComplete}</span>
+        <span>{content.ui.validatedResult}</span>
       </div>
     </div>
   );
 }
 
-function PlatformCard({
-  item,
-}: {
-  item: (typeof siteContent.platforms)[number];
-}) {
+function PlatformCard({ item }: { item: SiteContent['platforms'][number] }) {
+  const { content } = useI18n();
+
   return (
     <article className={`platform-card platform-card-${item.tone}`}>
       <div className="platform-index">{item.index}</div>
@@ -135,7 +132,7 @@ function PlatformCard({
           ))}
         </ul>
         <ArrowLink
-          label="查看架构"
+          label={content.ui.viewArchitecture}
           href={item.href}
           inverse={item.tone === 'dark'}
         />
@@ -150,21 +147,23 @@ function PlatformCard({
 }
 
 function OperatingLoop() {
+  const { content } = useI18n();
+
   return (
     <section className="operating-loop dark-section" id="solutions">
       <div className="shell framed operating-loop-grid">
         <SectionHeading
-          eyebrow={siteContent.operatingLoop.eyebrow}
-          title={siteContent.operatingLoop.title}
-          description={siteContent.operatingLoop.description}
+          eyebrow={content.operatingLoop.eyebrow}
+          title={content.operatingLoop.title}
+          description={content.operatingLoop.description}
           inverse
         />
         <ol className="loop-steps">
-          {siteContent.operatingLoop.steps.map((step, index) => (
+          {content.operatingLoop.steps.map((step, index) => (
             <li key={step.index}>
               <div className="loop-step-head">
                 <span>{step.index}</span>
-                {index < siteContent.operatingLoop.steps.length - 1 && (
+                {index < content.operatingLoop.steps.length - 1 && (
                   <ChevronRight size={17} />
                 )}
               </div>
@@ -179,9 +178,11 @@ function OperatingLoop() {
 }
 
 function ArchitectureMap() {
+  const { content } = useI18n();
+
   return (
     <div className="architecture-map">
-      {siteContent.architecture.columns.map((column, columnIndex) => (
+      {content.architecture.columns.map((column, columnIndex) => (
         <article
           className={`architecture-column architecture-column-${columnIndex + 1}`}
           key={column.index}
@@ -194,7 +195,7 @@ function ArchitectureMap() {
               <li key={item}>{item}</li>
             ))}
           </ul>
-          {columnIndex < siteContent.architecture.columns.length - 1 && (
+          {columnIndex < content.architecture.columns.length - 1 && (
             <span className="architecture-connector" aria-hidden="true">
               <ArrowRight size={18} />
             </span>
@@ -208,15 +209,17 @@ function ArchitectureMap() {
 const solutionIcons = [Gauge, ShieldCheck, LockKeyhole, Network];
 
 export default function Home() {
+  const { content } = useI18n();
+
   return (
     <main id="top">
       <a className="skip-link" href="#main-content">
-        跳到主要内容
+        {content.ui.skipToContent}
       </a>
 
       <div className="announcement">
-        <a href={siteContent.announcement.href}>
-          {siteContent.announcement.label}
+        <a href={content.announcement.href}>
+          {content.announcement.label}
           <ArrowRight size={18} aria-hidden="true" />
         </a>
       </div>
@@ -230,13 +233,10 @@ export default function Home() {
         <section className="manifesto dark-section">
           <div className="shell framed manifesto-grid">
             <div className="manifesto-copy reveal">
-              <p className="eyebrow">{siteContent.brand.description}</p>
-              <h2>
-                “把每一次 Agent Run，转化为可控制、可验证、可复用的企业 Workflow
-                Episode。”
-              </h2>
+              <p className="eyebrow">{content.brand.description}</p>
+              <h2>{content.ui.manifestoQuote}</h2>
               <p>
-                FORM<span>SY</span> · CONTEXT COMPUTE PLATFORM
+                FORM<span>SY</span> · {content.ui.manifestoSignature}
               </p>
             </div>
             <ControlPanel />
@@ -246,13 +246,13 @@ export default function Home() {
         <section className="platform-section" id="platform">
           <div className="shell framed section-pad">
             <SectionHeading
-              eyebrow={siteContent.manifesto.eyebrow}
-              title={siteContent.manifesto.title}
-              description={siteContent.manifesto.description}
+              eyebrow={content.manifesto.eyebrow}
+              title={content.manifesto.title}
+              description={content.manifesto.description}
               align="center"
             />
             <div className="platform-grid">
-              {siteContent.platforms.map((item) => (
+              {content.platforms.map((item) => (
                 <PlatformCard item={item} key={item.title} />
               ))}
             </div>
@@ -264,14 +264,15 @@ export default function Home() {
         <section className="architecture-section" id="architecture">
           <div className="shell framed section-pad">
             <SectionHeading
-              eyebrow={siteContent.architecture.eyebrow}
-              title={siteContent.architecture.title}
-              description={siteContent.architecture.description}
+              eyebrow={content.architecture.eyebrow}
+              title={content.architecture.title}
+              description={content.architecture.description}
             />
             <ArchitectureMap />
             <div className="architecture-footnote">
-              <span>TRACE / EVIDENCE / FEEDBACK</span>
-              <span>MODEL REQUEST / SCHEDULING SIGNAL</span>
+              {content.ui.architectureFootnotes.map((note) => (
+                <span key={note}>{note}</span>
+              ))}
             </div>
           </div>
         </section>
@@ -280,11 +281,11 @@ export default function Home() {
           <div className="shell framed section-pad">
             <div className="asset-heading-row">
               <SectionHeading
-                eyebrow={siteContent.assets.eyebrow}
-                title={siteContent.assets.title}
-                description={siteContent.assets.description}
+                eyebrow={content.assets.eyebrow}
+                title={content.assets.title}
+                description={content.assets.description}
               />
-              <ArrowLink label="查看治理路径" href="#solutions" />
+              <ArrowLink label={content.ui.governancePath} href="#solutions" />
             </div>
             <AssetCarousel />
           </div>
@@ -293,12 +294,12 @@ export default function Home() {
         <section className="evidence-section section-grid" id="evidence">
           <div className="shell framed section-pad">
             <SectionHeading
-              eyebrow={siteContent.evidence.eyebrow}
-              title={siteContent.evidence.title}
-              description={siteContent.evidence.description}
+              eyebrow={content.evidence.eyebrow}
+              title={content.evidence.title}
+              description={content.evidence.description}
             />
             <div className="metric-grid">
-              {siteContent.evidence.metrics.map((metric, index) => (
+              {content.evidence.metrics.map((metric, index) => (
                 <article className="metric-card reveal" key={metric.label}>
                   <span className="metric-index">0{index + 1}</span>
                   <strong>{metric.value}</strong>
@@ -313,12 +314,12 @@ export default function Home() {
         <section className="solution-section" id="outcomes">
           <div className="shell framed section-pad">
             <SectionHeading
-              eyebrow={siteContent.solutions.eyebrow}
-              title={siteContent.solutions.title}
+              eyebrow={content.solutions.eyebrow}
+              title={content.solutions.title}
               align="center"
             />
             <div className="solution-grid">
-              {siteContent.solutions.items.map((item, index) => {
+              {content.solutions.items.map((item, index) => {
                 const Icon = solutionIcons[index];
                 return (
                   <article className="solution-card reveal" key={item.index}>
@@ -339,13 +340,16 @@ export default function Home() {
           <div className="shell framed section-pad">
             <div className="resource-heading-row">
               <SectionHeading
-                eyebrow={siteContent.resources.eyebrow}
-                title={siteContent.resources.title}
+                eyebrow={content.resources.eyebrow}
+                title={content.resources.title}
               />
-              <ArrowLink label="探索全部能力" href="#platform" />
+              <ArrowLink
+                label={content.ui.exploreCapabilities}
+                href="#platform"
+              />
             </div>
             <div className="resource-grid">
-              {siteContent.resources.items.map((item) => (
+              {content.resources.items.map((item) => (
                 <a className="resource-card" href={item.href} key={item.title}>
                   <div
                     className={`resource-visual resource-visual-${item.accent}`}
@@ -367,22 +371,22 @@ export default function Home() {
         <section className="cta-section" id="contact">
           <div className="shell cta-shell">
             <div className="cta-content">
-              <p className="eyebrow">{siteContent.cta.eyebrow}</p>
-              <h2>{siteContent.cta.title}</h2>
-              <p>{siteContent.cta.description}</p>
+              <p className="eyebrow">{content.cta.eyebrow}</p>
+              <h2>{content.cta.title}</h2>
+              <p>{content.cta.description}</p>
               <div className="button-row">
                 <a
                   className="button button-light"
-                  href={siteContent.cta.primary.href}
+                  href={content.cta.primary.href}
                 >
-                  {siteContent.cta.primary.label}
+                  {content.cta.primary.label}
                   <ArrowRight size={17} />
                 </a>
                 <a
                   className="button button-dark-outline"
-                  href={siteContent.cta.secondary.href}
+                  href={content.cta.secondary.href}
                 >
-                  {siteContent.cta.secondary.label}
+                  {content.cta.secondary.label}
                 </a>
               </div>
             </div>
@@ -399,11 +403,11 @@ export default function Home() {
         <div className="shell footer-shell">
           <div className="footer-brand">
             <Brand inverse />
-            <p>{siteContent.brand.product}</p>
-            <span>{siteContent.brand.description}</span>
+            <p>{content.brand.product}</p>
+            <span>{content.brand.description}</span>
           </div>
           <div className="footer-groups">
-            {siteContent.footer.groups.map((group) => (
+            {content.footer.groups.map((group) => (
               <div className="footer-group" key={group.title}>
                 <h3>{group.title}</h3>
                 {group.links.map((link) => (
@@ -415,8 +419,8 @@ export default function Home() {
             ))}
           </div>
           <div className="footer-bottom">
-            <span>© 2026 {siteContent.brand.company}</span>
-            <span>ENTERPRISE SOVEREIGN AI INFRASTRUCTURE</span>
+            <span>© 2026 {content.brand.company}</span>
+            <span>{content.ui.footerTagline}</span>
           </div>
         </div>
       </footer>
