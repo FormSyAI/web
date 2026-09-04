@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
 import { authOAuthRedirect } from '@/lib/auth/server';
+import { normalizeAuthReturnTo } from '@/lib/auth/redirect';
 
 const providers = ['google', 'github', 'linkedin'] as const;
 
@@ -20,11 +21,9 @@ export async function GET(
     request.nextUrl.searchParams.get('intent') === 'signup'
       ? 'signup'
       : 'login';
-  const requestedReturnTo = request.nextUrl.searchParams.get('return_to') ?? '';
-  const returnTo =
-    requestedReturnTo.startsWith('/') && !requestedReturnTo.startsWith('//')
-      ? requestedReturnTo
-      : '/account/home';
+  const returnTo = normalizeAuthReturnTo(
+    request.nextUrl.searchParams.get('return_to'),
+  );
 
   return authOAuthRedirect({
     intent,

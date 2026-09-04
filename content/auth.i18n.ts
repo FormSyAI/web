@@ -49,6 +49,28 @@ export type AuthContent = {
     dataAgreement: string;
     termsSuffix: string;
   };
+  preview: {
+    banner: string;
+    signupTitle: string;
+    signupDescription: string;
+    loginTitle: string;
+    loginDescription: string;
+    ssoTitle: string;
+    ssoDescription: string;
+    resetTitle: string;
+    resetDescription: string;
+    verificationHelp: string;
+    verificationUnavailable: string;
+    verificationLoadError: string;
+  };
+  legal: {
+    termsTitle: string;
+    dataAgreementTitle: string;
+    status: string;
+    description: string;
+    assurance: string;
+    backToSignup: string;
+  };
   signup: {
     title: string;
     providerPrefix: string;
@@ -77,6 +99,7 @@ export type AuthContent = {
     goToLogin: string;
     resend: string;
     resendSuccess: string;
+    acceptTerms: string;
   };
   login: {
     title: string;
@@ -120,6 +143,7 @@ export type AuthContent = {
     ssoIdentifier: string;
     genericError: string;
     providerReady: string;
+    termsAcceptance: string;
   };
 };
 
@@ -220,6 +244,38 @@ const en: AuthContent = {
     dataAgreement: 'Data Processing Agreement',
     termsSuffix: '.',
   },
+  preview: {
+    banner:
+      'Preview mode — interactions are simulated locally and no account, session, or email is created.',
+    signupTitle: 'Signup flow complete',
+    signupDescription:
+      'This preview validated the complete signup flow for {email}. No account or verification email was created.',
+    loginTitle: 'Login flow complete',
+    loginDescription:
+      'This preview validated the email-login flow. No session was created.',
+    ssoTitle: 'SSO flow complete',
+    ssoDescription:
+      'This preview validated the organization lookup. No identity provider was opened.',
+    resetTitle: 'Reset flow complete',
+    resetDescription:
+      'This preview validated the reset request for {email}. No email was sent.',
+    verificationHelp:
+      'Local preview check; no verification service is contacted.',
+    verificationUnavailable:
+      'Human verification is not configured. Add the Turnstile site key before enabling live signup.',
+    verificationLoadError:
+      'Human verification could not load. Check your connection and try again.',
+  },
+  legal: {
+    termsTitle: 'Terms of service',
+    dataAgreementTitle: 'Data Processing Agreement',
+    status: 'Legal document preview',
+    description:
+      'The approved AURINOVA legal document has not been connected to this demonstration yet.',
+    assurance:
+      'Live account creation remains disabled by default. The reviewed document will replace this notice before authentication is enabled.',
+    backToSignup: 'Back to signup',
+  },
   signup: {
     title: 'Create Account',
     providerPrefix: 'Sign up with {provider}',
@@ -250,6 +306,7 @@ const en: AuthContent = {
     goToLogin: 'Go to Log In',
     resend: 'Resend verification email',
     resendSuccess: 'A new verification email is on its way.',
+    acceptTerms: 'I accept the',
   },
   login: {
     title: 'Log In',
@@ -299,6 +356,7 @@ const en: AuthContent = {
       'We could not complete that request. Check your connection and try again.',
     providerReady:
       '{provider} authentication is ready for the identity-service endpoint.',
+    termsAcceptance: 'Accept the terms to create your account.',
   },
 };
 
@@ -392,6 +450,31 @@ const zh: AuthContent = {
     dataAgreement: '数据处理协议',
     termsSuffix: '。',
   },
+  preview: {
+    banner: '预览模式：交互仅在本地模拟，不会创建账户、会话或发送邮件。',
+    signupTitle: '注册流程验证完成',
+    signupDescription:
+      '已完成 {email} 的注册流程验证。本次预览未创建账户或发送验证邮件。',
+    loginTitle: '登录流程验证完成',
+    loginDescription: '已完成邮箱登录流程验证。本次预览未创建会话。',
+    ssoTitle: 'SSO 流程验证完成',
+    ssoDescription: '已完成组织查询流程验证。本次预览未打开身份提供商。',
+    resetTitle: '重置流程验证完成',
+    resetDescription: '已完成 {email} 的密码重置请求验证。本次预览未发送邮件。',
+    verificationHelp: '本地预览校验，不会请求验证服务。',
+    verificationUnavailable:
+      '尚未配置真人验证。启用正式注册前，请先配置 Turnstile 站点密钥。',
+    verificationLoadError: '真人验证加载失败，请检查网络后重试。',
+  },
+  legal: {
+    termsTitle: '服务条款',
+    dataAgreementTitle: '数据处理协议',
+    status: '法律文件预览',
+    description: '此演示尚未接入经过审核的 AURINOVA 法律文件。',
+    assurance:
+      '正式账户创建默认保持关闭。启用身份验证前，此提示将替换为已审核文件。',
+    backToSignup: '返回注册',
+  },
   signup: {
     title: '创建账户',
     providerPrefix: '使用 {provider} 注册',
@@ -420,6 +503,7 @@ const zh: AuthContent = {
     goToLogin: '前往登录',
     resend: '重新发送验证邮件',
     resendSuccess: '新的验证邮件已发送。',
+    acceptTerms: '我同意',
   },
   login: {
     title: '登录',
@@ -464,6 +548,7 @@ const zh: AuthContent = {
     ssoIdentifier: '请输入工作邮箱或账户 ID。',
     genericError: '请求未能完成。请检查网络后重试。',
     providerReady: '{provider} 身份验证已预留接口，可直接对接身份服务。',
+    termsAcceptance: '请先同意相关条款，再创建账户。',
   },
 };
 

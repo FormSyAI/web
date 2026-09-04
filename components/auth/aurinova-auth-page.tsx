@@ -20,6 +20,7 @@ import {
 } from 'react';
 
 import { LanguageSwitcher } from '@/components/i18n/language-switcher';
+import { HumanVerification } from '@/components/auth/human-verification';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useI18n } from '@/components/i18n/i18n-provider';
@@ -29,7 +30,11 @@ import {
   type AuthProvider,
   type AuthScreen,
 } from '@/content/auth.i18n';
-import { authApi, AuthApiError } from '@/lib/auth/api';
+import { authApi, AuthApiError, isAuthApiConfigured } from '@/lib/auth/api';
+import {
+  DEFAULT_AUTH_RETURN_TO,
+  normalizeAuthReturnTo,
+} from '@/lib/auth/redirect';
 
 type Notice = { tone: 'error' | 'info' | 'success'; text: string } | null;
 type FieldErrors = Record<string, string>;
@@ -49,9 +54,16 @@ function focusField(id: string) {
 
 function apiFailure(error: unknown, fallback: string) {
   if (error instanceof AuthApiError) {
+    const fieldErrors = {
+      ...error.fieldErrors,
+      ...(error.fieldErrors.verificationToken &&
+      !error.fieldErrors.humanVerification
+        ? { humanVerification: error.fieldErrors.verificationToken }
+        : {}),
+    };
     return {
       message: error.message || fallback,
-      fieldErrors: error.fieldErrors,
+      fieldErrors,
     };
   }
   return { message: fallback, fieldErrors: {} };
@@ -59,11 +71,26 @@ function apiFailure(error: unknown, fallback: string) {
 
 function safeRedirect(destination?: string) {
   if (!destination) return false;
-  if (!destination.startsWith('/') || destination.startsWith('//'))
-    return false;
-  window.location.assign(destination);
+  const normalized = normalizeAuthReturnTo(destination, '');
+  if (!normalized) return false;
+  window.location.assign(normalized);
   return true;
 }
+
+function currentReturnTo() {
+  const params = new URLSearchParams(window.location.search);
+  return normalizeAuthReturnTo(
+    params.get('return_to') ?? params.get('redirectURI'),
+    DEFAULT_AUTH_RETURN_TO,
+  );
+}
+
+const termsHref =
+  process.env.NEXT_PUBLIC_AURINOVA_TERMS_URL?.trim() ||
+  '/aurinova-reference/terms';
+const dataAgreementHref =
+  process.env.NEXT_PUBLIC_AURINOVA_DATA_AGREEMENT_URL?.trim() ||
+  '/aurinova-reference/data-processing';
 
 function GoogleMark() {
   return (
@@ -210,11 +237,47 @@ function StatusNotice({ notice }: { notice: Notice }) {
 function Terms({ copy }: { copy: AuthContent }) {
   return (
     <p className="auth-terms">
-      {copy.common.termsPrefix} <Link href="/terms">{copy.common.terms}</Link>{' '}
+      {copy.common.termsPrefix} <a href={termsHref}>{copy.common.terms}</a>{' '}
       {copy.common.termsJoin}{' '}
-      <Link href="/privacy">{copy.common.dataAgreement}</Link>
+      <a href={dataAgreementHref}>{copy.common.dataAgreement}</a>
       {copy.common.termsSuffix}
     </p>
+  );
+}
+
+function SignupConsent({
+  checked,
+  copy,
+  error,
+  onChange,
+}: {
+  checked: boolean;
+  copy: AuthContent;
+  error?: string;
+  onChange: (checked: boolean) => void;
+}) {
+  return (
+    <div className="auth-consent">
+      <input
+        id="signup-terms"
+        type="checkbox"
+        checked={checked}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? 'signup-terms-error' : undefined}
+        onChange={(event) => onChange(event.target.checked)}
+      />
+      <label htmlFor="signup-terms">
+        {copy.signup.acceptTerms} <a href={termsHref}>{copy.common.terms}</a>{' '}
+        {copy.common.termsJoin}{' '}
+        <a href={dataAgreementHref}>{copy.common.dataAgreement}</a>
+        {copy.common.termsSuffix}
+      </label>
+      {error && (
+        <p className="auth-field-error" id="signup-terms-error">
+          {error}
+        </p>
+      )}
+    </div>
   );
 }
 
@@ -237,7 +300,7 @@ function SocialButtons({
       : copy.login.providerPrefix;
 
   const startProvider = (provider: AuthProvider) => {
-    const url = authApi.getOAuthUrl(provider, intent);
+    const url = authApi.getOAuthUrl(provider, intent, currentReturnTo());
     if (url) {
       window.location.assign(url);
       return;
@@ -345,12 +408,14 @@ function SuccessState({
 }
 
 function SignupPanel({ copy }: { copy: AuthContent }) {
+  const { locale } = useI18n();
   const [step, setStep] = useState<'email' | 'details' | 'success'>('email');
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [humanVerified, setHumanVerified] = useState(false);
+  const [verificationToken, setVerificationToken] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [signupToken, setSignupToken] = useState('');
   const [pending, setPending] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -394,8 +459,10 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
     const nextErrors: FieldErrors = {};
     if (!fullName.trim()) nextErrors.fullName = copy.validation.requiredName;
     if (!passwordReady) nextErrors.password = copy.validation.shortPassword;
-    if (!humanVerified)
+    if (!verificationToken)
       nextErrors.humanVerification = copy.validation.humanVerification;
+    if (!termsAccepted)
+      nextErrors.termsAccepted = copy.validation.termsAcceptance;
 
     if (Object.keys(nextErrors).length) {
       setErrors(nextErrors);
@@ -404,7 +471,9 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
           ? 'signup-name'
           : nextErrors.password
             ? 'signup-password'
-            : 'signup-human-verification',
+            : nextErrors.humanVerification
+              ? 'signup-human-verification'
+              : 'signup-terms',
       );
       return;
     }
@@ -419,7 +488,8 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
         password,
         signupToken,
         termsAccepted: true,
-        verificationToken: 'preview-human-verification',
+        verificationToken,
+        returnTo: currentReturnTo(),
       });
       if (!safeRedirect(result.redirectTo)) setStep('success');
     } catch (error) {
@@ -450,23 +520,34 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
   if (step === 'success') {
     return (
       <SuccessState
-        title={copy.signup.successTitle}
-        description={format(copy.signup.successDescription, { email })}
+        title={
+          isAuthApiConfigured
+            ? copy.signup.successTitle
+            : copy.preview.signupTitle
+        }
+        description={format(
+          isAuthApiConfigured
+            ? copy.signup.successDescription
+            : copy.preview.signupDescription,
+          { email },
+        )}
         actionHref="/aurinova-reference/login"
         actionLabel={copy.signup.goToLogin}
         secondaryAction={
-          <>
-            <Button
-              className="auth-text-button"
-              variant="ghost"
-              type="button"
-              disabled={pending}
-              onClick={resend}
-            >
-              {pending ? copy.common.submitPending : copy.signup.resend}
-            </Button>
-            <StatusNotice notice={notice} />
-          </>
+          isAuthApiConfigured ? (
+            <>
+              <Button
+                className="auth-text-button"
+                variant="ghost"
+                type="button"
+                disabled={pending}
+                onClick={resend}
+              >
+                {pending ? copy.common.submitPending : copy.signup.resend}
+              </Button>
+              <StatusNotice notice={notice} />
+            </>
+          ) : undefined
         }
       />
     );
@@ -485,7 +566,8 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
             setFullName('');
             setPassword('');
             setConfirmPassword('');
-            setHumanVerified(false);
+            setVerificationToken('');
+            setTermsAccepted(false);
             setErrors({});
             setNotice(null);
           }}
@@ -532,30 +614,13 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
             password={password}
             confirmation={confirmPassword}
           />
-          <label
-            className="auth-human-verification"
-            htmlFor="signup-human-verification"
-            aria-label={copy.signup.humanVerification}
-          >
-            <input
-              id="signup-human-verification"
-              type="checkbox"
-              checked={humanVerified}
-              aria-invalid={Boolean(errors.humanVerification)}
-              aria-describedby={
-                errors.humanVerification
-                  ? 'signup-human-verification-error'
-                  : 'signup-human-verification-help'
-              }
-              onChange={(event) => setHumanVerified(event.target.checked)}
-            />
-            <span>
-              <strong>{copy.signup.humanVerification}</strong>
-              <small id="signup-human-verification-help">
-                {copy.signup.humanVerificationHelp}
-              </small>
-            </span>
-          </label>
+          <HumanVerification
+            copy={copy}
+            locale={locale}
+            token={verificationToken}
+            onTokenChange={setVerificationToken}
+            error={errors.humanVerification}
+          />
           {errors.humanVerification && (
             <p
               className="auth-field-error"
@@ -564,11 +629,19 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
               {errors.humanVerification}
             </p>
           )}
+          <SignupConsent
+            checked={termsAccepted}
+            copy={copy}
+            error={errors.termsAccepted}
+            onChange={setTermsAccepted}
+          />
           <StatusNotice notice={notice} />
           <Button
             className="auth-submit"
             type="submit"
-            disabled={pending || !passwordReady || !humanVerified}
+            disabled={
+              pending || !passwordReady || !verificationToken || !termsAccepted
+            }
           >
             {pending ? copy.common.submitPending : copy.signup.createAccount}
           </Button>
@@ -658,7 +731,11 @@ function EmailLoginPanel({ copy }: { copy: AuthContent }) {
     setErrors({});
     setNotice(null);
     try {
-      const result = await authApi.login({ email: trimmedEmail, password });
+      const result = await authApi.login({
+        email: trimmedEmail,
+        password,
+        returnTo: currentReturnTo(),
+      });
       if (!safeRedirect(result.redirectTo)) setSuccess(true);
     } catch (error) {
       const failure = apiFailure(error, copy.validation.genericError);
@@ -672,8 +749,16 @@ function EmailLoginPanel({ copy }: { copy: AuthContent }) {
   if (success) {
     return (
       <SuccessState
-        title={copy.login.successTitle}
-        description={copy.login.successDescription}
+        title={
+          isAuthApiConfigured
+            ? copy.login.successTitle
+            : copy.preview.loginTitle
+        }
+        description={
+          isAuthApiConfigured
+            ? copy.login.successDescription
+            : copy.preview.loginDescription
+        }
         actionHref="/aurinova-reference"
         actionLabel={copy.shell.homeLabel}
       />
@@ -754,6 +839,7 @@ function SsoPanel({ copy }: { copy: AuthContent }) {
       const result = await authApi.resolveSso({
         ...(trimmedEmail ? { workEmail: trimmedEmail } : {}),
         ...(trimmedAccountId ? { accountId: trimmedAccountId } : {}),
+        returnTo: currentReturnTo(),
       });
       if (!safeRedirect(result.redirectTo)) setSuccess(true);
     } catch (error) {
@@ -768,8 +854,14 @@ function SsoPanel({ copy }: { copy: AuthContent }) {
   if (success) {
     return (
       <SuccessState
-        title={copy.sso.successTitle}
-        description={copy.sso.successDescription}
+        title={
+          isAuthApiConfigured ? copy.sso.successTitle : copy.preview.ssoTitle
+        }
+        description={
+          isAuthApiConfigured
+            ? copy.sso.successDescription
+            : copy.preview.ssoDescription
+        }
         actionHref="/aurinova-reference/login"
         actionLabel={copy.signup.goToLogin}
       />
@@ -856,8 +948,17 @@ function ResetPasswordPanel({ copy }: { copy: AuthContent }) {
   if (success) {
     return (
       <SuccessState
-        title={copy.reset.successTitle}
-        description={format(copy.reset.successDescription, { email })}
+        title={
+          isAuthApiConfigured
+            ? copy.reset.successTitle
+            : copy.preview.resetTitle
+        }
+        description={format(
+          isAuthApiConfigured
+            ? copy.reset.successDescription
+            : copy.preview.resetDescription,
+          { email },
+        )}
         actionHref="/aurinova-reference/login/email"
         actionLabel={copy.reset.backToLogin}
       />
@@ -968,7 +1069,7 @@ function BrandPanel({ copy }: { copy: AuthContent }) {
         <nav className="auth-brand-links" aria-label="AURINOVA resources">
           <Link href="/aurinova-reference#updates">{copy.shell.blog}</Link>
           <span aria-hidden="true">•</span>
-          <Link href="/docs">{copy.shell.docs}</Link>
+          <Link href="/aurinova-reference#updates">{copy.shell.docs}</Link>
         </nav>
       </div>
       <div className="auth-signal-grid" aria-hidden="true">
@@ -1020,6 +1121,11 @@ export function AurinovaAuthPage({ screen }: { screen: AuthScreen }) {
             {copy.shell.authenticationSection}
           </h2>
           <div className="auth-panel-content">
+            {!isAuthApiConfigured && (
+              <output className="auth-preview-mode">
+                {copy.preview.banner}
+              </output>
+            )}
             <AuthPanel copy={copy} screen={screen} />
           </div>
           <Terms copy={copy} />
