@@ -1340,8 +1340,8 @@
 .fw-footer-site-logo {
   width: 228px;
   height: 52px;
-  padding: 6px 10px;
-  background: white;
+  background: transparent;
+  filter: brightness(0) invert(1);
   object-fit: contain;
 }
 .fw-footer-bottom > div:last-child {
