@@ -14,14 +14,15 @@
 
 1. Training API 公告
 2. Fireworks Nexus 成本控制主视觉
-3. Specialized Intelligence 品牌主视觉
+3. 双行客户标识带
 4. NVIDIA GTC 2026 观点内容
-5. Training 与 Inference 双平台能力
-6. 模型库
-7. 客户案例
-8. 最新更新
-9. 开始构建 CTA
-10. 全量页脚导航
+5. Specialized Intelligence 总述
+6. Training 与 Inference 双平台能力
+7. 模型库
+8. 客户案例
+9. 最新更新
+10. 开始构建 CTA
+11. 全量页脚导航
 
 ## 2. Fireworks Nexus
 
@@ -29,24 +30,19 @@
 
 核心主题：在工程师原有编码工具中引入开放模型和智能路由，以降低 AI 编码成本，同时保留速度、质量与预算控制。
 
-参考页面覆盖：
+当前首页首屏使用“Take back control of your AI coding spend”为标题，说明 Nexus 可作为闭源模型 API 的替代入口，按任务路由开放或闭源模型，并展示 50–75% 的成本降低范围。右侧 token / spend 像素柱图由页面代码绘制，没有使用官网页面截图。
 
-- CLI 驱动的低摩擦接入
-- Claude Code、Codex、OpenCode 等开发工具
-- 根据任务难度在开放模型和闭源模型之间路由
-- 缓存带来的成本优化
-- 用户预算、模型、API Key 和每日花费跟踪
-- 从智能优先到节省优先的路由偏好
+## 3. 客户标识带
 
-官网公开展示的示例指标：
+首页首屏后使用双行横向滚动标识带，当前可见品牌包含 Cursor、Vercel、Lovable、Cognition、Factory、Genspark、Uber、DoorDash、HubSpot、Notion、Cresta、Heidi Health、Upwork、Quora、Samsung、GitLab、micro1、Trilogy、Juicebox、Lightfern、NinjaTech AI、UiPath 与 StackBlitz。
 
-- 每个合并 PR 节省 33%
-- 整体 AI 支出节省 54%
-- 可用速度达到 100+ tokens/second
+## 4. NVIDIA GTC 2026
 
-这些数值在参考页面中标注为 illustrative，避免把官网展示数据理解成普遍承诺。
+来源：[Fireworks 首页](https://fireworks.ai/)
 
-## 3. Specialized Intelligence
+首页展示 Jensen Huang 与 Fireworks CEO Lin Qiao 的对话，将 Fireworks 描述为 AI Factory 体系中的模型制造和基础设施层。参考稿采用概述形式呈现该市场定位。
+
+## 5. Specialized Intelligence
 
 来源：[Fireworks 首页](https://fireworks.ai/)
 
@@ -60,13 +56,7 @@
 - 开放模型的领域适配
 - 每轮训练带来的能力复利
 
-## 4. NVIDIA GTC 2026
-
-来源：[Fireworks 首页](https://fireworks.ai/)
-
-首页展示 Jensen Huang 与 Fireworks CEO Lin Qiao 的对话，将 Fireworks 描述为 AI Factory 体系中的模型制造和基础设施层。参考稿采用概述形式呈现该市场定位。
-
-## 5. Training
+## 6. Training
 
 来源：[Fireworks Training](https://fireworks.ai/training)
 
@@ -86,7 +76,7 @@
 - Serverless 与 Dedicated 计算模式
 - Checkpoint、恢复、采样、评测和权重同步
 
-## 6. Inference
+## 7. Inference
 
 来源：[Fireworks Inference](https://fireworks.ai/inference)
 
@@ -105,7 +95,7 @@
 - 多区域弹性和生产级可靠性
 - SOC 2 Type II、HIPAA-ready、GDPR 等安全与合规主题
 
-## 7. 模型库
+## 8. 模型库
 
 来源：[Fireworks Model Library](https://fireworks.ai/models)
 
@@ -135,7 +125,7 @@
 
 价格和模型目录变化频繁，正式使用前需要查看实时模型库。
 
-## 8. 客户案例
+## 9. 客户案例
 
 来源：[Fireworks 首页](https://fireworks.ai/)
 
@@ -175,6 +165,10 @@
 
 通过 Azure Foundry 运行开放模型，为 Computer Use 产品优化速度、成本与质量。
 
+### Cursor（第二条首页案例）
+
+首页轮播另列出 Sualeh Asif 的 Cursor 案例，用于补充生产级编码体验的规模化使用场景。
+
 ### rLLM
 
 通过 Training SDK 专注自治 Agent 研究，由平台负责集群和训练基础设施。
@@ -183,7 +177,7 @@
 
 使用 Multi-LoRA 支持基于企业私有数据的定制 AI 策略。
 
-## 9. 最新更新
+## 10. 最新更新
 
 来源：[Fireworks Blog](https://fireworks.ai/blog)
 
@@ -193,14 +187,14 @@
 - 2026-08-26：DeepSeek V4 Pro 的 SWE-Bench 与成功任务成本表现
 - 2026-08-26：DeepSeek V4 Pro 在安全 Agent 经济性方面的分析
 
-## 10. 行动区
+## 11. 行动区
 
 首页以“开始构建”为最终动作，分别引导用户进入模型库和销售咨询。
 
-- [模型库](https://fireworks.ai/models)
-- [联系团队](https://fireworks.ai/contact-reserved)
+- [注册](https://fireworks.ai/signup)
+- [联系团队](https://fireworks.ai/contact)
 
-## 11. 页脚信息架构
+## 12. 页脚信息架构
 
 ### Platform
 
@@ -220,9 +214,10 @@
 ### Developers
 
 - [Model Library](https://fireworks.ai/models)
-- [Docs](https://docs.fireworks.ai/)
+- [Docs](https://docs.fireworks.ai/getting-started/introduction)
+- [CLI](https://docs.fireworks.ai/tools-sdks/firectl/firectl)
 - [API](https://docs.fireworks.ai/api-reference/introduction)
-- [Changelog](https://docs.fireworks.ai/changelog)
+- [Changelog](https://docs.fireworks.ai/updates/changelog)
 
 ### Pricing
 
@@ -245,10 +240,10 @@
 - [Careers](https://fireworks.ai/careers)
 - [Trust Center](https://trust.fireworks.ai/)
 
-## 12. 参考版本与官方站点的边界
+## 13. 参考版本与官方站点的边界
 
 - 参考版本用于内容和页面结构研究。
 - 所有外部操作都跳转至 Fireworks 官方域名。
 - 参考版本没有登录、付费、模型调用或销售表单。
 - 模型价格、上下文长度、客户数据和发布日期需要以官方实时页面为准。
-- 页面不复制官方图片、Logo 文件或长篇客户原文。
+- 页面使用 CSS/React 绘制首屏数据图和品牌标记；GTC 模块引用官方公开活动图片。页面不复制官网页面截图或长篇客户原文。

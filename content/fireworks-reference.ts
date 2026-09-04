@@ -2,323 +2,138 @@ export const fireworksReferenceContent = {
   meta: {
     researchedAt: '2026-09-04',
     source: 'https://fireworks.ai/',
-    label: 'Unofficial reference reconstruction',
+    label: 'Independent reference build',
   },
   announcement: {
-    label: 'The Training API is now generally available',
+    label: 'Training API now generally available',
     href: 'https://fireworks.ai/training',
   },
   navigation: [
-    { label: 'Platform', href: '#platform' },
-    { label: 'Models', href: '#models' },
-    { label: 'Customers', href: '#customers' },
-    { label: 'Updates', href: '#updates' },
+    { label: 'Product', href: '#platform', menu: true },
+    { label: 'Solutions', href: '#customers', menu: true },
+    { label: 'Models', href: '#models', menu: true },
+    { label: 'Pricing', href: 'https://fireworks.ai/pricing' },
+    { label: 'Resources', href: '#updates', menu: true },
   ],
-  nexus: {
-    eyebrow: 'FIREWORKS NEXUS',
-    title: 'Frontier coding intelligence with control over the bill.',
-    description:
-      'Connect the coding tools engineers already use, route each task across open and closed models, and manage spend without rebuilding the developer workflow.',
-    stats: [
-      { value: '33%', label: 'illustrative savings per merged PR' },
-      { value: '54%', label: 'illustrative overall AI spend saved' },
-      { value: '100+', label: 'tokens per second available' },
-    ],
-    primary: { label: 'Explore Nexus', href: 'https://fireworks.ai/nexus' },
-    secondary: {
-      label: 'Book a demo',
-      href: 'https://fireworks.ai/contact-reserved',
-    },
-  },
   hero: {
-    eyebrow: 'FROM THE CREATORS OF PYTORCH',
-    title: ['Own the model.', 'Own the learning loop.'],
+    eyebrow: 'INTRODUCING FIREWORKS NEXUS',
+    title: 'Take back control of your AI coding spend',
     description:
-      'Train and serve leading open models as specialized intelligence that compounds around your data, evaluation signals, and domain expertise.',
-    primary: {
-      label: 'Start building',
-      href: 'https://fireworks.ai/models',
-    },
-    secondary: {
-      label: 'Contact Fireworks',
-      href: 'https://fireworks.ai/contact-reserved',
-    },
+      'Replace closed-model endpoints with one routing layer that selects the right open or closed model for each task and can reduce coding-model costs by 50–75%.',
+    primary: { label: 'REQUEST A DEMO', href: 'https://fireworks.ai/demo-request' },
+    secondary: { label: 'LEARN MORE', href: 'https://fireworks.ai/nexus' },
   },
+  logos: [
+    'CURSOR', 'Vercel', 'Lovable', 'Cognition', 'FACTORY', 'Genspark', 'Uber',
+    'DOORDASH', 'HubSpot', 'Notion', 'Cresta', 'Heidi', 'upwork', 'Quora',
+    'SAMSUNG', 'GitLab', 'micro1', 'TRILOGY', 'Juicebox', 'Lightfern', 'Ninja',
+    'UiPath', 'StackBlitz',
+  ],
   gtc: {
-    eyebrow: 'NVIDIA GTC 2026',
-    title:
-      'Infrastructure designed as the manufacturing layer for AI factories.',
+    eyebrow: 'NVIDIA GTC 2026, JENSEN HUANG',
+    title: '“Fireworks is the TSMC of AI Factories...”',
     description:
-      'A featured conversation between Jensen Huang and Fireworks CEO Lin Qiao positions the company as a specialized training and inference layer for teams building their own intelligence.',
+      'Jensen Huang discusses Fireworks’ position in the AI infrastructure market with CEO Lin Qiao.',
+    image:
+      'https://cdn.sanity.io/images/pv37i0yn/production/5e10913b6585d6152752d17f0a765c32f454dabb-1703x934.png?auto=format',
   },
   platform: {
     eyebrow: 'BUILD YOUR FRONTIER',
-    title:
-      'Infrastructure for intelligence that improves with every iteration.',
+    title: 'Foundational Infrastructure for Specialized Intelligence',
     description:
-      'Fireworks connects open models, proprietary data, training workflows, evaluation, and production serving in one continuous system.',
+      'Combine leading open models with proprietary data and domain expertise, then own a learning loop that improves from production feedback.',
     pillars: [
       {
         index: '01',
         name: 'Training',
         audience: 'FROM GUIDED RUNS TO FRONTIER RL',
         description:
-          'Choose the level of control that matches the maturity of the workload, then move checkpoints into production quickly.',
+          'Move deeper into the training stack as workloads mature, with checkpoints designed to reach production quickly.',
         modes: [
-          'Guided engagements that define the task, plan, expected cost, and approved run.',
-          'Configuration-led jobs where Fireworks handles scheduling and production handoff.',
-          'Custom training logic with user-defined losses, trainers, reinforcement-learning loops, rollout serving, and weight synchronization.',
+          'Guided path: define the task, review the plan and cost, approve the run, and receive a trained model.',
+          'Configuration-led training with scheduling and production deployment handled by Fireworks.',
+          'Custom losses, trainers, reinforcement-learning loops, rollout serving, and weight synchronization on Fireworks GPUs.',
         ],
-        href: 'https://fireworks.ai/training',
+        primary: { label: 'LEARN MORE', href: 'https://fireworks.ai/training' },
+        secondary: { label: 'TALK TO OUR TEAM', href: 'https://fireworks.ai/contact-training' },
       },
       {
         index: '02',
         name: 'Inference',
-        audience: 'FROM DEVELOPMENT TO GLOBAL SCALE',
+        audience: 'FOR DEVELOPMENT TO CURSOR-SCALE',
         description:
-          'Serve current open models and post-trained variants on an engine optimized across kernels, memory, scheduling, and serving.',
+          'Serve current open models or your trained variants with an engine optimized for throughput, latency, and model quality.',
         modes: [
-          'Serverless access with per-token billing, service tiers, and compatible OpenAI or Anthropic interfaces.',
-          'On-Demand dedicated deployments, multi-region options, and support for post-trained models.',
-          'Reserved capacity with guaranteed resources, higher quotas, and early hardware access.',
+          'Serverless: per-token billing, Priority and Fast tiers, plus OpenAI- and Anthropic-compatible APIs.',
+          'On-Demand: dedicated deployments, multi-region options, and support for post-trained models.',
+          'Reserved: guaranteed capacity, higher quotas, and access to the newest hardware.',
         ],
-        href: 'https://fireworks.ai/inference',
+        primary: { label: 'LEARN MORE', href: 'https://fireworks.ai/inference' },
+        secondary: { label: 'TALK TO OUR TEAM', href: 'https://fireworks.ai/contact' },
       },
     ],
   },
   models: {
     eyebrow: 'MODEL LIBRARY',
-    title: 'Run leading open models through one API surface.',
-    description:
-      'The homepage highlights text, vision, image, and audio models with context windows and per-token pricing where available.',
-    items: [
-      { name: 'DeepSeek v3.2', context: '163,840', kind: 'LLM' },
-      {
-        name: 'GLM 5.2',
-        context: '1,048,576',
-        kind: 'LLM',
-        price: '$1.4 / $4.4',
-      },
-      {
-        name: 'Kimi K3',
-        context: '1,048,576',
-        kind: 'Vision',
-        price: '$3 / $15',
-      },
-      {
-        name: 'Kimi K2.7 Code',
-        context: '262,144',
-        kind: 'Vision',
-        price: '$0.95 / $4',
-      },
-      {
-        name: 'MiniMax M3',
-        context: '512,000',
-        kind: 'LLM',
-        price: '$0.3 / $1.2',
-      },
-      {
-        name: 'Qwen3.7 Plus',
-        context: '262,144',
-        kind: 'Vision',
-        price: '$0.4 / $1.6',
-      },
-      { name: 'DeepSeek V4 Pro', context: '1,048,576', kind: 'LLM' },
-      { name: 'DeepSeek V4 Flash', context: '1,048,576', kind: 'LLM' },
-      {
-        name: 'Kimi K2.6',
-        context: '262,144',
-        kind: 'Vision',
-        price: '$0.95 / $4',
-      },
-      { name: 'GLM 5.1', context: '202,752', kind: 'LLM' },
-      { name: 'Gemma 4 31B IT NVFP4', context: '262,144', kind: 'Vision' },
-      { name: 'Gemma 4 26B A4B IT', context: '262,144', kind: 'Vision' },
-      { name: 'Qwen3.6 Plus', context: '—', kind: 'Vision' },
-      {
-        name: 'MiniMax M2.7',
-        context: '196,608',
-        kind: 'LLM',
-        price: '$0.3 / $1.2',
-      },
-      { name: 'OpenAI gpt-oss-20b', context: '131,072', kind: 'LLM' },
-      { name: 'FLUX.1 Kontext Pro', context: '—', kind: 'Image' },
-      { name: 'Whisper V3 Large', context: '—', kind: 'Audio' },
-      { name: 'DeepSeek R1 05/28', context: '163,840', kind: 'LLM' },
-      { name: 'Kimi K2.5', context: '262,144', kind: 'Vision' },
-    ],
+    title: 'Run the latest open models with a single line of code',
+    description: 'Access popular open-source models optimized for cost, speed, and quality.',
     href: 'https://fireworks.ai/models',
+    items: [
+      { name: 'Deepseek v3.2', context: '163840', kind: 'LLM', href: 'deepseek-v3p2' },
+      { name: 'GLM 5.2', context: '1048576', kind: 'LLM', price: '$1.4/M Input · $4.4/M Output', badge: 'New', href: 'glm-5p2' },
+      { name: 'Kimi K3', context: '1048576', kind: 'Vision', price: '$3/M Input · $15/M Output', badge: 'New', href: 'kimi-k3' },
+      { name: 'Kimi K2.7 Code', context: '262144', kind: 'Vision', price: '$0.95/M Input · $4/M Output', href: 'kimi-k2p7-code' },
+      { name: 'Minimax M3', context: '512000', kind: 'LLM', price: '$0.3/M Input · $1.2/M Output', href: 'minimax-m3' },
+      { name: 'Qwen3.7 Plus', context: '262144', kind: 'Vision', price: '$0.4/M Input · $1.6/M Output', href: 'qwen3p7-plus' },
+      { name: 'DeepSeek-V4-Pro', context: '1048576', kind: 'LLM', href: 'deepseek-v4-pro' },
+      { name: 'DeepSeek-V4-Flash', context: '1048576', kind: 'LLM', href: 'deepseek-v4-flash' },
+      { name: 'Kimi K2.6', context: '262144', kind: 'Vision', price: '$0.95/M Input · $4/M Output', href: 'kimi-k2p6' },
+      { name: 'GLM 5.1', context: '202752', kind: 'LLM', href: 'glm-5p1' },
+      { name: 'Gemma 4 31B IT NVFP4', context: '262144', kind: 'Vision', href: 'gemma-4-31b-it-nvfp4' },
+      { name: 'Gemma 4 26B A4B IT', context: '262144', kind: 'Vision', href: 'gemma-4-26b-a4b-it' },
+      { name: 'Qwen3.6 Plus', context: '—', kind: 'Vision', href: 'qwen3p6-plus' },
+      { name: 'MiniMax M2.7', context: '196608', kind: 'LLM', price: '$0.3/M Input · $1.2/M Output', href: 'minimax-m2p7' },
+      { name: 'OpenAI gpt-oss-20b', context: '131072', kind: 'LLM', href: 'gpt-oss-20b' },
+      { name: 'FLUX.1 Kontext Pro', context: '—', kind: 'Image', href: 'flux-kontext-pro' },
+      { name: 'Whisper V3 Large', context: '—', kind: 'Audio', href: 'whisper-v3' },
+      { name: 'Deepseek R1 05/28', context: '163840', kind: 'LLM', href: 'deepseek-r1-0528' },
+      { name: 'Kimi K2.5', context: '262144', kind: 'Vision', href: 'kimi-k2p5' },
+    ],
   },
   customers: {
-    eyebrow: 'CUSTOMER SIGNALS',
-    title:
-      'Teams use Fireworks for evaluation, model ownership, and production scale.',
+    eyebrow: 'CUSTOMER LOVE',
+    title: 'What our customers are saying',
     items: [
-      {
-        company: 'Motif',
-        person: 'Hanbin Jung · Partnership Lead',
-        summary:
-          'Uses a single Azure endpoint for repeatable, high-volume evaluation and faster model decisions.',
-      },
-      {
-        company: 'Gumloop',
-        person: 'Gonzalo Soto Mallqui · CPO',
-        summary:
-          'Reported confidently moving a widely used internal agent from a closed model to GLM without a noticeable experience regression.',
-      },
-      {
-        company: 'Cursor',
-        person: 'Federico Cassano · AI Researcher',
-        summary:
-          'Uses elastic production and reinforcement-learning inference to shift capacity with traffic demand.',
-      },
-      {
-        company: 'Vercel',
-        person: 'Malte Ubl · CTO',
-        summary:
-          'Combines models and reinforcement learning to keep pace with rapidly changing coding-model performance.',
-      },
-      {
-        company: 'Notion',
-        person: 'Sarah Sachs · AI Lead',
-        summary:
-          'Reported lowering latency from roughly two seconds to about 350 milliseconds for AI features at scale.',
-      },
-      {
-        company: 'Genspark',
-        person: 'Kay Zhu · CTO',
-        summary:
-          'Described gaining control of its AI roadmap and improving quality within four weeks.',
-      },
-      {
-        company: 'Quora',
-        person: 'Spencer Chan · Product Lead',
-        summary:
-          'Reported a threefold response-time improvement after migrating an open-model workload.',
-      },
-      {
-        company: 'Sourcegraph',
-        person: 'Beyang Liu · CTO',
-        summary:
-          'Relies on fast model inference while focusing its own effort on tuning, code search, and deep code context.',
-      },
-      {
-        company: 'UiPath',
-        person: 'Mircea Neagovici-Negoescu · SVP, Head of AI',
-        summary:
-          'Runs open models through Azure Foundry for computer-use products with an emphasis on speed, cost, and quality.',
-      },
-      {
-        company: 'rLLM',
-        person: 'Kyle Montgomery & Sijun Tan · Core Contributors',
-        summary:
-          'Uses the Training SDK to concentrate on autonomous-agent research while Fireworks manages infrastructure.',
-      },
-      {
-        company: 'Cresta',
-        person: 'Tim Shi · Co-Founder',
-        summary:
-          'Uses Multi-LoRA as part of a strategy for custom AI trained on private enterprise data.',
-      },
+      { company: 'Motif', person: 'Hanbin Jung · Partnership Lead', summary: 'Uses one Azure endpoint for repeatable, high-volume evaluations and faster model decisions.' },
+      { company: 'Gumloop', person: 'Gonzalo Soto Mallqui · CPO', summary: 'Moved a widely used internal agent to GLM while maintaining the product experience.' },
+      { company: 'Cursor', person: 'Federico Cassano · AI Researcher', summary: 'Uses elastic production capacity and reinforcement-learning inference as traffic changes.' },
+      { company: 'Vercel', person: 'Malte Ubl · CTO', summary: 'Combines model serving and reinforcement learning to keep up with rapid coding-model progress.' },
+      { company: 'Notion', person: 'Sarah Sachs · AI Lead', summary: 'Reduced latency for production AI features from roughly two seconds to about 350 milliseconds.' },
+      { company: 'Genspark', person: 'Kay Zhu · CTO', summary: 'Gained more control over its AI roadmap and improved quality within four weeks.' },
+      { company: 'Quora', person: 'Spencer Chan · Product Lead', summary: 'Reported a threefold response-time improvement after moving an open-model workload.' },
+      { company: 'Sourcegraph', person: 'Beyang Liu · CTO', summary: 'Pairs fast model inference with its own tuning, code search, and deep code context.' },
+      { company: 'UiPath', person: 'Mircea Neagovici-Negoescu · SVP, Head of AI', summary: 'Runs open models through Azure Foundry for computer-use products focused on speed, cost, and quality.' },
+      { company: 'Cursor', person: 'Sualeh Asif · Product', summary: 'Uses Fireworks infrastructure to support production coding experiences at large scale.' },
+      { company: 'rLLM', person: 'Kyle Montgomery & Sijun Tan · Core Contributors', summary: 'Uses the Training SDK so researchers can focus on autonomous-agent work.' },
+      { company: 'Cresta', person: 'Tim Shi · Co-Founder', summary: 'Applies Multi-LoRA to custom AI trained with private enterprise data.' },
     ],
   },
   updates: {
     eyebrow: 'LATEST UPDATES',
-    title: 'Recent releases and research from Fireworks.',
+    title: "What's new at Fireworks",
     items: [
-      {
-        date: '2026-08-31',
-        type: 'Company News',
-        title: 'Training API reaches general availability',
-        href: 'https://fireworks.ai/blog',
-      },
-      {
-        date: '2026-08-26',
-        type: 'Model Release',
-        title: 'DeepSeek V4 Pro performance and cost-per-task results',
-        href: 'https://fireworks.ai/blog',
-      },
-      {
-        date: '2026-08-26',
-        type: 'Use Case',
-        title: 'DeepSeek V4 Pro for security-agent economics',
-        href: 'https://fireworks.ai/blog',
-      },
+      { date: '8/31/2026', type: 'Company News', title: 'Train past the frontier: Training API now generally available', href: 'https://fireworks.ai/blog/train-past-the-frontier-training-api-now-generally-available' },
+      { date: '8/26/2026', type: 'Model Release', title: 'DeepSeek V4 Pro: Tops SWE-Bench & Cuts Cost per Task by 3x vs. Fable 5', href: 'https://fireworks.ai/blog/DeepSeekV4Pro-Fable5' },
+      { date: '8/26/2026', type: 'Use Case', title: 'DeepSeek V4 Pro is Redefining Security Agent Economics', href: 'https://fireworks.ai/blog/DeepSeek-V4-Pro-Security' },
     ],
   },
   footer: [
-    {
-      title: 'Platform',
-      links: [
-        { label: 'AI Native', href: 'https://fireworks.ai/ai-native' },
-        { label: 'Enterprise', href: 'https://fireworks.ai/enterprise' },
-        { label: 'Customers', href: 'https://fireworks.ai/customers' },
-      ],
-    },
-    {
-      title: 'Use Cases',
-      links: [
-        {
-          label: 'Code Assistance',
-          href: 'https://fireworks.ai/usecases/code-assistance',
-        },
-        {
-          label: 'Conversational AI',
-          href: 'https://fireworks.ai/usecases/conversational-ai',
-        },
-        {
-          label: 'Agentic Systems',
-          href: 'https://fireworks.ai/usecases/agentic-systems',
-        },
-        { label: 'Search', href: 'https://fireworks.ai/usecases/search' },
-        {
-          label: 'Multimodal',
-          href: 'https://fireworks.ai/usecases/multimodal',
-        },
-        {
-          label: 'Enterprise RAG',
-          href: 'https://fireworks.ai/usecases/enterprise-rag',
-        },
-      ],
-    },
-    {
-      title: 'Developers',
-      links: [
-        { label: 'Model Library', href: 'https://fireworks.ai/models' },
-        { label: 'Docs', href: 'https://docs.fireworks.ai/' },
-        {
-          label: 'API',
-          href: 'https://docs.fireworks.ai/api-reference/introduction',
-        },
-        { label: 'Changelog', href: 'https://docs.fireworks.ai/changelog' },
-      ],
-    },
-    {
-      title: 'Pricing & Partners',
-      links: [
-        { label: 'Pricing', href: 'https://fireworks.ai/pricing' },
-        { label: 'Partners', href: 'https://fireworks.ai/partners' },
-        { label: 'Enterprise', href: 'https://fireworks.ai/contact-reserved' },
-      ],
-    },
-    {
-      title: 'Resources',
-      links: [
-        { label: 'Blog', href: 'https://fireworks.ai/blog' },
-        { label: 'Demos', href: 'https://demos.fireworks.ai/' },
-        {
-          label: 'Cookbooks',
-          href: 'https://docs.fireworks.ai/examples/introduction',
-        },
-      ],
-    },
-    {
-      title: 'Company',
-      links: [
-        { label: 'Leadership & Investors', href: 'https://fireworks.ai/team' },
-        { label: 'Careers', href: 'https://fireworks.ai/careers' },
-        { label: 'Trust Center', href: 'https://trust.fireworks.ai/' },
-      ],
-    },
+    { title: 'Platform', links: [['AI Native', '/ai-native'], ['Enterprise', '/enterprise'], ['Customers', '/customers']] },
+    { title: 'Use Cases', links: [['Code Assistance', '/usecases/code-assistance'], ['Conversational AI', '/usecases/conversational-ai'], ['Agentic Systems', '/usecases/agentic-systems'], ['Search', '/usecases/search'], ['Multimodal', '/usecases/multimodal'], ['Enterprise RAG', '/usecases/enterprise-rag']] },
+    { title: 'Developers', links: [['Model Library', '/models'], ['Docs', 'https://docs.fireworks.ai/getting-started/introduction'], ['CLI', 'https://docs.fireworks.ai/tools-sdks/firectl/firectl'], ['API', 'https://docs.fireworks.ai/api-reference/introduction'], ['Changelog', 'https://docs.fireworks.ai/updates/changelog']] },
+    { title: 'Pricing', links: [['Serverless', '/pricing'], ['On-Demand', '/pricing'], ['Fine Tuning', '/pricing'], ['Enterprise', '/contact-reserved']] },
+    { title: 'Partners', links: [['Cloud and Infrastructure', '/partners'], ['Consulting and Services', '/partners'], ['Technology', '/partners']] },
+    { title: 'Resources', links: [['Blog', '/blog'], ['Demos', 'https://demos.fireworks.ai'], ['Cookbooks', 'https://docs.fireworks.ai/examples/introduction']] },
+    { title: 'Company', links: [['Leadership', '/team'], ['Investors', '/team'], ['Careers', '/careers'], ['Trust Center', 'https://trust.fireworks.ai']] },
   ],
 } as const;
