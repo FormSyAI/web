@@ -363,11 +363,11 @@ export default function FireworksReferencePage() {
             <Image
               className="fw-site-logo"
               src={content.meta.headerLogo}
-              width={160}
-              height={63}
+              width={186}
+              height={32}
               priority
               unoptimized
-              alt="锦曜新辰 AURINOVA"
+              alt="AURINOVA"
             />
           </a>
           <nav aria-label="Primary navigation">
@@ -835,10 +835,10 @@ export default function FireworksReferencePage() {
           <Image
             className="fw-footer-site-logo"
             src={content.meta.footerLogo}
-            width={160}
-            height={63}
+            width={186}
+            height={44}
             unoptimized
-            alt="锦曜新辰 AURINOVA"
+            alt="AURINOVA"
           />
           <span>© 2026 FIREWORKS AI, INC. ALL RIGHTS RESERVED.</span>
           <div>
