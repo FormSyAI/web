@@ -3,10 +3,8 @@ export const fireworksReferenceContent = {
     researchedAt: '2026-09-04',
     source: 'https://fireworks.ai/',
     label: 'Independent reference build',
-    headerLogo:
-      'https://cdn.sanity.io/images/pv37i0yn/production/46d329cfd46294a5986218e94752d5d283cbe16c-343x44.svg',
-    footerLogo:
-      'https://cdn.sanity.io/images/pv37i0yn/production/3955d637d3e37329077d054f4656ce7063609281-343x44.svg',
+    headerLogo: '/aurinova-logo.svg',
+    footerLogo: '/aurinova-logo.svg',
   },
   announcement: {
     label: 'Training API now generally available',

@@ -110,6 +110,11 @@
   gap: 12px;
   width: fit-content;
 }
+.fw-site-logo {
+  width: 160px;
+  height: 63px;
+  object-fit: contain;
+}
 .fw-brand strong {
   font-size: 29px;
   font-weight: 500;
@@ -1330,6 +1335,13 @@
   border-top: 1px solid #282828;
   color: #85858c;
   font-size: 12px;
+}
+.fw-footer-site-logo {
+  width: 160px;
+  height: 63px;
+  padding: 7px 10px;
+  background: white;
+  object-fit: contain;
 }
 .fw-footer-bottom > div:last-child {
   display: flex;

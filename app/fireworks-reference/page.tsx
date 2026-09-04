@@ -358,15 +358,16 @@ export default function FireworksReferencePage() {
           <a
             className="fw-brand"
             href="#fw-top"
-            aria-label="Fireworks reference home"
+            aria-label="AURINOVA reference home"
           >
             <Image
+              className="fw-site-logo"
               src={content.meta.headerLogo}
-              width={179}
-              height={23}
+              width={160}
+              height={63}
               priority
               unoptimized
-              alt="Fireworks"
+              alt="锦曜新辰 AURINOVA"
             />
           </a>
           <nav aria-label="Primary navigation">
@@ -832,11 +833,12 @@ export default function FireworksReferencePage() {
         </div>
         <div className="fw-shell fw-footer-bottom">
           <Image
+            className="fw-footer-site-logo"
             src={content.meta.footerLogo}
-            width={179}
-            height={23}
+            width={160}
+            height={63}
             unoptimized
-            alt="Fireworks"
+            alt="锦曜新辰 AURINOVA"
           />
           <span>© 2026 FIREWORKS AI, INC. ALL RIGHTS RESERVED.</span>
           <div>
