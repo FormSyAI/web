@@ -42,11 +42,9 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   React.useEffect(() => {
     const pathname = window.location.pathname;
-    const documentLocale = pathname.startsWith('/fireworks-reference')
-      ? 'en-US'
-      : pathname.startsWith('/dev/design-system')
-        ? 'zh-CN'
-        : locale;
+    const documentLocale = pathname.startsWith('/dev/design-system')
+      ? 'zh-CN'
+      : locale;
     document.documentElement.lang = documentLocale;
 
     if (pathname === '/') {

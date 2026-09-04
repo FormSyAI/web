@@ -205,6 +205,20 @@
   font-size: 13px;
   font-weight: 650;
 }
+.fw-header .language-switcher {
+  min-width: 66px;
+  min-height: 44px;
+  border-color: var(--fw-line);
+  color: var(--fw-ink);
+  background: white;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+}
+.fw-header .language-switcher:hover {
+  border-color: var(--fw-brand);
+  color: white;
+  background: var(--fw-brand);
+}
 .fw-mobile-trigger {
   width: 44px;
   height: 44px;
@@ -1363,6 +1377,9 @@
   .fw-header-actions .fw-primary-button {
     display: none;
   }
+  .fw-header-actions .language-switcher {
+    display: none;
+  }
   .fw-mobile-menu {
     position: absolute;
     top: 72px;
@@ -1381,6 +1398,10 @@
     align-items: center;
     border-bottom: 1px solid var(--fw-line);
     font-weight: 600;
+  }
+  .fw-mobile-menu .language-switcher {
+    grid-column: 1 / -1;
+    margin-bottom: 10px;
   }
   .fw-mobile-menu a:hover {
     color: var(--fw-brand);
@@ -1428,7 +1449,7 @@
   .fw-announcement-wrap::after {
     width: 40px;
   }
-  .fw-header-actions > a:first-child {
+  .fw-header-actions > a:not(.fw-primary-button) {
     display: none;
   }
   .fw-brand strong {

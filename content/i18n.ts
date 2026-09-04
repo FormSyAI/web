@@ -7,7 +7,7 @@ export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'zh-CN';
 
-type ContentShape<T> = T extends string
+export type ContentShape<T> = T extends string
   ? string
   : T extends readonly (infer Item)[]
     ? readonly ContentShape<Item>[]

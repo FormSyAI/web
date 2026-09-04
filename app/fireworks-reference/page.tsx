@@ -15,7 +15,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
-import { fireworksReferenceContent as content } from '@/content/fireworks-reference';
+import { LanguageSwitcher } from '@/components/i18n/language-switcher';
+import { useI18n } from '@/components/i18n/i18n-provider';
+import {
+  fireworksReferenceDictionaries,
+  type FireworksMenuKey,
+  type FireworksReferenceContent,
+} from '@/content/fireworks-reference.i18n';
 
 const tokenHeights = [
   7, 11, 16, 21, 17, 12, 7, 4, 9, 17, 15, 19, 22, 27, 32, 37, 34, 31, 38, 43,
@@ -116,12 +122,9 @@ function SectionHeading({
   );
 }
 
-function SpendChart() {
+function SpendChart({ ui }: { ui: FireworksReferenceContent['ui'] }) {
   return (
-    <figure
-      className="fw-spend-chart"
-      aria-label="Tokens used rise while AI spend remains lower"
-    >
+    <figure className="fw-spend-chart" aria-label={ui.chartLabel}>
       <span className="fw-corner fw-corner-tl" />
       <span className="fw-corner fw-corner-tr" />
       <span className="fw-corner fw-corner-bl" />
@@ -129,15 +132,15 @@ function SpendChart() {
       <div className="fw-chart-legend">
         <span>
           <i className="is-token" />
-          Tokens Used
+          {ui.tokensUsed}
         </span>
         <span>
           <i className="is-spend" />
-          AI Spend
+          {ui.aiSpend}
         </span>
       </div>
-      <span className="fw-axis fw-axis-left">AI SPEND (USD)</span>
-      <span className="fw-axis fw-axis-right">TOTAL TOKENS</span>
+      <span className="fw-axis fw-axis-left">{ui.aiSpendAxis}</span>
+      <span className="fw-axis fw-axis-right">{ui.totalTokensAxis}</span>
       <div className="fw-fireworks-pin">
         <FireworksMark />
         <i />
@@ -161,10 +164,12 @@ function SpendChart() {
 }
 
 function MegaMenu({
+  content,
   name,
   onNavigate,
 }: {
-  name: keyof typeof content.megaMenus;
+  content: FireworksReferenceContent;
+  name: FireworksMenuKey;
   onNavigate: () => void;
 }) {
   const menu = content.megaMenus[name];
@@ -211,7 +216,7 @@ function MegaMenu({
           ))}
         </div>
         <div className="fw-usecase-list">
-          <p>USE CASES</p>
+          <p>{content.ui.useCases}</p>
           {menu.cases.map((item) => (
             <ExternalLink
               href={item.href}
@@ -261,7 +266,7 @@ function MegaMenu({
   return (
     <div className="fw-mega-menu fw-resource-menu">
       <div>
-        <h3>Resources</h3>
+        <h3>{content.ui.resources}</h3>
         <p>{menu.intro}</p>
         <div className="fw-menu-link-grid">
           {menu.resources.map((item) => (
@@ -277,8 +282,8 @@ function MegaMenu({
         </div>
       </div>
       <div>
-        <h3>Company</h3>
-        <p>Meet the team who built Fireworks and explore open opportunities.</p>
+        <h3>{content.ui.company}</h3>
+        <p>{content.ui.companyDescription}</p>
         <div className="fw-menu-link-grid">
           {menu.company.map((item) => (
             <ExternalLink
@@ -293,7 +298,7 @@ function MegaMenu({
         </div>
       </div>
       <div className="fw-featured-resources">
-        <h3>Featured Resources</h3>
+        <h3>{content.ui.featuredResources}</h3>
         {menu.featured.map((item) => (
           <ExternalLink href={item.href} onClick={onNavigate} key={item.title}>
             <span className="fw-featured-image">
@@ -309,9 +314,9 @@ function MegaMenu({
 }
 
 export default function FireworksReferencePage() {
-  const [openMenu, setOpenMenu] = useState<
-    keyof typeof content.megaMenus | null
-  >(null);
+  const { locale } = useI18n();
+  const content = fireworksReferenceDictionaries[locale];
+  const [openMenu, setOpenMenu] = useState<FireworksMenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [heroSlide, setHeroSlide] = useState(0);
   const modelRail = useRef<HTMLDivElement>(null);
@@ -323,6 +328,13 @@ export default function FireworksReferencePage() {
     window.addEventListener('keydown', close);
     return () => window.removeEventListener('keydown', close);
   }, []);
+
+  useEffect(() => {
+    document.title = content.ui.pageTitle;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute('content', content.ui.pageDescription);
+  }, [content.ui.pageDescription, content.ui.pageTitle]);
 
   const scrollRail = (
     ref: React.RefObject<HTMLDivElement | null>,
@@ -341,9 +353,12 @@ export default function FireworksReferencePage() {
   return (
     <main className="fw-page" id="fw-top">
       <a className="skip-link" href="#fw-main">
-        Skip to main content
+        {content.ui.skipToContent}
       </a>
-      <section className="fw-announcement-wrap" aria-label="Announcement">
+      <section
+        className="fw-announcement-wrap"
+        aria-label={content.ui.announcementLabel}
+      >
         <ExternalLink
           className="fw-announcement"
           href={content.announcement.href}
@@ -358,7 +373,7 @@ export default function FireworksReferencePage() {
           <a
             className="fw-brand"
             href="#fw-top"
-            aria-label="AURINOVA reference home"
+            aria-label={content.ui.homeLabel}
           >
             <Image
               className="fw-site-logo"
@@ -370,37 +385,32 @@ export default function FireworksReferencePage() {
               alt="AURINOVA"
             />
           </a>
-          <nav aria-label="Primary navigation">
+          <nav aria-label={content.ui.navigationLabel}>
             {content.navigation.map((item) =>
-              'menu' in item && item.menu ? (
+              'menuKey' in item ? (
                 <div
                   className="fw-nav-item"
                   key={item.label}
-                  onMouseEnter={() =>
-                    setOpenMenu(item.label as keyof typeof content.megaMenus)
-                  }
+                  onMouseEnter={() => setOpenMenu(item.menuKey)}
                 >
                   <button
                     type="button"
-                    aria-expanded={openMenu === item.label}
+                    aria-expanded={openMenu === item.menuKey}
                     aria-haspopup="true"
                     onClick={() =>
                       setOpenMenu(
-                        openMenu === item.label
-                          ? null
-                          : (item.label as keyof typeof content.megaMenus),
+                        openMenu === item.menuKey ? null : item.menuKey,
                       )
                     }
-                    onFocus={() =>
-                      setOpenMenu(item.label as keyof typeof content.megaMenus)
-                    }
+                    onFocus={() => setOpenMenu(item.menuKey)}
                   >
                     {item.label}
                     <ChevronDown size={15} />
                   </button>
-                  {openMenu === item.label && (
+                  {openMenu === item.menuKey && (
                     <MegaMenu
-                      name={item.label as keyof typeof content.megaMenus}
+                      content={content}
+                      name={item.menuKey}
                       onNavigate={() => setOpenMenu(null)}
                     />
                   )}
@@ -413,19 +423,24 @@ export default function FireworksReferencePage() {
             )}
           </nav>
           <div className="fw-header-actions">
+            <LanguageSwitcher labels={content.ui} />
             <ExternalLink href="https://fireworks.ai/login">
-              LOG IN
+              {content.ui.login}
             </ExternalLink>
             <ExternalLink
               className="fw-primary-button"
               href="https://fireworks.ai/signup"
             >
-              GET STARTED
+              {content.ui.getStarted}
             </ExternalLink>
             <button
               className="fw-mobile-trigger"
               type="button"
-              aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
+              aria-label={
+                mobileOpen
+                  ? content.ui.closeNavigation
+                  : content.ui.openNavigation
+              }
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(!mobileOpen)}
             >
@@ -435,33 +450,16 @@ export default function FireworksReferencePage() {
         </div>
         {mobileOpen && (
           <div className="fw-mobile-menu">
-            <ExternalLink
-              href="/inference"
-              onClick={() => setMobileOpen(false)}
-            >
-              Inference
-            </ExternalLink>
-            <ExternalLink href="/training" onClick={() => setMobileOpen(false)}>
-              Training
-            </ExternalLink>
-            <ExternalLink
-              href="/training/rl-rollouts"
-              onClick={() => setMobileOpen(false)}
-            >
-              RL Rollouts
-            </ExternalLink>
-            <ExternalLink href="/nexus" onClick={() => setMobileOpen(false)}>
-              Nexus
-            </ExternalLink>
-            <ExternalLink href="/models" onClick={() => setMobileOpen(false)}>
-              Models
-            </ExternalLink>
-            <ExternalLink href="/pricing" onClick={() => setMobileOpen(false)}>
-              Pricing
-            </ExternalLink>
-            <ExternalLink href="/blog" onClick={() => setMobileOpen(false)}>
-              Resources
-            </ExternalLink>
+            <LanguageSwitcher compact labels={content.ui} />
+            {content.ui.mobileLinks.map((item) => (
+              <ExternalLink
+                href={item.href}
+                key={item.href}
+                onClick={() => setMobileOpen(false)}
+              >
+                {item.label}
+              </ExternalLink>
+            ))}
           </div>
         )}
       </header>
@@ -490,7 +488,7 @@ export default function FireworksReferencePage() {
                 </div>
               </div>
               <div className="fw-chart-wrap">
-                <SpendChart />
+                <SpendChart ui={content.ui} />
               </div>
             </div>
           ) : (
@@ -519,7 +517,7 @@ export default function FireworksReferencePage() {
               <div className="fw-hero-art">
                 <Image
                   src={content.secondHero.image}
-                  alt="Fireworks state-of-the-art training and inference graphic"
+                  alt={content.ui.secondHeroImageAlt}
                   fill
                   priority
                   sizes="(max-width: 960px) 100vw, 663px"
@@ -528,23 +526,26 @@ export default function FireworksReferencePage() {
               </div>
             </div>
           )}
-          <div className="fw-hero-dots" aria-label="Hero slides">
+          <div className="fw-hero-dots" aria-label={content.ui.heroSlides}>
             <button
               type="button"
-              aria-label="Show Nexus slide"
+              aria-label={content.ui.showNexusSlide}
               aria-pressed={heroSlide === 0}
               onClick={() => setHeroSlide(0)}
             />
             <button
               type="button"
-              aria-label="Show specialized intelligence slide"
+              aria-label={content.ui.showSpecializedSlide}
               aria-pressed={heroSlide === 1}
               onClick={() => setHeroSlide(1)}
             />
           </div>
         </section>
 
-        <section className="fw-logo-wall" aria-label="Selected customers">
+        <section
+          className="fw-logo-wall"
+          aria-label={content.ui.selectedCustomers}
+        >
           <div className="fw-logo-track">
             {[...content.logos, ...content.logos].map((logo, index) => (
               <span key={`${logo.alt}-${index}`}>
@@ -570,7 +571,7 @@ export default function FireworksReferencePage() {
             <ExternalLink className="fw-video" href="https://fireworks.ai/">
               <Image
                 src={content.gtc.image}
-                alt="Jensen Huang and Lin Qiao at NVIDIA GTC 2026"
+                alt={content.ui.gtcImageAlt}
                 fill
                 sizes="(max-width: 960px) 100vw, 469px"
                 unoptimized
@@ -638,7 +639,7 @@ export default function FireworksReferencePage() {
               description={content.models.description}
             />
             <ExternalLink className="fw-inline-link" href={content.models.href}>
-              VIEW ALL MODELS <ArrowRight size={17} />
+              {content.ui.viewAllModels} <ArrowRight size={17} />
             </ExternalLink>
             <div className="fw-model-rail" ref={modelRail}>
               {content.models.items.map((model) => (
@@ -660,7 +661,9 @@ export default function FireworksReferencePage() {
                   <h3>{model.name}</h3>
                   <div className="fw-model-meta">
                     {'price' in model && <span>{model.price}</span>}
-                    <span>{model.context} Context</span>
+                    <span>
+                      {model.context} {content.ui.context}
+                    </span>
                     <span>
                       {model.kind === 'LLM' ? (
                         <MessageSquareText size={14} />
@@ -679,14 +682,14 @@ export default function FireworksReferencePage() {
               <button
                 type="button"
                 onClick={() => scrollRail(modelRail, -1)}
-                aria-label="Previous models"
+                aria-label={content.ui.previousModels}
               >
                 <ArrowLeft />
               </button>
               <button
                 type="button"
                 onClick={() => scrollRail(modelRail, 1)}
-                aria-label="Next models"
+                aria-label={content.ui.nextModels}
               >
                 <ArrowRight />
               </button>
@@ -714,7 +717,7 @@ export default function FireworksReferencePage() {
                   width={100}
                   height={32}
                   unoptimized
-                  alt={`${item.company} logo`}
+                  alt={`${item.company} ${content.ui.logo}`}
                 />
                 <p>“{item.summary}”</p>
                 <footer>
@@ -728,7 +731,8 @@ export default function FireworksReferencePage() {
                   <span>
                     <strong>{item.person.split(' · ')[0]}</strong>
                     <small>
-                      {item.person.split(' · ')[1]} at {item.company}
+                      {item.person.split(' · ')[1]} {content.ui.at}{' '}
+                      {item.company}
                     </small>
                   </span>
                 </footer>
@@ -739,14 +743,14 @@ export default function FireworksReferencePage() {
             <button
               type="button"
               onClick={() => scrollRail(customerRail, -1)}
-              aria-label="Previous testimonials"
+              aria-label={content.ui.previousTestimonials}
             >
               <ArrowLeft />
             </button>
             <button
               type="button"
               onClick={() => scrollRail(customerRail, 1)}
-              aria-label="Next testimonials"
+              aria-label={content.ui.nextTestimonials}
             >
               <ArrowRight />
             </button>
@@ -764,7 +768,7 @@ export default function FireworksReferencePage() {
                 className="fw-inline-link"
                 href="https://fireworks.ai/blog"
               >
-                SEE MORE <ArrowRight size={17} />
+                {content.ui.seeMore} <ArrowRight size={17} />
               </ExternalLink>
             </div>
             <div className="fw-update-grid">
@@ -798,20 +802,20 @@ export default function FireworksReferencePage() {
         <section className="fw-cta">
           <div className="fw-cta-grid" aria-hidden="true" />
           <div className="fw-shell">
-            <h2>Start building today</h2>
-            <p>Instantly run popular and specialized models.</p>
+            <h2>{content.ui.ctaTitle}</h2>
+            <p>{content.ui.ctaDescription}</p>
             <div className="fw-actions">
               <ExternalLink
                 className="fw-light-button"
                 href="https://fireworks.ai/signup"
               >
-                GET STARTED
+                {content.ui.getStarted}
               </ExternalLink>
               <ExternalLink
                 className="fw-dark-outline-button"
                 href="https://fireworks.ai/contact"
               >
-                TALK TO AN EXPERT
+                {content.ui.talkToExpert}
               </ExternalLink>
             </div>
           </div>
@@ -840,11 +844,11 @@ export default function FireworksReferencePage() {
             unoptimized
             alt="AURINOVA"
           />
-          <span>© 2026 FIREWORKS AI, INC. ALL RIGHTS RESERVED.</span>
+          <span>{content.ui.copyright}</span>
           <div>
-            <Link href="/">Current site</Link>
+            <Link href="/">{content.ui.currentSite}</Link>
             <ExternalLink href={content.meta.source}>
-              Official source ↗
+              {content.ui.officialSource}
             </ExternalLink>
           </div>
         </div>
