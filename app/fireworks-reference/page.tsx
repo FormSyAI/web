@@ -363,8 +363,8 @@ export default function FireworksReferencePage() {
             <Image
               className="fw-site-logo"
               src={content.meta.headerLogo}
-              width={186}
-              height={32}
+              width={228}
+              height={39}
               priority
               unoptimized
               alt="AURINOVA"
@@ -835,8 +835,8 @@ export default function FireworksReferencePage() {
           <Image
             className="fw-footer-site-logo"
             src={content.meta.footerLogo}
-            width={186}
-            height={44}
+            width={228}
+            height={52}
             unoptimized
             alt="AURINOVA"
           />

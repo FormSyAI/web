@@ -111,8 +111,8 @@
   width: fit-content;
 }
 .fw-site-logo {
-  width: 186px;
-  height: 32px;
+  width: 228px;
+  height: 39px;
   object-fit: contain;
 }
 .fw-brand strong {
@@ -1337,8 +1337,8 @@
   font-size: 12px;
 }
 .fw-footer-site-logo {
-  width: 186px;
-  height: 44px;
+  width: 228px;
+  height: 52px;
   padding: 6px 10px;
   background: white;
   object-fit: contain;
