@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: 'AURINOVA · FormSy 企业 Agent Context Platform',
   description:
     '把企业知识、工具输出、执行轨迹与验证信号，计算成可行动、可验证、可审计的任务上下文。',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
