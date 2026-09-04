@@ -13,7 +13,7 @@
 ## 1. 首页结构
 
 1. Training API 公告
-2. Fireworks Nexus 成本控制主视觉
+2. Fireworks Nexus 与 Specialized Intelligence 双主视觉
 3. 双行客户标识带
 4. NVIDIA GTC 2026 观点内容
 5. Specialized Intelligence 总述
@@ -24,6 +24,17 @@
 10. 开始构建 CTA
 11. 全量页脚导航
 
+## 导航与交互
+
+桌面导航依据当前官网整理了四组 hover / click 菜单：
+
+- Product：Inference、Training、RL Rollouts、Nexus，并包含客户案例入口。
+- Solutions：AI Native、Enterprise 与六类 Use Cases。
+- Models：完整模型库入口与当前重点模型。
+- Resources：资源、公司信息与两项精选内容。
+
+菜单支持鼠标悬停、点击、键盘聚焦与 Escape 关闭；窄屏切换为独立移动导航。Hero 的两项指示器、模型横向列表和客户案例列表均可实际操作。
+
 ## 2. Fireworks Nexus
 
 来源：[Fireworks Nexus](https://fireworks.ai/nexus)
@@ -31,6 +42,8 @@
 核心主题：在工程师原有编码工具中引入开放模型和智能路由，以降低 AI 编码成本，同时保留速度、质量与预算控制。
 
 当前首页首屏使用“Take back control of your AI coding spend”为标题，说明 Nexus 可作为闭源模型 API 的替代入口，按任务路由开放或闭源模型，并展示 50–75% 的成本降低范围。右侧 token / spend 像素柱图由页面代码绘制，没有使用官网页面截图。
+
+第二张 Hero 保留当前官网“Own your model. Own your future.”主题，并引用官网公开的产品视觉资源。
 
 ## 3. 客户标识带
 
@@ -246,4 +259,5 @@
 - 所有外部操作都跳转至 Fireworks 官方域名。
 - 参考版本没有登录、付费、模型调用或销售表单。
 - 模型价格、上下文长度、客户数据和发布日期需要以官方实时页面为准。
-- 页面使用 CSS/React 绘制首屏数据图和品牌标记；GTC 模块引用官方公开活动图片。页面不复制官网页面截图或长篇客户原文。
+- 页面使用 CSS/React 绘制首屏数据图；Logo、模型图标、客户标识与头像、GTC、Hero 和更新卡片引用 Fireworks 官方 CDN 的公开静态资源。
+- 页面没有使用官网页面截图，也没有复制长篇客户原文。
