@@ -489,10 +489,11 @@
   background: var(--fw-brand-deep);
 }
 .fw-secondary-button {
+  color: var(--fw-ink) !important;
   background: white;
 }
 .fw-secondary-button:hover {
-  color: white;
+  color: white !important;
   background: var(--fw-ink);
 }
 .fw-light-button {
