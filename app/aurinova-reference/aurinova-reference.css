@@ -624,6 +624,12 @@
 .fw-chart-wrap {
   min-width: 0;
 }
+.fw-hero-visual {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 24px;
+}
 .fw-hero-art {
   position: relative;
   width: 663px;
@@ -805,9 +811,6 @@
   background: #000;
 }
 .fw-hero-dots {
-  position: absolute;
-  bottom: 30px;
-  left: max(32px, calc((100vw - 1392px) / 2 + 32px + 42%));
   display: flex;
   gap: 5px;
 }
@@ -1462,9 +1465,6 @@
   .fw-hero-art {
     margin-top: 24px;
     margin-left: 0;
-  }
-  .fw-hero-dots {
-    left: 32px;
   }
   .fw-gtc-grid {
     grid-template-columns: 1fr;

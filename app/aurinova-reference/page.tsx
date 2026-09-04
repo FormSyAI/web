@@ -122,6 +122,33 @@ function SpendChart({ ui }: { ui: AurinovaReferenceContent['ui'] }) {
   );
 }
 
+function HeroDots({
+  activeSlide,
+  onSelect,
+  ui,
+}: {
+  activeSlide: number;
+  onSelect: (slide: number) => void;
+  ui: AurinovaReferenceContent['ui'];
+}) {
+  return (
+    <div className="fw-hero-dots" aria-label={ui.heroSlides}>
+      <button
+        type="button"
+        aria-label={ui.showNexusSlide}
+        aria-pressed={activeSlide === 0}
+        onClick={() => onSelect(0)}
+      />
+      <button
+        type="button"
+        aria-label={ui.showSpecializedSlide}
+        aria-pressed={activeSlide === 1}
+        onClick={() => onSelect(1)}
+      />
+    </div>
+  );
+}
+
 export default function AurinovaReferencePage() {
   const { locale } = useI18n();
   const content = aurinovaReferenceDictionaries[locale];
@@ -180,8 +207,15 @@ export default function AurinovaReferencePage() {
                   </SiteLink>
                 </div>
               </div>
-              <div className="fw-chart-wrap">
-                <SpendChart ui={content.ui} />
+              <div className="fw-hero-visual">
+                <div className="fw-chart-wrap">
+                  <SpendChart ui={content.ui} />
+                </div>
+                <HeroDots
+                  activeSlide={heroSlide}
+                  onSelect={setHeroSlide}
+                  ui={content.ui}
+                />
               </div>
             </div>
           ) : (
@@ -207,30 +241,23 @@ export default function AurinovaReferencePage() {
                   </SiteLink>
                 </div>
               </div>
-              <div className="fw-hero-art">
-                <AurinovaArtworkImage
-                  src={content.secondHero.image}
-                  alt={content.ui.secondHeroImageAlt}
-                  priority
-                  sizes="(max-width: 960px) 100vw, 663px"
+              <div className="fw-hero-visual">
+                <div className="fw-hero-art">
+                  <AurinovaArtworkImage
+                    src={content.secondHero.image}
+                    alt={content.ui.secondHeroImageAlt}
+                    priority
+                    sizes="(max-width: 960px) 100vw, 663px"
+                  />
+                </div>
+                <HeroDots
+                  activeSlide={heroSlide}
+                  onSelect={setHeroSlide}
+                  ui={content.ui}
                 />
               </div>
             </div>
           )}
-          <div className="fw-hero-dots" aria-label={content.ui.heroSlides}>
-            <button
-              type="button"
-              aria-label={content.ui.showNexusSlide}
-              aria-pressed={heroSlide === 0}
-              onClick={() => setHeroSlide(0)}
-            />
-            <button
-              type="button"
-              aria-label={content.ui.showSpecializedSlide}
-              aria-pressed={heroSlide === 1}
-              onClick={() => setHeroSlide(1)}
-            />
-          </div>
         </section>
 
         <section
