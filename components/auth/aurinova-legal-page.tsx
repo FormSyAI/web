@@ -39,8 +39,8 @@ export function AurinovaLegalPage({
           <ArrowLeft aria-hidden="true" />
           {copy.legal.backToSignup}
         </Link>
-        <p className="auth-legal-status">{copy.legal.status}</p>
         <h1>{title}</h1>
+        <output className="auth-legal-notice">{copy.legal.status}</output>
         <p>{copy.legal.description}</p>
         <p>{copy.legal.assurance}</p>
       </article>

@@ -21,6 +21,21 @@ const maxResponseBytes = 128 * 1024;
 const authRequestHeader = 'auth-ui-v1';
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const accountIdPattern = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+const publicValidationFields: Record<AuthRequestKind, readonly string[]> = {
+  login: ['email', 'password', 'returnTo'],
+  'password-reset': ['email'],
+  'signup-complete': [
+    'email',
+    'fullName',
+    'password',
+    'signupToken',
+    'termsAccepted',
+    'verificationToken',
+    'returnTo',
+  ],
+  'signup-prepare': ['email'],
+  sso: ['workEmail', 'accountId', 'returnTo'],
+};
 
 type AuthRuntimeBindings = {
   AURINOVA_AUTH_API_BASE_URL?: string;
@@ -152,6 +167,77 @@ function invalidFields(fieldErrors: Record<string, string>) {
   };
 }
 
+async function readUtf8BodyWithinLimit(
+  body: ReadableStream<Uint8Array> | null,
+  maxBytes: number,
+) {
+  if (!body) return { ok: true as const, value: '' };
+
+  const reader = body.getReader();
+  const chunks: Uint8Array[] = [];
+  let length = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      length += value.byteLength;
+      if (length > maxBytes) {
+        await reader.cancel();
+        return { ok: false as const };
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  const bytes = new Uint8Array(length);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return { ok: true as const, value: new TextDecoder().decode(bytes) };
+}
+
+function publicValidationFieldErrors(kind: AuthRequestKind, value: unknown) {
+  if (!isRecord(value)) return undefined;
+  const allowed = new Set(publicValidationFields[kind]);
+  const fieldErrors = Object.fromEntries(
+    Object.entries(value).flatMap(([field, message]) =>
+      allowed.has(field) && typeof message === 'string'
+        ? [[field, 'Invalid value.']]
+        : [],
+    ),
+  );
+  return Object.keys(fieldErrors).length ? fieldErrors : undefined;
+}
+
+function publicUpstreamClientError(
+  kind: AuthRequestKind,
+  upstreamStatus: number,
+  responseBody: string,
+) {
+  try {
+    const payload = JSON.parse(responseBody) as unknown;
+    if (isRecord(payload) && payload.code === 'AUTH_VALIDATION_FAILED') {
+      return jsonError(
+        upstreamStatus,
+        'AUTH_VALIDATION_FAILED',
+        'Review the highlighted fields and try again.',
+        publicValidationFieldErrors(kind, payload.fieldErrors),
+      );
+    }
+  } catch {
+    // Unknown or non-JSON upstream client errors use the stable public response.
+  }
+  return jsonError(
+    400,
+    'AUTH_REQUEST_REJECTED',
+    'The authentication request could not be completed.',
+  );
+}
+
 function validatePayload(kind: AuthRequestKind, body: unknown): ValidatedBody {
   if (!isRecord(body)) {
     return invalidFields({ form: 'A JSON object is required.' });
@@ -209,6 +295,15 @@ function validatePayload(kind: AuthRequestKind, body: unknown): ValidatedBody {
       body.accountId === undefined
         ? undefined
         : readString(body, 'accountId', { max: 128, trim: true });
+    const hasWorkEmail = body.workEmail !== undefined;
+    const hasAccountId = body.accountId !== undefined;
+    if (hasWorkEmail === hasAccountId) {
+      return invalidFields({
+        form: hasWorkEmail
+          ? 'Enter either a work email or an account ID.'
+          : 'Enter a work email or account ID.',
+      });
+    }
     const fieldErrors: Record<string, string> = {};
     if (workEmail === null || (workEmail && !emailPattern.test(workEmail))) {
       fieldErrors.workEmail = 'Enter a valid work email address.';
@@ -218,9 +313,6 @@ function validatePayload(kind: AuthRequestKind, body: unknown): ValidatedBody {
       (accountId && !accountIdPattern.test(accountId))
     ) {
       fieldErrors.accountId = 'Enter a valid account ID.';
-    }
-    if (!workEmail && !accountId) {
-      fieldErrors.workEmail = 'Enter a work email or account ID.';
     }
     if (Object.keys(fieldErrors).length) return invalidFields(fieldErrors);
     return {
@@ -324,8 +416,8 @@ async function readValidatedBody(
     };
   }
 
-  const rawBody = await request.text();
-  if (new TextEncoder().encode(rawBody).byteLength > maxRequestBytes) {
+  const rawBody = await readUtf8BodyWithinLimit(request.body, maxRequestBytes);
+  if (!rawBody.ok) {
     return {
       ok: false,
       response: jsonError(
@@ -337,7 +429,7 @@ async function readValidatedBody(
   }
 
   try {
-    return validatePayload(kind, JSON.parse(rawBody) as unknown);
+    return validatePayload(kind, JSON.parse(rawBody.value) as unknown);
   } catch {
     return {
       ok: false,
@@ -478,12 +570,23 @@ export async function proxyAuthPost(
       );
     }
 
-    const responseBody = await upstream.text();
-    if (new TextEncoder().encode(responseBody).byteLength > maxResponseBytes) {
+    const responseBody = await readUtf8BodyWithinLimit(
+      upstream.body,
+      maxResponseBytes,
+    );
+    if (!responseBody.ok) {
       return jsonError(
         502,
         'AUTH_INVALID_RESPONSE',
         'The authentication service returned an invalid response.',
+      );
+    }
+
+    if (upstream.status >= 400 && upstream.status < 500) {
+      return publicUpstreamClientError(
+        kind,
+        upstream.status,
+        responseBody.value,
       );
     }
 
@@ -494,7 +597,7 @@ export async function proxyAuthPost(
     });
     appendAllowedSetCookies(responseHeaders, upstream.headers, cookieNames);
 
-    return new Response(responseBody, {
+    return new Response(responseBody.value, {
       status: upstream.status,
       headers: responseHeaders,
     });

@@ -323,9 +323,24 @@ function SignupConsent({
         onChange={(event) => onChange(event.target.checked)}
       />
       <label htmlFor="signup-terms">
-        {copy.signup.acceptTerms} <a href={termsHref}>{copy.common.terms}</a>{' '}
+        {copy.signup.acceptTerms}{' '}
+        <a
+          href={termsHref}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${copy.common.terms} (${copy.common.opensInNewTab})`}
+        >
+          {copy.common.terms}
+        </a>{' '}
         {copy.common.termsJoin}{' '}
-        <a href={dataAgreementHref}>{copy.common.dataAgreement}</a>
+        <a
+          href={dataAgreementHref}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${copy.common.dataAgreement} (${copy.common.opensInNewTab})`}
+        >
+          {copy.common.dataAgreement}
+        </a>
         {copy.common.termsSuffix}
       </label>
       {error && (
@@ -420,19 +435,28 @@ function PasswordChecklist({
   password: string;
 }) {
   const checks = getPasswordChecks(password, confirmation);
+  const completed = Object.values(checks).filter(Boolean).length;
   return (
-    <ul className="auth-password-checks" aria-live="polite">
-      {(Object.keys(checks) as (keyof typeof checks)[]).map((key) => (
-        <li className={checks[key] ? 'is-valid' : ''} key={key}>
-          {checks[key] ? (
-            <Check aria-hidden="true" />
-          ) : (
-            <X aria-hidden="true" />
-          )}
-          <span>{copy.signup.passwordRules[key]}</span>
-        </li>
-      ))}
-    </ul>
+    <>
+      <p className="auth-sr-only" aria-live="polite" aria-atomic="true">
+        {format(copy.signup.passwordProgress, {
+          completed: String(completed),
+          total: String(Object.keys(checks).length),
+        })}
+      </p>
+      <ul className="auth-password-checks">
+        {(Object.keys(checks) as (keyof typeof checks)[]).map((key) => (
+          <li className={checks[key] ? 'is-valid' : ''} key={key}>
+            {checks[key] ? (
+              <Check aria-hidden="true" />
+            ) : (
+              <X aria-hidden="true" />
+            )}
+            <span>{copy.signup.passwordRules[key]}</span>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 
@@ -875,6 +899,24 @@ function SsoPanel({ copy }: { copy: AuthContent }) {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [notice, setNotice] = useState<Notice>(null);
   const [success, setSuccess] = useState(false);
+  const hasWorkEmail = Boolean(workEmail.trim());
+  const hasAccountId = Boolean(accountId.trim());
+
+  const updateWorkEmail = (value: string) => {
+    setWorkEmail(value);
+    if (value.trim()) {
+      setAccountId('');
+      setErrors((current) => ({ ...current, accountId: '' }));
+    }
+  };
+
+  const updateAccountId = (value: string) => {
+    setAccountId(value);
+    if (value.trim()) {
+      setWorkEmail('');
+      setErrors((current) => ({ ...current, workEmail: '' }));
+    }
+  };
 
   const submit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -950,8 +992,12 @@ function SsoPanel({ copy }: { copy: AuthContent }) {
           maxLength={254}
           placeholder={copy.sso.workEmailPlaceholder}
           value={workEmail}
-          onChange={(event) => setWorkEmail(event.target.value)}
+          onChange={(event) => updateWorkEmail(event.target.value)}
           error={errors.workEmail}
+          hint={
+            hasAccountId ? copy.sso.accountIdSelected : copy.sso.exclusiveHint
+          }
+          disabled={hasAccountId}
         />
         <Divider label={copy.common.or} />
         <AuthField
@@ -962,8 +1008,12 @@ function SsoPanel({ copy }: { copy: AuthContent }) {
           maxLength={128}
           placeholder={copy.sso.accountIdPlaceholder}
           value={accountId}
-          onChange={(event) => setAccountId(event.target.value)}
+          onChange={(event) => updateAccountId(event.target.value)}
           error={errors.accountId}
+          hint={
+            hasWorkEmail ? copy.sso.workEmailSelected : copy.sso.exclusiveHint
+          }
+          disabled={hasWorkEmail}
         />
         <StatusNotice notice={notice} />
         <Button className="auth-submit" type="submit" disabled={pending}>
@@ -1133,10 +1183,13 @@ function BrandPanel({ copy }: { copy: AuthContent }) {
             </div>
           </footer>
         </article>
-        <nav className="auth-brand-links" aria-label="AURINOVA resources">
+        <nav
+          className="auth-brand-links"
+          aria-label={copy.shell.resourcesLabel}
+        >
           <Link href="/aurinova-reference#updates">{copy.shell.blog}</Link>
           <span aria-hidden="true">•</span>
-          <Link href="/aurinova-reference#updates">{copy.shell.docs}</Link>
+          <Link href="/aurinova-reference/docs">{copy.shell.docs}</Link>
         </nav>
       </div>
       <div className="auth-signal-grid" aria-hidden="true">

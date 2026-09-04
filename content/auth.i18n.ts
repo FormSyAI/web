@@ -28,6 +28,7 @@ export type AuthContent = {
     nextTestimonial: string;
     blog: string;
     docs: string;
+    resourcesLabel: string;
     authenticationSection: string;
   };
   common: {
@@ -47,6 +48,7 @@ export type AuthContent = {
     termsJoin: string;
     dataAgreement: string;
     termsSuffix: string;
+    opensInNewTab: string;
   };
   preview: {
     banner: string;
@@ -69,6 +71,22 @@ export type AuthContent = {
     description: string;
     assurance: string;
     backToSignup: string;
+    termsMetaDescription: string;
+    dataAgreementMetaDescription: string;
+  };
+  docsPage: {
+    title: string;
+    metaDescription: string;
+    intro: string;
+    backToLogin: string;
+    browserContractTitle: string;
+    browserContractDescription: string;
+    endpointsTitle: string;
+    endpoints: readonly { method: string; path: string; purpose: string }[];
+    liveReadinessTitle: string;
+    liveReadinessItems: readonly string[];
+    securityTitle: string;
+    securityDescription: string;
   };
   signup: {
     title: string;
@@ -89,6 +107,7 @@ export type AuthContent = {
       special: string;
       match: string;
     };
+    passwordProgress: string;
     humanVerification: string;
     humanVerificationHelp: string;
     createAccount: string;
@@ -120,6 +139,9 @@ export type AuthContent = {
     workEmailPlaceholder: string;
     accountId: string;
     accountIdPlaceholder: string;
+    exclusiveHint: string;
+    workEmailSelected: string;
+    accountIdSelected: string;
     successTitle: string;
     successDescription: string;
   };
@@ -230,6 +252,7 @@ const en: AuthContent = {
     nextTestimonial: 'Next platform principle',
     blog: 'Blog',
     docs: 'Docs',
+    resourcesLabel: 'AURINOVA resources',
     authenticationSection: 'Authentication',
   },
   common: {
@@ -253,6 +276,7 @@ const en: AuthContent = {
     termsJoin: 'and',
     dataAgreement: 'Data Processing Agreement',
     termsSuffix: '.',
+    opensInNewTab: 'opens in a new tab',
   },
   preview: {
     banner:
@@ -285,6 +309,61 @@ const en: AuthContent = {
     assurance:
       'Live account creation remains disabled by default. The reviewed document will replace this notice before authentication is enabled.',
     backToSignup: 'Back to signup',
+    termsMetaDescription: 'AURINOVA terms of service status.',
+    dataAgreementMetaDescription: 'AURINOVA data processing agreement status.',
+  },
+  docsPage: {
+    title: 'Authentication integration',
+    metaDescription:
+      'Integrate AURINOVA signup, login, SSO, recovery, and OAuth with an identity service.',
+    intro:
+      'The browser talks only to same-origin AURINOVA endpoints. The server adapter validates each request, forwards a narrow contract to your identity service, and returns public response shapes to the interface.',
+    backToLogin: 'Back to Log In',
+    browserContractTitle: 'Browser contract',
+    browserContractDescription:
+      'Keep these same-origin routes stable while the upstream identity provider evolves. Live destinations remain server-side configuration.',
+    endpointsTitle: 'Available routes',
+    endpoints: [
+      {
+        method: 'POST',
+        path: '/api/auth/signup/prepare',
+        purpose: 'Start email signup and receive a short-lived signup token.',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/signup/complete',
+        purpose: 'Submit profile, password, verification, and consent.',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/login',
+        purpose: 'Exchange email credentials for a safe workspace destination.',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/sso/resolve',
+        purpose: 'Resolve exactly one work email or account ID to an IdP.',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/password/reset-request',
+        purpose: 'Request recovery without exposing whether an account exists.',
+      },
+      {
+        method: 'GET',
+        path: '/api/auth/oauth/:provider',
+        purpose: 'Begin Google, GitHub, or LinkedIn authorization.',
+      },
+    ],
+    liveReadinessTitle: 'Live readiness',
+    liveReadinessItems: [
+      'Configure the server-only identity-service base URL and cookie allowlist.',
+      'Enable authentication explicitly; signup also requires Turnstile and approved legal destinations.',
+      'Return only same-origin relative redirect destinations from login and SSO.',
+    ],
+    securityTitle: 'Security boundary',
+    securityDescription:
+      'Requests are origin checked, schema validated, byte limited, and sent without browser access to upstream secrets. Session cookies are relayed only from the configured allowlist. Unknown upstream client errors are replaced with stable public messages.',
   },
   signup: {
     title: 'Create Account',
@@ -306,6 +385,7 @@ const en: AuthContent = {
       special: 'Password has a special character.',
       match: 'Passwords match.',
     },
+    passwordProgress: 'Password requirements met: {completed} of {total}.',
     humanVerification: 'Verify you are human',
     humanVerificationHelp: 'Required before account creation.',
     createAccount: 'Create account',
@@ -334,11 +414,16 @@ const en: AuthContent = {
   },
   sso: {
     title: 'Custom SSO Login',
-    description: 'Enter your work email to continue to your company SSO.',
+    description:
+      'Enter either your work email or account ID to continue to your company SSO.',
     workEmail: 'Work email',
     workEmailPlaceholder: 'you@company.com',
     accountId: 'Account ID',
     accountIdPlaceholder: 'your-company-account',
+    exclusiveHint:
+      'Use one identifier. Filling one clears and disables the other.',
+    workEmailSelected: 'Work email selected. Clear it to use an account ID.',
+    accountIdSelected: 'Account ID selected. Clear it to use a work email.',
     successTitle: 'Organization found',
     successDescription:
       'Your organization’s identity service will open when the SSO endpoint is connected.',
@@ -454,6 +539,7 @@ const zh: AuthContent = {
     nextTestimonial: '下一条平台原则',
     blog: '博客',
     docs: '文档',
+    resourcesLabel: 'AURINOVA 资源',
     authenticationSection: '身份验证',
   },
   common: {
@@ -473,6 +559,7 @@ const zh: AuthContent = {
     termsJoin: '与',
     dataAgreement: '数据处理协议',
     termsSuffix: '。',
+    opensInNewTab: '在新标签页中打开',
   },
   preview: {
     banner: '预览模式：交互仅在本地模拟，不会创建账户、会话或发送邮件。',
@@ -498,6 +585,61 @@ const zh: AuthContent = {
     assurance:
       '正式账户创建默认保持关闭。启用身份验证前，此提示将替换为已审核文件。',
     backToSignup: '返回注册',
+    termsMetaDescription: 'AURINOVA 服务条款状态。',
+    dataAgreementMetaDescription: 'AURINOVA 数据处理协议状态。',
+  },
+  docsPage: {
+    title: '身份验证接入文档',
+    metaDescription:
+      '将 AURINOVA 注册、登录、企业 SSO、账户恢复与 OAuth 接入身份服务。',
+    intro:
+      '浏览器只访问 AURINOVA 同源接口。服务端适配层会验证请求，将收窄后的契约转发至身份服务，并向界面返回稳定的公开响应。',
+    backToLogin: '返回登录',
+    browserContractTitle: '浏览器契约',
+    browserContractDescription:
+      '上游身份服务可持续演进，同时保持这些同源路由稳定。正式服务地址仅通过服务端配置提供。',
+    endpointsTitle: '可用路由',
+    endpoints: [
+      {
+        method: 'POST',
+        path: '/api/auth/signup/prepare',
+        purpose: '开始邮箱注册并获取短期注册令牌。',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/signup/complete',
+        purpose: '提交账户资料、密码、真人验证与条款同意状态。',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/login',
+        purpose: '验证邮箱凭据并返回安全的工作区目标。',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/sso/resolve',
+        purpose: '使用工作邮箱或账户 ID 二者之一查找身份提供商。',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/password/reset-request',
+        purpose: '申请账户恢复，同时隐藏账户是否存在。',
+      },
+      {
+        method: 'GET',
+        path: '/api/auth/oauth/:provider',
+        purpose: '开始 Google、GitHub 或 LinkedIn 授权。',
+      },
+    ],
+    liveReadinessTitle: '正式接入准备',
+    liveReadinessItems: [
+      '配置仅服务端可见的身份服务地址与 Cookie 白名单。',
+      '显式启用身份验证；正式注册还需要 Turnstile 与经过审核的法律文件地址。',
+      '登录与 SSO 仅返回同源相对跳转地址。',
+    ],
+    securityTitle: '安全边界',
+    securityDescription:
+      '请求会经过来源校验、结构校验与字节上限控制，浏览器无法接触上游密钥。会话 Cookie 仅按配置白名单转发，未知上游客户端错误会被替换为稳定公开信息。',
   },
   signup: {
     title: '创建账户',
@@ -518,6 +660,7 @@ const zh: AuthContent = {
       special: '密码包含特殊字符。',
       match: '两次输入的密码一致。',
     },
+    passwordProgress: '已满足密码要求：{completed} / {total}。',
     humanVerification: '请确认你是真人',
     humanVerificationHelp: '创建账户前需要完成验证。',
     createAccount: '创建账户',
@@ -545,11 +688,14 @@ const zh: AuthContent = {
   },
   sso: {
     title: '企业 SSO 登录',
-    description: '输入工作邮箱，继续使用公司的单点登录。',
+    description: '输入工作邮箱或账户 ID 二者之一，继续使用公司的单点登录。',
     workEmail: '工作邮箱',
     workEmailPlaceholder: 'you@company.com',
     accountId: '账户 ID',
     accountIdPlaceholder: 'your-company-account',
+    exclusiveHint: '请选择一种标识。填写其中一项后，另一项会被清空并禁用。',
+    workEmailSelected: '已选择工作邮箱。清空后可改用账户 ID。',
+    accountIdSelected: '已选择账户 ID。清空后可改用工作邮箱。',
     successTitle: '已找到组织',
     successDescription: '接入 SSO 接口后，此处将打开你所属组织的身份服务。',
   },

@@ -43,8 +43,8 @@ local readiness notices.
   `{ email, fullName, password, signupToken, termsAccepted: true, verificationToken, returnTo? }`.
 - `POST /v1/auth/login` with `{ email, password, returnTo? }`.
 - `POST /v1/auth/password/reset-request` with `{ email }`.
-- `POST /v1/auth/sso/resolve` with either `{ workEmail }` or `{ accountId }`,
-  plus optional `returnTo`.
+- `POST /v1/auth/sso/resolve` with exactly one of `{ workEmail }` or
+  `{ accountId }`, plus optional `returnTo`.
 - `GET /v1/auth/oauth/:provider/authorize?intent=login|signup&return_to=/aurinova-reference`
   for Google, GitHub, and LinkedIn top-level redirects.
 
@@ -62,3 +62,9 @@ code before showing it.
 Every `returnTo` and `redirectTo` must be a same-origin relative URL. The client
 and BFF both reject absolute URLs, protocol-relative URLs, backslashes, and
 control characters. The identity service must apply the same rule.
+
+For upstream 4xx responses, the BFF preserves only the documented
+`AUTH_VALIDATION_FAILED` shape and replaces its field messages with local public
+placeholders. Every other upstream 4xx becomes the stable `400
+AUTH_REQUEST_REJECTED` response; upstream error codes, messages, and bodies are
+not exposed to the browser.
