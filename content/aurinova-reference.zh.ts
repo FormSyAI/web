@@ -76,7 +76,7 @@ export const aurinovaReferenceContentZh = {
       { label: 'RL 采样', href: '/training/rl-rollouts' },
       { label: 'Nexus', href: '/nexus' },
       { label: '模型', href: '/models' },
-      { label: '定价', href: '/pricing' },
+      { label: '定价', href: '/aurinova-reference/pricing' },
       { label: '资源', href: '/blog' },
     ],
     chartLabel: '令牌用量增长，AI 支出保持在更低水平',
@@ -117,7 +117,7 @@ export const aurinovaReferenceContentZh = {
     { label: '产品', href: '#platform', menu: true, menuKey: 'Product' },
     { label: '解决方案', href: '#customers', menu: true, menuKey: 'Solutions' },
     { label: '模型', href: '#models', menu: true, menuKey: 'Models' },
-    { label: '定价', href: '/pricing' },
+    { label: '定价', href: '/aurinova-reference/pricing' },
     { label: '资源', href: '#updates', menu: true, menuKey: 'Resources' },
   ],
   megaMenus: {

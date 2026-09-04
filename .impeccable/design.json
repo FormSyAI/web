@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-04T00:00:00+08:00",
+  "title": "Design System: AURINOVA",
+  "extensions": {
+    "colorMeta": {
+      "brand-blue-softest": { "role": "primary", "displayName": "Blueprint Mist", "canonical": "#f2f7fc", "tonalRamp": ["#071524", "#0b2645", "#12385f", "#1c4a7f", "#2c6cb5", "#8db8e3", "#e4eef8", "#f2f7fc"] },
+      "brand-blue": { "role": "primary", "displayName": "AURINOVA Blue", "canonical": "#2c6cb5", "tonalRamp": ["#071524", "#0b2645", "#12385f", "#1c4a7f", "#2c6cb5", "#8db8e3", "#e4eef8", "#f2f7fc"] },
+      "brand-blue-deep": { "role": "primary", "displayName": "Deep Signal Blue", "canonical": "#1c4a7f", "tonalRamp": ["#071524", "#0b2645", "#12385f", "#1c4a7f", "#2c6cb5", "#8db8e3", "#e4eef8", "#f2f7fc"] },
+      "brand-blue-ink": { "role": "primary", "displayName": "Infrastructure Navy", "canonical": "#0b2645", "tonalRamp": ["#071524", "#0b2645", "#12385f", "#1c4a7f", "#2c6cb5", "#8db8e3", "#e4eef8", "#f2f7fc"] },
+      "brand-gold": { "role": "secondary", "displayName": "Signal Gold", "canonical": "#f3b322", "tonalRamp": ["#281700", "#4a2a00", "#7a4a00", "#a96f08", "#f3b322", "#f7d36b", "#fff0b8", "#fff5d8"] },
+      "brand-gold-light": { "role": "secondary", "displayName": "Soft Signal Gold", "canonical": "#f7d36b", "tonalRamp": ["#281700", "#4a2a00", "#7a4a00", "#a96f08", "#f3b322", "#f7d36b", "#fff0b8", "#fff5d8"] },
+      "ink": { "role": "neutral", "displayName": "Technical Ink", "canonical": "#121216", "tonalRamp": ["#121216", "#29292f", "#484850", "#626269", "#8b8b93", "#b7b7bd", "#dedee3", "#f5f5f3"] },
+      "paper": { "role": "neutral", "displayName": "Editorial Paper", "canonical": "#ffffff", "tonalRamp": ["#121216", "#34343a", "#626269", "#9999a1", "#c8c8ce", "#dedee3", "#f5f5f3", "#ffffff"] },
+      "muted-ink": { "role": "neutral", "displayName": "Muted Ink", "canonical": "#626269", "tonalRamp": ["#121216", "#29292f", "#484850", "#626269", "#8b8b93", "#b7b7bd", "#dedee3", "#f5f5f3"] },
+      "line": { "role": "neutral", "displayName": "Rule Gray", "canonical": "#dedee3", "tonalRamp": ["#121216", "#34343a", "#626269", "#9999a1", "#b7b7bd", "#dedee3", "#efeff2", "#fafafa"] },
+      "deep-surface": { "role": "neutral", "displayName": "Deep Surface", "canonical": "#09090b", "tonalRamp": ["#09090b", "#141417", "#242429", "#34343a", "#626269", "#9999a1", "#dedee3", "#f5f5f3"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Single page proposition and hero statement." },
+      "headline": { "displayName": "Section Headline", "purpose": "Large chapter headings, especially on blue fields." },
+      "title": { "displayName": "Content Title", "purpose": "Pricing categories and substantial subsections." },
+      "body": { "displayName": "Editorial Body", "purpose": "Bilingual explanations and supporting content." },
+      "label": { "displayName": "Technical Label", "purpose": "Actions, table headers, metadata, and utilities." }
+    },
+    "shadows": [
+      { "name": "floating-menu", "value": "0 8px 20px rgb(0 0 0 / 6%)", "purpose": "Mobile and dropdown navigation overlays only." }
+    ],
+    "motion": [
+      { "name": "state-standard", "value": "180ms ease", "purpose": "Color, background, underline, and icon state changes." },
+      { "name": "action-travel", "value": "180ms cubic-bezier(0.2, 0.8, 0.2, 1)", "purpose": "Directional arrow movement in announcement and button actions." },
+      { "name": "overlay-enter", "value": "160ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Fast, settled entrance for navigation overlays." }
+    ],
+    "breakpoints": [
+      { "name": "compact", "value": "680px" },
+      { "name": "pricing-compact", "value": "700px" },
+      { "name": "navigation-collapse", "value": "960px" },
+      { "name": "pricing-collapse", "value": "1050px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The dominant action: square, compact, technical, and brand blue.",
+      "html": "<button class=\"ds-btn-primary\">GET STARTED <span aria-hidden=\"true\">→</span></button>",
+      "css": ".ds-btn-primary { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 11px; padding: 0 18px; border: 1px solid var(--brand-blue-500, #2c6cb5); border-radius: 0; color: #fff; background: var(--brand-blue-500, #2c6cb5); font-family: var(--font-geist-mono, ui-monospace), monospace; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; transition: background 180ms ease, transform 180ms ease; } .ds-btn-primary:hover { background: var(--brand-blue-700, #1c4a7f); transform: translateY(-2px); } .ds-btn-primary:hover span { transform: translateX(4px); } .ds-btn-primary span { transition: transform 180ms cubic-bezier(.2,.8,.2,1); } .ds-btn-primary:focus-visible { outline: 3px solid var(--brand-blue-500, #2c6cb5); outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A square outline action for secondary paths on white fields.",
+      "html": "<button class=\"ds-btn-secondary\">CONTACT US</button>",
+      "css": ".ds-btn-secondary { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; padding: 0 18px; border: 1px solid var(--ink, #121216); border-radius: 0; color: var(--ink, #121216); background: #fff; font-family: var(--font-geist-mono, ui-monospace), monospace; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; transition: color 180ms ease, background 180ms ease, transform 180ms ease; } .ds-btn-secondary:hover { color: #fff; background: var(--ink, #121216); transform: translateY(-2px); } .ds-btn-secondary:focus-visible { outline: 3px solid var(--brand-blue-500, #2c6cb5); outline-offset: 3px; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "description": "Compact shared-header navigation with a restrained blue active state.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary navigation\"><a href=\"#\">Models</a><a class=\"ds-current\" href=\"#\" aria-current=\"page\">Pricing</a><a href=\"#\">Resources</a></nav>",
+      "css": ".ds-nav { min-height: 72px; display: flex; align-items: center; gap: 20px; font-family: Inter, var(--font-geist-sans, ui-sans-serif), system-ui, sans-serif; font-size: 14px; font-weight: 600; } .ds-nav a { min-height: 44px; display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 8px; color: #18181d; text-decoration: none; transition: color 180ms ease, background 180ms ease; } .ds-nav a:hover, .ds-nav a.ds-current { color: var(--brand-blue-500, #2c6cb5); background: rgb(44 108 181 / 8%); } .ds-nav a:focus-visible { outline: 2px solid var(--brand-blue-500, #2c6cb5); outline-offset: 3px; }"
+    },
+    {
+      "name": "Pricing Jump Card",
+      "kind": "card",
+      "refersTo": "pricing-card",
+      "description": "A large ruled index card that inverts to brand blue on interaction.",
+      "html": "<a class=\"ds-pricing-card\" href=\"#\"><svg aria-hidden=\"true\" width=\"42\" height=\"42\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 19a8 8 0 1 1 16 0\"/><path d=\"M12 13l3-3\"/><path d=\"M12 5v2\"/><path d=\"M5.6 9l1.7 1\"/><path d=\"M18.4 9l-1.7 1\"/></svg><strong>Serverless Inference</strong><p>Per-token pricing with zero setup and no cold starts.</p><span>SEE PRICING →</span></a>",
+      "css": ".ds-pricing-card { min-height: 280px; display: flex; flex-direction: column; padding: 32px; border: 1px solid var(--line, #dedee3); border-radius: 0; color: var(--ink, #121216); background: #fff; font-family: Inter, var(--font-geist-sans, ui-sans-serif), system-ui, sans-serif; text-decoration: none; transition: color 180ms ease, background 180ms ease; } .ds-pricing-card svg { color: var(--brand-blue-500, #2c6cb5); } .ds-pricing-card strong { margin-top: 34px; font-size: 25px; letter-spacing: -.025em; } .ds-pricing-card p { color: var(--muted-foreground, #626269); font-size: 16px; line-height: 1.5; } .ds-pricing-card span { margin-top: auto; font-family: var(--font-geist-mono, ui-monospace), monospace; font-size: 13px; font-weight: 700; letter-spacing: .03em; } .ds-pricing-card:hover { color: #fff; background: var(--brand-blue-500, #2c6cb5); } .ds-pricing-card:hover svg, .ds-pricing-card:hover p { color: rgb(255 255 255 / 78%); } .ds-pricing-card:focus-visible { outline: 3px solid var(--brand-blue-500, #2c6cb5); outline-offset: 3px; }"
+    },
+    {
+      "name": "Pricing Table",
+      "kind": "custom",
+      "description": "A semantic, horizontally resilient comparison table with tabular numerals.",
+      "html": "<div class=\"ds-table-wrap\"><table><thead><tr><th scope=\"col\">GPU TYPE</th><th scope=\"col\">PRICE / HOUR</th></tr></thead><tbody><tr><th scope=\"row\">H200 141 GB GPU</th><td>$8.00</td></tr><tr><th scope=\"row\">B200 180 GB GPU</th><td>$13.00</td></tr></tbody></table></div>",
+      "css": ".ds-table-wrap { width: 100%; overflow-x: auto; border-top: 2px solid var(--ink, #121216); } .ds-table-wrap table { width: 100%; min-width: 520px; border-collapse: collapse; color: var(--ink, #121216); font-family: Inter, var(--font-geist-sans, ui-sans-serif), system-ui, sans-serif; font-variant-numeric: tabular-nums; } .ds-table-wrap th, .ds-table-wrap td { padding: 21px 18px; border-bottom: 1px solid var(--line, #dedee3); text-align: right; font-size: 16px; } .ds-table-wrap th:first-child { text-align: left; } .ds-table-wrap thead th { color: var(--muted-foreground, #626269); font-family: var(--font-geist-mono, ui-monospace), monospace; font-size: 12px; font-weight: 700; letter-spacing: .06em; } .ds-table-wrap tbody th { font-weight: 580; } .ds-table-wrap tbody tr { transition: background 150ms ease; } .ds-table-wrap tbody tr:hover { background: #f2f7fc; } .ds-table-wrap table:focus-visible { outline: 3px solid var(--brand-blue-500, #2c6cb5); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Infrastructure Ledger",
+    "overview": "AURINOVA presents advanced AI infrastructure with the assurance of a meticulously typeset technical ledger. Broad white fields, crisp rules, large editorial headlines, and ordered data make complex commercial choices feel legible and trustworthy. Brand blue creates the principal visual rhythm through calls to action, full-width section bands, selected states, and interactive feedback; gold appears sparingly as a warm signal within the otherwise cool system.\n\nThe system balances enterprise gravity with technical fluency. Sans-serif display and body type carries bilingual explanations clearly, while compact monospace labels identify actions, navigation utilities, metadata, and table headers. Composition stays flat and architectural: hierarchy comes from scale, contrast, borders, and alternating fields more often than elevation.",
+    "keyCharacteristics": [
+      "White editorial canvas with deep-blue section intervals.",
+      "Large, tightly tracked headings paired with readable bilingual body copy.",
+      "Square controls and flat ruled containers.",
+      "Monospace action labels and metadata with tabular numeric alignment.",
+      "Gold reserved for small emphasis moments, especially on dark fields.",
+      "Shared navigation and consistent Chinese/English information structure."
+    ],
+    "rules": [
+      { "name": "The Blue Rhythm Rule", "body": "Use brand blue to mark major decisions and section changes; large uninterrupted blue fields should punctuate white content rather than dominate every viewport.", "section": "colors" },
+      { "name": "The Gold Signal Rule", "body": "Gold is a small, high-value signal. Keep it out of primary buttons and broad backgrounds.", "section": "colors" },
+      { "name": "The Two-Voice Rule", "body": "Sans-serif explains; monospace directs, labels, and quantifies.", "section": "typography" },
+      { "name": "The Bilingual Measure Rule", "body": "Preserve the same hierarchy in Chinese and English, allowing natural line wrapping without shrinking one locale into a secondary treatment.", "section": "typography" },
+      { "name": "The Shared Edge Rule", "body": "Headlines, cards, tables, and footer content align to the same shell edges even when their background fields span the viewport.", "section": "layout" },
+      { "name": "The Flat Ledger Rule", "body": "Content surfaces earn hierarchy through rules, spacing, and color fields; reserve shadows for overlays that physically sit above the document.", "section": "elevation" },
+      { "name": "The Square Foundation Rule", "body": "Default to straight edges for structural UI; introduce rounding only when an overlay or compact interactive target needs visual separation.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do preserve a dominant white field and use blue bands as deliberate chapter breaks.",
+      "Do use the supplied AURINOVA logo and the shared reference header across related pages.",
+      "Do keep all bilingual strings in typed content dictionaries and preserve hierarchy across locales.",
+      "Do use semantic tables with scoped headers and tabular numerals for commercial data.",
+      "Do use Lucide icons with restrained stroke weights and purposeful hover motion.",
+      "Do maintain visible offset focus outlines and reduced-motion behavior."
+    ],
+    "donts": [
+      "Don't soften structural controls and pricing surfaces with arbitrary rounded cards.",
+      "Don't use decorative shadows on static content or create depth that competes with the editorial rules.",
+      "Don't spread gold across primary actions, large backgrounds, or routine navigation states.",
+      "Don't replace clear type hierarchy with icon-only controls when a text label carries essential meaning.",
+      "Don't hard-code translated copy or pricing facts inside presentation components.",
+      "Don't compress wide pricing tables until labels or numeric comparisons become ambiguous."
+    ]
+  }
+}
