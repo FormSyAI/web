@@ -82,7 +82,10 @@ export default function PricingPage() {
           <h1>{content.hero.title}</h1>
           <p>{content.hero.description}</p>
           <div className="pr-actions">
-            <Link className="pr-button pr-button-solid" href="/signup">
+            <Link
+              className="pr-button pr-button-solid"
+              href="/aurinova-reference/signup"
+            >
               {content.getStarted}
               <ArrowRight size={17} />
             </Link>

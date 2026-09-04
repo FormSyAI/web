@@ -21,6 +21,8 @@ export const aurinovaReferenceContent = {
       { label: 'Models', href: '/models' },
       { label: 'Pricing', href: '/aurinova-reference/pricing' },
       { label: 'Resources', href: '/blog' },
+      { label: 'Log In', href: '/aurinova-reference/login' },
+      { label: 'Get Started', href: '/aurinova-reference/signup' },
     ],
     chartLabel: 'Tokens used rise while AI spend remains lower',
     tokensUsed: 'Tokens Used',
@@ -208,7 +210,7 @@ export const aurinovaReferenceContent = {
     title: 'Own your model.\nOwn your future.',
     description:
       'AURINOVA training and inference help teams transform open models into intelligence specialized around their own work.',
-    primary: { label: 'GET STARTED', href: '/signup' },
+    primary: { label: 'GET STARTED', href: '/aurinova-reference/signup' },
     secondary: { label: 'CONTACT US', href: '/contact' },
     image: '/aurinova-logo.svg',
   },

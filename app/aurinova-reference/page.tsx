@@ -513,7 +513,10 @@ export default function AurinovaReferencePage() {
             <h2>{content.ui.ctaTitle}</h2>
             <p>{content.ui.ctaDescription}</p>
             <div className="fw-actions">
-              <SiteLink className="fw-light-button" href="/signup">
+              <SiteLink
+                className="fw-light-button"
+                href="/aurinova-reference/signup"
+              >
                 {content.ui.getStarted}
               </SiteLink>
               <SiteLink className="fw-dark-outline-button" href="/contact">

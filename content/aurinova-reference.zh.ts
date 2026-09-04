@@ -78,6 +78,8 @@ export const aurinovaReferenceContentZh = {
       { label: '模型', href: '/models' },
       { label: '定价', href: '/aurinova-reference/pricing' },
       { label: '资源', href: '/blog' },
+      { label: '登录', href: '/aurinova-reference/login' },
+      { label: '开始使用', href: '/aurinova-reference/signup' },
     ],
     chartLabel: '令牌用量增长，AI 支出保持在更低水平',
     tokensUsed: '已用令牌',

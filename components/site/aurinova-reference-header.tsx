@@ -184,11 +184,7 @@ function MegaMenu({
         {menu.featured.map((item) => (
           <MenuLink href={item.href} onClick={onNavigate} key={item.title}>
             <span className="fw-featured-image">
-              <AurinovaArtworkImage
-                src={item.image}
-                alt=""
-                sizes="240px"
-              />
+              <AurinovaArtworkImage src={item.image} alt="" sizes="240px" />
             </span>
             <small>{item.type}</small>
             <strong>{item.title}</strong>
@@ -308,16 +304,10 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
               alt="AURINOVA"
             />
           </Link>
-          <nav
-            ref={desktopNav}
-            aria-label={content.ui.navigationLabel}
-          >
+          <nav ref={desktopNav} aria-label={content.ui.navigationLabel}>
             {content.navigation.map((item) =>
               'menuKey' in item ? (
-                <div
-                  className="fw-nav-item"
-                  key={item.label}
-                >
+                <div className="fw-nav-item" key={item.label}>
                   <button
                     type="button"
                     aria-expanded={openMenu === item.menuKey}
@@ -358,8 +348,11 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
           </nav>
           <div className="fw-header-actions">
             <LanguageSwitcher labels={content.ui} />
-            <Link href="/login">{content.ui.login}</Link>
-            <Link className="fw-primary-button" href="/signup">
+            <Link href="/aurinova-reference/login">{content.ui.login}</Link>
+            <Link
+              className="fw-primary-button"
+              href="/aurinova-reference/signup"
+            >
               {content.ui.getStarted}
             </Link>
             <button
