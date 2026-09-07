@@ -133,46 +133,17 @@ export function ConsoleLayout({
           </div>
         </header>
         <main id="console-main" className="cs-main">
-          {path !== 'settings' && (
-            <ConsolePageHeader title={title} path={path} t={t} />
-          )}
+          {path !== 'settings' && <ConsolePageHeader title={title} />}
           {children}
         </main>
       </div>
     </>
   );
 }
-function ConsolePageHeader({
-  title,
-  path,
-  t,
-}: {
-  title: string;
-  path: string;
-  t: T;
-}) {
+function ConsolePageHeader({ title }: { title: string }) {
   return (
     <div className="cs-page-heading">
-      <div>
-        <p className="cs-eyebrow">FORMSY / CONSOLE</p>
-        <h1>{title}</h1>
-        <p className="cs-muted">
-          {path === 'usage'
-            ? t(
-                '把每一次调用、每一份额度看清楚。',
-                'Understand every request and every credit.',
-              )
-            : path === 'coding-plan'
-              ? t(
-                  '选择额度，专注构建。',
-                  'Choose your capacity. Focus on building.',
-                )
-              : t(
-                  '统一管理你的模型服务与接入。',
-                  'Manage your model services and integrations.',
-                )}
-        </p>
-      </div>
+      <h1>{title}</h1>
     </div>
   );
 }

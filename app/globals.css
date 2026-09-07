@@ -600,22 +600,12 @@ button {
   gap: 20px;
   margin-bottom: 4px;
 }
-.cs-eyebrow {
-  font-size: var(--text-caption);
-  font-family: var(--font-code);
-  letter-spacing: 1.4px;
-  color: #8995a5;
-  margin: 0 0 12px;
-}
 .cs-page-heading h1 {
   font-size: 29px;
   line-height: 1.2;
   letter-spacing: -0.5px;
-  margin: 0 0 12px;
+  margin: 0;
   font-weight: 600;
-}
-.cs-page-heading p {
-  margin-bottom: 0;
 }
 .cs-muted {
   color: var(--cs-muted);
