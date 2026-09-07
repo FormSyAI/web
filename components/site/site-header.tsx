@@ -1,4 +1,4 @@
-'use client';
+import { Button } from '@/components/ui/button';
 
 import { Menu } from 'lucide-react';
 
@@ -44,13 +44,14 @@ export function SiteHeader() {
           <Sheet>
             <SheetTrigger
               render={
-                <button
+                <Button
+                  variant="brand"
                   className="menu-button"
                   type="button"
                   aria-label={content.ui.openMenu}
                 >
                   <Menu size={23} />
-                </button>
+                </Button>
               }
             />
             <SheetContent

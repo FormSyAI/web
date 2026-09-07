@@ -21,7 +21,7 @@ export function Brand({ inverse = false }: BrandProps) {
         className="brand-logo"
         src="/aurinova-logo.svg"
         alt="AURINOVA"
-        width={1186}
+        width={1142}
         height={204}
       />
     </a>

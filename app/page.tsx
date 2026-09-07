@@ -1,5 +1,7 @@
 'use client';
 
+import './original-home.css';
+
 import { useEffect } from 'react';
 
 import {

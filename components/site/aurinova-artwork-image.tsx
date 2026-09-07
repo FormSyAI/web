@@ -17,7 +17,7 @@ export function AurinovaArtworkImage({
         className="fw-placeholder-logo"
         src={src}
         alt={alt}
-        width={1186}
+        width={1142}
         height={204}
         priority={priority}
         sizes={sizes}

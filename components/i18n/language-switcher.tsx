@@ -1,4 +1,4 @@
-'use client';
+import { Button } from '@/components/ui/button';
 
 import { Languages } from 'lucide-react';
 
@@ -15,7 +15,8 @@ export function LanguageSwitcher({
   const activeLabels = labels ?? content.ui;
 
   return (
-    <button
+    <Button
+      variant="brand"
       className={`language-switcher${compact ? ' language-switcher-compact' : ''}`}
       type="button"
       aria-label={activeLabels.switchLanguage}
@@ -24,6 +25,6 @@ export function LanguageSwitcher({
     >
       <Languages size={16} strokeWidth={1.7} aria-hidden="true" />
       <span>{activeLabels.alternateLocaleName}</span>
-    </button>
+    </Button>
   );
 }

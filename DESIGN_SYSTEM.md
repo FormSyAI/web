@@ -40,3 +40,24 @@
 - 图标继续使用 Lucide；表格与布局保持语义 HTML 和现有样式。
 - 内部导航使用 AppLink（封装 React Router Link），操作后的跳转使用 useNavigate，路由状态使用 useLocation。禁止自行调用 pushState 或派发 popstate 模拟导航。
 - 路由入口使用 BrowserRouter / Routes，保留站点 base path、别名和静态入口。动态页面状态按 pathname + search 隔离；锚点滚动由统一组件处理。
+
+
+### 样式与组件维护（2026-09-07）
+
+公共字体、语义颜色、容器与侧栏布局变量在 `app/globals.css`。品牌页面按钮使用 `Button variant="brand"` 并沿用页面布局类；控制台按钮和输入使用 `console` variant。业务组件不再使用 `unstyled`。勾选框复用 `components/ui/checkbox.tsx`。
+
+控制台布局和移动菜单位于 `components/console/layout.tsx`、`sidebar.tsx`，页面位于 `components/console/pages/`。移动菜单使用共享 Sheet，保持焦点恢复与 Escape 行为。备份首页布局在 `app/original-home.css`，由备份页面加载。详见 `docs/STYLE_COMPONENT_AUDIT.md` 的整改与保留规则。
+
+
+### 标题与操作规范
+
+- HTML 标题级别用于内容结构；视觉规格按用途命名。官网同级区块统一引用 `--type-section-*`，桌面上限 48px / 1.25，手机下限 32px / 1.25；禁止为单个区块重复覆盖字号、字距与行高。
+- 首屏标题、卡片标题、页脚辅助标题保留各自角色，不强制所有 h2 同尺寸。
+- 控制台与设计系统均使用 `components/ui/select.tsx` 的 Base UI Select，采用页面内列表、选中标记、键盘操作和可见焦点。不要回退为系统原生下拉。
+- 触控设备的控制台操作目标至少 44px；数值使用等宽数字对齐。正文和可读辅助文字保持充分对比。
+- `/design-system` 与 `/dev/design-system` 可查看当前公共标题规格及真实控件，规范示例应复用生产组件。
+
+
+### 对齐规则
+
+完整宽度区块的标题、说明统一居中；左右分栏文字、卡片、表单与控制台保持左对齐。官网 `SectionHeading` 默认居中，分栏场景显式使用 `align="left"`。对齐不随语言或手机断点任意切换，正文卡片不继承区块标题的居中样式。

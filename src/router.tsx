@@ -5,6 +5,7 @@ import { AppLink } from '@/components/runtime/app-link';
 const ConsolePage = lazy(() => import('@/app/console/page'));
 
 const routeAliases: Record<string, string> = {
+  '/design-system': '/dev/design-system',
   '/console': '/console/usage',
   '/demo/console': '/demo/console/usage',
   '/': '/aurinova-reference',

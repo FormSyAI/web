@@ -1,4 +1,5 @@
-'use client';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
 
 import { useEffect, useRef, useState } from 'react';
 
@@ -150,9 +151,9 @@ export function HumanVerification({
         htmlFor="signup-human-verification"
         aria-label={copy.signup.humanVerification}
       >
-        <input
+        <Checkbox
+          className="ui-auth-checkbox"
           id="signup-human-verification"
-          type="checkbox"
           checked={Boolean(token)}
           aria-invalid={Boolean(error)}
           aria-describedby={
@@ -160,10 +161,8 @@ export function HumanVerification({
               ? 'signup-human-verification-error'
               : 'signup-human-verification-help'
           }
-          onChange={(event) =>
-            onTokenChange(
-              event.target.checked ? 'preview-human-verification' : '',
-            )
+          onCheckedChange={(checked) =>
+            onTokenChange(checked ? 'preview-human-verification' : '')
           }
         />
         <span>
@@ -203,7 +202,8 @@ export function HumanVerification({
           <p className="auth-field-error">
             {copy.preview.verificationLoadError}
           </p>
-          <button
+          <Button
+            variant="brand"
             type="button"
             onClick={() => {
               scriptPromise = null;
@@ -213,7 +213,7 @@ export function HumanVerification({
             }}
           >
             {copy.common.retry}
-          </button>
+          </Button>
         </div>
       )}
     </div>

@@ -5,7 +5,6 @@ import {
 } from './redirect';
 import { withBasePath } from '@/components/runtime/app-link';
 
-export type AuthProvider = 'google' | 'github' | 'linkedin';
 export type AuthIntent = 'login' | 'signup';
 
 export type AuthFieldErrors = Record<string, string>;
@@ -34,6 +33,18 @@ export type LoginInput = {
   email: string;
   password: string;
   returnTo?: string;
+};
+
+export type PhoneAuthInput = {
+  phone: string;
+  code: string;
+  intent: AuthIntent;
+  returnTo?: string;
+};
+
+export type WechatSession = AuthResult & {
+  sessionId: string;
+  expiresIn: number;
 };
 
 export type SsoInput = {
@@ -70,13 +81,14 @@ export type AuthApi = {
   prepareSignup(email: string): Promise<SignupPreparation>;
   completeSignup(input: SignupInput): Promise<AuthResult>;
   login(input: LoginInput): Promise<AuthResult>;
-  requestPasswordReset(email: string): Promise<AuthResult>;
-  resolveSso(input: SsoInput): Promise<AuthResult>;
-  getOAuthUrl(
-    provider: AuthProvider,
+  requestPhoneCode(phone: string, intent: AuthIntent): Promise<AuthResult>;
+  verifyPhone(input: PhoneAuthInput): Promise<AuthResult>;
+  createWechatSession(
     intent: AuthIntent,
     returnTo?: string,
-  ): string | null;
+  ): Promise<WechatSession>;
+  requestPasswordReset(email: string): Promise<AuthResult>;
+  resolveSso(input: SsoInput): Promise<AuthResult>;
 };
 
 type ApiErrorPayload = {
@@ -89,7 +101,7 @@ const configuredAuthApiBaseUrl =
   import.meta.env.VITE_AURINOVA_AUTH_API_BASE_URL?.trim() ?? '';
 const authApiEnabled = Boolean(
   configuredAuthApiBaseUrl &&
-    import.meta.env.VITE_AURINOVA_AUTH_ENABLED?.toLowerCase() === 'true',
+  import.meta.env.VITE_AURINOVA_AUTH_ENABLED?.toLowerCase() === 'true',
 );
 const configuredTurnstileSiteKey =
   import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim() ?? '';
@@ -203,6 +215,25 @@ function parseSsoResult(payload: unknown): AuthResult {
   return result;
 }
 
+function parseWechatSession(payload: unknown): WechatSession {
+  const result = parseAuthResult(payload);
+  const sessionId = isRecord(payload) ? payload.sessionId : undefined;
+  const expiresIn = isRecord(payload) ? payload.expiresIn : undefined;
+  if (
+    typeof sessionId !== 'string' ||
+    !sessionId ||
+    typeof expiresIn !== 'number' ||
+    !Number.isFinite(expiresIn)
+  ) {
+    throw new AuthApiError({
+      code: 'AUTH_INVALID_RESPONSE',
+      message: 'The authentication service returned an invalid WeChat session.',
+      status: 502,
+    });
+  }
+  return { ...result, sessionId, expiresIn };
+}
+
 async function request<T>(
   path: string,
   body: unknown,
@@ -213,19 +244,22 @@ async function request<T>(
 
   try {
     const response = await fetch(
-      new URL(path.replace(/^\//, ''), `${configuredAuthApiBaseUrl.replace(/\/$/, '')}/`),
+      new URL(
+        path.replace(/^\//, ''),
+        `${configuredAuthApiBaseUrl.replace(/\/$/, '')}/`,
+      ),
       {
-      method: 'POST',
-      cache: 'no-store',
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Accept-Language':
-          document.documentElement.lang === 'zh-CN' ? 'zh-CN' : 'en-US',
-        'Content-Type': 'application/json',
-        'X-AURINOVA-Auth-Request': 'auth-ui-v1',
-      },
-      body: JSON.stringify(body),
+        method: 'POST',
+        cache: 'no-store',
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'Accept-Language':
+            document.documentElement.lang === 'zh-CN' ? 'zh-CN' : 'en-US',
+          'Content-Type': 'application/json',
+          'X-AURINOVA-Auth-Request': 'auth-ui-v1',
+        },
+        body: JSON.stringify(body),
         signal: controller.signal,
       },
     );
@@ -302,6 +336,34 @@ export const authApi: AuthApi = {
     return request('/api/auth/login', input, parseAuthResult);
   },
 
+  requestPhoneCode(phone, intent) {
+    if (!authApiEnabled) return demoResult({ preview: true });
+    return request('/api/auth/phone/code', { phone, intent }, parseAuthResult);
+  },
+
+  verifyPhone(input) {
+    if (!authApiEnabled) return demoResult({ preview: true });
+    return request('/api/auth/phone/verify', input, parseAuthResult);
+  },
+
+  createWechatSession(intent, returnTo) {
+    if (!authApiEnabled) {
+      return demoResult({
+        sessionId: 'preview-wechat-session',
+        expiresIn: 300,
+        preview: true,
+      });
+    }
+    return request(
+      '/api/auth/wechat/session',
+      {
+        intent,
+        returnTo: normalizeAuthReturnTo(returnTo, DEFAULT_AUTH_RETURN_TO),
+      },
+      parseWechatSession,
+    );
+  },
+
   requestPasswordReset(email) {
     if (!authApiEnabled) return demoResult({ preview: true });
     return request(
@@ -314,22 +376,6 @@ export const authApi: AuthApi = {
   resolveSso(input) {
     if (!authApiEnabled) return demoResult({ preview: true });
     return request('/api/auth/sso/resolve', input, parseSsoResult);
-  },
-
-  getOAuthUrl(provider, intent, returnTo) {
-    if (!authApiEnabled || (intent === 'signup' && !signupApiEnabled)) {
-      return null;
-    }
-    const url = new URL(
-      `api/auth/oauth/${provider}`,
-      `${configuredAuthApiBaseUrl.replace(/\/$/, '')}/`,
-    );
-    url.searchParams.set('intent', intent);
-    url.searchParams.set(
-      'return_to',
-      normalizeAuthReturnTo(returnTo, DEFAULT_AUTH_RETURN_TO),
-    );
-    return url.toString();
   },
 };
 

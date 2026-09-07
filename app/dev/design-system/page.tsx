@@ -1,5 +1,8 @@
 'use client';
 
+import { useState } from 'react';
+import { Select } from '@/components/ui/select';
+
 import {
   ArrowLeft,
   ArrowRight,
@@ -102,6 +105,7 @@ function StatusDot({ tone }: { tone: 'success' | 'warning' | 'neutral' }) {
 }
 
 export default function DesignSystemPage() {
+  const [selectedModel, setSelectedModel] = useState('all');
   return (
     <main className="ds-page" id="top">
       <a className="skip-link" href="#ds-main">
@@ -228,7 +232,7 @@ export default function DesignSystemPage() {
               index="02"
               eyebrow="TYPOGRAPHY"
               title="Technical Editorial"
-              description="展示标题保持低字重和紧字距；正文关注中文可读性；编号、标签和元数据使用等宽字体。"
+              description="标题标签表达内容层级，视觉尺寸按用途选择。同级官网区块统一使用 section token，随屏幕在 32–48px 间变化；卡片标题与辅助栏目保持独立层级。"
             />
 
             <div className="ds-type-table">
@@ -242,7 +246,7 @@ export default function DesignSystemPage() {
               <div className="ds-type-row ds-type-heading">
                 <div>
                   <code>HEADING 02</code>
-                  <span>48 / 54 · 520</span>
+                  <span>32–48 / 1.25 · 550</span>
                 </div>
                 <p>面向可信结果的运行层</p>
               </div>
@@ -275,6 +279,43 @@ export default function DesignSystemPage() {
             />
 
             <div className="ds-control-grid">
+              <div className="ds-demo-panel">
+                <div className="ds-block-label">
+                  <span>项目共享控件</span>
+                  <code>CONSOLE</code>
+                </div>
+                <label className="ds-live-select" htmlFor="ds-model-select">
+                  <span>模型</span>
+                  <Select
+                    value={selectedModel}
+                    onValueChange={setSelectedModel}
+                    id="ds-model-select"
+                    aria-label="模型预览"
+                  >
+                    <option value="all">全部模型</option>
+                    <option value="glm">GLM-5.3-Flash</option>
+                    <option value="deepseek">DeepSeek-V4-Pro-0813</option>
+                  </Select>
+                </label>
+                <div className="ds-demo-row">
+                  <Button variant="console" className="cs-button primary">
+                    确认选择
+                  </Button>
+                  <Button
+                    variant="console"
+                    className="cs-button"
+                    onClick={() => setSelectedModel('all')}
+                  >
+                    重置
+                  </Button>
+                  <Button variant="console" className="cs-button" disabled>
+                    不可用
+                  </Button>
+                </div>
+                <p>
+                  支持方向键、Enter 选择与 Escape 关闭；菜单采用页面内组件。
+                </p>
+              </div>
               <div className="ds-demo-panel">
                 <div className="ds-block-label">
                   <span>BUTTONS</span>

@@ -7,8 +7,6 @@ export type AuthScreen =
   | 'sso'
   | 'forgot-password';
 
-export type AuthProvider = 'google' | 'github' | 'linkedin';
-
 export type AuthContent = {
   meta: Record<AuthScreen, { title: string; description: string }>;
   shell: {
@@ -42,7 +40,6 @@ export type AuthContent = {
     or: string;
     submitPending: string;
     retry: string;
-    providers: Record<AuthProvider, string>;
     termsPrefix: string;
     terms: string;
     termsJoin: string;
@@ -90,7 +87,6 @@ export type AuthContent = {
   };
   signup: {
     title: string;
-    providerPrefix: string;
     existingAccount: string;
     login: string;
     detailsTitle: string;
@@ -121,7 +117,6 @@ export type AuthContent = {
   };
   login: {
     title: string;
-    providerPrefix: string;
     emailLogin: string;
     ssoLogin: string;
     noAccount: string;
@@ -164,7 +159,6 @@ export type AuthContent = {
     ssoIdentifier: string;
     invalidAccountId: string;
     genericError: string;
-    providerReady: string;
     termsAcceptance: string;
     apiErrors: {
       credentials: string;
@@ -266,11 +260,6 @@ const en: AuthContent = {
     or: 'OR',
     submitPending: 'Please wait…',
     retry: 'Try again',
-    providers: {
-      google: 'Google',
-      github: 'GitHub',
-      linkedin: 'LinkedIn',
-    },
     termsPrefix: 'By continuing, you agree to our',
     terms: 'Terms of service',
     termsJoin: 'and',
@@ -315,7 +304,7 @@ const en: AuthContent = {
   docsPage: {
     title: 'Authentication integration',
     metaDescription:
-      'Integrate AURINOVA signup, login, SSO, recovery, and OAuth with an identity service.',
+      'Integrate AURINOVA phone, WeChat, email, SSO, and recovery flows with an identity service.',
     intro:
       'The browser talks only to same-origin AURINOVA endpoints. The server adapter validates each request, forwards a narrow contract to your identity service, and returns public response shapes to the interface.',
     backToLogin: 'Back to Log In',
@@ -350,9 +339,20 @@ const en: AuthContent = {
         purpose: 'Request recovery without exposing whether an account exists.',
       },
       {
-        method: 'GET',
-        path: '/api/auth/oauth/:provider',
-        purpose: 'Begin Google, GitHub, or LinkedIn authorization.',
+        method: 'POST',
+        path: '/api/auth/phone/code',
+        purpose: 'Send a one-time code for phone login or signup.',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/phone/verify',
+        purpose:
+          'Verify the phone code and return a safe workspace destination.',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/wechat/session',
+        purpose: 'Create a short-lived WeChat QR login session.',
       },
     ],
     liveReadinessTitle: 'Live readiness',
@@ -367,7 +367,6 @@ const en: AuthContent = {
   },
   signup: {
     title: 'Create Account',
-    providerPrefix: 'Sign up with {provider}',
     existingAccount: 'Already have an account?',
     login: 'Log In',
     detailsTitle: 'Finish creating your account',
@@ -400,7 +399,6 @@ const en: AuthContent = {
   },
   login: {
     title: 'Log In',
-    providerPrefix: 'Continue with {provider}',
     emailLogin: 'Email Login',
     ssoLogin: 'Custom SSO Login',
     noAccount: "Don't have an account?",
@@ -451,8 +449,6 @@ const en: AuthContent = {
       'Use letters, numbers, periods, underscores, or hyphens for the account ID.',
     genericError:
       'We could not complete that request. Check your connection and try again.',
-    providerReady:
-      '{provider} authentication is ready for the identity-service endpoint.',
     termsAcceptance: 'Accept the terms to create your account.',
     apiErrors: {
       credentials: 'The email or password could not be verified.',
@@ -553,7 +549,6 @@ const zh: AuthContent = {
     or: '或',
     submitPending: '处理中…',
     retry: '重试',
-    providers: { google: 'Google', github: 'GitHub', linkedin: 'LinkedIn' },
     termsPrefix: '继续操作即表示你同意',
     terms: '服务条款',
     termsJoin: '与',
@@ -591,7 +586,7 @@ const zh: AuthContent = {
   docsPage: {
     title: '身份验证接入文档',
     metaDescription:
-      '将 AURINOVA 注册、登录、企业 SSO、账户恢复与 OAuth 接入身份服务。',
+      '将 AURINOVA 手机、微信、邮箱、企业 SSO 与账户恢复流程接入身份服务。',
     intro:
       '浏览器只访问 AURINOVA 同源接口。服务端适配层会验证请求，将收窄后的契约转发至身份服务，并向界面返回稳定的公开响应。',
     backToLogin: '返回登录',
@@ -626,9 +621,19 @@ const zh: AuthContent = {
         purpose: '申请账户恢复，同时隐藏账户是否存在。',
       },
       {
-        method: 'GET',
-        path: '/api/auth/oauth/:provider',
-        purpose: '开始 Google、GitHub 或 LinkedIn 授权。',
+        method: 'POST',
+        path: '/api/auth/phone/code',
+        purpose: '发送用于手机登录或注册的一次性验证码。',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/phone/verify',
+        purpose: '验证手机验证码并返回安全的工作区目标。',
+      },
+      {
+        method: 'POST',
+        path: '/api/auth/wechat/session',
+        purpose: '创建短时有效的微信扫码登录会话。',
       },
     ],
     liveReadinessTitle: '正式接入准备',
@@ -643,7 +648,6 @@ const zh: AuthContent = {
   },
   signup: {
     title: '创建账户',
-    providerPrefix: '使用 {provider} 注册',
     existingAccount: '已有账户？',
     login: '登录',
     detailsTitle: '完成账户创建',
@@ -674,7 +678,6 @@ const zh: AuthContent = {
   },
   login: {
     title: '登录',
-    providerPrefix: '使用 {provider} 继续',
     emailLogin: '邮箱登录',
     ssoLogin: '企业 SSO 登录',
     noAccount: '还没有账户？',
@@ -718,7 +721,6 @@ const zh: AuthContent = {
     ssoIdentifier: '请输入工作邮箱或账户 ID。',
     invalidAccountId: '账户 ID 仅可包含字母、数字、点、下划线或连字符。',
     genericError: '请求未能完成。请检查网络后重试。',
-    providerReady: '{provider} 身份验证已预留接口，可直接对接身份服务。',
     termsAcceptance: '请先同意相关条款，再创建账户。',
     apiErrors: {
       credentials: '邮箱或密码无法验证。',

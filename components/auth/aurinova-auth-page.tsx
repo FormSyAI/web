@@ -1,4 +1,4 @@
-'use client';
+import { Checkbox } from '@/components/ui/checkbox';
 
 import {
   ArrowLeft,
@@ -7,6 +7,9 @@ import {
   CheckCircle2,
   Eye,
   EyeOff,
+  MessageCircleMore,
+  QrCode,
+  Smartphone,
   X,
 } from 'lucide-react';
 import Image from '@/components/runtime/app-image';
@@ -19,7 +22,6 @@ import {
   type InputHTMLAttributes,
   type SyntheticEvent,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 
@@ -31,7 +33,6 @@ import { useI18n } from '@/components/i18n/i18n-provider';
 import {
   authDictionaries,
   type AuthContent,
-  type AuthProvider,
   type AuthScreen,
 } from '@/content/auth.i18n';
 import {
@@ -163,51 +164,6 @@ function Link({ href, ...props }: ComponentProps<typeof RuntimeLink>) {
 const termsHref = authTermsUrl;
 const dataAgreementHref = authDataAgreementUrl;
 
-function GoogleMark() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="#4285f4"
-        d="M21.6 12.23c0-.71-.06-1.4-.18-2.07H12v3.91h5.38a4.6 4.6 0 0 1-2 3.02v2.54h3.24c1.9-1.75 2.98-4.33 2.98-7.4Z"
-      />
-      <path
-        fill="#34a853"
-        d="M12 22c2.7 0 4.97-.9 6.63-2.37l-3.24-2.54c-.9.6-2.05.96-3.39.96-2.61 0-4.82-1.76-5.61-4.13H3.04v2.62A10 10 0 0 0 12 22Z"
-      />
-      <path
-        fill="#fbbc05"
-        d="M6.39 13.92a6 6 0 0 1 0-3.84V7.46H3.04a10 10 0 0 0 0 9.08l3.35-2.62Z"
-      />
-      <path
-        fill="#ea4335"
-        d="M12 5.95c1.47 0 2.8.5 3.84 1.5l2.86-2.86A9.61 9.61 0 0 0 12 2a10 10 0 0 0-8.96 5.46l3.35 2.62C7.18 7.71 9.39 5.95 12 5.95Z"
-      />
-    </svg>
-  );
-}
-
-function ProviderIcon({ provider }: { provider: AuthProvider }) {
-  if (provider === 'google') return <GoogleMark />;
-  if (provider === 'github') {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path
-          fill="currentColor"
-          d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .08 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.86.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.66a9.3 9.3 0 0 1 2.5.35c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.23 10.23 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"
-        />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M5.2 3.4A2.2 2.2 0 1 1 5.2 7.8a2.2 2.2 0 0 1 0-4.4ZM3.3 9.2h3.8V21H3.3V9.2Zm6.1 0H13v1.61h.05c.5-.94 1.72-1.94 3.54-1.94 3.78 0 4.48 2.5 4.48 5.74V21h-3.79v-5.66c0-1.35-.03-3.08-1.88-3.08-1.88 0-2.17 1.47-2.17 2.98V21H9.44V9.2Z"
-      />
-    </svg>
-  );
-}
-
 function AuthField({
   error,
   hint,
@@ -277,7 +233,8 @@ function PasswordField({
         error={error}
         hint={hint}
       />
-      <button
+      <Button
+        variant="brand"
         className="auth-password-toggle"
         type="button"
         aria-label={
@@ -287,7 +244,7 @@ function PasswordField({
         onClick={() => setVisible((current) => !current)}
       >
         {visible ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />}
-      </button>
+      </Button>
     </div>
   );
 }
@@ -330,13 +287,13 @@ function SignupConsent({
 }) {
   return (
     <div className="auth-consent">
-      <input
+      <Checkbox
+        className="ui-auth-checkbox"
         id="signup-terms"
-        type="checkbox"
         checked={checked}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? 'signup-terms-error' : undefined}
-        onChange={(event) => onChange(event.target.checked)}
+        onCheckedChange={onChange}
       />
       <label htmlFor="signup-terms">
         {copy.signup.acceptTerms}{' '}
@@ -364,58 +321,6 @@ function SignupConsent({
           {error}
         </p>
       )}
-    </div>
-  );
-}
-
-function SocialButtons({
-  copy,
-  intent,
-  onNotice,
-}: {
-  copy: AuthContent;
-  intent: 'login' | 'signup';
-  onNotice: (notice: Notice) => void;
-}) {
-  const providers = useMemo<AuthProvider[]>(
-    () => ['google', 'github', 'linkedin'],
-    [],
-  );
-  const prefix =
-    intent === 'signup'
-      ? copy.signup.providerPrefix
-      : copy.login.providerPrefix;
-
-  const startProvider = (provider: AuthProvider) => {
-    const url = authApi.getOAuthUrl(provider, intent, currentReturnTo());
-    if (url) {
-      window.location.assign(url);
-      return;
-    }
-    onNotice({
-      tone: 'info',
-      text: format(copy.validation.providerReady, {
-        provider: copy.common.providers[provider],
-      }),
-    });
-  };
-
-  return (
-    <div className="auth-social-list">
-      {providers.map((provider) => (
-        <Button
-          className="auth-social-button"
-          variant="outline"
-          type="button"
-          key={provider}
-          onClick={() => startProvider(provider)}
-        >
-          <ProviderIcon provider={provider} />
-          <span>
-            {format(prefix, { provider: copy.common.providers[provider] })}
-          </span>
-        </Button>
-      ))}
     </div>
   );
 }
@@ -503,6 +408,264 @@ function SuccessState({
   );
 }
 
+function PhoneAccessPanel({
+  copy,
+  intent,
+  onEmail,
+}: {
+  copy: AuthContent;
+  intent: 'login' | 'signup';
+  onEmail?: () => void;
+}) {
+  const { locale } = useI18n();
+  const zh = locale === 'zh-CN';
+  const [phone, setPhone] = useState('');
+  const [code, setCode] = useState('');
+  const [pending, setPending] = useState(false);
+  const [countdown, setCountdown] = useState(0);
+  const [error, setError] = useState('');
+  const [notice, setNotice] = useState<Notice>(null);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (countdown <= 0) return;
+    const timer = window.setInterval(
+      () => setCountdown((current) => Math.max(0, current - 1)),
+      1000,
+    );
+    return () => window.clearInterval(timer);
+  }, [countdown]);
+
+  const normalizedPhone = phone.replace(/[\s-]/g, '');
+  const phoneValid = /^1\d{10}$/.test(normalizedPhone);
+
+  const sendCode = async () => {
+    if (!phoneValid) {
+      setError(
+        zh ? '请输入有效的 11 位手机号。' : 'Enter a valid phone number.',
+      );
+      focusField('phone-number');
+      return;
+    }
+    setPending(true);
+    setError('');
+    setNotice(null);
+    try {
+      await authApi.requestPhoneCode(`+86${normalizedPhone}`, intent);
+      setCountdown(60);
+      setNotice({
+        tone: 'success',
+        text: zh
+          ? '验证码发送流程已完成演示，输入任意 4–6 位数字继续。'
+          : 'Code delivery was simulated. Enter any 4–6 digits to continue.',
+      });
+      focusField('phone-code');
+    } catch (requestError) {
+      setNotice({
+        tone: 'error',
+        text: apiFailure(requestError, copy).message,
+      });
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const submit = async (event: SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!phoneValid) {
+      setError(
+        zh ? '请输入有效的 11 位手机号。' : 'Enter a valid phone number.',
+      );
+      focusField('phone-number');
+      return;
+    }
+    if (!/^\d{4,6}$/.test(code)) {
+      setError(zh ? '请输入 4–6 位验证码。' : 'Enter the 4–6 digit code.');
+      focusField('phone-code');
+      return;
+    }
+    setPending(true);
+    setError('');
+    setNotice(null);
+    try {
+      const result = await authApi.verifyPhone({
+        phone: `+86${normalizedPhone}`,
+        code,
+        intent,
+        returnTo: currentReturnTo(),
+      });
+      if (!safeRedirect(result.redirectTo)) setSuccess(true);
+    } catch (requestError) {
+      setNotice({
+        tone: 'error',
+        text: apiFailure(requestError, copy).message,
+      });
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const refreshWechat = async () => {
+    setPending(true);
+    setNotice(null);
+    try {
+      await authApi.createWechatSession(intent, currentReturnTo());
+      setNotice({
+        tone: 'info',
+        text: zh
+          ? '微信扫码会话已在本地演示中刷新。'
+          : 'The WeChat QR session was refreshed in local preview.',
+      });
+    } catch (requestError) {
+      setNotice({
+        tone: 'error',
+        text: apiFailure(requestError, copy).message,
+      });
+    } finally {
+      setPending(false);
+    }
+  };
+
+  if (success) {
+    return (
+      <SuccessState
+        title={zh ? '验证完成' : 'Verification complete'}
+        description={
+          zh
+            ? `已完成 +86 ${normalizedPhone} 的${intent === 'signup' ? '注册' : '登录'}流程演示。`
+            : `The ${intent} flow for +86 ${normalizedPhone} was completed in preview.`
+        }
+        actionHref="/demo/console/usage"
+        actionLabel={zh ? '进入控制台演示' : 'Open console demo'}
+      />
+    );
+  }
+
+  return (
+    <>
+      <h1>{intent === 'signup' ? copy.signup.title : copy.login.title}</h1>
+      <div className="auth-access-grid">
+        <form className="auth-phone-form" noValidate onSubmit={submit}>
+          <div className="auth-phone-input">
+            <span aria-hidden="true">+86</span>
+            <label className="auth-sr-only" htmlFor="phone-number">
+              {zh ? '手机号' : 'Phone number'}
+            </label>
+            <Input
+              id="phone-number"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel-national"
+              maxLength={13}
+              placeholder={zh ? '请输入手机号' : 'Phone number'}
+              value={phone}
+              aria-invalid={Boolean(error && !phoneValid)}
+              onChange={(event) => setPhone(event.target.value)}
+            />
+          </div>
+          <div className="auth-code-input">
+            <label className="auth-sr-only" htmlFor="phone-code">
+              {zh ? '验证码' : 'Verification code'}
+            </label>
+            <Input
+              id="phone-code"
+              type="text"
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              maxLength={6}
+              placeholder={zh ? '请输入验证码' : 'Verification code'}
+              value={code}
+              onChange={(event) =>
+                setCode(event.target.value.replace(/\D/g, ''))
+              }
+            />
+            <Button
+              variant="ghost"
+              type="button"
+              disabled={pending || countdown > 0}
+              onClick={sendCode}
+            >
+              {countdown > 0
+                ? `${countdown}s`
+                : zh
+                  ? '发送验证码'
+                  : 'Send code'}
+            </Button>
+          </div>
+          {error && <p className="auth-field-error">{error}</p>}
+          <StatusNotice notice={notice} />
+          <Button className="auth-submit" type="submit" disabled={pending}>
+            <Smartphone aria-hidden="true" />
+            {pending
+              ? copy.common.submitPending
+              : intent === 'signup'
+                ? zh
+                  ? '注册并登录'
+                  : 'Sign up and log in'
+                : zh
+                  ? '登录'
+                  : 'Log in'}
+          </Button>
+          <div className="auth-secondary-options">
+            {onEmail ? (
+              <Button variant="ghost" type="button" onClick={onEmail}>
+                {zh ? '邮箱注册' : 'Sign up with email'}
+              </Button>
+            ) : (
+              <Link href="/aurinova-reference/login/email">
+                {zh ? '密码登录' : 'Password login'}
+              </Link>
+            )}
+            <Link href="/aurinova-reference/login/sso">
+              {copy.login.ssoLogin}
+            </Link>
+          </div>
+        </form>
+        <section
+          className="auth-wechat-panel"
+          aria-label={zh ? '微信登录' : 'WeChat login'}
+        >
+          <Button
+            className="auth-qr-button"
+            variant="ghost"
+            type="button"
+            disabled={pending}
+            onClick={refreshWechat}
+            aria-label={
+              zh ? '刷新微信登录二维码' : 'Refresh WeChat login QR code'
+            }
+          >
+            <QrCode aria-hidden="true" />
+          </Button>
+          <p>
+            <MessageCircleMore aria-hidden="true" />
+            {zh ? '微信扫码登录' : 'Scan with WeChat'}
+          </p>
+          <small>
+            {zh
+              ? '点击二维码刷新演示会话'
+              : 'Select the code to refresh the preview'}
+          </small>
+        </section>
+      </div>
+      <p className="auth-switch-path">
+        {intent === 'signup'
+          ? copy.signup.existingAccount
+          : copy.login.noAccount}{' '}
+        <Link
+          href={
+            intent === 'signup'
+              ? '/aurinova-reference/login'
+              : '/aurinova-reference/signup'
+          }
+        >
+          {intent === 'signup' ? copy.signup.login : copy.login.signup}
+        </Link>
+      </p>
+    </>
+  );
+}
+
 function SignupPanel({ copy }: { copy: AuthContent }) {
   const { locale } = useI18n();
   const [step, setStep] = useState<'email' | 'details' | 'success'>('email');
@@ -516,8 +679,19 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
   const [pending, setPending] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [notice, setNotice] = useState<Notice>(null);
+  const [entryMode, setEntryMode] = useState<'phone' | 'email'>('phone');
   const passwordChecks = getPasswordChecks(password, confirmPassword);
   const passwordReady = Object.values(passwordChecks).every(Boolean);
+
+  if (entryMode === 'phone') {
+    return (
+      <PhoneAccessPanel
+        copy={copy}
+        intent="signup"
+        onEmail={() => setEntryMode('email')}
+      />
+    );
+  }
 
   const submitEmail = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -652,7 +826,8 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
   if (step === 'details') {
     return (
       <>
-        <button
+        <Button
+          variant="brand"
           className="auth-back"
           type="button"
           onClick={() => {
@@ -670,14 +845,18 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
         >
           <ArrowLeft aria-hidden="true" />
           {copy.common.back}
-        </button>
+        </Button>
         <h1>{copy.signup.detailsTitle}</h1>
         <p className="auth-panel-intro">{copy.signup.detailsDescription}</p>
         <p className="auth-selected-email">
           {email}
-          <button type="button" onClick={() => setStep('email')}>
+          <Button
+            variant="brand"
+            type="button"
+            onClick={() => setStep('email')}
+          >
             {copy.signup.changeEmail}
-          </button>
+          </Button>
         </p>
         <form className="auth-form" noValidate onSubmit={submitDetails}>
           <AuthField
@@ -749,10 +928,15 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
 
   return (
     <>
-      <Link className="auth-back" href="/aurinova-reference/login">
+      <Button
+        className="auth-back"
+        variant="ghost"
+        type="button"
+        onClick={() => setEntryMode('phone')}
+      >
         <ArrowLeft aria-hidden="true" />
         {copy.common.back}
-      </Link>
+      </Button>
       <h1>{copy.signup.title}</h1>
       <form className="auth-form" noValidate onSubmit={submitEmail}>
         <AuthField
@@ -771,8 +955,6 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
           {pending ? copy.common.submitPending : copy.common.next}
         </Button>
       </form>
-      <Divider label={copy.common.or} />
-      <SocialButtons copy={copy} intent="signup" onNotice={setNotice} />
       <p className="auth-switch-path">
         {copy.signup.existingAccount}{' '}
         <Link href="/aurinova-reference/login">{copy.signup.login}</Link>
@@ -782,25 +964,7 @@ function SignupPanel({ copy }: { copy: AuthContent }) {
 }
 
 function LoginPanel({ copy }: { copy: AuthContent }) {
-  const [notice, setNotice] = useState<Notice>(null);
-  return (
-    <>
-      <h1>{copy.login.title}</h1>
-      <StatusNotice notice={notice} />
-      <SocialButtons copy={copy} intent="login" onNotice={setNotice} />
-      <Divider label={copy.common.or} />
-      <div className="auth-login-options">
-        <Link href="/aurinova-reference/login/email">
-          {copy.login.emailLogin}
-        </Link>
-        <Link href="/aurinova-reference/login/sso">{copy.login.ssoLogin}</Link>
-      </div>
-      <p className="auth-switch-path">
-        {copy.login.noAccount}{' '}
-        <Link href="/aurinova-reference/signup">{copy.login.signup}</Link>
-      </p>
-    </>
-  );
+  return <PhoneAccessPanel copy={copy} intent="login" />;
 }
 
 function EmailLoginPanel({ copy }: { copy: AuthContent }) {
@@ -1170,7 +1334,8 @@ function BrandPanel({ copy }: { copy: AuthContent }) {
               <span>{item.company}</span>
             </div>
             <div className="auth-testimonial-controls">
-              <button
+              <Button
+                variant="brand"
                 type="button"
                 aria-label={copy.shell.previousTestimonial}
                 disabled={testimonial === 0}
@@ -1179,8 +1344,9 @@ function BrandPanel({ copy }: { copy: AuthContent }) {
                 }
               >
                 <ArrowLeft aria-hidden="true" />
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="brand"
                 type="button"
                 aria-label={copy.shell.nextTestimonial}
                 disabled={testimonial === copy.shell.testimonials.length - 1}
@@ -1191,7 +1357,7 @@ function BrandPanel({ copy }: { copy: AuthContent }) {
                 }
               >
                 <ArrowRight aria-hidden="true" />
-              </button>
+              </Button>
             </div>
           </footer>
         </article>
@@ -1274,7 +1440,11 @@ export function AurinovaAuthPage({ screen }: { screen: AuthScreen }) {
           <h2 className="auth-sr-only" id="auth-panel-heading">
             {copy.shell.authenticationSection}
           </h2>
-          <div className="auth-panel-content">
+          <div
+            className={`auth-panel-content${
+              screen === 'login' || screen === 'signup' ? ' is-access' : ''
+            }`}
+          >
             {!isLiveScreen && (
               <output className="auth-preview-mode">
                 {copy.preview.banner}

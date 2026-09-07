@@ -20,6 +20,7 @@ const routes = [
   'aurinova-reference/terms',
   'aurinova-reference/data-processing',
   'dev/design-system',
+  'design-system',
   'fireworks-reference',
   'login',
   'pricing',

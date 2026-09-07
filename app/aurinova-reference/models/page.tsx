@@ -7,6 +7,7 @@ import { AurinovaReferenceHeader } from '@/components/site/aurinova-reference-he
 import { AurinovaReferenceFooter } from '@/components/site/aurinova-reference-footer';
 import { AppLink as Link } from '@/components/runtime/app-link';
 import '@/components/site/coding-plan-offerings.css';
+import './models.css';
 export default function ModelsPage() {
   const { locale } = useI18n();
   const t = (zh: string, en: string) => (locale === 'zh-CN' ? zh : en);
@@ -15,13 +16,13 @@ export default function ModelsPage() {
       locale === 'zh-CN' ? '模型库 | AURINOVA' : 'Models | AURINOVA';
   }, [locale]);
   return (
-    <main className="pr-page">
+    <main className="pr-page models-page">
       <AurinovaReferenceHeader />
       <section className="pr-hero pr-shell">
         <p>FORMSY / MODELS</p>
-        <h1>
+        <h2>
           {t('围绕任务，选择合适的模型', 'Choose models around your tasks')}
-        </h1>
+        </h2>
         <p>
           {t(
             '选择 GLM、Kimi、Qwen、DeepSeek、MiniMax 与 Nemotron 等开放模型。当前提供接入演示，正式服务与价格将在验证后开放。',
@@ -47,19 +48,15 @@ export default function ModelsPage() {
       <section className="cp-offerings pr-shell">
         <div className="cp-cards">
           {modelCatalog.map((model) => (
-            <article
-              key={model.id}
-              id={model.id}
-              style={{ scrollMarginTop: 130 }}
-            >
+            <article key={model.id} id={model.id} className="model-anchor">
               <Image
                 src={model.logo}
                 alt=""
                 width={36}
                 height={36}
-                style={{ objectFit: 'contain' }}
+                className="model-logo"
               />
-              <h3>{model.name}</h3>
+              <h2>{model.name}</h2>
               <p>
                 {t(
                   '开放模型目录 · 服务接入待验证',

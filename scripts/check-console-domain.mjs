@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { createServer } from 'vite';
 const server = await createServer({
+  // Keep SSR test optimization separate from the running preview.
+  cacheDir: 'node_modules/.vite-console-check',
   server: { middlewareMode: true },
   optimizeDeps: { noDiscovery: true, entries: [] },
 });

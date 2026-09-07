@@ -1,4 +1,5 @@
-'use client';
+import { ToolLogo } from '@/components/site/tool-logo';
+import { Button } from '@/components/ui/button';
 
 import {
   ArrowLeft,
@@ -7,6 +8,8 @@ import {
   GitBranch,
   Layers,
   ShieldCheck,
+  Pause,
+  Play,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { DeploymentIcon } from '@/components/site/deployment-icon';
@@ -21,15 +24,17 @@ function SectionHeading({
   eyebrow,
   title,
   description,
-  centered = false,
+  align = 'center',
 }: {
   eyebrow: string;
   title: string;
   description?: string;
-  centered?: boolean;
+  align?: 'center' | 'left';
 }) {
   return (
-    <div className={`fw-section-heading${centered ? ' is-centered' : ''}`}>
+    <div
+      className={`fw-section-heading is-${align === 'center' ? 'centered' : 'left'}`}
+    >
       <p>{eyebrow}</p>
       <h2>{title}</h2>
       {description && <span>{description}</span>}
@@ -41,9 +46,66 @@ export default function AurinovaReferencePage() {
   const { locale } = useI18n();
   const content = aurinovaReferenceDictionaries[locale];
   const [heroSlide, setHeroSlide] = useState(0);
+  const [displaySlide, setDisplaySlide] = useState(0);
+  const [slidePhase, setSlidePhase] = useState('idle');
+  const [slideDirection, setSlideDirection] = useState('forward');
+  const displayedSlide = useRef(0);
+  useEffect(() => {
+    let exit: number;
+    let finish: number;
+    const frame = requestAnimationFrame(() => {
+      if (heroSlide === displayedSlide.current) {
+        setSlidePhase('idle');
+        return;
+      }
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        displayedSlide.current = heroSlide;
+        setDisplaySlide(heroSlide);
+        setSlidePhase('idle');
+        return;
+      }
+      setSlideDirection(
+        heroSlide > displayedSlide.current ? 'forward' : 'backward',
+      );
+      setSlidePhase('exit');
+      exit = window.setTimeout(() => {
+        displayedSlide.current = heroSlide;
+        setDisplaySlide(heroSlide);
+        setSlidePhase('enter');
+      }, 220);
+      finish = window.setTimeout(() => setSlidePhase('idle'), 660);
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      clearTimeout(exit);
+      clearTimeout(finish);
+    };
+  }, [heroSlide]);
+  const [rotationPaused, setRotationPaused] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  );
+  const [rotationCycle, setRotationCycle] = useState(0);
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const schedule = () => {
+      clearTimeout(timer);
+      if (!rotationPaused && !document.hidden) {
+        timer = setTimeout(
+          () => setHeroSlide((slide) => (slide + 1) % 2),
+          6000,
+        );
+      }
+    };
+    schedule();
+    document.addEventListener('visibilitychange', schedule);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', schedule);
+    };
+  }, [rotationPaused, heroSlide, rotationCycle]);
   const modelRail = useRef<HTMLDivElement>(null);
   const scenarioRail = useRef<HTMLDivElement>(null);
-  const hero = heroSlide === 0 ? content.hero : content.secondHero;
+  const hero = displaySlide === 0 ? content.hero : content.secondHero;
   useEffect(() => {
     document.title = content.ui.pageTitle;
     document
@@ -63,20 +125,22 @@ export default function AurinovaReferencePage() {
   };
   const railControls = (ref: React.RefObject<HTMLDivElement | null>) => (
     <div className="fw-shell fw-rail-controls">
-      <button
+      <Button
+        variant="brand"
         type="button"
         aria-label={content.ui.previous}
         onClick={() => scrollRail(ref, -1)}
       >
         <ArrowLeft />
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="brand"
         type="button"
         aria-label={content.ui.next}
         onClick={() => scrollRail(ref, 1)}
       >
         <ArrowRight />
-      </button>
+      </Button>
     </div>
   );
   return (
@@ -86,9 +150,17 @@ export default function AurinovaReferencePage() {
       </a>
       <AurinovaReferenceHeader />
       <div id="fw-main">
-        <section className="fw-hero fw-designed-hero">
-          <div className="fw-shell fw-hero-grid fw-hero-slide" key={heroSlide}>
-            <div className="fw-hero-copy">
+        <section
+          className="fw-hero fw-designed-hero"
+          aria-roledescription="carousel"
+          aria-label={content.ui.heroSlides}
+        >
+          <div
+            className="fw-shell fw-hero-grid"
+            data-slide-phase={slidePhase}
+            data-slide-direction={slideDirection}
+          >
+            <div className="fw-hero-copy fw-hero-motion">
               <p className="fw-eyebrow">{hero.eyebrow}</p>
               <h1>
                 {hero.lines.map((line) => (
@@ -109,35 +181,59 @@ export default function AurinovaReferencePage() {
               </div>
             </div>
             <div className="fw-hero-visual">
-              <FormsyBannerArt
-                locale={locale}
-                variant={
-                  heroSlide === 0 ? 'verified-work' : 'enterprise-learning'
-                }
-                alt={
-                  heroSlide === 0
-                    ? content.banners.outcomeAlt
-                    : content.banners.learningAlt
-                }
-                label={
-                  heroSlide === 0
-                    ? content.banners.outcome
-                    : content.banners.learning
-                }
-                caption={content.chart.caption}
-              />
+              <div className="fw-hero-motion">
+                <FormsyBannerArt
+                  key={displaySlide}
+                  locale={locale}
+                  variant={
+                    displaySlide === 0 ? 'verified-work' : 'enterprise-learning'
+                  }
+                  alt={
+                    displaySlide === 0
+                      ? content.banners.outcomeAlt
+                      : content.banners.learningAlt
+                  }
+                  label={
+                    displaySlide === 0
+                      ? content.banners.outcome
+                      : content.banners.learning
+                  }
+                  caption={content.chart.caption}
+                />
+              </div>
               <div className="fw-hero-dots" aria-label={content.ui.heroSlides}>
                 {[content.ui.showTaskSlide, content.ui.showLearningSlide].map(
                   (label, i) => (
-                    <button
+                    <Button
+                      variant="brand"
                       key={label}
                       type="button"
                       aria-label={label}
                       aria-pressed={heroSlide === i}
-                      onClick={() => setHeroSlide(i)}
+                      onClick={() => {
+                        setHeroSlide(i);
+                        setRotationCycle((cycle) => cycle + 1);
+                      }}
                     />
                   ),
                 )}
+                <Button
+                  variant="brand"
+                  type="button"
+                  className="fw-rotation-toggle"
+                  aria-label={
+                    locale === 'zh-CN'
+                      ? rotationPaused
+                        ? '播放轮播'
+                        : '暂停轮播'
+                      : rotationPaused
+                        ? 'Play slideshow'
+                        : 'Pause slideshow'
+                  }
+                  onClick={() => setRotationPaused((paused) => !paused)}
+                >
+                  {rotationPaused ? <Play size={14} /> : <Pause size={14} />}
+                </Button>
               </div>
             </div>
           </div>
@@ -157,12 +253,14 @@ export default function AurinovaReferencePage() {
                 aria-hidden={copy === 1 ? true : undefined}
               >
                 {content.ecosystem.items.map((item) => (
-                  <span key={item}>{item}</span>
+                  <span key={item}>
+                    <ToolLogo name={item} />
+                    {item}
+                  </span>
                 ))}
               </div>
             ))}
           </div>
-          <p>{content.ecosystem.note}</p>
         </section>
         <section className="fw-gtc" id="overview">
           <div className="fw-shell fw-gtc-grid">
@@ -245,7 +343,7 @@ export default function AurinovaReferencePage() {
         </section>
         <section className="fw-models" id="models-deployment">
           <div className="fw-shell fw-bordered-shell">
-            <SectionHeading {...content.models} centered />
+            <SectionHeading {...content.models} />
             <div className="fw-model-rail" ref={modelRail}>
               {content.models.items.map((item, i) => (
                 <article
@@ -268,7 +366,7 @@ export default function AurinovaReferencePage() {
         </section>
         <section className="fw-customers" id="solutions">
           <div className="fw-shell fw-bordered-shell">
-            <SectionHeading {...content.scenarios} centered />
+            <SectionHeading {...content.scenarios} />
           </div>
           <div className="fw-customer-rail" ref={scenarioRail}>
             {content.scenarios.items.map((item, i) => (

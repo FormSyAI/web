@@ -1,4 +1,4 @@
-'use client';
+import { Button } from '@/components/ui/button';
 
 import * as React from 'react';
 
@@ -163,7 +163,8 @@ export function HeroShowcase() {
           aria-label={content.ui.heroPaginationLabel}
         >
           {content.heroSlides.map((slide, index) => (
-            <button
+            <Button
+              variant="brand"
               key={slide.id}
               className={active === index ? 'is-active' : ''}
               type="button"

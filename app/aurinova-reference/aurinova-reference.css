@@ -3,15 +3,14 @@
   --fw-brand-deep: var(--brand-blue-700);
   --fw-brand-soft: var(--brand-blue-300);
   --fw-highlight: var(--brand-gold-500);
-  --fw-ink: #18181d;
-  --fw-muted: #686b75;
-  --fw-line: #e6eaf4;
-  --fw-white: #fff;
+  --fw-ink: var(--text-marketing);
+  --fw-muted: var(--text-marketing-muted);
+  --fw-line: var(--border-marketing);
+  --fw-white: var(--paper);
   min-height: 100vh;
   color: var(--fw-ink);
   background: var(--fw-white);
-  font-family:
-    Inter, var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-body);
   scrollbar-color: var(--fw-brand) #f4f4f6;
 }
 
@@ -37,7 +36,7 @@
   font: inherit;
 }
 .fw-shell {
-  width: min(100%, 1392px);
+  width: min(100%, var(--shell));
   margin-inline: auto;
   padding-inline: 32px;
 }
@@ -54,14 +53,16 @@
 .fw-announcement-wrap::after {
   position: absolute;
   inset-block: 0;
-  width: min(22vw, 300px);
+  width: min(28vw, 420px);
   content: '';
-  background: repeating-linear-gradient(
+  background: linear-gradient(
     90deg,
-    #2c6cb5 0 32px,
-    #1c4a7f 32px 64px,
-    #0b2645 64px 96px,
-    #061423 96px 128px
+    var(--brand-blue-500) 0 12%,
+    #2c69ac 12% 27%,
+    var(--brand-blue-700) 27% 44%,
+    #18456f 44% 62%,
+    var(--brand-blue-900) 62% 80%,
+    #061423 80% 100%
   );
 }
 
@@ -96,7 +97,7 @@
   background: rgb(255 255 255 / 96%);
 }
 .fw-header-inner {
-  width: min(100%, 1392px);
+  width: min(100%, var(--shell));
   height: 72px;
   margin-inline: auto;
   padding-inline: 32px;
@@ -345,7 +346,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-code);
   font-size: 13px;
   font-weight: 700;
 }
@@ -385,7 +386,7 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--fw-menu-line);
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-code);
   font-size: 13px;
   font-weight: 700;
 }
@@ -413,14 +414,17 @@
   right: -232px;
   left: auto;
   width: 964px;
-  min-height: 488px;
+  min-height: 0;
   transform: none;
 }
 .fw-resource-menu > div {
   width: 29%;
-  padding: 42px 36px;
+  padding: 32px 24px;
 }
-.fw-resource-menu > .fw-featured-resources {
+.fw-resource-menu > .fw-menu-link-grid a svg {
+  flex-shrink: 0;
+}
+.fw-featured-resources {
   width: 42%;
 }
 .fw-resource-menu > div + div {
@@ -438,7 +442,7 @@
 }
 .fw-menu-link-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
 }
 .fw-menu-link-grid a {
@@ -446,9 +450,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
+  gap: 12px;
+  padding: 10px 0;
   border-bottom: 1px solid var(--fw-menu-line);
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-code);
   font-size: 12px;
   font-weight: 700;
 }
@@ -477,7 +482,7 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  padding: 28px;
+  padding: 12px;
   background:
     linear-gradient(135deg, rgb(44 108 181 / 12%), rgb(243 179 34 / 10%)), white;
 }
@@ -490,7 +495,7 @@
 }
 .fw-featured-resources small {
   color: var(--fw-muted);
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-code);
   font-size: 10px;
   font-weight: 700;
 }
@@ -932,6 +937,7 @@
   padding-top: 128px;
 }
 .fw-section-heading {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -940,16 +946,20 @@
 .fw-section-heading h2 {
   max-width: 860px;
   margin: 0;
-  font-size: 48px;
-  line-height: 1.25;
-  letter-spacing: -1.92px;
-  font-weight: 550;
+  font-size: var(--type-section-size);
+  line-height: var(--type-section-leading);
+  letter-spacing: var(--type-section-tracking);
+  font-weight: var(--type-section-weight);
 }
 .fw-section-heading > span {
   max-width: 720px;
   color: var(--fw-muted);
   font-size: 17px;
   line-height: 1.55;
+}
+.fw-section-heading.is-left {
+  align-items: flex-start;
+  text-align: left;
 }
 .fw-section-heading.is-centered {
   align-items: center;
@@ -981,7 +991,7 @@
 .fw-pillar-title > span {
   flex: 0 0 20px;
   color: var(--fw-brand-soft);
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-code);
   font-size: 11px;
 }
 .fw-pillar-title h3 {
@@ -1052,16 +1062,13 @@
 .fw-models .fw-section-heading h2 {
   width: 860px;
   max-width: 100%;
-  font-size: 36px;
-  line-height: 44px;
-  letter-spacing: -1.44px;
 }
 .fw-inline-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   margin-top: 28px;
-  font-family: ui-monospace, monospace;
+  font-family: var(--font-code);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -1183,7 +1190,7 @@
   flex-direction: column;
   padding: 30px;
   border: 1px solid var(--fw-line);
-  background: #fff;
+  background: var(--paper);
   scroll-snap-align: start;
 }
 .fw-customer-logo {
@@ -1346,10 +1353,10 @@
 }
 .fw-cta h2 {
   margin: 0;
-  font-size: 48px;
-  line-height: 1.16;
-  letter-spacing: -1.92px;
-  font-weight: 550;
+  font-size: var(--type-section-size);
+  line-height: var(--type-section-leading);
+  letter-spacing: var(--type-section-tracking);
+  font-weight: var(--type-section-weight);
 }
 .fw-cta p {
   margin: 24px 0 0;
@@ -1507,9 +1514,7 @@
   .fw-hero-grid {
     padding-block: 48px;
   }
-  .fw-hero h1,
-  .fw-section-heading h2,
-  .fw-cta h2 {
+  .fw-hero h1 {
     font-size: 37px;
     line-height: 1.12;
     letter-spacing: -1.3px;
@@ -1717,12 +1722,6 @@
   font-weight: 500;
   text-align: center;
   margin: 0 0 24px;
-}
-.fw-ecosystem > p {
-  text-align: center;
-  font-size: 14px;
-  padding: 0 20px;
-  color: var(--fw-muted);
 }
 .fw-ecosystem .fw-logo-track {
   width: max-content;
@@ -2008,9 +2007,11 @@
 }
 .fw-resource-mark {
   display: flex;
-  font: 36px var(--font-code);
+  font: 20px var(--font-code);
+  line-height: 1;
+  white-space: nowrap;
   color: var(--brand-blue-700);
-  padding: 24px;
+  padding: 0;
 }
 .fw-resource-mark > span {
   color: var(--brand-blue-300);
@@ -2098,6 +2099,16 @@
 .fw-header .fw-mobile-trigger {
   min-width: 44px;
   min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+}
+.fw-header .fw-mobile-trigger > svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
 }
 @media (max-width: 960px) {
   .fw-hero-grid {
@@ -2116,7 +2127,9 @@
 .fw-ecosystem-set span {
   width: auto;
   height: auto;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   opacity: 1;
   filter: none;
   color: var(--fw-muted);
@@ -2408,4 +2421,73 @@
 }
 .fw-deployment-card:hover .fw-deployment-icon {
   background: rgb(44 108 181 / 14%);
+}
+
+.fw-hero-dots .fw-rotation-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--fw-brand);
+}
+.fw-hero-dots .fw-rotation-toggle::before {
+  content: none;
+}
+
+/* Animate the copy and artwork together; controls stay in place. */
+.fw-designed-hero {
+  overflow: clip;
+}
+.fw-hero-grid {
+  --slide-offset: 36px;
+}
+.fw-hero-grid[data-slide-direction='backward'] {
+  --slide-offset: -36px;
+}
+.fw-hero-grid[data-slide-phase='exit'] .fw-hero-motion {
+  animation: fw-hero-exit 220ms ease-in both;
+  pointer-events: none;
+}
+.fw-hero-grid[data-slide-phase='enter'] .fw-hero-motion {
+  animation: fw-hero-enter 440ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes fw-hero-exit {
+  from {
+    opacity: 1;
+    translate: 0 0;
+  }
+  to {
+    opacity: 0;
+    translate: calc(-1 * var(--slide-offset)) 0;
+  }
+}
+@keyframes fw-hero-enter {
+  from {
+    opacity: 0;
+    translate: var(--slide-offset) 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fw-hero-grid .fw-hero-motion {
+    animation: none;
+  }
+}
+
+/* The animation wrapper must fill the visual column instead of shrink-to-fit. */
+.fw-designed-hero .fw-hero-visual > .fw-hero-motion {
+  width: 100%;
+  min-width: 0;
+  align-self: stretch;
+}
+
+.fw-ecosystem-set img,
+.fw-ecosystem-set svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  object-fit: contain;
 }

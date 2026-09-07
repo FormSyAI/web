@@ -13,6 +13,11 @@ export default defineConfig(() => {
     css: { postcss: { plugins: [tailwindcss()] } },
     optimizeDeps: {
       exclude: ['lucide-react'],
+      include: [
+        '@base-ui/react/select',
+        '@base-ui/react/merge-props',
+        '@base-ui/react/use-render',
+      ],
     },
     resolve: {
       alias: {

@@ -41,9 +41,10 @@ readiness notices.
 - `POST /api/auth/password/reset-request` with `{ email }`.
 - `POST /api/auth/sso/resolve` with exactly one of `{ workEmail }` or
   `{ accountId }`, plus optional `returnTo`.
-- `GET /api/auth/oauth/:provider?intent=login|signup&return_to=/aurinova-reference`
-  for Google, GitHub, and LinkedIn top-level redirects. The external service
-  must allow the final static-site URL as an OAuth return origin.
+- `POST /api/auth/phone/code` with `{ phone, intent }` to send a one-time code.
+- `POST /api/auth/phone/verify` with `{ phone, code, intent, returnTo? }`.
+- `POST /api/auth/wechat/session` with `{ intent, returnTo? }`; returns
+  `{ sessionId, expiresIn, message?, redirectTo? }` for a short-lived QR session.
 
 Successful POST responses may include an internal `redirectTo`. Error responses
 may use `{ code, message, fieldErrors }`; `fieldErrors` keys match the submitted
@@ -57,7 +58,6 @@ the organization identity-provider flow. The browser sends its current
 Every `returnTo` and `redirectTo` must be a same-origin relative URL. The client
 rejects absolute URLs, protocol-relative URLs, backslashes, and control
 characters. The identity service must apply the same rule.
-
 
 ## 控制台衔接（2026-09-07）
 

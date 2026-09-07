@@ -9,6 +9,7 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
+        console: 'cs-badge',
         default: 'bg-primary text-primary-foreground [a]:hover:bg-primary/80',
         secondary:
           'bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80',
@@ -37,7 +38,10 @@ function Badge({
     defaultTagName: 'span',
     props: mergeProps<'span'>(
       {
-        className: cn(badgeVariants({ variant }), className),
+        className: cn(
+          variant === 'console' ? 'cs-badge' : badgeVariants({ variant }),
+          className,
+        ),
       },
       props,
     ),

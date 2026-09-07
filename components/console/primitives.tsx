@@ -1,11 +1,11 @@
-import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { Button as SharedButton } from '@/components/ui/button';
 import { Input as SharedInput } from '@/components/ui/input';
+import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import { Check, Copy, X } from 'lucide-react';
 import type { ComponentProps } from 'react';
-export { NativeSelect as Select } from '@/components/ui/native-select';
-export { Checkbox } from '@/components/ui/checkbox';
 import { useState, type ReactNode } from 'react';
-import { X, Copy, Check } from 'lucide-react';
+export { Checkbox } from '@/components/ui/checkbox';
+export { Select } from '@/components/ui/select';
 export function Dialog({
   title,
   children,
@@ -44,10 +44,10 @@ export function Dialog({
   );
 }
 export function Button(props: ComponentProps<typeof SharedButton>) {
-  return <SharedButton unstyled {...props} />;
+  return <SharedButton variant="console" {...props} />;
 }
 export function Input(props: ComponentProps<typeof SharedInput>) {
-  return <SharedInput unstyled {...props} />;
+  return <SharedInput variant="console" {...props} />;
 }
 export function CopyButton({
   value,

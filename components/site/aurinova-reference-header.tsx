@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { modelCatalog } from '@/content/model-catalog';
 
 import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react';
@@ -113,7 +114,7 @@ function MegaMenu({
                 alt=""
                 width={28}
                 height={28}
-                style={{ objectFit: 'contain' }}
+                className="model-logo"
               />
               {item.label}
             </MenuLink>
@@ -295,7 +296,8 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
             {content.navigation.map((item) =>
               item.menuKey ? (
                 <div className="fw-nav-item" key={item.label}>
-                  <button
+                  <Button
+                    variant="brand"
                     type="button"
                     aria-expanded={openMenu === item.menuKey}
                     aria-haspopup="true"
@@ -311,7 +313,7 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
                   >
                     {item.label}
                     <ChevronDown size={15} />
-                  </button>
+                  </Button>
                   {openMenu === item.menuKey && (
                     <MegaMenu
                       content={content}
@@ -352,7 +354,8 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
                 </Link>
               </>
             )}
-            <button
+            <Button
+              variant="brand"
               className="fw-mobile-trigger"
               type="button"
               aria-label={
@@ -364,7 +367,7 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <X /> : <Menu />}
-            </button>
+            </Button>
           </div>
         </div>
         {mobileOpen && (
