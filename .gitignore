@@ -31,6 +31,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# local review tooling
+/.impeccable/
+
 # deployment and generated files
 .vercel
 next-env.d.ts

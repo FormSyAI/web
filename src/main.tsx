@@ -20,9 +20,7 @@ try {
 const initialLocale =
   savedLocale === 'zh-CN' || savedLocale === 'en-US'
     ? savedLocale
-    : window.navigator.language.toLowerCase().startsWith('en')
-      ? 'en-US'
-      : 'zh-CN';
+    : 'zh-CN';
 
 document.documentElement.lang = initialLocale;
 
