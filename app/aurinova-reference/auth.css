@@ -1228,3 +1228,5 @@ html[lang='zh-CN'] .auth-brand-content h2 {
     transform: none;
   }
 }
+
+.auth-demo-link { display: block; margin-top: 10px; font-weight: 600; text-decoration: underline; }

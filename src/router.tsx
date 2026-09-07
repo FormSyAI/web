@@ -1,7 +1,11 @@
 import { lazy, Suspense, useEffect, useSyncExternalStore } from 'react';
 import { AppLink, stripBasePath } from '@/components/runtime/app-link';
 
+const ConsolePage = lazy(() => import('@/app/console/page'));
+
 const routeAliases: Record<string, string> = {
+  '/console': '/console/usage',
+  '/demo/console': '/demo/console/usage',
   '/': '/aurinova-reference',
   '/fireworks-reference': '/aurinova-reference',
   '/login': '/aurinova-reference/login',
@@ -10,6 +14,12 @@ const routeAliases: Record<string, string> = {
 };
 
 const routeComponents: Record<string, React.ComponentType> = {
+  '/aurinova-reference/coding-plan': lazy(
+    () => import('@/app/aurinova-reference/coding-plan/page'),
+  ),
+  '/aurinova-reference/models': lazy(
+    () => import('@/app/aurinova-reference/models/page'),
+  ),
   '/original-home': lazy(() => import('@/app/page')),
   '/aurinova-reference': lazy(() => import('@/app/aurinova-reference/page')),
   '/aurinova-reference/pricing': lazy(
@@ -53,7 +63,7 @@ function subscribe(listener: () => void) {
 
 function getPathname() {
   const path = stripBasePath(window.location.pathname).replace(/\/$/, '');
-  return `${path || '/'}${window.location.hash}`;
+  return `${path || '/'}${window.location.search}${window.location.hash}`;
 }
 
 function MissingPage() {
@@ -104,12 +114,17 @@ function ScrollToLocation({ location }: { location: string }) {
 
 export function AppRouter() {
   const location = useSyncExternalStore(subscribe, getPathname, () => '/');
-  const pathname = location.split('#')[0];
+  const pathname = location.split(/[?#]/)[0];
   const resolvedPath = routeAliases[pathname] ?? pathname;
-  const Page = routeComponents[resolvedPath] ?? MissingPage;
+  const isConsole =
+    resolvedPath.startsWith('/console/') ||
+    resolvedPath.startsWith('/demo/console/');
+  const Page = isConsole
+    ? ConsolePage
+    : (routeComponents[resolvedPath] ?? MissingPage);
   return (
     <Suspense fallback={null}>
-      <Page />
+      <Page key={location.split('#')[0]} />
       <ScrollToLocation key={resolvedPath} location={location} />
     </Suspense>
   );

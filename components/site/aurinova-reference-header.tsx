@@ -6,6 +6,7 @@ import Image from '@/components/runtime/app-image';
 import { AppLink as Link } from '@/components/runtime/app-link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { useSession } from '@/components/auth/session-provider';
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { LanguageSwitcher } from '@/components/i18n/language-switcher';
 import {
@@ -163,6 +164,7 @@ function MegaMenu({
 
 export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
   const { locale } = useI18n();
+  const { status: sessionStatus } = useSession();
   const content = aurinovaReferenceDictionaries[locale];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<AurinovaMenuKey | null>(null);
@@ -330,13 +332,14 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
           </nav>
           <div className="fw-header-actions">
             <LanguageSwitcher labels={content.ui} />
-            <Link href="/aurinova-reference/login">{content.ui.login}</Link>
-            <Link
-              className="fw-primary-button"
-              href="/aurinova-reference/signup"
-            >
-              {content.ui.signup}
-            </Link>
+            {sessionStatus === 'authenticated' ? (
+              <Link className="fw-primary-button" href="/console/usage">{locale === 'zh-CN' ? '进入控制台' : 'Console'}</Link>
+            ) : (
+              <>
+                <Link href="/aurinova-reference/login">{content.ui.login}</Link>
+                <Link className="fw-primary-button" href="/aurinova-reference/signup">{content.ui.signup}</Link>
+              </>
+            )}
             <button
               className="fw-mobile-trigger"
               type="button"

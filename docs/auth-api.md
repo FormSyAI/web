@@ -57,3 +57,10 @@ the organization identity-provider flow. The browser sends its current
 Every `returnTo` and `redirectTo` must be a same-origin relative URL. The client
 rejects absolute URLs, protocol-relative URLs, backslashes, and control
 characters. The identity service must apply the same rule.
+
+
+## 控制台衔接（2026-09-07）
+
+登录默认回跳为 `/console/usage`。登录、邮箱、SSO、注册和找回密码之间切换保留经过校验的 `return_to`，支持站点 base path。无身份配置时保留预览提示，并提供 `/demo/console/usage` 独立演示入口；演示操作不会创建登录会话。
+
+预留 `GET /api/auth/session`（身份服务基址）：使用 Cookie，401 表示未登录；成功返回 `{ "user": { "id": "…", "displayName": "…", "emailVerified": true }, "workspace": { "id": "…", "name": "…" } }`。`POST /api/auth/logout` 负责服务端注销。SessionProvider 提供查询、刷新与注销方法；异常保持错误态，不退回演示身份。后端仍须校验工作空间权限、跨域来源和 CSRF。

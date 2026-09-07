@@ -11,6 +11,10 @@ React + Vite 双语品牌网站。FormSy 产品内容已迁移到 `/aurinova-ref
 - 登录、注册、SSO、找回密码与法律说明页面已具备前端实现；真实服务依赖外部配置，见认证接口文档。
 - `/dev/design-system`：组件与 token 开发预览。
 
+- `/demo/console/usage`：双语交互演示控制台，含用量、Coding Plan、模型、Key、工具接入、充值、订单和设置。
+- `/console/*`：真实服务入口与会话检查；业务后端尚未接入，不展示演示余额。
+- `/aurinova-reference/coding-plan` 与 `/aurinova-reference/models`：官网新增产品入口；定价页连接套餐、按量和企业方案。
+
 ## 文档入口
 
 | 文档 | 用途 |
@@ -25,6 +29,7 @@ React + Vite 双语品牌网站。FormSy 产品内容已迁移到 `/aurinova-ref
 | [根首页内容](docs/CURRENT_SITE_CONTENT.md) | 当前产品内容来源及索引 |
 | [参考骨架内容](docs/AURINOVA_REFERENCE_CONTENT.md) | 当前骨架状态与迁移映射 |
 | [认证接口](docs/auth-api.md) | 外部身份服务接入协议 |
+| [控制台实现与接口预留](docs/CONSOLE_IMPLEMENTATION.md) | 已实现流程、演示规则、接口边界与验证 |
 | [控制台与 Coding Plan 方案](docs/CONSOLE_AND_CODING_PLAN.md) | 登录衔接、后台菜单、套餐计量、计费架构与实施阶段 |
 
 ## 开发与验证
@@ -39,6 +44,7 @@ npm run dev
 开发服务端口为 3001。代码修改后按影响范围执行：
 
 ```sh
+npm run test:console
 npm run typecheck
 npm run lint
 npm run build

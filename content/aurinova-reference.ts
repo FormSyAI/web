@@ -12,6 +12,11 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
   });
   const productLinks = [
     {
+      label: 'Coding Plan',
+      href: '/aurinova-reference/coding-plan',
+      description: t('模型、额度与编程工具接入', 'Models, quotas and coding-tool integrations'),
+    },
+    {
       ...link('FormSy 产品概览', 'FormSy overview', 'overview'),
       description: t(
         '连接上下文、Agent、验证与模型服务',
@@ -376,6 +381,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       openNavigation: t('打开导航', 'Open navigation'),
       closeNavigation: t('关闭导航', 'Close navigation'),
       mobileLinks: [
+        { label: t('控制台演示', 'Console demo'), href: '/demo/console/usage' },
         { label: t('登录', 'Log in'), href: '/aurinova-reference/login' },
         { label: t('注册', 'Sign up'), href: '/aurinova-reference/signup' },
         ...navigation,
@@ -451,11 +457,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       },
       Models: {
         kind: 'models' as const,
-        library: link(
-          '模型与部署概览',
-          'MODELS & DEPLOYMENT',
-          'models-deployment',
-        ),
+        library: { label: t('模型库与接入', 'MODEL LIBRARY & ACCESS'), href: '/aurinova-reference/models' },
         items: deployments.map((x) => ({ id: x.id, label: x.name, href: anchor(x.id) })),
       },
       Resources: {

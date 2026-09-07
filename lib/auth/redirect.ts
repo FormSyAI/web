@@ -1,4 +1,4 @@
-export const DEFAULT_AUTH_RETURN_TO = '/aurinova-reference';
+export const DEFAULT_AUTH_RETURN_TO = '/console/usage';
 
 const validationOrigin = 'https://aurinova.invalid';
 

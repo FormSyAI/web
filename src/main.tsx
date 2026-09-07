@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { I18nProvider } from '@/components/i18n/i18n-provider';
+import { SessionProvider } from '@/components/auth/session-provider';
 import { AppRouter } from '@/src/router';
 
 import '@/app/globals.css';
@@ -28,7 +29,9 @@ document.documentElement.lang = initialLocale;
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <I18nProvider initialLocale={initialLocale}>
-      <AppRouter />
+      <SessionProvider>
+        <AppRouter />
+      </SessionProvider>
     </I18nProvider>
   </StrictMode>,
 );

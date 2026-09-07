@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { AurinovaReferenceFooter } from '@/components/site/aurinova-reference-footer';
 import { AurinovaReferenceHeader } from '@/components/site/aurinova-reference-header';
+import { CodingPlanOfferings } from '@/components/site/coding-plan-offerings';
 import { pricingDictionaries } from '@/content/pricing.i18n';
 
 function PricingTable({
@@ -85,6 +86,7 @@ export default function PricingPage() {
             </Link>
           </div>
         </section>
+        <CodingPlanOfferings />
         <nav
           className="pr-jumps pr-shell"
           aria-label={content.ui.pricingSections}

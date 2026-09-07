@@ -16,12 +16,12 @@ function createPricing(locale: Locale) {
     },
     hero: {
       title: t(
-        '从试点验证，到企业规模化部署',
-        'From pilot evaluation to enterprise deployment',
+        '选择适合你的构建方式',
+        'Choose how you build',
       ),
       description: t(
-        '围绕工作负载、部署环境与验收目标，选择合适的合作方式。',
-        'Choose an engagement around your workloads, deployment environment and acceptance criteria.',
+        '从 Coding Plan、API 按量使用到企业部署，了解各类方案与开放状态。',
+        'Explore Coding Plan, metered APIs and enterprise deployment, with clear availability for each.',
       ),
     },
     ui: {

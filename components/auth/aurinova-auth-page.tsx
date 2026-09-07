@@ -10,8 +10,12 @@ import {
   X,
 } from 'lucide-react';
 import Image from '@/components/runtime/app-image';
-import { AppLink as Link } from '@/components/runtime/app-link';
 import {
+  AppLink as RuntimeLink,
+  withBasePath,
+} from '@/components/runtime/app-link';
+import {
+  type ComponentProps,
   type InputHTMLAttributes,
   type SyntheticEvent,
   useEffect,
@@ -132,7 +136,7 @@ function safeRedirect(destination?: string) {
   if (!destination) return false;
   const normalized = normalizeAuthReturnTo(destination, '');
   if (!normalized) return false;
-  window.location.assign(normalized);
+  window.location.assign(withBasePath(normalized));
   return true;
 }
 
@@ -142,6 +146,18 @@ function currentReturnTo() {
     params.get('return_to') ?? params.get('redirectURI'),
     DEFAULT_AUTH_RETURN_TO,
   );
+}
+
+function Link({ href, ...props }: ComponentProps<typeof RuntimeLink>) {
+  const authPath =
+    /^\/aurinova-reference\/(login(?:\/|$)|signup$|forgot-password$)/.test(
+      href,
+    );
+  const destination =
+    authPath && !href.includes('?') && typeof window !== 'undefined'
+      ? `${href}?return_to=${encodeURIComponent(currentReturnTo())}`
+      : href;
+  return <RuntimeLink {...props} href={destination} />;
 }
 
 const termsHref = authTermsUrl;
@@ -1262,6 +1278,11 @@ export function AurinovaAuthPage({ screen }: { screen: AuthScreen }) {
             {!isLiveScreen && (
               <output className="auth-preview-mode">
                 {copy.preview.banner}
+                <Link className="auth-demo-link" href="/demo/console/usage">
+                  {locale === 'zh-CN'
+                    ? '体验控制台演示 →'
+                    : 'Explore the console demo →'}
+                </Link>
               </output>
             )}
             <AuthPanel copy={copy} screen={screen} />

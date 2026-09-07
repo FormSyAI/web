@@ -1,0 +1,126 @@
+.cp-offerings {
+  padding-block: 64px;
+}
+.cp-intro {
+  max-width: 760px;
+  margin-bottom: 34px;
+}
+.cp-intro > span {
+  font:
+    11px ui-monospace,
+    monospace;
+  letter-spacing: 1.6px;
+  color: #2c6cb5;
+}
+.cp-intro h2 {
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.35;
+  margin: 18px 0;
+}
+.cp-intro p {
+  color: #758094;
+  line-height: 1.8;
+}
+.cp-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid #dce5f0;
+}
+.cp-cards > article {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #dce5f0;
+}
+.cp-cards > article:last-child {
+  border: 0;
+}
+.cp-cards > article > svg {
+  color: #2c6cb5;
+}
+.cp-cards h3 {
+  font-size: 23px;
+  margin: 24px 0 14px;
+}
+.cp-cards p {
+  font-size: 14px;
+  color: #748094;
+  line-height: 1.7;
+}
+.cp-cards ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin: 22px 0;
+  flex: 1;
+}
+.cp-cards li {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+}
+.cp-cards li svg {
+  color: #2c6cb5;
+  flex-shrink: 0;
+}
+.cp-availability {
+  font-size: 13px;
+  color: #466588;
+  font-weight: 500;
+  margin: 14px 0 20px;
+}
+.cp-cards article > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #dce5f0;
+  padding-top: 20px;
+  color: #2c6cb5;
+  text-decoration: none;
+  font-size: 14px;
+}
+.cp-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+.cp-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-block: 48px;
+  border-block: 1px solid #dce5f0;
+}
+.cp-steps strong {
+  color: #2c6cb5;
+  font: 12px monospace;
+}
+.cp-steps h3 {
+  font-size: 19px;
+}
+.cp-steps p {
+  color: #748094;
+  font-size: 14px;
+  line-height: 1.7;
+}
+@media (max-width: 800px) {
+  .cp-cards {
+    grid-template-columns: 1fr;
+  }
+  .cp-cards > article {
+    border-right: 0;
+    border-bottom: 1px solid #dce5f0;
+  }
+  .cp-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .cp-steps {
+    grid-template-columns: 1fr;
+  }
+}
