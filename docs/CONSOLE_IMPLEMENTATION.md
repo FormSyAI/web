@@ -10,7 +10,7 @@
 | --- | --- |
 | `usage` | 套餐/API 分账、日期/模型/Key 筛选、趋势、请求详情、分页、CSV 导出 |
 | `coding-plan` | 示例套餐、开通/升级/到期续订订单、模拟支付成功/失败/取消、周期和短窗口额度、续费提醒及降级意向 |
-| `models` | 两个明确标注 Demo 的模型、搜索、示例费率与额度、接入跳转 |
+| `models` | 八个开放模型目录条目、官方仓库、搜索、示例费率与额度、接入跳转 |
 | `api-keys` | 创建、模型权限、固定计费来源、有效期、子预算、停用/启用、撤销、轮换 |
 | `integrations` | 占位配置复制、工具选择、成功/失败诊断，关联用量和扣减 |
 | `billing/balance` | 示例充值、余额及收支流水 |
@@ -59,3 +59,17 @@
 - 浏览器手动检查：Key 创建及一次展示、调用诊断与点数更新、充值订单模拟成功与权益更新、中英文切换、窄屏接入页布局。
 
 未验证真实登录、付款、邮件或模型兼容性，当前没有对应后端。
+
+
+## 组件与路由迁移（2026-09-07）
+
+控制台基础控件已统一到 Base UI / 共享组件体系，保留原品牌 CSS。弹窗替换为 Base UI Dialog，选择框统一为 NativeSelect。导航采用 React Router 7：BrowserRouter、Routes、Link、useNavigate、useLocation；移除手写 History API 跳转与事件监听。保留所有既有地址、查询参数、官网别名及静态页面入口。
+
+回归检查包含菜单切换后只有一个主页面、浏览器返回、直接刷新、Key 表单输入与复选框提交、Escape 关闭弹窗。
+
+
+## 开放模型目录恢复
+
+恢复旧版 GLM-5.3、GLM-5.3-Flash、Kimi K3、Qwen3.8-2.4T-A95B、DeepSeek-V4-Pro-0813、DeepSeek-V4-Flash-0731、MiniMax M3、Nemotron 3.5 Lightning 30B A3B。以 `content/model-catalog.ts` 为共享来源，关联各发布方的 Hugging Face 仓库；Nemotron 图标使用 NVIDIA，修正旧版误用 OpenAI 标识。
+
+官网模型菜单、公开模型页、控制台、创建 Key、筛选和配置共用目录。旧 demo-code / demo-reason 的浏览器记录迁移为 GLM Flash / GLM，不清空余额和订单。目录中的 context 与计费倍率继续为演示参数，真实服务配置、许可证适用条件、最终套餐范围须在接入时确认。

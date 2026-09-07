@@ -1,4 +1,10 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
+import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import { Button as SharedButton } from '@/components/ui/button';
+import { Input as SharedInput } from '@/components/ui/input';
+import type { ComponentProps } from 'react';
+export { NativeSelect as Select } from '@/components/ui/native-select';
+export { Checkbox } from '@/components/ui/checkbox';
+import { useState, type ReactNode } from 'react';
 import { X, Copy, Check } from 'lucide-react';
 export function Dialog({
   title,
@@ -9,33 +15,39 @@ export function Dialog({
   children: ReactNode;
   onClose: () => void;
 }) {
-  const ref = useRef<HTMLDialogElement>(null);
-  const id = useId();
-  useEffect(() => {
-    const element = ref.current;
-    element?.showModal();
-    return () => element?.close();
-  }, []);
   return (
-    <dialog
-      ref={ref}
-      className="cs-dialog"
-      aria-labelledby={id}
-      onCancel={onClose}
+    <DialogPrimitive.Root
+      open
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
     >
-      <header>
-        <h2 id={id}>{title}</h2>
-        <button
-          className="cs-icon-button"
-          onClick={onClose}
-          aria-label="Close / 关闭"
-        >
-          <X size={20} />
-        </button>
-      </header>
-      {children}
-    </dialog>
+      <DialogPrimitive.Portal>
+        <div className="cs-app cs-dialog-layer">
+          <DialogPrimitive.Backdrop className="cs-dialog-backdrop" />
+          <DialogPrimitive.Popup className="cs-dialog">
+            <header>
+              <DialogPrimitive.Title>{title}</DialogPrimitive.Title>
+              <Button
+                className="cs-icon-button"
+                onClick={onClose}
+                aria-label="Close / 关闭"
+              >
+                <X size={20} />
+              </Button>
+            </header>
+            {children}
+          </DialogPrimitive.Popup>
+        </div>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   );
+}
+export function Button(props: ComponentProps<typeof SharedButton>) {
+  return <SharedButton unstyled {...props} />;
+}
+export function Input(props: ComponentProps<typeof SharedInput>) {
+  return <SharedInput unstyled {...props} />;
 }
 export function CopyButton({
   value,
@@ -49,7 +61,7 @@ export function CopyButton({
   const [copied, setCopied] = useState(false);
   const [failed, setFailed] = useState(false);
   return (
-    <button
+    <Button
       className="cs-button"
       onClick={async () => {
         try {
@@ -69,7 +81,7 @@ export function CopyButton({
           · {label === '复制' ? '请手动选择复制' : 'Select and copy manually'}
         </span>
       )}
-    </button>
+    </Button>
   );
 }
 export function downloadCsv(name: string, rows: (string | number)[][]) {

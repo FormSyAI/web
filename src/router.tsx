@@ -1,5 +1,6 @@
-import { lazy, Suspense, useEffect, useSyncExternalStore } from 'react';
-import { AppLink, stripBasePath } from '@/components/runtime/app-link';
+import { lazy, Suspense, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
+import { AppLink } from '@/components/runtime/app-link';
 
 const ConsolePage = lazy(() => import('@/app/console/page'));
 
@@ -52,20 +53,6 @@ const routeComponents: Record<string, React.ComponentType> = {
   '/dev/design-system': lazy(() => import('@/app/dev/design-system/page')),
 };
 
-function subscribe(listener: () => void) {
-  window.addEventListener('popstate', listener);
-  window.addEventListener('hashchange', listener);
-  return () => {
-    window.removeEventListener('popstate', listener);
-    window.removeEventListener('hashchange', listener);
-  };
-}
-
-function getPathname() {
-  const path = stripBasePath(window.location.pathname).replace(/\/$/, '');
-  return `${path || '/'}${window.location.search}${window.location.hash}`;
-}
-
 function MissingPage() {
   return (
     <main
@@ -112,20 +99,50 @@ function ScrollToLocation({ location }: { location: string }) {
   return null;
 }
 
-export function AppRouter() {
-  const location = useSyncExternalStore(subscribe, getPathname, () => '/');
-  const pathname = location.split(/[?#]/)[0];
-  const resolvedPath = routeAliases[pathname] ?? pathname;
-  const isConsole =
-    resolvedPath.startsWith('/console/') ||
-    resolvedPath.startsWith('/demo/console/');
-  const Page = isConsole
-    ? ConsolePage
-    : (routeComponents[resolvedPath] ?? MissingPage);
+function PageView({ Page }: { Page: React.ComponentType }) {
+  const location = useLocation();
   return (
-    <Suspense fallback={null}>
-      <Page key={location.split('#')[0]} />
-      <ScrollToLocation key={resolvedPath} location={location} />
+    <Suspense fallback={<output aria-label="Loading page" />}>
+      <Page key={`${location.pathname}${location.search}`} />
+      <ScrollToLocation
+        location={`${location.pathname}${location.search}${location.hash}`}
+      />
     </Suspense>
+  );
+}
+
+export function AppRouter() {
+  return (
+    <BrowserRouter
+      basename={import.meta.env.BASE_URL.replace(/\/$/, '') || '/'}
+    >
+      <Routes>
+        {Object.entries(routeComponents).map(([path, Page]) => (
+          <Route key={path} path={path} element={<PageView Page={Page} />} />
+        ))}
+        {Object.entries(routeAliases).map(([path, target]) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <PageView
+                Page={
+                  target.startsWith('/console') ||
+                  target.startsWith('/demo/console')
+                    ? ConsolePage
+                    : routeComponents[target]
+                }
+              />
+            }
+          />
+        ))}
+        <Route path="/console/*" element={<PageView Page={ConsolePage} />} />
+        <Route
+          path="/demo/console/*"
+          element={<PageView Page={ConsolePage} />}
+        />
+        <Route path="*" element={<MissingPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

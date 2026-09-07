@@ -31,3 +31,12 @@
 ## 验证
 
 沿用各路由已有断点，检查桌面和手机宽度、中英文换行、菜单、轮播与表格溢出。保留键盘焦点、语义标签和 `prefers-reduced-motion` 行为。新增视觉值先检查现有 token，避免重复定义。
+
+
+## 控制台组件与导航
+
+- 按钮、输入框使用 `components/ui` 的 Base UI 封装；控制台适配层启用 `unstyled`，由品牌 CSS 定义外观，交互行为交给基础组件。
+- 复选框使用共享 Checkbox；弹窗由 Base UI Dialog 管理焦点、Escape、背景隔离和关闭。选择框集中于 NativeSelect，保留系统选择器的键盘与移动端体验。
+- 图标继续使用 Lucide；表格与布局保持语义 HTML 和现有样式。
+- 内部导航使用 AppLink（封装 React Router Link），操作后的跳转使用 useNavigate，路由状态使用 useLocation。禁止自行调用 pushState 或派发 popstate 模拟导航。
+- 路由入口使用 BrowserRouter / Routes，保留站点 base path、别名和静态入口。动态页面状态按 pathname + search 隔离；锚点滚动由统一组件处理。

@@ -1,4 +1,5 @@
-import type { AnchorHTMLAttributes, MouseEvent } from 'react';
+import { Link } from 'react-router';
+import type { AnchorHTMLAttributes } from 'react';
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -17,52 +18,22 @@ export function stripBasePath(pathname: string) {
     : pathname;
 }
 
-export function navigate(href: string, replace = false) {
-  const destination = withBasePath(href);
-  window.history[replace ? 'replaceState' : 'pushState']({}, '', destination);
-  window.dispatchEvent(new PopStateEvent('popstate'));
-}
-
+/** Keep the existing href API while React Router owns internal navigation. */
 export function AppLink({
-  children,
   href,
-  onClick,
-  target,
+  children,
   ...props
 }: AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
-  const destination = withBasePath(href);
-
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    onClick?.(event);
-    if (
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey ||
-      target === '_blank' ||
-      !href.startsWith('/') ||
-      href.startsWith('//')
-    ) {
-      return;
-    }
-    const url = new URL(destination, window.location.origin);
-    if (
-      url.pathname === window.location.pathname &&
-      url.search === window.location.search &&
-      url.hash
-    ) {
-      // Let the browser also handle repeated clicks on the current anchor.
-      return;
-    }
-    event.preventDefault();
-    navigate(href);
-  };
-
+  if (!href.startsWith('/') || href.startsWith('//') || props.download) {
+    return (
+      <a {...props} href={withBasePath(href)}>
+        {children}
+      </a>
+    );
+  }
   return (
-    <a {...props} href={destination} target={target} onClick={handleClick}>
+    <Link {...props} to={stripBasePath(href)}>
       {children}
-    </a>
+    </Link>
   );
 }

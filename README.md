@@ -54,11 +54,12 @@ npm run build
 
 ## 维护入口
 
-- `src/router.tsx`：路由与别名；菜单目标需要对应真实页面或锚点。
+- `src/router.tsx`：React Router 7 的 BrowserRouter / Routes 与别名；菜单目标需要对应真实页面或锚点。
 - `app/aurinova-reference/`：目标首页、定价与认证页面。
 - `content/aurinova-reference.ts`：中英文配对文案与共享结构；`.zh.ts`：中文导出入口。
 - `content/site.ts`、`site.en.ts`：根首页中英文产品素材。
 - `content/pricing.i18n.ts`、`auth.i18n.ts`：定价与认证文案。
+- `components/ui/`：Base UI 共享控件；控制台通过 `components/console/primitives.tsx` 复用，Lucide 图标与品牌 CSS 保持统一。
 - `app/globals.css`：全局 token；路由 CSS 管理局部布局。
 - `components/site/`、`components/ui/`：共享站点组件与基础交互。
 

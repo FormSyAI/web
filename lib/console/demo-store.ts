@@ -38,6 +38,16 @@ function read() {
       storageAvailable = false;
     }
   }
+  const aliases: Record<string, string> = {
+    'demo-code': 'glm-5.3-flash',
+    'demo-reason': 'glm-5.3',
+  };
+  state.keys.forEach((key) => {
+    key.models = key.models.map((id) => aliases[id] ?? id);
+  });
+  state.usage.forEach((row) => {
+    row.model = aliases[row.model] ?? row.model;
+  });
   return state;
 }
 function save(next: ConsoleState) {

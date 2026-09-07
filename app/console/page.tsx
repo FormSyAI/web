@@ -1,3 +1,4 @@
+import { useNavigate, useLocation } from 'react-router';
 import {
   useEffect,
   useState,
@@ -6,6 +7,7 @@ import {
 } from 'react';
 import {
   Activity,
+  House,
   ArrowRight,
   ArrowUpRight,
   BookOpen,
@@ -29,16 +31,15 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import Image from '@/components/runtime/app-image';
-import {
-  AppLink as Link,
-  navigate,
-  stripBasePath,
-  withBasePath,
-} from '@/components/runtime/app-link';
+import { AppLink as Link, withBasePath } from '@/components/runtime/app-link';
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { useSession } from '@/components/auth/session-provider';
 import {
   Dialog,
+  Button,
+  Input,
+  Select,
+  Checkbox,
   CopyButton,
   downloadCsv,
 } from '@/components/console/primitives';
@@ -169,7 +170,7 @@ function OrderButton({
   children: ReactNode;
 } & Pick<PageProps, 'act' | 'setModal'>) {
   return (
-    <button
+    <Button
       className="cs-button primary"
       onClick={() => {
         const next = act({ type: 'order', kind, plan });
@@ -178,7 +179,7 @@ function OrderButton({
     >
       {children}
       <ArrowRight size={16} />
-    </button>
+    </Button>
   );
 }
 function useClock() {
@@ -313,7 +314,7 @@ function UsagePage({ state, t, setModal }: PageProps) {
               {complete[i] ? <Check size={13} /> : i + 1}
             </span>
             {label}
-            <ArrowUpRight size={14} />
+            <ArrowUpRight className="cs-sidebar-link-arrow" size={14} />
           </Link>
         ))}
       </section>
@@ -323,7 +324,7 @@ function UsagePage({ state, t, setModal }: PageProps) {
           aria-label={t('计费来源', 'Billing source')}
         >
           {(['plan', 'api'] as const).map((f) => (
-            <button
+            <Button
               aria-pressed={f === funding}
               key={f}
               onClick={() => {
@@ -332,12 +333,12 @@ function UsagePage({ state, t, setModal }: PageProps) {
               }}
             >
               {sourceName(f, t)}
-            </button>
+            </Button>
           ))}
         </fieldset>
         <div className="cs-filters">
           <Field label={t('时间范围', 'Time range')}>
-            <select
+            <Select
               value={range}
               onChange={(e) => {
                 setRange(e.target.value);
@@ -349,10 +350,10 @@ function UsagePage({ state, t, setModal }: PageProps) {
                   {t(`近 ${d} 天`, `Last ${d} days`)}
                 </option>
               ))}
-            </select>
+            </Select>
           </Field>
           <Field label={t('模型', 'Model')}>
-            <select
+            <Select
               value={model}
               onChange={(e) => {
                 setModel(e.target.value);
@@ -365,10 +366,10 @@ function UsagePage({ state, t, setModal }: PageProps) {
                   {m.name}
                 </option>
               ))}
-            </select>
+            </Select>
           </Field>
           <Field label="API Key">
-            <select
+            <Select
               value={key}
               onChange={(e) => {
                 setKey(e.target.value);
@@ -381,9 +382,9 @@ function UsagePage({ state, t, setModal }: PageProps) {
                   {k.name}
                 </option>
               ))}
-            </select>
+            </Select>
           </Field>
-          <button
+          <Button
             className="cs-button"
             onClick={() => {
               setKey('');
@@ -393,8 +394,8 @@ function UsagePage({ state, t, setModal }: PageProps) {
             }}
           >
             {t('重置', 'Reset')}
-          </button>
-          <button
+          </Button>
+          <Button
             className="cs-button"
             disabled={!rows.length}
             onClick={() =>
@@ -432,7 +433,7 @@ function UsagePage({ state, t, setModal }: PageProps) {
           >
             <Download size={16} />
             {t('导出', 'Export')}
-          </button>
+          </Button>
         </div>
       </div>
       <div className="cs-metrics">
@@ -562,12 +563,12 @@ function UsagePage({ state, t, setModal }: PageProps) {
                     </Badge>
                   </td>
                   <td>
-                    <button
+                    <Button
                       className="cs-text-button"
                       onClick={() => setModal({ kind: 'request', item: u })}
                     >
                       {t('详情', 'Details')}
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -578,23 +579,23 @@ function UsagePage({ state, t, setModal }: PageProps) {
           <p className="cs-table-empty">{t('暂无记录', 'No records')}</p>
         )}
         <div className="cs-pagination">
-          <button
+          <Button
             className="cs-button"
             disabled={page === 0}
             onClick={() => setPage(page - 1)}
           >
             {t('上一页', 'Previous')}
-          </button>
+          </Button>
           <span>
             {page + 1} / {Math.max(1, Math.ceil(rows.length / 10))}
           </span>
-          <button
+          <Button
             className="cs-button"
             disabled={(page + 1) * 10 >= rows.length}
             onClick={() => setPage(page + 1)}
           >
             {t('下一页', 'Next')}
-          </button>
+          </Button>
         </div>
       </section>
     </>
@@ -640,13 +641,13 @@ function PlanPage(p: PageProps) {
             />
           </div>
           <div className="cs-inline-actions">
-            <Badge>
+            <Badge tone="cs-renewal-status">
               {sub.renew
                 ? t('已模拟开启续费提醒', 'Renewal reminder simulated')
                 : t('手动续费', 'Manual renewal')}
             </Badge>
             {q.active ? (
-              <button
+              <Button
                 className="cs-button"
                 onClick={() =>
                   setModal({
@@ -668,7 +669,7 @@ function PlanPage(p: PageProps) {
                 {sub.renew
                   ? t('取消续费提醒', 'Cancel reminder')
                   : t('续费提醒', 'Renewal reminder')}
-              </button>
+              </Button>
             ) : (
               <OrderButton
                 kind="renewal"
@@ -679,7 +680,7 @@ function PlanPage(p: PageProps) {
               </OrderButton>
             )}
             {q.active && sub.plan === 'pro' && (
-              <button
+              <Button
                 className="cs-button"
                 disabled={sub.nextPlan === 'starter'}
                 onClick={() =>
@@ -703,7 +704,7 @@ function PlanPage(p: PageProps) {
                 {sub.nextPlan
                   ? t('已预约降级', 'Downgrade scheduled')
                   : t('预约降级', 'Schedule downgrade')}
-              </button>
+              </Button>
             )}
           </div>
         </section>
@@ -738,8 +739,14 @@ function PlanPage(p: PageProps) {
                 `${number(plans[id].window)} ${t('点 / 5 小时', 'credits / 5 hours')}`,
                 `${plans[id].concurrency} ${t('并发上限（生产待验证）', 'concurrent requests (production unverified)')}`,
                 id === 'pro'
-                  ? t('Code + Reason 演示模型', 'Code + Reason demo models')
-                  : t('Code 演示模型', 'Code demo model'),
+                  ? t(
+                      '全部目录模型 · 演示权限',
+                      'All catalog models · demo access',
+                    )
+                  : t(
+                      'GLM Flash / DeepSeek Flash / MiniMax / Nemotron',
+                      'GLM Flash / DeepSeek Flash / MiniMax / Nemotron',
+                    ),
                 t(
                   '额度耗尽停止，不自动扣余额',
                   'Stops at quota; no automatic wallet charges',
@@ -752,9 +759,9 @@ function PlanPage(p: PageProps) {
               ))}
             </ul>
             {q.active && sub?.plan === id ? (
-              <button className="cs-button" disabled>
+              <Button className="cs-button" disabled>
                 {t('当前套餐', 'Current plan')}
-              </button>
+              </Button>
             ) : q.active && id === 'starter' ? (
               <span className="cs-muted">
                 {t('可在上方预约下周期降级', 'Schedule a downgrade above')}
@@ -833,7 +840,7 @@ function ModelsPage({ state, t }: PageProps) {
         )}
       </div>
       <Field label={t('搜索模型', 'Search models')}>
-        <input
+        <Input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t('名称或能力', 'Name or capability')}
@@ -849,7 +856,13 @@ function ModelsPage({ state, t }: PageProps) {
           .map((m) => (
             <section className="cs-card" key={m.id}>
               <div className="cs-card-heading">
-                <Cpu className="cs-blue" size={28} />
+                <Image
+                  src={m.logo}
+                  alt=""
+                  width={32}
+                  height={32}
+                  style={{ objectFit: 'contain' }}
+                />
                 <Badge>
                   {!m.pro || state.subscription?.plan === 'pro'
                     ? t('演示可用', 'Demo available')
@@ -857,6 +870,14 @@ function ModelsPage({ state, t }: PageProps) {
                 </Badge>
               </div>
               <h2>{m.name}</h2>
+              <a
+                href={m.source}
+                target="_blank"
+                rel="noreferrer"
+                className="cs-text-button"
+              >
+                {t('模型官方仓库', 'Official model repository')} ↗
+              </a>
               <p className="cs-muted">
                 {m.kind === 'code'
                   ? t(
@@ -936,13 +957,13 @@ function KeysPage({ state, t, act, setModal }: PageProps) {
           {state.keys.filter((k) => k.status !== 'revoked').length} / 10{' '}
           {t('个可用 Key', 'non-revoked keys')}
         </span>
-        <button
+        <Button
           className="cs-button primary"
           onClick={() => setModal({ kind: 'key' })}
         >
           <Plus size={16} />
           {t('创建演示 Key', 'Create demo key')}
-        </button>
+        </Button>
       </div>
       <section className="cs-card cs-table-card">
         <div className="cs-table-scroll">
@@ -1006,7 +1027,7 @@ function KeysPage({ state, t, act, setModal }: PageProps) {
                   </td>
                   <td aria-label={t('Key 操作', 'Key actions')}>
                     <div className="cs-inline-actions">
-                      <button
+                      <Button
                         className="cs-text-button"
                         disabled={k.status === 'revoked'}
                         onClick={() =>
@@ -1020,8 +1041,8 @@ function KeysPage({ state, t, act, setModal }: PageProps) {
                         {k.status === 'active'
                           ? t('停用', 'Pause')
                           : t('恢复', 'Resume')}
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         className="cs-text-button danger"
                         disabled={k.status === 'revoked'}
                         onClick={() =>
@@ -1044,8 +1065,8 @@ function KeysPage({ state, t, act, setModal }: PageProps) {
                         }
                       >
                         {t('撤销', 'Revoke')}
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         className="cs-text-button"
                         disabled={k.status === 'revoked'}
                         onClick={() =>
@@ -1068,7 +1089,7 @@ function KeysPage({ state, t, act, setModal }: PageProps) {
                         }
                       >
                         {t('轮换', 'Rotate')}
-                      </button>
+                      </Button>
                     </div>
                   </td>
                 </tr>
@@ -1156,16 +1177,16 @@ function IntegrationsPage({ state, t, act, notice }: PageProps) {
         <section className="cs-card">
           <h2>{t('1. 选择工具和模型', '1. Choose a tool and model')}</h2>
           <Field label={t('编程工具', 'Coding tool')}>
-            <select value={tool} onChange={(e) => setTool(e.target.value)}>
+            <Select value={tool} onChange={(e) => setTool(e.target.value)}>
               {tools.map(([id, label]) => (
                 <option key={id} value={id}>
                   {label}
                 </option>
               ))}
-            </select>
+            </Select>
           </Field>
           <Field label={t('模型', 'Model')}>
-            <select
+            <Select
               value={selectedModel}
               onChange={(e) => setSelectedModel(e.target.value)}
             >
@@ -1174,7 +1195,7 @@ function IntegrationsPage({ state, t, act, notice }: PageProps) {
                   {m.name}
                 </option>
               ))}
-            </select>
+            </Select>
           </Field>
           <p>
             <Badge>
@@ -1186,8 +1207,8 @@ function IntegrationsPage({ state, t, act, notice }: PageProps) {
           <p className="cs-muted">
             {supported
               ? t(
-                  '模板中的域名和模型为占位值。正式服务地址尚未配置。',
-                  'The endpoint and models are placeholders. A production endpoint is not configured.',
+                  '模板使用目录模型 ID；服务域名为占位值，正式模型映射与服务地址尚未配置。',
+                  'The template uses catalog model IDs. The endpoint is a placeholder; production model mapping and service endpoints are pending.',
                 )
               : t(
                   '该工具的完整接入需要验证协议、流式输出、工具调用与错误处理，目前不提供未经验证的配置。',
@@ -1232,7 +1253,7 @@ function IntegrationsPage({ state, t, act, notice }: PageProps) {
           )}
         </p>
         <Field label={t('使用的 Key', 'Key to use')}>
-          <select value={key} onChange={(e) => setKey(e.target.value)}>
+          <Select value={key} onChange={(e) => setKey(e.target.value)}>
             <option value="">{t('请选择', 'Select a key')}</option>
             {state.keys.map((k) => (
               <option key={k.id} value={k.id}>
@@ -1244,24 +1265,24 @@ function IntegrationsPage({ state, t, act, notice }: PageProps) {
                     : t('已撤销', 'Revoked')}
               </option>
             ))}
-          </select>
+          </Select>
         </Field>
         <div className="cs-inline-actions">
-          <button
+          <Button
             className="cs-button primary"
             disabled={!key || pending}
             onClick={() => void run()}
           >
             {pending ? <RefreshCw size={16} /> : <Terminal size={16} />}{' '}
             {t('模拟成功调用', 'Simulate successful request')}
-          </button>
-          <button
+          </Button>
+          <Button
             className="cs-button"
             disabled={!key || pending}
             onClick={() => void run(true)}
           >
             {t('模拟失败', 'Simulate failure')}
-          </button>
+          </Button>
           <Link className="cs-text-button" href={`${demoRoot}/api-keys`}>
             {t('管理 Key', 'Manage keys')}
           </Link>
@@ -1334,17 +1355,17 @@ function BalancePage({ state, t, act, setModal }: PageProps) {
         </p>
         <div className="cs-inline-actions">
           {['10', '50', '100', '500'].map((v) => (
-            <button
+            <Button
               key={v}
               className={`cs-button ${amount === v ? 'selected' : ''}`}
               onClick={() => setAmount(v)}
             >
               ¥{v}
-            </button>
+            </Button>
           ))}
         </div>
         <Field label={t('自定义金额（CNY）', 'Custom amount (CNY)')}>
-          <input
+          <Input
             type="number"
             min="10"
             max="1000"
@@ -1353,7 +1374,7 @@ function BalancePage({ state, t, act, setModal }: PageProps) {
             onChange={(e) => setAmount(e.target.value)}
           />
         </Field>
-        <button
+        <Button
           className="cs-button primary"
           onClick={() => {
             const next = act({
@@ -1366,7 +1387,7 @@ function BalancePage({ state, t, act, setModal }: PageProps) {
         >
           {t('创建演示订单', 'Create demo order')}
           <ArrowRight size={16} />
-        </button>
+        </Button>
       </section>
       <section className="cs-card cs-table-card">
         <div className="cs-card-heading">
@@ -1426,7 +1447,7 @@ function OrdersPage({ state, t, setModal }: PageProps) {
     <>
       <div className="cs-toolbar">
         <Field label={t('订单状态', 'Order status')}>
-          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+          <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
             {[
               ['all', t('全部', 'All')],
               ['pending', t('待处理', 'Pending')],
@@ -1438,9 +1459,9 @@ function OrdersPage({ state, t, setModal }: PageProps) {
                 {label}
               </option>
             ))}
-          </select>
+          </Select>
         </Field>
-        <button
+        <Button
           className="cs-button"
           disabled={!rows.length}
           onClick={() =>
@@ -1459,7 +1480,7 @@ function OrdersPage({ state, t, setModal }: PageProps) {
         >
           <Download size={16} />
           {t('导出订单', 'Export orders')}
-        </button>
+        </Button>
       </div>
       <section className="cs-card cs-table-card">
         <div className="cs-table-scroll">
@@ -1508,12 +1529,12 @@ function OrdersPage({ state, t, setModal }: PageProps) {
                     </Badge>
                   </td>
                   <td>
-                    <button
+                    <Button
                       className="cs-text-button"
                       onClick={() => setModal({ kind: 'order', id: o.id })}
                     >
                       {t('查看详情', 'View details')}
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -1540,6 +1561,7 @@ function OrdersPage({ state, t, setModal }: PageProps) {
   );
 }
 function SettingsPage({ state, t, act, setModal }: PageProps) {
+  const navigate = useNavigate();
   const [name, setName] = useState(state.profile.name),
     [timezone, setTimezone] = useState(state.profile.timezone),
     [notifications, setNotifications] = useState(state.profile.notifications);
@@ -1554,7 +1576,7 @@ function SettingsPage({ state, t, act, setModal }: PageProps) {
           }}
         >
           <Field label={t('显示名称', 'Display name')}>
-            <input
+            <Input
               value={name}
               maxLength={48}
               onChange={(e) => setName(e.target.value)}
@@ -1562,7 +1584,7 @@ function SettingsPage({ state, t, act, setModal }: PageProps) {
             />
           </Field>
           <Field label={t('显示时区', 'Display timezone')}>
-            <select
+            <Select
               value={timezone}
               onChange={(e) => setTimezone(e.target.value)}
             >
@@ -1574,22 +1596,22 @@ function SettingsPage({ state, t, act, setModal }: PageProps) {
               ].map((z) => (
                 <option key={z}>{z}</option>
               ))}
-            </select>
+            </Select>
           </Field>
           <label className="cs-checkbox">
-            <input
-              type="checkbox"
+            <Checkbox
+              className="cs-checkbox-control"
               checked={notifications}
-              onChange={(e) => setNotifications(e.target.checked)}
+              onCheckedChange={setNotifications}
             />
             {t(
               '模拟额度提醒偏好（不会发送消息）',
               'Demo quota reminder preference (no messages sent)',
             )}
           </label>
-          <button className="cs-button primary" type="submit">
+          <Button className="cs-button primary" type="submit">
             {t('保存偏好', 'Save preferences')}
-          </button>
+          </Button>
         </form>
       </section>
       <section className="cs-card">
@@ -1618,7 +1640,7 @@ function SettingsPage({ state, t, act, setModal }: PageProps) {
         </p>
         <div className="cs-inline-actions">
           {[true, false].map((blank) => (
-            <button
+            <Button
               className="cs-button"
               key={String(blank)}
               onClick={() =>
@@ -1634,7 +1656,7 @@ function SettingsPage({ state, t, act, setModal }: PageProps) {
                   run: () => {
                     resetDemo(blank);
                     setModal(null);
-                    navigate(`${demoRoot}/usage`);
+                    void navigate(`${demoRoot}/usage`);
                   },
                 })
               }
@@ -1642,7 +1664,7 @@ function SettingsPage({ state, t, act, setModal }: PageProps) {
               {blank
                 ? t('体验新用户流程', 'Try the new-user flow')
                 : t('恢复示例数据', 'Restore sample data')}
-            </button>
+            </Button>
           ))}
         </div>
       </section>
@@ -1692,7 +1714,7 @@ function KeyDialog({ t, act, setModal }: PageProps) {
         )}
       </p>
       <Field label={t('名称', 'Name')}>
-        <input
+        <Input
           value={name}
           onChange={(e) => setName(e.target.value)}
           maxLength={48}
@@ -1701,13 +1723,13 @@ function KeyDialog({ t, act, setModal }: PageProps) {
         />
       </Field>
       <Field label={t('计费来源', 'Billing source')}>
-        <select
+        <Select
           value={funding}
           onChange={(e) => setFunding(e.target.value as Funding)}
         >
           <option value="plan">Coding Plan</option>
           <option value="api">{t('API 余额', 'API balance')}</option>
-        </select>
+        </Select>
       </Field>
       <p className="cs-callout">
         {funding === 'plan'
@@ -1724,12 +1746,12 @@ function KeyDialog({ t, act, setModal }: PageProps) {
         <legend>{t('允许的模型', 'Allowed models')}</legend>
         {models.map((m) => (
           <label className="cs-checkbox" key={m.id}>
-            <input
-              type="checkbox"
+            <Checkbox
+              className="cs-checkbox-control"
               checked={allowed.includes(m.id)}
-              onChange={(e) =>
+              onCheckedChange={(checked) =>
                 setAllowed(
-                  e.target.checked
+                  checked
                     ? [...allowed, m.id]
                     : allowed.filter((id) => id !== m.id),
                 )
@@ -1746,7 +1768,7 @@ function KeyDialog({ t, act, setModal }: PageProps) {
             : t('子预算（CNY，可留空）', 'Budget in CNY (optional)')
         }
       >
-        <input
+        <Input
           type="number"
           min="1"
           step="1"
@@ -1759,21 +1781,22 @@ function KeyDialog({ t, act, setModal }: PageProps) {
         />
       </Field>
       <Field label={t('有效期', 'Expiry')}>
-        <select value={days} onChange={(e) => setDays(Number(e.target.value))}>
+        <Select value={days} onChange={(e) => setDays(Number(e.target.value))}>
           {[7, 30, 90].map((d) => (
             <option key={d} value={d}>
               {d} {t('天', 'days')}
             </option>
           ))}
-        </select>
+        </Select>
       </Field>
-      <button className="cs-button primary" type="submit">
+      <Button className="cs-button primary" type="submit">
         {t('创建演示 Key', 'Create demo key')}
-      </button>
+      </Button>
     </form>
   );
 }
 function ConsoleDemo() {
+  const location = useLocation();
   const { locale, toggleLocale } = useI18n();
   const t: T = (zh, en) => (locale === 'zh-CN' ? zh : en);
   const { state, storageAvailable } = useDemoState();
@@ -1782,7 +1805,7 @@ function ConsoleDemo() {
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
   const path =
-    stripBasePath(window.location.pathname).slice(`${demoRoot}/`.length) ||
+    location.pathname.replace(/\/+$/, '').slice(`${demoRoot}/`.length) ||
     'usage';
   const nav = consoleNavigation.find((n) => n.path === path);
   const title = nav
@@ -1828,19 +1851,6 @@ function ConsoleDemo() {
       <a className="skip-link" href="#console-main">
         {t('跳转到内容', 'Skip to content')}
       </a>
-      <div className="cs-demo-banner">
-        <FlaskConical size={15} />
-        <span>
-          {t(
-            '交互演示 · 数据仅保存在此浏览器，不创建真实账号、不付款、不调用模型。',
-            'Interactive demo · Data stays in this browser. No real accounts, payments or model calls.',
-          )}
-        </span>
-        <Link href="/">
-          {t('返回官网', 'Website')}
-          <ArrowUpRight size={14} />
-        </Link>
-      </div>
       <aside
         className={`cs-sidebar ${mobile ? 'open' : ''}`}
         aria-label={t('控制台导航', 'Console navigation')}
@@ -1860,13 +1870,13 @@ function ConsoleDemo() {
             <strong>{state.profile.name}</strong>
             <small>{t('个人空间 · 演示', 'Personal workspace · Demo')}</small>
           </div>
-          <button
+          <Button
             className="cs-icon-button cs-mobile-only"
             onClick={() => setMobile(false)}
             aria-label={t('关闭菜单', 'Close menu')}
           >
             <X size={18} />
-          </button>
+          </Button>
         </div>
         <nav>
           {consoleNavigation.map((n, i) => {
@@ -1896,10 +1906,15 @@ function ConsoleDemo() {
           })}
         </nav>
         <div className="cs-sidebar-bottom">
+          <Link href="/">
+            <House size={17} />
+            {t('返回官网', 'Website')}
+            <ArrowUpRight className="cs-sidebar-link-arrow" size={14} />
+          </Link>
           <Link href="/aurinova-reference/docs">
             <BookOpen size={17} />
             {t('接口文档', 'API documentation')}
-            <ArrowUpRight size={14} />
+            <ArrowUpRight className="cs-sidebar-link-arrow" size={14} />
           </Link>
           <Link href="/aurinova-reference#engagement">
             <ExternalLink size={17} />
@@ -1908,7 +1923,7 @@ function ConsoleDemo() {
         </div>
       </aside>
       {mobile && (
-        <button
+        <Button
           className="cs-mobile-scrim"
           aria-label={t('关闭菜单', 'Close menu')}
           onClick={() => setMobile(false)}
@@ -1917,22 +1932,22 @@ function ConsoleDemo() {
       <div className="cs-work">
         <header className="cs-topbar">
           <div>
-            <button
+            <Button
               className="cs-icon-button cs-mobile-only"
               onClick={() => setMobile(true)}
               aria-expanded={mobile}
               aria-label={t('打开菜单', 'Open menu')}
             >
               <Menu size={20} />
-            </button>
+            </Button>
             <span className="cs-muted">FormSy</span>
             <ChevronRight size={14} />
             <span>{title}</span>
           </div>
           <div>
-            <button className="cs-button" onClick={toggleLocale}>
+            <Button className="cs-button" onClick={toggleLocale}>
               {locale === 'zh-CN' ? 'EN' : '中文'}
-            </button>
+            </Button>
             <Link
               className="cs-avatar"
               href={`${demoRoot}/settings`}
@@ -2056,23 +2071,23 @@ function ConsoleDemo() {
                 label={t('复制', 'Copy')}
                 copiedLabel={t('已复制', 'Copied')}
               />
-              <button
+              <Button
                 className="cs-button primary"
                 onClick={() => setModal(null)}
               >
                 {t('我已了解', 'Understood')}
-              </button>
+              </Button>
             </>
           ) : modal.kind === 'confirm' ? (
             <>
               <p>{modal.body}</p>
               <div className="cs-inline-actions">
-                <button className="cs-button" onClick={() => setModal(null)}>
+                <Button className="cs-button" onClick={() => setModal(null)}>
                   {t('取消', 'Cancel')}
-                </button>
-                <button className="cs-button primary" onClick={modal.run}>
+                </Button>
+                <Button className="cs-button primary" onClick={modal.run}>
                   {t('确认', 'Confirm')}
-                </button>
+                </Button>
               </div>
             </>
           ) : modal.kind === 'request' ? (
@@ -2160,7 +2175,7 @@ function ConsoleDemo() {
               )}
               {order.status === 'pending' ? (
                 <div className="cs-inline-actions">
-                  <button
+                  <Button
                     className="cs-button primary"
                     onClick={() => {
                       if (act({ type: 'pay', id: order.id, result: 'paid' }))
@@ -2170,23 +2185,23 @@ function ConsoleDemo() {
                     }}
                   >
                     {t('模拟支付成功', 'Simulate success')}
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     className="cs-button"
                     onClick={() =>
                       act({ type: 'pay', id: order.id, result: 'failed' })
                     }
                   >
                     {t('模拟失败', 'Simulate failure')}
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     className="cs-button"
                     onClick={() =>
                       act({ type: 'pay', id: order.id, result: 'cancelled' })
                     }
                   >
                     {t('关闭订单', 'Cancel order')}
-                  </button>
+                  </Button>
                 </div>
               ) : (
                 <output className="cs-notice">
@@ -2212,7 +2227,7 @@ export default function ConsolePage() {
   const { locale } = useI18n();
   const t: T = (zh, en) => (locale === 'zh-CN' ? zh : en);
   const session = useSession();
-  const pathname = stripBasePath(window.location.pathname);
+  const { pathname, search } = useLocation();
   const demo = pathname === demoRoot || pathname.startsWith(`${demoRoot}/`);
   if (demo) return <ConsoleDemo />;
   return (
@@ -2252,17 +2267,17 @@ export default function ConsolePage() {
         </p>
         <div className="cs-inline-actions">
           {session.status === 'error' ? (
-            <button
+            <Button
               className="cs-button"
               onClick={() => void session.refresh()}
             >
               {t('重试', 'Retry')}
-            </button>
+            </Button>
           ) : session.status !== 'authenticated' &&
             session.status !== 'loading' ? (
             <Link
               className="cs-button"
-              href={`/aurinova-reference/login?return_to=${encodeURIComponent(pathname + window.location.search)}`}
+              href={`/aurinova-reference/login?return_to=${encodeURIComponent(pathname + search)}`}
             >
               {t('登录 / 注册', 'Log in / sign up')}
             </Link>

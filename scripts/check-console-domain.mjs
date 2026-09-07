@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import { createServer } from 'vite';
-const server = await createServer({ server: { middlewareMode: true } });
+const server = await createServer({
+  server: { middlewareMode: true },
+  optimizeDeps: { noDiscovery: true, entries: [] },
+});
 try {
   const {
     freshState,

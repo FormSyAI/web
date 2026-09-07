@@ -40,28 +40,9 @@
   outline: 2px solid #2c6cb5;
   outline-offset: 3px;
 }
-.cs-demo-banner {
-  min-height: 36px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 8px 24px;
-  background: #edf4fc;
-  color: #315a85;
-  font-size: 12px;
-  position: relative;
-  z-index: 31;
-}
-.cs-demo-banner > a {
-  margin-left: auto;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
 .cs-sidebar {
   position: fixed;
-  top: 42px;
+  top: 0;
   bottom: 0;
   left: 0;
   width: 232px;
@@ -163,7 +144,7 @@
   font-size: 12px;
   color: var(--cs-muted);
 }
-.cs-sidebar-bottom > a svg:last-child {
+.cs-sidebar-bottom > a .cs-sidebar-link-arrow {
   margin-left: auto;
 }
 .cs-work {
@@ -318,6 +299,15 @@
   color: #65758a;
   line-height: 1.4;
   white-space: nowrap;
+}
+.cs-badge.cs-renewal-status {
+  min-height: 37px;
+  padding: 8px 13px;
+  font-size: 12px;
+  line-height: 1.55;
+  background: var(--cs-soft);
+  color: #455b73;
+  white-space: normal;
 }
 .cs-badge.success {
   color: #277959;
@@ -878,7 +868,9 @@
   overflow: auto;
   box-shadow: 0 24px 80px #14283f20;
 }
-.cs-dialog::backdrop {
+.cs-dialog-backdrop {
+  position: fixed;
+  inset: 0;
   background: #11284250;
 }
 .cs-dialog > header {
@@ -1006,15 +998,6 @@
   }
 }
 @media (max-width: 680px) {
-  .cs-demo-banner {
-    padding: 8px 16px;
-    font-size: 10px;
-    align-items: flex-start;
-    min-height: 48px;
-  }
-  .cs-demo-banner > a {
-    display: none;
-  }
   .cs-sidebar {
     display: none;
     top: 0;
@@ -1131,4 +1114,37 @@
 }
 .cs-bars {
   margin: 0;
+}
+
+.cs-dialog-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: transparent;
+  min-height: 0;
+}
+.cs-dialog-layer .cs-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+.cs-checkbox-control {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--cs-muted);
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cs-checkbox-control[data-checked] {
+  background: var(--cs-blue);
+  color: white;
+  border-color: var(--cs-blue);
+}
+.cs-checkbox-control:focus-visible {
+  outline: 2px solid var(--cs-blue);
+  outline-offset: 3px;
 }

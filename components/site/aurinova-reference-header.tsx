@@ -1,7 +1,6 @@
-'use client';
+import { modelCatalog } from '@/content/model-catalog';
 
 import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react';
-import { DeploymentIcon } from '@/components/site/deployment-icon';
 import Image from '@/components/runtime/app-image';
 import { AppLink as Link } from '@/components/runtime/app-link';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -109,7 +108,13 @@ function MegaMenu({
         <div>
           {menu.items.map((item) => (
             <MenuLink href={item.href} onClick={onNavigate} key={item.label}>
-              <DeploymentIcon id={item.id} />
+              <Image
+                src={modelCatalog.find((m) => m.id === item.id)!.logo}
+                alt=""
+                width={28}
+                height={28}
+                style={{ objectFit: 'contain' }}
+              />
               {item.label}
             </MenuLink>
           ))}
@@ -333,11 +338,18 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
           <div className="fw-header-actions">
             <LanguageSwitcher labels={content.ui} />
             {sessionStatus === 'authenticated' ? (
-              <Link className="fw-primary-button" href="/console/usage">{locale === 'zh-CN' ? '进入控制台' : 'Console'}</Link>
+              <Link className="fw-primary-button" href="/console/usage">
+                {locale === 'zh-CN' ? '进入控制台' : 'Console'}
+              </Link>
             ) : (
               <>
                 <Link href="/aurinova-reference/login">{content.ui.login}</Link>
-                <Link className="fw-primary-button" href="/aurinova-reference/signup">{content.ui.signup}</Link>
+                <Link
+                  className="fw-primary-button"
+                  href="/aurinova-reference/signup"
+                >
+                  {content.ui.signup}
+                </Link>
               </>
             )}
             <button

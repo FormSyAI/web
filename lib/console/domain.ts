@@ -1,3 +1,4 @@
+import { modelCatalog } from '../../content/model-catalog';
 /** Local demonstration only. Amounts and quotas are illustrative, never saleable. */
 export type Funding = 'plan' | 'api';
 export type PlanId = 'starter' | 'pro';
@@ -18,6 +19,8 @@ export type ConsoleKey = {
 export type Model = {
   id: string;
   name: string;
+  logo: string;
+  source: string;
   kind: string;
   context: number;
   input: number;
@@ -25,28 +28,7 @@ export type Model = {
   output: number;
   pro: boolean;
 };
-export const models: Model[] = [
-  {
-    id: 'demo-code',
-    name: 'FormSy Code · Demo',
-    kind: 'code',
-    context: 128000,
-    input: 1,
-    cached: 0.2,
-    output: 3,
-    pro: false,
-  },
-  {
-    id: 'demo-reason',
-    name: 'FormSy Reason · Demo',
-    kind: 'reason',
-    context: 200000,
-    input: 2,
-    cached: 0.4,
-    output: 6,
-    pro: true,
-  },
-];
+export const models: Model[] = modelCatalog;
 export const plans = {
   starter: {
     name: 'Starter',

@@ -1,3 +1,4 @@
+import { modelCatalog } from './model-catalog';
 import { siteDictionaries } from './i18n';
 
 // Paired copy keeps both locales and every navigation target aligned.
@@ -14,7 +15,10 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
     {
       label: 'Coding Plan',
       href: '/aurinova-reference/coding-plan',
-      description: t('模型、额度与编程工具接入', 'Models, quotas and coding-tool integrations'),
+      description: t(
+        '模型、额度与编程工具接入',
+        'Models, quotas and coding-tool integrations',
+      ),
     },
     {
       ...link('FormSy 产品概览', 'FormSy overview', 'overview'),
@@ -457,8 +461,15 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       },
       Models: {
         kind: 'models' as const,
-        library: { label: t('模型库与接入', 'MODEL LIBRARY & ACCESS'), href: '/aurinova-reference/models' },
-        items: deployments.map((x) => ({ id: x.id, label: x.name, href: anchor(x.id) })),
+        library: {
+          label: t('模型库与接入', 'MODEL LIBRARY & ACCESS'),
+          href: '/aurinova-reference/models',
+        },
+        items: modelCatalog.map((x) => ({
+          id: x.id,
+          label: x.name,
+          href: `/aurinova-reference/models#${x.id}`,
+        })),
       },
       Resources: {
         kind: 'resources' as const,
