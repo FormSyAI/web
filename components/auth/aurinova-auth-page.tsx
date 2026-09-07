@@ -1127,10 +1127,6 @@ function AuthPanel({
 function BrandPanel({ copy }: { copy: AuthContent }) {
   const [testimonial, setTestimonial] = useState(0);
   const item = copy.shell.testimonials[testimonial];
-  const signalCells = useMemo(
-    () => Array.from({ length: 80 }, (_, i) => i),
-    [],
-  );
 
   return (
     <section className="auth-brand-panel" aria-labelledby="auth-brand-title">
@@ -1192,11 +1188,31 @@ function BrandPanel({ copy }: { copy: AuthContent }) {
           <Link href="/aurinova-reference/docs">{copy.shell.docs}</Link>
         </nav>
       </div>
-      <div className="auth-signal-grid" aria-hidden="true">
-        {signalCells.map((cell) => (
-          <span key={cell} style={{ '--cell': cell } as React.CSSProperties} />
-        ))}
-      </div>
+      <svg
+        className="auth-signal-grid"
+        viewBox="0 0 600 600"
+        aria-hidden="true"
+        focusable="false"
+        shapeRendering="crispEdges"
+      >
+        {Array.from({ length: 100 }, (_, index) => {
+          const col = index % 10;
+          const row = Math.floor(index / 10);
+          const depth = row + col - 9;
+          if (depth < 0) return null;
+          return (
+            <rect
+              key={index}
+              x={col * 60}
+              y={row * 60}
+              width={60}
+              height={60}
+              fill="currentColor"
+              opacity={0.035 + 0.865 * (depth / 9) ** 1.65}
+            />
+          );
+        })}
+      </svg>
     </section>
   );
 }

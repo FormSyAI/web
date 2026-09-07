@@ -8,7 +8,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { LanguageSwitcher } from '@/components/i18n/language-switcher';
-import { isAuthApiConfigured } from '@/lib/auth/api';
 import {
   aurinovaReferenceDictionaries,
   type AurinovaMenuKey,
@@ -320,7 +319,9 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
                   href={item.href}
                   key={item.label}
                   aria-current={isCurrent(item.href) ? 'page' : undefined}
+                  onMouseEnter={closeMenuNow}
                   onFocus={closeMenuNow}
+                  onClick={closeMenuNow}
                 >
                   {item.label}
                 </Link>
@@ -329,14 +330,12 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
           </nav>
           <div className="fw-header-actions">
             <LanguageSwitcher labels={content.ui} />
-            {isAuthApiConfigured && (
-              <Link href="/aurinova-reference/login">{content.ui.login}</Link>
-            )}
+            <Link href="/aurinova-reference/login">{content.ui.login}</Link>
             <Link
               className="fw-primary-button"
-              href="/aurinova-reference#engagement"
+              href="/aurinova-reference/signup"
             >
-              {content.ui.getStarted}
+              {content.ui.signup}
             </Link>
             <button
               className="fw-mobile-trigger"

@@ -303,40 +303,13 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 .auth-signal-grid {
   position: absolute;
   z-index: 1;
-  right: -3px;
-  bottom: -3px;
-  width: min(58%, 560px);
-  height: min(49%, 520px);
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  gap: 3px;
-  opacity: 0.78;
-  transform: translate(22%, 26%);
-}
-
-.auth-signal-grid span {
-  background: #e4eef8;
-}
-
-.auth-signal-grid span:nth-child(3n),
-.auth-signal-grid span:nth-child(5n + 2) {
-  background: #8db8e3;
-}
-
-.auth-signal-grid span:nth-child(4n + 1),
-.auth-signal-grid span:nth-child(7n + 3) {
-  background: #8db8e3;
-}
-
-.auth-signal-grid span:nth-child(n + 42):nth-child(-n + 67),
-.auth-signal-grid span:nth-child(n + 74) {
-  background: #2c6cb5;
-}
-
-.auth-signal-grid span:nth-child(11n + 5),
-.auth-signal-grid span:nth-child(13n + 4) {
-  background: #f3b322;
+  right: 0;
+  bottom: 0;
+  width: 72%;
+  height: auto;
+  display: block;
+  color: var(--auth-brand, #2c6cb5);
+  pointer-events: none;
 }
 
 .auth-main-panel {

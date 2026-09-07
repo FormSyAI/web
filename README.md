@@ -24,6 +24,7 @@ React + Vite 双语品牌网站。FormSy 产品内容已迁移到 `/aurinova-ref
 | [根首页内容](docs/CURRENT_SITE_CONTENT.md) | 当前产品内容来源及索引 |
 | [参考骨架内容](docs/AURINOVA_REFERENCE_CONTENT.md) | 当前骨架状态与迁移映射 |
 | [认证接口](docs/auth-api.md) | 外部身份服务接入协议 |
+| [控制台与 Coding Plan 方案](docs/CONSOLE_AND_CODING_PLAN.md) | 登录衔接、后台菜单、套餐计量、计费架构与实施阶段 |
 
 ## 开发与验证
 

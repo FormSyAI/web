@@ -371,10 +371,13 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       announcementLabel: t('产品公告', 'Product announcement'),
       navigationLabel: t('主导航', 'Main navigation'),
       login: t('登录', 'Log in'),
+      signup: t('注册', 'Sign up'),
       getStarted: t('查看合作方式', 'Explore engagement'),
       openNavigation: t('打开导航', 'Open navigation'),
       closeNavigation: t('关闭导航', 'Close navigation'),
       mobileLinks: [
+        { label: t('登录', 'Log in'), href: '/aurinova-reference/login' },
+        { label: t('注册', 'Sign up'), href: '/aurinova-reference/signup' },
         ...navigation,
         ...productLinks,
         ...scenarios.map((x) => ({ label: x.title, href: anchor(x.id) })),
