@@ -50,27 +50,15 @@ function PricingTable({
   );
 }
 
-function Notes({ items }: { items: readonly string[] }) {
-  return (
-    <ul className="pr-notes">
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
-  );
-}
-
 export default function PricingPage() {
   const { locale } = useI18n();
   const content = pricingDictionaries[locale];
-
   useEffect(() => {
     document.title = content.meta.title;
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute('content', content.meta.description);
   }, [content.meta]);
-
   return (
     <main className="pr-page">
       <a className="skip-link" href="#pricing-main">
@@ -84,116 +72,80 @@ export default function PricingPage() {
           <div className="pr-actions">
             <Link
               className="pr-button pr-button-solid"
-              href="/aurinova-reference/signup"
+              href={content.primary.href}
             >
-              {content.getStarted}
+              {content.primary.label}
               <ArrowRight size={17} />
             </Link>
-            <Link className="pr-button pr-button-outline" href="/contact">
-              {content.contact}
+            <Link
+              className="pr-button pr-button-outline"
+              href={content.secondary.href}
+            >
+              {content.secondary.label}
             </Link>
           </div>
         </section>
-
         <nav
           className="pr-jumps pr-shell"
           aria-label={content.ui.pricingSections}
         >
-          {content.jumpCards.map((card, index) => (
-            <a href={card.href} key={card.title}>
+          {content.plans.map((plan, i) => (
+            <a href={`#${plan.id}`} key={plan.id}>
               <span className="pr-glyph" aria-hidden="true">
-                {index === 0 ? (
-                  <Gauge />
-                ) : index === 1 ? (
-                  <Sparkles />
-                ) : (
-                  <Boxes />
-                )}
+                {i === 0 ? <Gauge /> : i === 1 ? <Sparkles /> : <Boxes />}
               </span>
-              <h2>{card.title}</h2>
-              <p>{card.description}</p>
+              <h2>{plan.title}</h2>
+              <p>{plan.description}</p>
               <strong>
-                {content.seePricing}
+                {content.ui.seeDetails}
                 <ArrowRight size={16} />
               </strong>
             </a>
           ))}
         </nav>
-
-        <section className="pr-band" id="serverless-pricing">
-          <div className="pr-shell pr-section-intro">
-            <h2>{content.serverless.title}</h2>
-            <div>
-              <p>{content.serverless.description}</p>
-              <Link href="/docs">
-                {content.serverless.docs}
-                <ArrowRight size={15} />
+        {content.plans.map((plan) => (
+          <section key={plan.id} id={plan.id}>
+            <div className="pr-band">
+              <div className="pr-shell pr-section-intro">
+                <h2>{plan.title}</h2>
+                <p>{plan.description}</p>
+              </div>
+            </div>
+            <div className="pr-section pr-shell pr-plan-scope">
+              <h2>{content.ui.scope}</h2>
+              <ul>
+                {plan.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p className="pr-description">{plan.pricing}</p>
+              <Link
+                className="pr-button pr-button-outline"
+                href={content.primary.href}
+              >
+                {content.primary.label}
+                <ArrowRight size={17} />
               </Link>
             </div>
-          </div>
-        </section>
-
-        <section className="pr-section pr-shell">
-          <h2>{content.embeddings}</h2>
+          </section>
+        ))}
+        <section className="pr-section pr-shell" id="comparison">
+          <h2>{content.ui.compare}</h2>
           <PricingTable
-            label={content.embeddings}
-            headers={content.embeddingHeaders}
-            rows={content.embeddingRows}
+            label={content.ui.compare}
+            headers={content.comparison.headers}
+            rows={content.comparison.rows}
           />
+          <p className="pr-description">{content.comparison.note}</p>
         </section>
-
-        <section className="pr-band" id="fine-tuning-pricing">
-          <div className="pr-shell pr-section-intro">
-            <h2>{content.training.title}</h2>
-            <p>{content.training.intro}</p>
-          </div>
-        </section>
-
-        <section className="pr-section pr-shell">
-          <h2>{content.training.managed}</h2>
-          <p className="pr-description">
-            {content.training.managedDescription}
-          </p>
-          <PricingTable
-            label={content.training.managed}
-            headers={content.training.managedHeaders}
-            rows={content.managedRows}
-          />
-          <Notes items={content.training.notes} />
-          <div className="pr-subsection">
-            <h2>{content.training.serverlessApi}</h2>
-            <p className="pr-description">
-              {content.training.serverlessDescription}
-            </p>
-            <PricingTable
-              label={content.training.serverlessApi}
-              headers={content.training.serverlessHeaders}
-              rows={content.serverlessTrainingRows}
-            />
-            <Notes items={content.training.serverlessNotes} />
-          </div>
-          <div className="pr-subsection pr-dedicated">
-            <h2>{content.training.dedicated}</h2>
-            <p className="pr-description">
-              {content.training.dedicatedDescription}
-            </p>
-          </div>
-        </section>
-
-        <section className="pr-band" id="on-demand-pricing">
-          <div className="pr-shell pr-section-intro">
-            <h2>{content.onDemand.title}</h2>
-            <p>{content.onDemand.intro}</p>
-          </div>
-        </section>
-        <section className="pr-section pr-shell">
-          <h2>{content.onDemand.subtitle}</h2>
-          <PricingTable
-            label={content.onDemand.subtitle}
-            headers={content.onDemand.headers}
-            rows={content.gpuRows}
-          />
-          <Notes items={[content.onDemand.note]} />
+        <section className="pr-section pr-shell pr-faq" id="faq">
+          <h2>{content.ui.faq}</h2>
+          {content.faq.map(([q, a]) => (
+            <details key={q}>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
         </section>
       </div>
       <AurinovaReferenceFooter />

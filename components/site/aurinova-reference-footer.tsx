@@ -12,6 +12,10 @@ export function AurinovaReferenceFooter() {
 
   return (
     <footer className="fw-footer">
+      <div className="fw-shell fw-about" id="about">
+        <h2>{content.about.title}</h2>
+        <p>{content.about.description}</p>
+      </div>
       <div className="fw-shell fw-footer-grid">
         {content.footer.map((group) => (
           <div className="fw-footer-group" key={group.title}>
@@ -35,7 +39,9 @@ export function AurinovaReferenceFooter() {
         />
         <span>{content.ui.copyright}</span>
         <div>
-          <Link href="/">{content.ui.currentSite}</Link>
+          <Link href="/aurinova-reference#resource-architecture">
+            {content.ui.currentSite}
+          </Link>
           <Link href={content.meta.contactHref}>
             {content.ui.officialSource}
           </Link>

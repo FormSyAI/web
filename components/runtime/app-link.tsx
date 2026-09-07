@@ -47,6 +47,15 @@ export function AppLink({
     ) {
       return;
     }
+    const url = new URL(destination, window.location.origin);
+    if (
+      url.pathname === window.location.pathname &&
+      url.search === window.location.search &&
+      url.hash
+    ) {
+      // Let the browser also handle repeated clicks on the current anchor.
+      return;
+    }
     event.preventDefault();
     navigate(href);
   };

@@ -1,48 +1,18 @@
 'use client';
 
-import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, Menu, X, Boxes } from 'lucide-react';
 import Image from '@/components/runtime/app-image';
 import { AppLink as Link } from '@/components/runtime/app-link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { LanguageSwitcher } from '@/components/i18n/language-switcher';
-import { AurinovaArtworkImage } from '@/components/site/aurinova-artwork-image';
+import { isAuthApiConfigured } from '@/lib/auth/api';
 import {
   aurinovaReferenceDictionaries,
   type AurinovaMenuKey,
   type AurinovaReferenceContent,
 } from '@/content/aurinova-reference.i18n';
-
-const modelLogos = {
-  deepseek:
-    'https://cdn.sanity.io/images/pv37i0yn/production/cc90788a38550199abccf713bc06d799a4e667a7-40x40.svg',
-  glm: 'https://cdn.sanity.io/images/pv37i0yn/production/71e5ae43c4d8d32c711ba8f04d52f0dd70f39982-200x200.png?auto=format',
-  kimi: 'https://cdn.sanity.io/images/pv37i0yn/production/eadd3c2ed50ecd13ad2917cd46ac4ee71824d786-1024x1024.png?auto=format',
-  minimax:
-    'https://cdn.sanity.io/images/pv37i0yn/production/b6629409bd0b02c391af354e9251b5493ec1f0af-400x400.jpg?auto=format',
-  qwen: 'https://cdn.sanity.io/images/pv37i0yn/production/e83bb902c91d9a285108cc53efd4b19389b7fa4d-228x232.svg',
-  google:
-    'https://cdn.sanity.io/images/pv37i0yn/production/bb8d628c4ad0b774525ad765138a7b85c4fa4c0f-40x40.svg',
-  openai:
-    'https://cdn.sanity.io/images/pv37i0yn/production/f549e0e24c286535bc06df0b0310d270183469e8-40x40.svg',
-  flux: 'https://cdn.sanity.io/images/pv37i0yn/production/ac4f278bca97db5305dc57517631971c55d20c47-40x40.svg',
-  nvidia:
-    'https://cdn.sanity.io/images/pv37i0yn/production/024c5d9c1e834937377c6d297ae4c1d4e044a590-1290x726.png?auto=format',
-} as const;
-
-export function aurinovaModelLogo(name: string) {
-  const normalized = name.toLowerCase();
-  if (normalized.includes('deepseek')) return modelLogos.deepseek;
-  if (normalized.includes('glm')) return modelLogos.glm;
-  if (normalized.includes('kimi')) return modelLogos.kimi;
-  if (normalized.includes('minimax')) return modelLogos.minimax;
-  if (normalized.includes('qwen')) return modelLogos.qwen;
-  if (normalized.includes('gemma'))
-    return normalized.includes('31b') ? modelLogos.nvidia : modelLogos.google;
-  if (normalized.includes('flux')) return modelLogos.flux;
-  return modelLogos.openai;
-}
 
 function MenuLink({
   href,
@@ -93,8 +63,8 @@ function MegaMenu({
           onClick={onNavigate}
         >
           <strong>{menu.feature.label}</strong>
-          <p>“{menu.feature.quote}”</p>
-          <span>{menu.feature.person}</span>
+          <p>{menu.feature.title}</p>
+          <span>{menu.feature.detail}</span>
         </MenuLink>
       </div>
     );
@@ -138,13 +108,7 @@ function MegaMenu({
         <div>
           {menu.items.map((item) => (
             <MenuLink href={item.href} onClick={onNavigate} key={item.label}>
-              <Image
-                src={aurinovaModelLogo(item.label)}
-                width={28}
-                height={28}
-                unoptimized
-                alt=""
-              />
+              <Boxes size={28} aria-hidden="true" />
               {item.label}
             </MenuLink>
           ))}
@@ -184,7 +148,9 @@ function MegaMenu({
         {menu.featured.map((item) => (
           <MenuLink href={item.href} onClick={onNavigate} key={item.title}>
             <span className="fw-featured-image">
-              <AurinovaArtworkImage src={item.image} alt="" sizes="240px" />
+              <span className="fw-resource-mark" aria-hidden="true">
+                FORM<span>SY</span>
+              </span>
             </span>
             <small>{item.type}</small>
             <strong>{item.title}</strong>
@@ -273,6 +239,20 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
     };
   }, [cancelMenuClose, clearMenuTimers, closeMenuNow, closeMenuSoon]);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const close = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false);
+        document
+          .querySelector<HTMLButtonElement>('.fw-mobile-trigger')
+          ?.focus();
+      }
+    };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+  }, [mobileOpen]);
+
   const isCurrent = (href: string) =>
     current === 'pricing' && href.includes('pricing');
 
@@ -306,7 +286,7 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
           </Link>
           <nav ref={desktopNav} aria-label={content.ui.navigationLabel}>
             {content.navigation.map((item) =>
-              'menuKey' in item ? (
+              item.menuKey ? (
                 <div className="fw-nav-item" key={item.label}>
                   <button
                     type="button"
@@ -348,10 +328,12 @@ export function AurinovaReferenceHeader({ current }: { current?: 'pricing' }) {
           </nav>
           <div className="fw-header-actions">
             <LanguageSwitcher labels={content.ui} />
-            <Link href="/aurinova-reference/login">{content.ui.login}</Link>
+            {isAuthApiConfigured && (
+              <Link href="/aurinova-reference/login">{content.ui.login}</Link>
+            )}
             <Link
               className="fw-primary-button"
-              href="/aurinova-reference/signup"
+              href="/aurinova-reference#engagement"
             >
               {content.ui.getStarted}
             </Link>

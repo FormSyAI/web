@@ -146,6 +146,8 @@ components:
 
 # Design System: AURINOVA
 
+Updated: 2026-09-07. The approved visual baseline is `/aurinova-reference`. Preserve its current layout and interactions while migrating FormSy content from `/`. The migration plan lives in [WEBSITE_CONTENT_ARCHITECTURE.md](docs/WEBSITE_CONTENT_ARCHITECTURE.md); concise constraints live in [AGENT.md](AGENT.md). This document describes visual conventions, not proof that reference-page products or services are available.
+
 ## Overview
 
 **Creative North Star: "The Infrastructure Ledger"**

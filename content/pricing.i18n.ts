@@ -1,321 +1,169 @@
-import type { ContentShape, Locale } from './i18n';
-
-const shared = {
-  serverlessTrainingRows: [
-    ['Qwen 3.8 27B', '128K', '$1.86', '$0.372', '$5.595', '$4.103'],
-    ['Kimi K3', '192K', '$10.87', '$2.17', '$27.11', '$32.55'],
-    ['DeepSeek V4 Flash 0731', '262K', '$1.74', '$0.35', '$4.33', '$5.20'],
-    ['Muse Glimmer 30B', '128K', '$1.96', '$0.39', '$4.88', '$5.86'],
-  ],
-  gpuRows: [
-    ['H100 80 GB GPU', '$7.00', '$8.00'],
-    ['H200 141 GB GPU', '$7.00', '$8.00'],
-    ['B200 180 GB GPU', '$10.00', '$13.00'],
-    ['B300 288 GB GPU', '$12.00', '$15.00'],
-    ['GB300 288 GB GPU', '$18.00', '$20.00'],
-  ],
-} as const;
-
-const en = {
-  meta: {
-    title: 'Pricing | AURINOVA',
-    description:
-      'Transparent pricing for AURINOVA inference, training, and on-demand deployments.',
-  },
-  ui: {
-    switchLanguage: 'Switch to Chinese',
-    alternateLocaleName: '中文',
-    skip: 'Skip to pricing',
-    navigation: 'Primary navigation',
-    openMenu: 'Open navigation',
-    closeMenu: 'Close navigation',
-    pricingSections: 'Pricing sections',
-  },
-  announcement: 'Training API now generally available',
-  nav: ['Product', 'Solutions', 'Models', 'Pricing', 'Resources'],
-  login: 'LOG IN',
-  getStarted: 'GET STARTED',
-  contact: 'CONTACT US',
-  seePricing: 'SEE PRICING',
-  hero: {
-    title: 'Pricing to seamlessly scale from idea to enterprise',
-    description:
-      'Start building in seconds, self-serve. Contact us for enterprise deployments with faster speeds, lower costs, and higher rate limits.',
-  },
-  jumpCards: [
-    {
-      title: 'Serverless Inference',
-      description:
-        'Get started in seconds with per token pricing, zero setup and no cold starts',
-      href: '#serverless-pricing',
+import { createAurinovaContent } from './aurinova-reference';
+import type { Locale } from './i18n';
+function createPricing(locale: Locale) {
+  const t = (zh: string, en: string) => (locale === 'zh-CN' ? zh : en);
+  const { engagement } = createAurinovaContent(locale);
+  return {
+    meta: {
+      title: t(
+        '方案与定价 | AURINOVA · FormSy',
+        'Plans & pricing | AURINOVA · FormSy',
+      ),
+      description: t(
+        '从试点验证到企业部署，围绕工作负载、部署环境与验收目标选择合作方式。',
+        'Choose an engagement around workloads, deployment requirements and acceptance criteria, from pilot to enterprise deployment.',
+      ),
     },
-    {
-      title: 'Training',
-      description:
-        'Customize open models with your own data with minimal setup',
-      href: '#fine-tuning-pricing',
+    hero: {
+      title: t(
+        '从试点验证，到企业规模化部署',
+        'From pilot evaluation to enterprise deployment',
+      ),
+      description: t(
+        '围绕工作负载、部署环境与验收目标，选择合适的合作方式。',
+        'Choose an engagement around your workloads, deployment environment and acceptance criteria.',
+      ),
     },
-    {
-      title: 'On Demand Deployments',
-      description:
-        'Pay per GPU second for faster speeds, higher rate limits, and lower costs at scale',
-      href: '#on-demand-pricing',
+    ui: {
+      skip: t('跳转到方案内容', 'Skip to engagement plans'),
+      pricingSections: t('合作方案', 'Engagement plans'),
+      seeDetails: t('查看方案', 'Explore plan'),
+      scope: t('共同确定交付范围', 'Define the scope together'),
+      compare: t('比较合作方式', 'Compare engagement options'),
+      faq: t('常见问题', 'Frequently asked questions'),
     },
-  ],
-  serverless: {
-    title: 'Serverless Inference',
-    description:
-      'Pay per token, with high rate limits and postpaid billing. Get started with $1 in free credits. To view current pricing for popular models across Standard, Priority, and Fast serverless tiers, visit our documentation.',
-    docs: 'DOCUMENTATION',
-  },
-  embeddings: 'Embeddings',
-  embeddingHeaders: ['Base model parameter count', '$ / 1M input tokens'],
-  embeddingRows: [
-    ['up to 150M', '$0.008'],
-    ['150M - 350M', '$0.016'],
-    ['Qwen3 8B', '$0.1'],
-  ],
-  training: {
-    title: 'Training Pricing',
-    intro: 'Serve fine-tuned models for the same price as base models.',
-    managed: 'Managed Training',
-    managedDescription:
-      'Supervised and preference fine tuning is priced per 1M training tokens. Reinforcement fine tuning jobs are priced per GPU hour (billed per second), at the same price as AURINOVA on-demand deployments.',
-    managedHeaders: [
-      'Base Model',
-      'LoRA SFT',
-      'LoRA DPO',
-      'Full Param SFT',
-      'Full Param DPO',
-    ],
-    notes: [
-      'SFT and DPO prices are shown in $ per 1M training tokens. Training tokens can be estimated as tokens in the training dataset × number of epochs. For tuning with intermediate thinking traces, multiply the estimate by the average number of conversation turns ÷ 2.',
-      'When fine-tuning with reasoning traces, including the reasoning_content field for assistant turns increases the total tuned tokens because multi-turn conversations are unrolled into user, assistant, and thinking traces.',
-      'Fine-tuning with images (VLM supervised fine-tuning) is also billed per 1M tokens.',
-    ],
-    serverlessApi: 'Serverless Training API',
-    serverlessDescription:
-      "Attach to a shared, always-on trainer pool for LoRA training on launch models. There's no provisioning and no idle cost. You pay only for the tokens you prefill, sample, and train.",
-    serverlessHeaders: [
-      'Base Model',
-      'Context',
-      'Prefill / 1M',
-      'Cached Prefill / 1M',
-      'Sample / 1M',
-      'Train / 1M',
-    ],
-    serverlessNotes: [
-      'Checkpoint storage for serverless models is included during private preview.',
-      'Other frontier models are coming soon to the Serverless Training API catalog.',
-    ],
-    dedicated: 'Dedicated Training API',
-    dedicatedDescription:
-      'Dedicated Training API jobs are priced per GPU hour. See the On-Demand Pricing section below for details.',
-  },
-  managedRows: [
-    ['Models up to 16B parameters', '$0.50', '$1.00', '$1.00', '$2.00'],
-    ['Models 16.1B - 80B', '$3.00', '$6.00', '$6.00', '$12.00'],
-    [
-      'Models 80B - 300B (e.g. Qwen3-235B, gpt-oss-120B)',
-      '$6.00',
-      '$12.00',
-      '$12.00',
-      '$24.00',
-    ],
-    [
-      'Models >300B (e.g. DeepSeek V3, Kimi K2)',
-      '$10.00',
-      '$20.00',
-      '$20.00',
-      '$40.00',
-    ],
-  ],
-  onDemand: {
-    title: 'On-Demand Pricing',
-    intro: 'Pay per GPU second, with no extra charges for start-up times',
-    subtitle: 'On demand deployments',
-    headers: [
-      'GPU Type',
-      'Price ($) per hour — up to Aug 31',
-      'Price ($) per hour — from Sep 1',
-    ],
-    note: 'Region-restricted deployments are priced at a 1.5× premium.',
-  },
-  footer: {
-    groups: [
-      ['Platform', 'AI Native', 'Enterprise', 'Customers'],
-      [
-        'Use Cases',
-        'Code Assistance',
-        'Conversational AI',
-        'Agentic Systems',
-        'Search',
-        'Multimodal',
-        'Enterprise RAG',
+    primary: {
+      label: t('了解试点流程', 'Explore the pilot process'),
+      href: '/aurinova-reference#pilot-process',
+    },
+    secondary: {
+      label: t('了解 FormSy', 'Explore FormSy'),
+      href: '/aurinova-reference#overview',
+    },
+    plans: engagement.plans,
+    comparison: {
+      headers: [
+        t('比较维度', 'Dimension'),
+        ...engagement.plans.map((x) => x.title),
       ],
-      ['Developers', 'Model Library', 'Docs', 'CLI', 'API', 'Changelog'],
-      ['Pricing', 'Serverless', 'On-Demand', 'Fine Tuning', 'Enterprise'],
-      [
-        'Partners',
-        'Cloud and Infrastructure',
-        'Consulting and Services',
-        'Technology',
+      rows: [
+        [
+          t('部署方式', 'Deployment'),
+          t('围绕试点环境确认', 'Agreed for the pilot'),
+          t('按需规划 Edge / VPC', 'Plan Edge / VPC as needed'),
+          t('按集成与交付范围确认', 'Agreed for integration and delivery'),
+        ],
+        [
+          t('模型来源', 'Models'),
+          t('按代表任务评估', 'Evaluate against representative tasks'),
+          t(
+            '自带或选定模型，确认适配',
+            'Existing or selected models; validate fit',
+          ),
+          t(
+            '明确合作方与平台责任',
+            'Define partner and platform responsibilities',
+          ),
+        ],
+        [
+          t('数据边界', 'Data boundaries'),
+          t('约定试点数据与访问范围', 'Agree on pilot data and access'),
+          t(
+            '按企业权限与网络要求规划',
+            'Plan around enterprise access and networks',
+          ),
+          t('约定数据权属与使用边界', 'Agree on ownership and permitted use'),
+        ],
+        [
+          t('评测支持', 'Evaluation'),
+          t('确定基线与验收标准', 'Define baseline and acceptance criteria'),
+          t('按持续工作负载确定评估机制', 'Define ongoing workload evaluation'),
+          t('按阶段目标约定验收', 'Agree on milestone acceptance'),
+        ],
+        [
+          t('容量规划', 'Capacity'),
+          t('按试点任务量评估', 'Assess pilot task volume'),
+          t(
+            '按并发、时延与成本目标评估',
+            'Assess concurrency, latency and cost',
+          ),
+          t('按联合交付规模评估', 'Assess joint delivery scale'),
+        ],
+        [
+          t('服务支持', 'Support'),
+          t('按试点范围确认', 'Agreed for the pilot scope'),
+          t('按服务范围确认', 'Agreed for the service scope'),
+          t('按合作分工确认', 'Agreed across partner roles'),
+        ],
+        [
+          t('交付责任', 'Delivery responsibilities'),
+          t('共同确定任务和验证范围', 'Agree on tasks and evaluation scope'),
+          t(
+            '明确平台、部署与运维边界',
+            'Define platform, deployment and operations',
+          ),
+          t(
+            '明确授权、集成与升级机制',
+            'Define licensing, integration and upgrades',
+          ),
+        ],
       ],
-      ['Resources', 'Blog', 'Demos', 'Cookbooks'],
-      ['Company', 'Leadership', 'Investors', 'Careers', 'Trust Center'],
-    ],
-    copyright: '© 2026 AURINOVA. ALL RIGHTS RESERVED.',
-  },
-  ...shared,
-} as const;
-
-const zh = {
-  meta: {
-    title: '定价 | AURINOVA',
-    description: 'AURINOVA 推理、训练与按需部署的透明定价。',
-  },
-  ui: {
-    switchLanguage: '切换到英文',
-    alternateLocaleName: 'EN',
-    skip: '跳转到定价内容',
-    navigation: '主导航',
-    openMenu: '打开导航',
-    closeMenu: '关闭导航',
-    pricingSections: '定价章节',
-  },
-  announcement: '训练 API 现已正式开放',
-  nav: ['产品', '解决方案', '模型', '定价', '资源'],
-  login: '登录',
-  getStarted: '开始使用',
-  contact: '联系我们',
-  seePricing: '查看定价',
-  hero: {
-    title: '从创意到企业，定价随业务无缝扩展',
-    description:
-      '数秒内即可自助开始构建。企业部署可联系我们，获得更快速度、更低成本与更高限额。',
-  },
-  jumpCards: [
-    {
-      title: '无服务器推理',
-      description: '按 Token 计费，零配置、无冷启动，数秒内开始使用',
-      href: '#serverless-pricing',
+      note: t(
+        '具体能力、周期、容量和费用按项目确认。',
+        'Capabilities, timelines, capacity and fees are agreed for each project.',
+      ),
     },
-    {
-      title: '模型训练',
-      description: '用您自己的数据定制开放模型，配置极简',
-      href: '#fine-tuning-pricing',
-    },
-    {
-      title: '按需部署',
-      description:
-        '按 GPU 秒计费，为规模化业务提供更快速度、更高限额与更低成本',
-      href: '#on-demand-pricing',
-    },
-  ],
-  serverless: {
-    title: '无服务器推理',
-    description:
-      '按 Token 计费，提供高限额与后付费账单。注册即赠 1 美元额度。有关 Standard、Priority 与 Fast 无服务器层级中热门模型的当前价格，请查阅文档。',
-    docs: '查看文档',
-  },
-  embeddings: '嵌入模型',
-  embeddingHeaders: ['基础模型参数量', '每百万输入 Token 价格'],
-  embeddingRows: [
-    ['不超过 150M', '$0.008'],
-    ['150M - 350M', '$0.016'],
-    ['Qwen3 8B', '$0.1'],
-  ],
-  training: {
-    title: '训练定价',
-    intro: '微调模型与基础模型采用相同的服务价格。',
-    managed: '托管训练',
-    managedDescription:
-      '监督微调与偏好微调按每百万训练 Token 计费。强化微调任务按 GPU 小时计费（精确到秒），价格与 AURINOVA 按需部署一致。',
-    managedHeaders: [
-      '基础模型',
-      'LoRA SFT',
-      'LoRA DPO',
-      '全参数 SFT',
-      '全参数 DPO',
-    ],
-    notes: [
-      'SFT 与 DPO 价格以每百万训练 Token 的美元价格显示。训练 Token 可按训练数据集 Token 数 × 训练轮数估算；包含中间思考轨迹时，还应乘以平均对话轮数 ÷ 2。',
-      '使用推理轨迹进行微调时，若在助手轮次中包含 reasoning_content 字段，总训练 Token 会增加，因为多轮对话会展开为用户、助手与思考轨迹。',
-      '图像微调（VLM 监督微调）同样按每百万 Token 计费。',
-    ],
-    serverlessApi: '无服务器训练 API',
-    serverlessDescription:
-      '接入共享、常驻的训练器池，对首发模型执行 LoRA 训练。无需资源预置，也没有闲置成本；仅为预填充、采样与训练使用的 Token 付费。',
-    serverlessHeaders: [
-      '基础模型',
-      '上下文',
-      '预填充 / 1M',
-      '缓存预填充 / 1M',
-      '采样 / 1M',
-      '训练 / 1M',
-    ],
-    serverlessNotes: [
-      '私测期间包含无服务器模型的检查点存储。',
-      '更多前沿模型即将加入无服务器训练 API 目录。',
-    ],
-    dedicated: '专属训练 API',
-    dedicatedDescription:
-      '专属训练 API 任务按 GPU 小时计费，详情请参阅下方按需定价。',
-  },
-  managedRows: [
-    ['参数量不超过 16B 的模型', '$0.50', '$1.00', '$1.00', '$2.00'],
-    ['参数量 16.1B - 80B 的模型', '$3.00', '$6.00', '$6.00', '$12.00'],
-    [
-      '参数量 80B - 300B 的模型（如 Qwen3-235B、gpt-oss-120B）',
-      '$6.00',
-      '$12.00',
-      '$12.00',
-      '$24.00',
-    ],
-    [
-      '参数量超过 300B 的模型（如 DeepSeek V3、Kimi K2）',
-      '$10.00',
-      '$20.00',
-      '$20.00',
-      '$40.00',
-    ],
-  ],
-  onDemand: {
-    title: '按需定价',
-    intro: '按 GPU 秒计费，启动时间不产生额外费用',
-    subtitle: '按需部署',
-    headers: [
-      'GPU 类型',
-      '每小时价格（美元）— 8 月 31 日前',
-      '每小时价格（美元）— 9 月 1 日起',
-    ],
-    note: '区域限定部署按 1.5 倍价格计费。',
-  },
-  footer: {
-    groups: [
-      ['平台', 'AI 原生', '企业服务', '客户'],
+    faq: [
       [
-        '使用场景',
-        '代码辅助',
-        '对话式 AI',
-        '智能体系统',
-        '搜索',
-        '多模态',
-        '企业 RAG',
+        t('能否沿用现有 Agent？', 'Can we keep our existing agents?'),
+        t(
+          'FormSy 的架构围绕现有 Agent 和工程系统接入设计。试点阶段需确认使用工具、版本、接入方式与验证范围。',
+          'FormSy is designed around existing agents and engineering systems. Confirm tools, versions, integration methods and validation scope during the pilot.',
+        ),
       ],
-      ['开发者', '模型库', '文档', 'CLI', 'API', '更新日志'],
-      ['定价', '无服务器', '按需部署', '微调', '企业方案'],
-      ['合作伙伴', '云与基础设施', '咨询与服务', '技术'],
-      ['资源', '博客', '演示', '实践手册'],
-      ['公司', '管理团队', '投资者', '职位', '信任中心'],
+      [
+        t('能否自带模型和算力？', 'Can we bring our own models and compute?'),
+        t(
+          'BYOM 与 BYOC 是部署规划选项。需要结合模型接口、硬件、网络和运行要求评估适配方案。',
+          'BYOM and BYOC are deployment options. Evaluate compatibility against model interfaces, hardware, network and runtime requirements.',
+        ),
+      ],
+      [
+        t('如何定义任务完成？', 'How is task completion defined?'),
+        t(
+          '开始前约定完成标准和所需证据，将测试、检查与证据报告纳入验收。',
+          'Agree on acceptance criteria and required evidence before execution, including tests, checks and evidence reports.',
+        ),
+      ],
+      [
+        t('试点需要什么资料？', 'What do we need for a pilot?'),
+        t(
+          '准备代表性任务、相关代码或文档范围、现有测试与验收方法，以及部署和权限要求。具体资料范围在试点前共同确定。',
+          'Prepare representative tasks, relevant code or documentation scope, existing tests and acceptance methods, plus deployment and access requirements. Agree on the exact scope before the pilot.',
+        ),
+      ],
+      [
+        t(
+          '如何计算成功任务成本？',
+          'How is cost per verified task calculated?',
+        ),
+        t(
+          '将模型、算力、验证和重试开销纳入总成本，再除以通过验收的任务数，同时对照完成率和时延。',
+          'Include models, compute, verification and retries in total cost, then divide by accepted tasks. Report completion rate and latency alongside cost.',
+        ),
+      ],
+      [
+        t('数据与证据部署在哪里？', 'Where do data and evidence live?'),
+        t(
+          '根据企业数据边界与网络要求，确定上下文、证据和推理各层的部署位置。Edge / VPC 与外部模型服务的边界需在方案中明确。',
+          'Place context, evidence and inference according to enterprise data and network requirements. Define the boundaries between Edge / VPC and external model services in the deployment plan.',
+        ),
+      ],
     ],
-    copyright: '© 2026 AURINOVA。保留所有权利。',
-  },
-  ...shared,
-} as const satisfies ContentShape<typeof en>;
-
+  };
+}
 export const pricingDictionaries = {
-  'zh-CN': zh,
-  'en-US': en,
-} as const satisfies Record<Locale, ContentShape<typeof en>>;
+  'zh-CN': createPricing('zh-CN'),
+  'en-US': createPricing('en-US'),
+};
 export type PricingContent = (typeof pricingDictionaries)[Locale];

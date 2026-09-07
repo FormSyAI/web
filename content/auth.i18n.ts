@@ -208,9 +208,9 @@ const en: AuthContent = {
     homeLabel: 'AURINOVA home',
     switchLanguage: 'Switch to Chinese',
     alternateLocaleName: '中文',
-    statement: 'Build. Tune. Scale.',
+    statement: 'Context. Verify. Learn.',
     description:
-      'Open models at production speed, optimized for your work and ready to scale globally with AURINOVA.',
+      'Connect real engineering work with task context, verification and reusable enterprise knowledge through FormSy.',
     benefits: [
       {
         title: 'Own Your AI:',
@@ -218,19 +218,19 @@ const en: AuthContent = {
         href: '/aurinova-reference#platform',
       },
       {
-        title: 'Customize Your AI:',
-        body: 'Tune model quality, speed, and cost to your use case',
+        title: 'Build useful context:',
+        body: 'Connect task goals, knowledge and evidence',
         href: '/aurinova-reference#platform',
       },
       {
         title: 'Scale with confidence:',
-        body: 'Move from first request to dedicated production capacity',
+        body: 'Explore pilot evaluation and enterprise deployment',
         href: '/aurinova-reference/pricing',
       },
       {
-        title: 'Access frontier models:',
-        body: 'Run leading open models through one consistent platform',
-        href: '/aurinova-reference#models',
+        title: 'Keep model choice:',
+        body: 'Plan model access around your deployment boundaries',
+        href: '/aurinova-reference#models-deployment',
       },
     ],
     customerLead: 'Platform principles:',
@@ -243,7 +243,7 @@ const en: AuthContent = {
       },
       {
         quote:
-          'Move from the first request to dedicated production capacity without changing the workflow.',
+          'Define acceptance criteria before execution and retain evidence with every task.',
         person: 'PLATFORM PRINCIPLE 02',
         company: 'AURINOVA',
       },
@@ -474,7 +474,7 @@ const zh: AuthContent = {
   meta: {
     signup: {
       title: '注册 | AURINOVA',
-      description: '创建 AURINOVA 账户，开始使用开放模型。',
+      description: '创建 AURINOVA 账户。服务可用性以页面状态为准。',
     },
     login: {
       title: '登录 | AURINOVA',
@@ -497,9 +497,9 @@ const zh: AuthContent = {
     homeLabel: 'AURINOVA 首页',
     switchLanguage: '切换到英文',
     alternateLocaleName: 'EN',
-    statement: '构建。调优。扩展。',
+    statement: '上下文。验证。学习。',
     description:
-      '以生产级速度运行开放模型，围绕你的业务调优，并通过 AURINOVA 扩展至全球。',
+      '通过 FormSy 连接真实工程任务、上下文、验证与可复用的企业知识。',
     benefits: [
       {
         title: '掌控你的 AI：',
@@ -507,19 +507,19 @@ const zh: AuthContent = {
         href: '/aurinova-reference#platform',
       },
       {
-        title: '定制你的 AI：',
-        body: '按场景调优模型质量、速度与成本',
+        title: '组织任务上下文：',
+        body: '连接任务目标、企业知识与执行证据',
         href: '/aurinova-reference#platform',
       },
       {
         title: '稳健扩展：',
-        body: '从首次调用扩展到专属生产容量',
+        body: '探索试点验证与企业部署方案',
         href: '/aurinova-reference/pricing',
       },
       {
-        title: '使用前沿模型：',
-        body: '在统一平台中运行领先的开放模型',
-        href: '/aurinova-reference#models',
+        title: '保留模型选择权：',
+        body: '围绕部署边界规划模型接入',
+        href: '/aurinova-reference#models-deployment',
       },
     ],
     customerLead: '平台原则：',
@@ -530,7 +530,7 @@ const zh: AuthContent = {
         company: 'AURINOVA',
       },
       {
-        quote: '从首次请求扩展到专属生产容量，同时保持一致的工作流程。',
+        quote: '执行前定义完成标准，为每个任务保留可复核的证据。',
         person: '平台原则 02',
         company: 'AURINOVA',
       },

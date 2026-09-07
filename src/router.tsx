@@ -43,12 +43,16 @@ const routeComponents: Record<string, React.ComponentType> = {
 
 function subscribe(listener: () => void) {
   window.addEventListener('popstate', listener);
-  return () => window.removeEventListener('popstate', listener);
+  window.addEventListener('hashchange', listener);
+  return () => {
+    window.removeEventListener('popstate', listener);
+    window.removeEventListener('hashchange', listener);
+  };
 }
 
 function getPathname() {
   const path = stripBasePath(window.location.pathname).replace(/\/$/, '');
-  return path || '/';
+  return `${path || '/'}${window.location.hash}`;
 }
 
 function MissingPage() {
@@ -70,25 +74,42 @@ function MissingPage() {
   );
 }
 
+// Mount inside Suspense so a lazy page has committed before its anchor is read.
+function ScrollToLocation({ location }: { location: string }) {
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const hash = location.split('#')[1];
+      if (hash) {
+        let id = hash;
+        try {
+          id = decodeURIComponent(hash);
+        } catch {
+          /* Keep malformed fragments literal. */
+        }
+        const target = document.getElementById(id);
+        target?.scrollIntoView({
+          block: 'start',
+          inline: 'nearest',
+          behavior: 'instant',
+        });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [location]);
+  return null;
+}
+
 export function AppRouter() {
-  const pathname = useSyncExternalStore(subscribe, getPathname, () => '/');
+  const location = useSyncExternalStore(subscribe, getPathname, () => '/');
+  const pathname = location.split('#')[0];
   const resolvedPath = routeAliases[pathname] ?? pathname;
   const Page = routeComponents[resolvedPath] ?? MissingPage;
-
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-    if (window.location.hash) {
-      window.requestAnimationFrame(() => {
-        document
-          .getElementById(window.location.hash.slice(1))
-          ?.scrollIntoView({ block: 'start' });
-      });
-    }
-  }, [resolvedPath]);
-
   return (
     <Suspense fallback={null}>
       <Page />
+      <ScrollToLocation key={resolvedPath} location={location} />
     </Suspense>
   );
 }

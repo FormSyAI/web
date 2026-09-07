@@ -1,5 +1,7 @@
 # AURINOVA authentication interface
 
+Reviewed: 2026-09-07. This document describes the existing frontend adapter and required external service contract. Content migration does not enable authentication. Public login/signup navigation should follow actual service readiness; see [website content architecture](WEBSITE_CONTENT_ARCHITECTURE.md).
+
 The public authentication UI calls a single browser client in
 `lib/auth/api.ts`. Set `VITE_AURINOVA_AUTH_API_BASE_URL` and
 `VITE_AURINOVA_AUTH_ENABLED=true` when an external identity service is

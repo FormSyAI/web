@@ -1,8 +1,10 @@
 # AURINOVA / FormSy 网站内容清单
 
-更新时间：2026-09-04  
+文档复核：2026-09-07
 对应路由：`/`  
 内容源：`content/site.ts`
+
+> 本页记录根路由的自有产品素材，保留为内容迁移来源。目标页面 `/aurinova-reference` 已完成本地内容迁移，根首页保留原实现。菜单和区块重组见 [网站内容架构](WEBSITE_CONTENT_ARCHITECTURE.md)。以下按现有字典整理，界面示例与内部实验不等同于交付承诺。
 
 ## 1. 品牌信息
 
@@ -179,7 +181,7 @@
 | --------------- | ---- | ---------------------------------------- |
 | 平均 Token 消耗 | −60% | GLM-5.1，Indexed baseline 100 → 40       |
 | 可通过 Case 数  | +60% | Qwen-class，Indexed baseline 100 → 160   |
-| 北极星指标      | 1×   | Validated Engineering Tasks / GPU Dollar |
+| 北极星指标      | 1×   | 当前展示占位；迁移时改为已验证任务数 / 算力成本的文字定义 |
 
 ## 11. 企业价值
 
@@ -200,15 +202,15 @@
 - 类型：Context Compute · Research Note
 - 内容：TOCS、ACF、ARCS 与 Policy 的演进关系
 
-### 成功任务成本
+### 从租用通用智能到拥有企业智能
 
-- 类型：Workload Intelligence · Metric
-- 内容：从每 Token 成本转向每个已验证任务的端到端成本
+- 类型：Enterprise AI · Operating Model
+- 内容：保留模型灵活性，同时建立企业自己的 Context 与 Eval。
 
 ## 13. 行动区
 
-- Eyebrow：BUILD THE SYSTEM THAT LEARNS YOUR BUSINESS
-- 标题：下一代企业智能，由每一次真实工作共同训练
+- Eyebrow：BUILD WITH FORMSY
+- 标题：开始构建企业自己的智能闭环
 - 主操作：查看产品架构
 - 次操作：了解核心能力
 
@@ -218,7 +220,7 @@
 
 ## 15. 内容维护规则
 
-- 网站文案优先修改 `content/site.ts`。
+- 根首页文案维护 `content/site.ts` 与 `content/site.en.ts`；目标骨架文案维护 `content/aurinova-reference.ts` 与 `.zh.ts`。
 - 页面组件负责结构和展示，避免嵌入大段业务文案。
 - 数据、实验结果和日期发布前需要复核来源。
 - 新增栏目时同步更新本清单、页面锚点和页脚入口。
