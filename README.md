@@ -4,7 +4,8 @@ React + Vite 双语品牌网站。FormSy 产品内容已迁移到 `/aurinova-ref
 
 ## 当前状态
 
-- `/`：自己的产品内容设计，提供 FormSy 定位、能力、架构与学习闭环素材。
+- `/`：默认展示新版产品首页，与 `/aurinova-reference` 使用同一页面。
+- `/original-home`：原首页备份，保留 FormSy 定位、能力、架构与学习闭环素材。
 - `/aurinova-reference`：新版产品首页，包含核心能力、学习闭环、模型与部署、应用场景、验证方法、资源摘要和合作流程。
 - `/aurinova-reference/pricing`：试点验证、企业部署和产业合作方案，包含比较表和 FAQ。
 - 登录、注册、SSO、找回密码与法律说明页面已具备前端实现；真实服务依赖外部配置，见认证接口文档。

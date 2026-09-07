@@ -37,13 +37,6 @@ export function I18nProvider({
       : locale;
     document.documentElement.lang = documentLocale;
 
-    if (pathname === '/') {
-      document.title = siteDictionaries[locale].ui.pageTitle;
-      document
-        .querySelector('meta[name="description"]')
-        ?.setAttribute('content', siteDictionaries[locale].ui.pageDescription);
-    }
-
     try {
       window.localStorage.setItem(STORAGE_KEY, locale);
     } catch {

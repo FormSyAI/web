@@ -19,7 +19,7 @@ AURINOVA 是品牌，FormSy 是核心产品。网站解释 FormSy 如何连接�
 ## Capabilities and Constraints
 
 - React/Vite 静态前端，中英文内容使用类型化字典。
-- 根路由保留自有产品原稿；`/aurinova-reference` 已完成内容迁移的本地实现。
+- 根路由展示 `/aurinova-reference` 新版首页；自有产品原稿保留在 `/original-home`。
 - 菜单、首页和定价规划以 `docs/WEBSITE_CONTENT_ARCHITECTURE.md` 为准；规划不等同于已上线能力。
 - 登录注册已有前端适配，真实身份服务、验证与法律文档通过配置接入。
 - 新版页面已替换参考站价格、客户证言、模型销售目录及上线公告；新增事实仍需自有依据。

@@ -1,10 +1,10 @@
 # AURINOVA / FormSy 网站内容清单
 
 文档复核：2026-09-07
-对应路由：`/`  
+对应路由：`/original-home`（原根首页备份）
 内容源：`content/site.ts`
 
-> 本页记录根路由的自有产品素材，保留为内容迁移来源。目标页面 `/aurinova-reference` 已完成本地内容迁移，根首页保留原实现。菜单和区块重组见 [网站内容架构](WEBSITE_CONTENT_ARCHITECTURE.md)。以下按现有字典整理，界面示例与内部实验不等同于交付承诺。
+> 本页记录根路由的自有产品素材，保留为内容迁移来源。目标页面 `/aurinova-reference` 已完成本地内容迁移，原首页在 `/original-home` 保留原实现，`/` 默认展示新版首页。菜单和区块重组见 [网站内容架构](WEBSITE_CONTENT_ARCHITECTURE.md)。以下按现有字典整理，界面示例与内部实验不等同于交付承诺。
 
 ## 1. 品牌信息
 

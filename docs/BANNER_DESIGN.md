@@ -1,6 +1,6 @@
 # FormSy 双 Banner 设计
 
-更新：2026-09-07。已接入 `/aurinova-reference`，根首页保持原设计。
+更新：2026-09-07。已接入 `/` 与 `/aurinova-reference`；原首页保留在 `/original-home`。
 
 ## 设计说明
 

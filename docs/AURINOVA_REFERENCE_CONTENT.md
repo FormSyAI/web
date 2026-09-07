@@ -1,6 +1,6 @@
 # FormSy 新版网站内容索引
 
-更新：2026-09-07。首页：`/aurinova-reference`；方案页：`/aurinova-reference/pricing`。
+更新：2026-09-07。首页：`/`（保留 `/aurinova-reference`）；原首页备份：`/original-home`；方案页：`/aurinova-reference/pricing`。
 
 已按 [网站内容架构](WEBSITE_CONTENT_ARCHITECTURE.md) 完成本地内容迁移，尚未发布线上。保留参考骨架的主要布局、蓝金配色、双首屏、黑白双栏、卡片轮播及导航交互。
 

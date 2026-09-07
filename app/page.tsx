@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import {
   ArrowRight,
   ArrowUpRight,
@@ -210,6 +212,13 @@ const solutionIcons = [Gauge, ShieldCheck, LockKeyhole, Network];
 
 export default function Home() {
   const { content } = useI18n();
+
+  useEffect(() => {
+    document.title = content.ui.pageTitle;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute('content', content.ui.pageDescription);
+  }, [content]);
 
   return (
     <main id="top">

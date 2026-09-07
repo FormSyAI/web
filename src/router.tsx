@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useSyncExternalStore } from 'react';
 import { AppLink, stripBasePath } from '@/components/runtime/app-link';
 
 const routeAliases: Record<string, string> = {
+  '/': '/aurinova-reference',
   '/fireworks-reference': '/aurinova-reference',
   '/login': '/aurinova-reference/login',
   '/pricing': '/aurinova-reference/pricing',
@@ -9,7 +10,7 @@ const routeAliases: Record<string, string> = {
 };
 
 const routeComponents: Record<string, React.ComponentType> = {
-  '/': lazy(() => import('@/app/page')),
+  '/original-home': lazy(() => import('@/app/page')),
   '/aurinova-reference': lazy(() => import('@/app/aurinova-reference/page')),
   '/aurinova-reference/pricing': lazy(
     () => import('@/app/aurinova-reference/pricing/page'),

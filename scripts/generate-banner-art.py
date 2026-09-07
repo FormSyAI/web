@@ -71,18 +71,17 @@ class SVG:
 def generate():
  s=SVG('FormSy: task success and cost per verified task')
  s.rect(0,0,800,520,'#ffffff')
+ s.rect(.5,.5,799,519,'none',LINE,id='outer-frame')
  for x in range(32,800,32):
   for y in range(24,500,32):s.rect(x,y,1.2,1.2,'#e4edf6')
  s.text('FORMSY',40,39,14,BLUE,True,1.8)
  s.text('CONTEXT + COMPUTE',760,39,12,MUTED,spacing=.9,right=True)
- s.line(40,58,760,58,LINE)
  # Both measures share one composition; paired bars keep their identities distinct.
- s.rect(40,82,720,306,'#f7fafd',LINE)
+ s.rect(40,82,720,306,'#f7fafd')
  s.rect(62,104,7,7,BLUE)
  s.text('TASK SUCCESS',81,113,13,BLUE,True,.8)
  legend_left=s.text('COST / VERIFIED TASK',738,113,13,'#986100',True,.8,right=True)
  s.rect(legend_left-19,104,7,7,GOLD)
- for y in [162,213,264,315,356]:s.line(62,y,738,y,LINE)
  values=[4,5,5,6,7,7,8,9,9,11,12,11,13,14,15,16,15,18,19,21]
  costs=[21,20,19,18,17,16,15,14,13,12,12,11,10,9,9,8,7,6,5,4]
  for i,(success,cost) in enumerate(zip(values,costs)):
@@ -91,14 +90,12 @@ def generate():
   for b in range(cost):s.rect(x,356-(b+1)*10,10,7,GOLD)
  s.text('ILLUSTRATIVE TRENDS / INDEPENDENT METRICS',62,376,10,MUTED,spacing=.7)
  # discrete context and verification gates emphasize task-level control
- s.line(40,408,760,408,LINE)
  for i,(label,detail) in enumerate([('CONTEXT PACKET','Task-specific evidence'),('AGENT RUN','Model + tools'),('FINISH GATE','Verified result')]):
   x=40+i*254
   s.text(f'0{i+1}',x,443,12,BLUE,True)
   s.text(label,x+30,443,13,NAVY,True,.5)
   s.text(detail,x+30,465,12,MUTED)
   if i<2:s.arrow(x+230,448,'right',BLUE)
- s.line(40,494,760,494,LINE)
  s.finish('verified-work')
 
  def draw_learning(name,mobile=False):
@@ -164,11 +161,11 @@ def generate():
  # Narrow-screen diagrams preserve readable labels instead of shrinking desktop copy.
  s=SVG('Task success and cost per verified task',400,500)
  s.rect(0,0,400,500,'#ffffff')
- s.rect(20,24,360,446,'#f7fafd',LINE)
+ s.rect(.5,.5,399,499,'none',LINE,id='outer-frame')
+ s.rect(20,24,360,446,'#f7fafd')
  for y,label,col in [(52,'TASK SUCCESS',BLUE),(81,'COST / VERIFIED TASK','#986100')]:
   s.rect(38,y-10,7,7,BLUE if y==52 else GOLD)
   s.text(label,57,y,13,col,True,.3)
- for y in [142,208,274,340,422]:s.line(38,y,362,y,LINE)
  for i,(success,cost) in enumerate(zip(values,costs)):
   x=38+i*16.2
   for b in range(success):s.rect(x+6,422-(b+1)*13,5,9,BLUE)

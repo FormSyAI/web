@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 
 const outputDirectory = resolve('dist');
 const routes = [
+  'original-home',
   'aurinova-reference',
   'aurinova-reference/pricing',
   'aurinova-reference/login',
