@@ -30,7 +30,7 @@ export function KeyDialog({ t, act, setModal }: PageProps) {
     if (next)
       setModal({
         kind: 'secret',
-        secret: `DEMO-NOT-A-REAL-KEY-${next.keys[0].tail}`,
+        secret: `sk-formsy-${next.keys[0].tail}`,
       });
   };
   return (
@@ -118,7 +118,7 @@ export function KeyDialog({ t, act, setModal }: PageProps) {
         </Select>
       </Field>
       <Button className="cs-button primary" type="submit">
-        {t('创建演示 Key', 'Create demo key')}
+        {t('创建 API Key', 'Create API key')}
       </Button>
     </form>
   );

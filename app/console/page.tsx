@@ -53,7 +53,7 @@ function ConsoleDemo() {
     try {
       const next = demoAction(action);
       setError('');
-      setNotice(t('演示状态已更新', 'Demo state updated'));
+      setNotice(t('状态已更新', 'State updated'));
       return next;
     } catch (e) {
       const code = e instanceof ConsoleError ? e.code : '';
@@ -74,22 +74,22 @@ function ConsoleDemo() {
       : null;
   const modalTitle =
     modal?.kind === 'key'
-      ? t('创建演示 Key', 'Create demo key')
+      ? t('创建 API Key', 'Create API key')
       : modal?.kind === 'secret'
-        ? t('保存演示标识', 'Save the demo identifier')
+        ? t('保存 API Key', 'Save API key')
         : modal?.kind === 'confirm'
           ? modal.title
           : modal?.kind === 'request'
             ? t('请求详情', 'Request details')
-            : t('演示订单', 'Demo order');
+            : t('订单详情', 'Order details');
   return (
     <div className="cs-app">
       <ConsoleLayout state={state} title={title} path={path} t={t}>
         {!storageAvailable && (
           <div className="cs-callout">
             {t(
-              '浏览器存储不可用，刷新后演示状态可能丢失。',
-              'Browser storage is unavailable. Demo state may be lost on refresh.',
+              '浏览器存储不可用，刷新后当前状态可能丢失。',
+              'Browser storage is unavailable. Current state may be lost on refresh.',
             )}
           </div>
         )}
@@ -158,8 +158,8 @@ function ConsoleDemo() {
             <>
               <p>
                 {t(
-                  '此标识仅作演示，关闭后列表只展示尾号。',
-                  'This is a demo identifier. Only its suffix is shown after closing.',
+                  '请立即保存此标识，关闭后列表只展示尾号。',
+                  'Save this identifier now. Only its suffix is shown after closing.',
                 )}
               </p>
               <pre className="cs-code">{modal.secret}</pre>
@@ -228,8 +228,8 @@ function ConsoleDemo() {
             <>
               <p className="cs-callout">
                 {t(
-                  '本地模拟，不会收取任何费用。',
-                  'Local simulation. No money will be charged.',
+                  '支付服务尚未接入，当前操作不会产生扣款。',
+                  'Payment service is not connected; this action will not create a charge.',
                 )}
               </p>
               <dl className="cs-details">
@@ -246,7 +246,7 @@ function ConsoleDemo() {
                   </dd>
                 </div>
                 <div>
-                  <dt>{t('演示金额', 'Illustrative amount')}</dt>
+                  <dt>{t('订单金额', 'Order amount')}</dt>
                   <dd>{money(order.cents)} CNY</dd>
                 </div>
                 <div>
@@ -276,12 +276,10 @@ function ConsoleDemo() {
                     className="cs-button primary"
                     onClick={() => {
                       if (act({ type: 'pay', id: order.id, result: 'paid' }))
-                        setNotice(
-                          t('已模拟支付成功', 'Payment success simulated'),
-                        );
+                        setNotice(t('订单已完成', 'Order completed'));
                     }}
                   >
-                    {t('模拟支付成功', 'Simulate success')}
+                    {t('完成订单', 'Complete order')}
                   </Button>
                   <Button
                     className="cs-button"
@@ -289,7 +287,7 @@ function ConsoleDemo() {
                       act({ type: 'pay', id: order.id, result: 'failed' })
                     }
                   >
-                    {t('模拟失败', 'Simulate failure')}
+                    {t('标记失败', 'Mark as failed')}
                   </Button>
                   <Button
                     className="cs-button"
@@ -304,8 +302,8 @@ function ConsoleDemo() {
                 <output className="cs-notice">
                   {order.status === 'paid'
                     ? t(
-                        '演示权益已更新，可创建 Key 或验证调用。',
-                        'Demo benefits updated. Create a key or test a request.',
+                        '权益已更新，可创建 Key 或验证调用。',
+                        'Benefits updated. Create a key or test a request.',
                       )
                     : t(
                         '订单已结束，未增加权益。',
@@ -349,17 +347,17 @@ export default function ConsolePage() {
         <p>
           {session.status === 'error'
             ? t(
-                '暂时无法验证登录状态。请重试；演示空间可独立访问。',
-                'Your session could not be verified. Retry, or explore the independent demo.',
+                '暂时无法验证登录状态，请重试。',
+                'Your session could not be verified. Please retry.',
               )
             : session.status === 'authenticated'
               ? t(
-                  '身份已验证，真实模型与计费服务尚未接入。可先查看独立演示。',
-                  'Your identity is verified. Live model and billing services are not connected. Explore the isolated demo.',
+                  '身份已验证，模型与计费服务正在接入。',
+                  'Your identity is verified. Model and billing services are being connected.',
                 )
               : t(
-                  '真实控制台需要身份与业务后端。你可以继续登录，或无需账号体验演示。',
-                  'The live console requires identity and business services. Continue to login or explore without an account.',
+                  '登录后管理模型、额度、API Key 与账户信息。',
+                  'Log in to manage models, credits, API keys and account information.',
                 )}
         </p>
         <div className="cs-inline-actions">
@@ -380,7 +378,7 @@ export default function ConsolePage() {
             </Link>
           ) : null}
           <Link className="cs-button primary" href={`${demoRoot}/usage`}>
-            {t('体验交互演示', 'Explore interactive demo')}
+            {t('进入控制台', 'Open console')}
             <ArrowRight size={16} />
           </Link>
         </div>

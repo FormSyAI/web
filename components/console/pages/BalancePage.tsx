@@ -18,20 +18,20 @@ export function BalancePage({ state, t, act, setModal }: PageProps) {
       <div className="cs-callout">
         <Wallet size={18} />
         {t(
-          '演示充值不会打开支付渠道，也不会产生真实扣款。',
-          'Demo top-ups do not open payment providers or charge money.',
+          '支付服务尚未接入，当前充值不会产生扣款。',
+          'Payment services are not connected, so current top-ups do not create charges.',
         )}
       </div>
       <div className="cs-metrics">
         <Metric
           label={t('可用余额', 'Available balance')}
           value={money(state.cash)}
-          hint="CNY · DEMO"
+          hint="CNY"
         />
         <Metric
           label={t('赠送余额', 'Granted balance')}
           value="¥0.00"
-          hint={t('演示环境未设置赠送额度', 'No grants in this demo')}
+          hint={t('当前无赠送额度', 'No granted balance')}
         />
         <Metric
           label={t('冻结金额', 'Reserved amount')}
@@ -43,7 +43,7 @@ export function BalancePage({ state, t, act, setModal }: PageProps) {
         />
       </div>
       <section className="cs-card">
-        <h2>{t('模拟充值', 'Demo top-up')}</h2>
+        <h2>{t('余额充值', 'Add balance')}</h2>
         <p className="cs-muted">
           {t(
             'API 余额用于按量 Key，与 Coding Plan 分别管理。',
@@ -82,7 +82,7 @@ export function BalancePage({ state, t, act, setModal }: PageProps) {
             if (next) setModal({ kind: 'order', id: next.orders[0].id });
           }}
         >
-          {t('创建演示订单', 'Create demo order')}
+          {t('创建充值订单', 'Create top-up order')}
           <ArrowRight size={16} />
         </Button>
       </section>

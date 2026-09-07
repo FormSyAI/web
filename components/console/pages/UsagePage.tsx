@@ -114,7 +114,7 @@ export function UsagePage({ state, t, setModal }: PageProps) {
               <Wallet size={18} />
               {t('API 可用余额', 'Available API balance')}
             </span>
-            <Badge>{t('演示钱包', 'Demo wallet')}</Badge>
+            <Badge>{t('按量计费', 'Metered billing')}</Badge>
           </div>
           <div className="cs-big-number">
             {money(state.cash)}
@@ -127,9 +127,11 @@ export function UsagePage({ state, t, setModal }: PageProps) {
             )}
           </p>
           <div className="cs-card-bottom">
-            <span>{t('全部为本地示例数据', 'Local sample data only')}</span>
+            <span>
+              {t('余额独立于套餐点数', 'Balance is separate from plan credits')}
+            </span>
             <Link href={`${demoRoot}/billing/balance`}>
-              {t('模拟充值', 'Demo top-up')}
+              {t('余额充值', 'Top up balance')}
               <ChevronRight size={14} />
             </Link>
           </div>
@@ -235,7 +237,7 @@ export function UsagePage({ state, t, setModal }: PageProps) {
             className="cs-button"
             disabled={!rows.length}
             onClick={() =>
-              downloadCsv('formsy-demo-usage.csv', [
+              downloadCsv('formsy-usage.csv', [
                 [
                   t('时间', 'Time'),
                   t('时区', 'Timezone'),
@@ -350,8 +352,8 @@ export function UsagePage({ state, t, setModal }: PageProps) {
           <Empty
             title={t('当前条件下暂无调用', 'No requests match these filters')}
             detail={t(
-              '调整筛选条件，或在工具接入中模拟一次调用。',
-              'Change filters or simulate a request in Integrations.',
+              '调整筛选条件，或在工具接入中发起一次诊断调用。',
+              'Change filters or run a diagnostic request in Integrations.',
             )}
             href={`${demoRoot}/integrations`}
             label={t('开始接入', 'Get connected')}

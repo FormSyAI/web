@@ -17,8 +17,8 @@ export function CodingPlanOfferings() {
         </h2>
         <p>
           {t(
-            '套餐、按量服务与企业交付分别选择。当前可体验控制台演示，正式价格与模型清单将在服务开放前公布。',
-            'Choose subscriptions, metered services or enterprise delivery. Explore the console demo today; live prices and models will be published before launch.',
+            '套餐、按量服务与企业交付分别选择。正式价格与模型清单将在服务开放前公布。',
+            'Choose subscriptions, metered services, or enterprise delivery. Prices and models will be published before launch.',
           )}
         </p>
       </div>
@@ -89,7 +89,7 @@ export function CodingPlanOfferings() {
               {name === 'Coding Plan'
                 ? t('正式价格待公布', 'Pricing to be announced')
                 : name === t('API 按量计费', 'Metered API')
-                  ? t('当前提供交互演示', 'Interactive demo available')
+                  ? t('控制台可用', 'Console available')
                   : t('按交付范围确认', 'Scoped engagement')}
             </strong>
             <Link href={href}>

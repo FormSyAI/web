@@ -22,8 +22,8 @@ export function PlanPage(p: PageProps) {
       <div className="cs-callout">
         <FlaskConical size={18} />
         {t(
-          '以下价格、额度和周期均为交互演示参数，尚未开放销售。',
-          'Prices, quotas and periods below are illustrative. Plans are not available for purchase.',
+          '套餐价格、额度和周期以正式开放信息为准。',
+          'Plan prices, quotas and periods are subject to launch availability.',
         )}
       </div>
       {sub && (
@@ -49,13 +49,13 @@ export function PlanPage(p: PageProps) {
             <Metric
               label={t('到期时间', 'Expires at')}
               value={date(sub.end, state.profile.timezone)}
-              hint={t('演示周期：30 天', 'Demo cycle: 30 days')}
+              hint={t('周期：30 天', 'Cycle: 30 days')}
             />
           </div>
           <div className="cs-inline-actions">
             <Badge tone="cs-renewal-status">
               {sub.renew
-                ? t('已模拟开启续费提醒', 'Renewal reminder simulated')
+                ? t('已开启续费提醒', 'Renewal reminder enabled')
                 : t('手动续费', 'Manual renewal')}
             </Badge>
             {q.active ? (
@@ -68,8 +68,8 @@ export function PlanPage(p: PageProps) {
                       ? t('取消续费提醒', 'Cancel renewal reminder')
                       : t('开启续费提醒', 'Enable renewal reminder'),
                     body: t(
-                      '仅切换演示状态，不触发任何付款。当前周期权益保持有效。',
-                      'Only changes demo state. No payment occurs; current benefits remain active.',
+                      '续费提醒不会触发自动付款，当前周期权益保持有效。',
+                      'Renewal reminders do not trigger automatic payment; current benefits remain active.',
                     ),
                     run: () => {
                       act({ type: 'renew', enabled: !sub.renew });
@@ -88,7 +88,7 @@ export function PlanPage(p: PageProps) {
                 plan={sub.nextPlan ?? sub.plan}
                 {...p}
               >
-                {t('模拟续费', 'Demo renewal')}
+                {t('续费', 'Renew plan')}
               </OrderButton>
             )}
             {q.active && sub.plan === 'pro' && (
@@ -143,7 +143,7 @@ export function PlanPage(p: PageProps) {
             </p>
             <div className="cs-price">
               {money(plans[id].cents)}
-              <small> / {t('30 天 · 示例', '30 days · example')}</small>
+              <small> / {t('30 天', '30 days')}</small>
             </div>
             <ul className="cs-checklist">
               {[
@@ -151,10 +151,7 @@ export function PlanPage(p: PageProps) {
                 `${number(plans[id].window)} ${t('点 / 5 小时', 'credits / 5 hours')}`,
                 `${plans[id].concurrency} ${t('并发上限（生产待验证）', 'concurrent requests (production unverified)')}`,
                 id === 'pro'
-                  ? t(
-                      '全部目录模型 · 演示权限',
-                      'All catalog models · demo access',
-                    )
+                  ? t('全部目录模型', 'All catalog models')
                   : t(
                       'GLM Flash / DeepSeek Flash / MiniMax / Nemotron',
                       'GLM Flash / DeepSeek Flash / MiniMax / Nemotron',
@@ -185,8 +182,8 @@ export function PlanPage(p: PageProps) {
                 plan={id}
               >
                 {q.active
-                  ? t('模拟升级', 'Demo upgrade')
-                  : t('模拟开通', 'Try demo plan')}
+                  ? t('升级套餐', 'Upgrade plan')
+                  : t('开通套餐', 'Activate plan')}
               </OrderButton>
             )}
           </section>
@@ -216,8 +213,8 @@ export function PlanPage(p: PageProps) {
           </summary>
           <p>
             {t(
-              '额度按演示周期重置且不结转。升级按剩余周期计算示例差价和新增额度，不重置已用点数。关闭提醒不会结束当前周期，也不代表退款。真实销售规则将在开放前公布。',
-              'Credits reset each demo cycle without rollover. Upgrades prorate the illustrative price and added credits while preserving usage. Cancelling a reminder does not end the current cycle or issue a refund. Sale terms will be published before launch.',
+              '额度按周期重置且不结转。升级按剩余周期计算差价和新增额度，不重置已用点数。关闭提醒不会结束当前周期，也不代表退款。销售规则将在服务开放前公布。',
+              'Credits reset each cycle without rollover. Upgrades prorate the price and added credits while preserving usage. Cancelling a reminder does not end the current cycle or issue a refund. Sale terms will be published before launch.',
             )}
           </p>
         </details>

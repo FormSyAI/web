@@ -20,8 +20,8 @@ export function ModelsPage({ state, t }: PageProps) {
       <div className="cs-callout">
         <FlaskConical size={18} />
         {t(
-          '这些模型用于演示，不连接真实供应商。兼容工具和真实价格将在验证后开放。',
-          'These models are illustrative and do not connect to providers. Tool compatibility and real prices require validation.',
+          '模型兼容工具、服务状态与价格将在验证后陆续开放。',
+          'Tool compatibility, service status and pricing will be published after validation.',
         )}
       </div>
       <Field label={t('搜索模型', 'Search models')}>
@@ -50,7 +50,7 @@ export function ModelsPage({ state, t }: PageProps) {
                 />
                 <Badge>
                   {!m.pro || state.subscription?.plan === 'pro'
-                    ? t('演示可用', 'Demo available')
+                    ? t('可用', 'Available')
                     : t('Pro 权益', 'Pro benefit')}
                 </Badge>
               </div>
@@ -66,17 +66,17 @@ export function ModelsPage({ state, t }: PageProps) {
               <p className="cs-muted">
                 {m.kind === 'code'
                   ? t(
-                      '日常代码编辑、补全与工具调用演示。',
-                      'Everyday editing, completion and tool-call examples.',
+                      '适用于日常代码编辑、补全与工具调用。',
+                      'For everyday editing, completion and tool calls.',
                     )
                   : t(
-                      '复杂问题分析与多步执行演示。',
-                      'Complex analysis and multi-step execution examples.',
+                      '适用于复杂问题分析与多步执行。',
+                      'For complex analysis and multi-step execution.',
                     )}
               </p>
               <dl className="cs-details">
                 <div>
-                  <dt>{t('示例上下文', 'Illustrative context')}</dt>
+                  <dt>{t('上下文长度', 'Context length')}</dt>
                   <dd>{number(m.context)} Tokens</dd>
                 </div>
                 <div>
@@ -91,7 +91,7 @@ export function ModelsPage({ state, t }: PageProps) {
                   </dd>
                 </div>
                 <div>
-                  <dt>{t('示例 API 计量', 'Illustrative API cost')}</dt>
+                  <dt>{t('API 计量', 'API cost')}</dt>
                   <dd>
                     {t(
                       '每 10 点折算 ¥0.01，向上取分',

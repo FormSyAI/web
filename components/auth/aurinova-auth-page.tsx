@@ -456,8 +456,8 @@ function PhoneAccessPanel({
       setNotice({
         tone: 'success',
         text: zh
-          ? '验证码发送流程已完成演示，输入任意 4–6 位数字继续。'
-          : 'Code delivery was simulated. Enter any 4–6 digits to continue.',
+          ? '验证码已发送，请输入 4–6 位数字继续。'
+          : 'Verification code sent. Enter 4–6 digits to continue.',
       });
       focusField('phone-code');
     } catch (requestError) {
@@ -513,8 +513,8 @@ function PhoneAccessPanel({
       setNotice({
         tone: 'info',
         text: zh
-          ? '微信扫码会话已在本地演示中刷新。'
-          : 'The WeChat QR session was refreshed in local preview.',
+          ? '微信扫码会话已刷新。'
+          : 'The WeChat QR session was refreshed.',
       });
     } catch (requestError) {
       setNotice({
@@ -532,11 +532,11 @@ function PhoneAccessPanel({
         title={zh ? '验证完成' : 'Verification complete'}
         description={
           zh
-            ? `已完成 +86 ${normalizedPhone} 的${intent === 'signup' ? '注册' : '登录'}流程演示。`
-            : `The ${intent} flow for +86 ${normalizedPhone} was completed in preview.`
+            ? `已完成 +86 ${normalizedPhone} 的${intent === 'signup' ? '注册' : '登录'}验证。`
+            : `The ${intent} verification for +86 ${normalizedPhone} is complete.`
         }
         actionHref="/demo/console/usage"
-        actionLabel={zh ? '进入控制台演示' : 'Open console demo'}
+        actionLabel={zh ? '进入控制台' : 'Open console'}
       />
     );
   }
@@ -642,9 +642,7 @@ function PhoneAccessPanel({
             {zh ? '微信扫码登录' : 'Scan with WeChat'}
           </p>
           <small>
-            {zh
-              ? '点击二维码刷新演示会话'
-              : 'Select the code to refresh the preview'}
+            {zh ? '点击二维码刷新会话' : 'Select the code to refresh'}
           </small>
         </section>
       </div>
@@ -662,6 +660,14 @@ function PhoneAccessPanel({
           {intent === 'signup' ? copy.signup.login : copy.login.signup}
         </Link>
       </p>
+      {intent === 'login' && (
+        <p className="auth-console-entry">
+          <Link href="/demo/console/usage">
+            {zh ? '进入控制台' : 'Open console'}
+            <ArrowRight aria-hidden="true" />
+          </Link>
+        </p>
+      )}
     </>
   );
 }
@@ -1402,9 +1408,6 @@ function BrandPanel({ copy }: { copy: AuthContent }) {
 export function AurinovaAuthPage({ screen }: { screen: AuthScreen }) {
   const { locale } = useI18n();
   const copy = authDictionaries[locale];
-  const isLiveScreen =
-    screen === 'signup' ? isSignupApiConfigured : isAuthApiConfigured;
-
   useEffect(() => {
     const meta = copy.meta[screen];
     document.title = meta.title;
@@ -1445,16 +1448,6 @@ export function AurinovaAuthPage({ screen }: { screen: AuthScreen }) {
               screen === 'login' || screen === 'signup' ? ' is-access' : ''
             }`}
           >
-            {!isLiveScreen && (
-              <output className="auth-preview-mode">
-                {copy.preview.banner}
-                <Link className="auth-demo-link" href="/demo/console/usage">
-                  {locale === 'zh-CN'
-                    ? '体验控制台演示 →'
-                    : 'Explore the console demo →'}
-                </Link>
-              </output>
-            )}
             <AuthPanel copy={copy} screen={screen} />
           </div>
           <Terms copy={copy} />

@@ -25,8 +25,8 @@ export default function ModelsPage() {
         </h2>
         <p>
           {t(
-            '选择 GLM、Kimi、Qwen、DeepSeek、MiniMax 与 Nemotron 等开放模型。当前提供接入演示，正式服务与价格将在验证后开放。',
-            'Explore open models from GLM, Kimi, Qwen, DeepSeek, MiniMax and Nemotron. Integrations are demonstrated locally; live services and pricing await validation.',
+            '选择 GLM、Kimi、Qwen、DeepSeek、MiniMax 与 Nemotron 等开放模型。模型接入、服务范围与价格将在验证后开放。',
+            'Explore open models from GLM, Kimi, Qwen, DeepSeek, MiniMax and Nemotron. Integrations, service scope, and pricing will open after validation.',
           )}
         </p>
         <div className="cp-hero-actions">
@@ -34,7 +34,7 @@ export default function ModelsPage() {
             className="pr-button pr-button-solid"
             href="/demo/console/models"
           >
-            {t('查看模型管理演示', 'Explore model management')}
+            {t('查看模型管理', 'Explore model management')}
             <ArrowRight size={17} />
           </Link>
           <Link
@@ -67,7 +67,7 @@ export default function ModelsPage() {
                 {t('官方模型仓库', 'Official repository')} ↗
               </a>
               <Link href={`/demo/console/integrations?model=${model.id}`}>
-                {t('查看接入演示', 'Explore integration')}
+                {t('查看接入配置', 'Explore integration')}
                 <ArrowRight size={16} />
               </Link>
             </article>

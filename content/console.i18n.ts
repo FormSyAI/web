@@ -20,10 +20,13 @@ export const consoleNavigation = [
 ] as const;
 export const consoleErrors: Record<string, [string, string]> = {
   INVALID_BUDGET: ['预算须为正整数。', 'Budget must be a positive integer.'],
-  KEY_BUDGET_EXHAUSTED: ['该 Key 的子预算已耗尽。', 'This key has reached its budget limit.'],
+  KEY_BUDGET_EXHAUSTED: [
+    '该 Key 的子预算已耗尽。',
+    'This key has reached its budget limit.',
+  ],
   INVALID_AMOUNT: [
-    '演示充值范围为 ¥10–1,000。',
-    'Demo top-ups range from ¥10 to ¥1,000.',
+    '充值金额范围为 ¥10–1,000。',
+    'Top-ups range from ¥10 to ¥1,000.',
   ],
   INVALID_NAME: [
     '请输入 1–48 个字符的名称。',
@@ -51,15 +54,15 @@ export const consoleErrors: Record<string, [string, string]> = {
     'This order is closed. Create a new order.',
   ],
   NO_PLAN: ['尚未开通套餐。', 'No active subscription.'],
-  PLAN_REQUIRED: ['请先开通演示套餐。', 'Activate a demo plan first.'],
+  PLAN_REQUIRED: ['请先开通套餐。', 'Activate a plan first.'],
   INVALID_MODEL: ['请选择至少一个模型。', 'Select at least one model.'],
   MODEL_NOT_ALLOWED: [
     'Key 或当前套餐未授权此模型。',
     'This key or plan does not allow this model.',
   ],
   KEY_LIMIT: [
-    '最多保留 10 个可用演示 Key。',
-    'Up to 10 non-revoked demo keys are allowed.',
+    '最多保留 10 个可用 Key。',
+    'Up to 10 non-revoked keys are allowed.',
   ],
   KEY_NOT_FOUND: ['请选择有效 Key。', 'Select a valid key.'],
   KEY_REVOKED: ['Key 已撤销，无法恢复。', 'This key has been revoked.'],

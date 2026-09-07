@@ -11,16 +11,12 @@ import {
   ExternalLink,
   House,
   Menu,
+  UserRound,
   X,
 } from 'lucide-react';
 import { useState } from 'react';
 
-import {
-  Badge,
-  demoRoot,
-  navIcons,
-  type T,
-} from '@/components/console/content';
+import { demoRoot, navIcons, type T } from '@/components/console/content';
 
 import type { ConsoleState } from '@/lib/console/domain';
 import type { ReactNode } from 'react';
@@ -37,7 +33,7 @@ export function ConsoleLayout({
   t: T;
   children: ReactNode;
 }) {
-  const { locale, toggleLocale } = useI18n();
+  const { locale } = useI18n();
   const [mobile, setMobile] = useState(false);
   return (
     <>
@@ -50,7 +46,7 @@ export function ConsoleLayout({
         onOpenChange={setMobile}
         label={t('控制台导航', 'Console navigation')}
       >
-        <Link className="cs-brand" href="/">
+        <Link className="cs-brand" href={`${demoRoot}/usage`}>
           <Image
             src={withBasePath('/aurinova-logo.svg')}
             alt="AURINOVA"
@@ -59,20 +55,13 @@ export function ConsoleLayout({
           />
           <span>FORMSY CONSOLE</span>
         </Link>
-        <div className="cs-workspace">
-          <span className="cs-avatar">F</span>
-          <div>
-            <strong>{state.profile.name}</strong>
-            <small>{t('个人空间 · 演示', 'Personal workspace · Demo')}</small>
-          </div>
-          <Button
-            className="cs-icon-button cs-mobile-only"
-            onClick={() => setMobile(false)}
-            aria-label={t('关闭菜单', 'Close menu')}
-          >
-            <X size={18} />
-          </Button>
-        </div>
+        <Button
+          className="cs-icon-button cs-mobile-only cs-sidebar-close"
+          onClick={() => setMobile(false)}
+          aria-label={t('关闭菜单', 'Close menu')}
+        >
+          <X size={18} />
+        </Button>
         <nav>
           {consoleNavigation.map((n, i) => {
             const Icon = navIcons[n.icon];
@@ -115,18 +104,16 @@ export function ConsoleLayout({
             <ExternalLink size={17} />
             {t('帮助与合作', 'Help & engagement')}
           </Link>
-          <div className="cs-sidebar-account">
-            <Button className="cs-button" onClick={toggleLocale}>
-              {locale === 'zh-CN' ? 'EN' : '中文'}
-            </Button>
-            <Link
-              className="cs-avatar"
-              href={`${demoRoot}/settings`}
-              aria-label={t('账号设置', 'Account settings')}
-            >
-              D
-            </Link>
-          </div>
+          <Link
+            className="cs-sidebar-account"
+            href={`${demoRoot}/settings`}
+            aria-current={path === 'settings' ? 'page' : undefined}
+          >
+            <span className="cs-sidebar-account-avatar" aria-hidden="true">
+              <UserRound />
+            </span>
+            <span>{state.profile.name}</span>
+          </Link>
         </div>
       </ConsoleSidebar>
       <div className="cs-work">
@@ -146,7 +133,9 @@ export function ConsoleLayout({
           </div>
         </header>
         <main id="console-main" className="cs-main">
-          <ConsolePageHeader title={title} path={path} t={t} />
+          {path !== 'settings' && (
+            <ConsolePageHeader title={title} path={path} t={t} />
+          )}
           {children}
         </main>
       </div>
@@ -165,7 +154,7 @@ function ConsolePageHeader({
   return (
     <div className="cs-page-heading">
       <div>
-        <p className="cs-eyebrow">WORKSPACE / DEMO</p>
+        <p className="cs-eyebrow">FORMSY / CONSOLE</p>
         <h1>{title}</h1>
         <p className="cs-muted">
           {path === 'usage'
@@ -184,10 +173,6 @@ function ConsolePageHeader({
                 )}
         </p>
       </div>
-      <Badge>
-        <span className="cs-dot" />
-        {t('本地演示', 'Local demo')}
-      </Badge>
     </div>
   );
 }

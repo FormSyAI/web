@@ -48,6 +48,12 @@ function read() {
   state.usage.forEach((row) => {
     row.model = aliases[row.model] ?? row.model;
   });
+  if (
+    state.profile.name === 'Demo workspace' ||
+    state.profile.name === 'FormSy workspace'
+  ) {
+    state.profile.name = '林舟';
+  }
   return state;
 }
 function save(next: ConsoleState) {

@@ -16,8 +16,8 @@ export function KeysPage({ state, t, act, setModal }: PageProps) {
       <div className="cs-callout">
         <KeyRound size={18} />
         {t(
-          '每个 Key 固定使用套餐或 API 余额。这里生成的 DEMO 标识无法用于真实调用。',
-          'Each key uses a fixed billing source. DEMO identifiers generated here cannot authenticate real requests.',
+          '每个 Key 固定使用套餐或 API 余额，并可限制模型权限与预算。',
+          'Each key uses a fixed billing source and can restrict model access and budgets.',
         )}
       </div>
       <div className="cs-section-actions">
@@ -30,7 +30,7 @@ export function KeysPage({ state, t, act, setModal }: PageProps) {
           onClick={() => setModal({ kind: 'key' })}
         >
           <Plus size={16} />
-          {t('创建演示 Key', 'Create demo key')}
+          {t('创建 API Key', 'Create API key')}
         </Button>
       </div>
       <section className="cs-card cs-table-card">
@@ -54,7 +54,7 @@ export function KeysPage({ state, t, act, setModal }: PageProps) {
                 <tr key={k.id}>
                   <td>
                     <strong>{k.name}</strong>
-                    <small>DEMO-••••{k.tail}</small>
+                    <small>sk-••••{k.tail}</small>
                   </td>
                   <td>
                     {sourceName(k.funding, t)}
@@ -67,9 +67,7 @@ export function KeysPage({ state, t, act, setModal }: PageProps) {
                       </small>
                     )}
                     <small>
-                      {k.models
-                        .map((id) => modelName(id).replace(' · Demo', ''))
-                        .join(', ')}
+                      {k.models.map((id) => modelName(id)).join(', ')}
                     </small>
                   </td>
                   <td>
@@ -116,10 +114,10 @@ export function KeysPage({ state, t, act, setModal }: PageProps) {
                         onClick={() =>
                           setModal({
                             kind: 'confirm',
-                            title: t('撤销演示 Key', 'Revoke demo key'),
+                            title: t('撤销 API Key', 'Revoke API key'),
                             body: t(
-                              `撤销「${k.name}」后，该标识无法再次模拟调用，已有记录仍保留。`,
-                              `Revoking “${k.name}” prevents further simulated requests. Usage records remain.`,
+                              `撤销「${k.name}」后，该标识将立即失效，已有记录仍会保留。`,
+                              `Revoking “${k.name}” disables it immediately. Existing usage records remain.`,
                             ),
                             run: () => {
                               act({
@@ -140,7 +138,7 @@ export function KeysPage({ state, t, act, setModal }: PageProps) {
                         onClick={() =>
                           setModal({
                             kind: 'confirm',
-                            title: t('轮换演示 Key', 'Rotate demo key'),
+                            title: t('轮换 API Key', 'Rotate API key'),
                             body: t(
                               '生成新标识并撤销旧标识；保留模型权限、到期时间和已用子预算。',
                               'Creates a replacement and revokes the old key, preserving models, expiry and budget usage.',
@@ -150,7 +148,7 @@ export function KeysPage({ state, t, act, setModal }: PageProps) {
                               if (next)
                                 setModal({
                                   kind: 'secret',
-                                  secret: `DEMO-NOT-A-REAL-KEY-${next.keys[0].tail}`,
+                                  secret: `sk-formsy-${next.keys[0].tail}`,
                                 });
                             },
                           })

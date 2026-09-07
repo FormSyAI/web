@@ -809,6 +809,33 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   line-height: 1.5;
 }
 
+.auth-console-entry {
+  margin: 16px 0 0;
+}
+
+.auth-console-entry a {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 22px;
+  border: 1px solid var(--auth-line);
+  color: var(--auth-blue-deep);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.auth-console-entry a:hover {
+  border-color: var(--auth-blue);
+  background: var(--auth-soft);
+}
+
+.auth-console-entry svg {
+  width: 17px;
+  height: 17px;
+}
+
 .auth-switch-path a,
 .auth-selected-email button,
 .auth-terms a {

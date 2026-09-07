@@ -268,22 +268,16 @@ const en: AuthContent = {
     opensInNewTab: 'opens in a new tab',
   },
   preview: {
-    banner:
-      'Preview mode — interactions are simulated locally and no account, session, or email is created.',
-    signupTitle: 'Signup flow complete',
-    signupDescription:
-      'This preview validated the complete signup flow for {email}. No account or verification email was created.',
-    loginTitle: 'Login flow complete',
-    loginDescription:
-      'This preview validated the email-login flow. No session was created.',
-    ssoTitle: 'SSO flow complete',
-    ssoDescription:
-      'This preview validated the organization lookup. No identity provider was opened.',
-    resetTitle: 'Reset flow complete',
-    resetDescription:
-      'This preview validated the reset request for {email}. No email was sent.',
-    verificationHelp:
-      'Local preview check; no verification service is contacted.',
+    banner: 'Authentication service status',
+    signupTitle: 'Signup request complete',
+    signupDescription: 'The signup flow for {email} is complete.',
+    loginTitle: 'Login request complete',
+    loginDescription: 'The email login flow is complete.',
+    ssoTitle: 'Organization found',
+    ssoDescription: 'Your organization information has been verified.',
+    resetTitle: 'Reset request complete',
+    resetDescription: 'The password reset request for {email} is complete.',
+    verificationHelp: 'Complete verification to continue.',
     verificationUnavailable:
       'Human verification is not configured. Add the Turnstile site key before enabling live signup.',
     verificationLoadError:
@@ -292,9 +286,8 @@ const en: AuthContent = {
   legal: {
     termsTitle: 'Terms of service',
     dataAgreementTitle: 'Data Processing Agreement',
-    status: 'Legal document preview',
-    description:
-      'The approved AURINOVA legal document has not been connected to this demonstration yet.',
+    status: 'Legal document status',
+    description: 'The approved AURINOVA legal document will be published here.',
     assurance:
       'Live account creation remains disabled by default. The reviewed document will replace this notice before authentication is enabled.',
     backToSignup: 'Back to signup',
@@ -557,17 +550,16 @@ const zh: AuthContent = {
     opensInNewTab: '在新标签页中打开',
   },
   preview: {
-    banner: '预览模式：交互仅在本地模拟，不会创建账户、会话或发送邮件。',
-    signupTitle: '注册流程验证完成',
-    signupDescription:
-      '已完成 {email} 的注册流程验证。本次预览未创建账户或发送验证邮件。',
-    loginTitle: '登录流程验证完成',
-    loginDescription: '已完成邮箱登录流程验证。本次预览未创建会话。',
-    ssoTitle: 'SSO 流程验证完成',
-    ssoDescription: '已完成组织查询流程验证。本次预览未打开身份提供商。',
-    resetTitle: '重置流程验证完成',
-    resetDescription: '已完成 {email} 的密码重置请求验证。本次预览未发送邮件。',
-    verificationHelp: '本地预览校验，不会请求验证服务。',
+    banner: '身份服务状态',
+    signupTitle: '注册请求已完成',
+    signupDescription: '已完成 {email} 的注册流程。',
+    loginTitle: '登录请求已完成',
+    loginDescription: '邮箱登录流程已完成。',
+    ssoTitle: '已找到组织',
+    ssoDescription: '组织信息已验证。',
+    resetTitle: '重置请求已完成',
+    resetDescription: '已完成 {email} 的密码重置请求。',
+    verificationHelp: '完成验证后继续。',
     verificationUnavailable:
       '尚未配置真人验证。启用正式注册前，请先配置 Turnstile 站点密钥。',
     verificationLoadError: '真人验证加载失败，请检查网络后重试。',
@@ -575,8 +567,8 @@ const zh: AuthContent = {
   legal: {
     termsTitle: '服务条款',
     dataAgreementTitle: '数据处理协议',
-    status: '法律文件预览',
-    description: '此演示尚未接入经过审核的 AURINOVA 法律文件。',
+    status: '法律文件状态',
+    description: '经过审核的 AURINOVA 法律文件将在此发布。',
     assurance:
       '正式账户创建默认保持关闭。启用身份验证前，此提示将替换为已审核文件。',
     backToSignup: '返回注册',

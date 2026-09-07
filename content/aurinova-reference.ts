@@ -385,7 +385,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       openNavigation: t('打开导航', 'Open navigation'),
       closeNavigation: t('关闭导航', 'Close navigation'),
       mobileLinks: [
-        { label: t('控制台演示', 'Console demo'), href: '/demo/console/usage' },
+        { label: t('控制台', 'Console'), href: '/demo/console/usage' },
         { label: t('登录', 'Log in'), href: '/aurinova-reference/login' },
         { label: t('注册', 'Sign up'), href: '/aurinova-reference/signup' },
         ...navigation,

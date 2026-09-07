@@ -56,12 +56,12 @@ export function IntegrationsPage({ state, t, act, notice }: PageProps) {
       notice(
         fail
           ? t(
-              '已模拟推理前失败，无使用扣费。',
-              'Simulated pre-inference failure. No usage charged.',
+              '请求在推理前失败，无使用扣费。',
+              'The request failed before inference. No usage was charged.',
             )
           : t(
-              '模拟调用完成，用量和账单已更新。',
-              'Simulation complete. Usage and billing updated.',
+              '调用完成，用量和账单已更新。',
+              'Request completed. Usage and billing have been updated.',
             ),
       );
     }
@@ -72,8 +72,8 @@ export function IntegrationsPage({ state, t, act, notice }: PageProps) {
       <div className="cs-callout">
         <Terminal size={18} />
         {t(
-          '本页只生成配置模板并模拟请求，不发送代码、Key 或提示词到外部服务。',
-          'This page generates templates and simulates requests. It sends no code, keys or prompts to external services.',
+          '本页生成配置模板并执行连接诊断，不会发送代码、Key 或提示词到外部服务。',
+          'This page generates configuration templates and runs connection diagnostics without sending code, keys, or prompts to external services.',
         )}
       </div>
       <div className="cs-two-column">
@@ -148,11 +148,11 @@ export function IntegrationsPage({ state, t, act, notice }: PageProps) {
         </section>
       </div>
       <section className="cs-card">
-        <h2>{t('3. 模拟连接诊断', '3. Simulate a diagnostic')}</h2>
+        <h2>{t('3. 连接诊断', '3. Connection diagnostics')}</h2>
         <p className="cs-muted">
           {t(
-            '成功测试会消耗本地演示点数或演示余额；失败测试模拟推理前拒绝，不扣费。',
-            'A successful test consumes local demo credits or balance. Failure tests simulate rejection before inference and do not charge.',
+            '成功测试会消耗点数或余额；失败测试在推理前终止，不扣费。',
+            'A successful test consumes credits or balance. Failed tests stop before inference and do not charge.',
           )}
         </p>
         <Field label={t('使用的 Key', 'Key to use')}>
@@ -177,14 +177,14 @@ export function IntegrationsPage({ state, t, act, notice }: PageProps) {
             onClick={() => void run()}
           >
             {pending ? <RefreshCw size={16} /> : <Terminal size={16} />}{' '}
-            {t('模拟成功调用', 'Simulate successful request')}
+            {t('发起成功调用', 'Run successful request')}
           </Button>
           <Button
             className="cs-button"
             disabled={!key || pending}
             onClick={() => void run(true)}
           >
-            {t('模拟失败', 'Simulate failure')}
+            {t('测试失败响应', 'Test failure response')}
           </Button>
           <Link className="cs-text-button" href={`${demoRoot}/api-keys`}>
             {t('管理 Key', 'Manage keys')}
@@ -196,7 +196,7 @@ export function IntegrationsPage({ state, t, act, notice }: PageProps) {
             <div>
               <strong>
                 {result.status === 'success'
-                  ? t('演示调用已完成', 'Demo request completed')
+                  ? t('调用已完成', 'Request completed')
                   : t('已记录失败状态', 'Failure recorded')}
               </strong>
               <p>{result.id}</p>

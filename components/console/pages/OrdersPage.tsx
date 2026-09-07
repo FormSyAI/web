@@ -23,7 +23,7 @@ export function OrdersPage({ state, t, setModal }: PageProps) {
             {[
               ['all', t('全部', 'All')],
               ['pending', t('待处理', 'Pending')],
-              ['paid', t('已模拟完成', 'Simulated paid')],
+              ['paid', t('已完成', 'Paid')],
               ['failed', t('失败', 'Failed')],
               ['cancelled', t('已取消', 'Cancelled')],
             ].map(([id, label]) => (
@@ -37,7 +37,7 @@ export function OrdersPage({ state, t, setModal }: PageProps) {
           className="cs-button"
           disabled={!rows.length}
           onClick={() =>
-            downloadCsv('formsy-demo-orders.csv', [
+            downloadCsv('formsy-orders.csv', [
               ['ID', 'Time', 'Timezone', 'Type', 'CNY', 'Status'],
               ...rows.map((o) => [
                 o.id,
@@ -92,7 +92,7 @@ export function OrdersPage({ state, t, setModal }: PageProps) {
                       }
                     >
                       {o.status === 'paid'
-                        ? t('已模拟完成', 'Simulated paid')
+                        ? t('已完成', 'Paid')
                         : o.status === 'pending'
                           ? t('待处理', 'Pending')
                           : o.status === 'failed'
@@ -117,16 +117,16 @@ export function OrdersPage({ state, t, setModal }: PageProps) {
           <Empty
             title={t('暂无订单', 'No orders')}
             detail={t(
-              '模拟开通套餐或充值后，订单会出现在这里。',
-              'Orders appear after starting a demo subscription or top-up.',
+              '开通套餐或充值后，订单会出现在这里。',
+              'Plans and top-ups appear here after checkout.',
             )}
           />
         )}
       </section>
       <p className="cs-muted">
         {t(
-          '全部记录仅作演示，不构成真实订单、账单或发票。消费明细可在用量信息中导出。',
-          'All records are illustrative and are not actual orders, bills or invoices. Export consumption details from Usage.',
+          '消费明细可在用量信息中导出。',
+          'Export consumption details from Usage.',
         )}
       </p>
     </>

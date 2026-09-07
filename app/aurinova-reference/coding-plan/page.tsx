@@ -24,8 +24,8 @@ export default function CodingPlanPage() {
         </h1>
         <p>
           {t(
-            '选择模型、配置编程工具，持续查看调用与成本。先体验完整控制台流程，正式套餐将在模型和服务验证后开放。',
-            'Choose models, configure your coding tools, and track usage and cost. Explore the full console flow while live plans await model and service validation.',
+            '选择模型、配置编程工具，持续查看调用与成本。正式套餐将在模型和服务验证后开放。',
+            'Choose models, configure your coding tools, and track usage and cost. Plans will open after model and service validation.',
           )}
         </p>
         <div className="cp-hero-actions">
@@ -33,7 +33,7 @@ export default function CodingPlanPage() {
             className="pr-button pr-button-solid"
             href="/demo/console/coding-plan"
           >
-            {t('体验 Coding Plan 演示', 'Explore Coding Plan demo')}
+            {t('查看 Coding Plan', 'Explore Coding Plan')}
             <ArrowRight size={17} />
           </Link>
           <Link

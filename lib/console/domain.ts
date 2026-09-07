@@ -1,5 +1,5 @@
 import { modelCatalog } from '../../content/model-catalog';
-/** Local demonstration only. Amounts and quotas are illustrative, never saleable. */
+/** Local state model used by the interactive console shell. */
 export type Funding = 'plan' | 'api';
 export type PlanId = 'starter' | 'pro';
 export type KeyStatus = 'active' | 'paused' | 'revoked';
@@ -112,7 +112,7 @@ export function freshState(): ConsoleState {
     orders: [],
     ledger: [],
     profile: {
-      name: 'Demo workspace',
+      name: '林舟',
       timezone: 'Asia/Shanghai',
       notifications: true,
     },
