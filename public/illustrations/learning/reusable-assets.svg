@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path id="asset-link-one" d="M198 72H247L268 61" stroke="#79AEE6" stroke-width="2" stroke-dasharray="5 7"/>
+  <path id="asset-link-two" d="M198 105H252L278 109" stroke="#79AEE6" stroke-width="2" stroke-dasharray="5 7"/>
+  <path id="asset-link-three" d="M194 132H238L264 155" stroke="#F3B322" stroke-width="2" stroke-dasharray="5 7"/>
+  <path id="asset-input-link" d="M52 109H82" stroke="#F3B322" stroke-width="2" stroke-dasharray="4 5"/>
+  <path id="asset-input" d="M28 102L40 95L52 102V116L40 123L28 116Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+  <path id="asset-input-mark" d="M34 109H46M42 105L46 109L42 113" stroke="#C98900" stroke-width="2"/>
+  <path id="database-top" d="M82 60C82 47 108 37 140 37C172 37 198 47 198 60C198 73 172 83 140 83C108 83 82 73 82 60Z" fill="#F7FAFE" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="database-band-one" d="M82 60V86C82 99 108 109 140 109C172 109 198 99 198 86V60C198 73 172 83 140 83C108 83 82 73 82 60Z" fill="#DCEBFA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="database-band-two" d="M82 86V112C82 125 108 135 140 135C172 135 198 125 198 112V86C198 99 172 109 140 109C108 109 82 99 82 86Z" fill="#A8C8EA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="database-band-three" d="M82 112V136C82 149 108 159 140 159C172 159 198 149 198 136V112C198 125 172 135 140 135C108 135 82 125 82 112Z" fill="#6797CC" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="database-core" d="M111 58C111 52 124 48 140 48C156 48 169 52 169 58C169 64 156 68 140 68C124 68 111 64 111 58Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+  <path id="asset-one" d="M256 49L268 42L280 49V63L268 70L256 63Z" fill="#DCEBFA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="asset-two" d="M266 102L278 95L290 102V116L278 123L266 116Z" fill="#DCEBFA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="asset-three" d="M252 148L264 141L276 148V162L264 169L252 162Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+  <path id="asset-glyph-one" d="M263 55H273" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="asset-glyph-two" d="M273 109H283M278 104V114" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="asset-glyph-three" d="M259 155L263 159L270 151" stroke="#C98900" stroke-width="2"/>
+</svg>

@@ -2,7 +2,6 @@ import { ToolLogo } from '@/components/site/tool-logo';
 import { Button } from '@/components/ui/button';
 
 import {
-  ArrowLeft,
   ArrowRight,
   Boxes,
   GitBranch,
@@ -103,8 +102,6 @@ export default function AurinovaReferencePage() {
       document.removeEventListener('visibilitychange', schedule);
     };
   }, [rotationPaused, heroSlide, rotationCycle]);
-  const modelRail = useRef<HTMLDivElement>(null);
-  const scenarioRail = useRef<HTMLDivElement>(null);
   const hero = displaySlide === 0 ? content.hero : content.secondHero;
   useEffect(() => {
     document.title = content.ui.pageTitle;
@@ -112,37 +109,6 @@ export default function AurinovaReferencePage() {
       .querySelector('meta[name="description"]')
       ?.setAttribute('content', content.ui.pageDescription);
   }, [content.ui.pageTitle, content.ui.pageDescription]);
-  const scrollRail = (
-    ref: React.RefObject<HTMLDivElement | null>,
-    direction: number,
-  ) => {
-    ref.current?.scrollBy({
-      left: direction * Math.min(960, ref.current.clientWidth * 0.8),
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 'auto'
-        : 'smooth',
-    });
-  };
-  const railControls = (ref: React.RefObject<HTMLDivElement | null>) => (
-    <div className="fw-shell fw-rail-controls">
-      <Button
-        variant="brand"
-        type="button"
-        aria-label={content.ui.previous}
-        onClick={() => scrollRail(ref, -1)}
-      >
-        <ArrowLeft />
-      </Button>
-      <Button
-        variant="brand"
-        type="button"
-        aria-label={content.ui.next}
-        onClick={() => scrollRail(ref, 1)}
-      >
-        <ArrowRight />
-      </Button>
-    </div>
-  );
   return (
     <main className="fw-page" id="fw-top">
       <a className="skip-link" href="#fw-main">
@@ -335,6 +301,7 @@ export default function AurinovaReferencePage() {
             {content.learning.steps.map(([label, detail], i) => (
               <li key={label}>
                 <span>0{i + 1}</span>
+                <span className="fw-learning-illustration" aria-hidden="true" />
                 <h3>{label}</h3>
                 <p>{detail}</p>
               </li>
@@ -344,7 +311,7 @@ export default function AurinovaReferencePage() {
         <section className="fw-models" id="models-deployment">
           <div className="fw-shell fw-bordered-shell">
             <SectionHeading {...content.models} />
-            <div className="fw-model-rail" ref={modelRail}>
+            <div className="fw-deployment-grid">
               {content.models.items.map((item, i) => (
                 <article
                   className="fw-model-card fw-deployment-card"
@@ -361,14 +328,13 @@ export default function AurinovaReferencePage() {
                 </article>
               ))}
             </div>
-            {railControls(modelRail)}
           </div>
         </section>
         <section className="fw-customers" id="solutions">
           <div className="fw-shell fw-bordered-shell">
             <SectionHeading {...content.scenarios} />
           </div>
-          <div className="fw-customer-rail" ref={scenarioRail}>
+          <div className="fw-shell fw-scenario-grid">
             {content.scenarios.items.map((item, i) => (
               <article
                 className="fw-customer-card fw-scenario-card"
@@ -394,7 +360,6 @@ export default function AurinovaReferencePage() {
               </article>
             ))}
           </div>
-          {railControls(scenarioRail)}
         </section>
         <section className="fw-evaluation fw-shell" id="evaluation">
           <SectionHeading {...content.evaluation} />
@@ -421,12 +386,14 @@ export default function AurinovaReferencePage() {
               <SectionHeading {...content.resources} />
             </div>
             <div className="fw-update-grid">
-              {content.resources.items.map((item) => (
-                <AppLink
-                  className="fw-update-card"
-                  href={`#${item.id}`}
-                  key={item.id}
-                >
+              {content.resources.items.map((item, i) => (
+                <article className="fw-update-card" id={item.id} key={item.id}>
+                  <div className="fw-update-meta">
+                    <span>0{i + 1}</span>
+                    <span>{item.type}</span>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
                   <div
                     className="fw-update-image fw-resource-diagram"
                     aria-hidden="true"
@@ -438,24 +405,9 @@ export default function AurinovaReferencePage() {
                       </span>
                     ))}
                   </div>
-                  <div className="fw-update-meta">
-                    <span>{item.type}</span>
+                  <div className="fw-update-body">
+                    <p>{item.body}</p>
                   </div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <span className="fw-inline-link">
-                    {content.ui.readMore}
-                    <ArrowRight size={17} />
-                  </span>
-                </AppLink>
-              ))}
-            </div>
-            <div className="fw-resource-summaries">
-              {content.resources.items.map((item) => (
-                <article id={item.id} key={item.id}>
-                  <p className="fw-eyebrow">{item.type}</p>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
                 </article>
               ))}
             </div>

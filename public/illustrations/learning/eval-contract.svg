@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path id="connector-left" d="M46 115H68L88 96" stroke="#79AEE6" stroke-width="2" stroke-dasharray="5 6"/>
+  <path id="connector-right" d="M206 70L232 83H274" stroke="#F3B322" stroke-width="2" stroke-dasharray="5 6"/>
+  <path id="contract-platform" d="M99 138L150 166L201 138L190 132L150 154L110 132Z" fill="#EFF6FD" stroke="#79AEE6" stroke-width="2"/>
+  <path id="contract-shadow" d="M102 49L206 67V158L102 140Z" fill="#DCEBFA" stroke="#79AEE6" stroke-width="2"/>
+  <path id="contract-face" d="M88 39L192 57V148L88 130Z" fill="#F7FAFE" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="contract-header" d="M101 58L152 67" stroke="#2C6CB5" stroke-width="4"/>
+  <path id="contract-fold" d="M166 53L192 57L192 81L166 76Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+  <path id="check-one-box" d="M105 73L117 75V87L105 85Z" fill="#2C6CB5"/>
+  <path id="check-one" d="M108 79L111 82L116 77" stroke="#FFFFFF" stroke-width="1.8"/>
+  <path id="check-one-line" d="M128 79L167 86" stroke="#79AEE6" stroke-width="3"/>
+  <path id="check-two-box" d="M105 96L117 98V110L105 108Z" fill="#2C6CB5"/>
+  <path id="check-two" d="M108 102L111 105L116 100" stroke="#FFFFFF" stroke-width="1.8"/>
+  <path id="check-two-line" d="M128 102L163 108" stroke="#79AEE6" stroke-width="3"/>
+  <path id="seal" d="M156 120L171 114L186 124L171 133Z" fill="#F3B322" stroke="#C98900" stroke-width="2"/>
+  <path id="node-left" d="M22 108L34 101L46 108V122L34 129L22 122Z" fill="#DCEBFA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="node-right" d="M274 94L286 87L298 94V108L286 115L274 108Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+</svg>

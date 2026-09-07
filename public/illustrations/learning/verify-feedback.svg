@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path id="feedback-loop" d="M73 64C95 34 135 22 174 29C215 36 245 62 252 94M247 81L252 94L238 92" stroke="#79AEE6" stroke-width="2.5" stroke-dasharray="6 7"/>
+  <path id="feedback-return" d="M246 135C222 164 181 177 141 169C103 162 74 137 67 107M72 121L67 107L81 110" stroke="#F3B322" stroke-width="2.5" stroke-dasharray="6 7"/>
+  <path id="verify-platform" d="M121 142L163 166L205 142L194 136L163 153L132 136Z" fill="#EFF6FD" stroke="#79AEE6" stroke-width="2"/>
+  <path id="verify-shadow" d="M108 76L163 46L218 76V132L163 162L108 132Z" fill="#DCEBFA" stroke="#79AEE6" stroke-width="2"/>
+  <path id="verify-face" d="M132 80L163 63L194 80V115C194 130 180 140 163 149C146 140 132 130 132 115Z" fill="#F7FAFE" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="verify-check" d="M149 106L158 115L178 93" stroke="#2C6CB5" stroke-width="5"/>
+  <path id="evidence-one" d="M31 64L49 54L67 64V84L49 94L31 84Z" fill="#DCEBFA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="evidence-one-mark" d="M43 74L48 79L57 68" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="evidence-two" d="M253 108L271 98L289 108V128L271 138L253 128Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+  <path id="evidence-two-mark" d="M263 118H279" stroke="#C98900" stroke-width="2"/>
+  <path id="spark-one" d="M94 39V49M89 44H99" stroke="#F3B322" stroke-width="2"/>
+  <path id="spark-two" d="M224 151V161M219 156H229" stroke="#2C6CB5" stroke-width="2"/>
+</svg>

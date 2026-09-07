@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path id="orbit" d="M61 102C61 61 104 29 160 29C216 29 259 61 259 102C259 143 216 174 160 174C104 174 61 143 61 102Z" stroke="#79AEE6" stroke-width="2" stroke-dasharray="6 8"/>
+  <path id="agent-platform" d="M119 139L160 163L201 139L190 133L160 150L130 133Z" fill="#EFF6FD" stroke="#79AEE6" stroke-width="2"/>
+  <path id="agent-top" d="M111 74L160 47L209 74L160 102Z" fill="#F7FAFE" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="agent-left" d="M111 74L160 102V151L111 123Z" fill="#DCEBFA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="agent-right" d="M160 102L209 74V123L160 151Z" fill="#2C6CB5" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="agent-chip" d="M137 74L160 61L183 74L160 87Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+  <path id="agent-glyph" d="M176 101L195 112L176 124Z" fill="#FFFFFF"/>
+  <path id="tool-code-link" d="M45 96H61" stroke="#79AEE6" stroke-width="2" stroke-dasharray="4 5"/>
+  <path id="tool-code" d="M21 89L33 82L45 89V103L33 110L21 103Z" fill="#DCEBFA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="tool-code-mark" d="M35 90L30 96L35 102" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="tool-test-link" d="M259 77H275" stroke="#F3B322" stroke-width="2" stroke-dasharray="4 5"/>
+  <path id="tool-test" d="M275 70L287 63L299 70V84L287 91L275 84Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+  <path id="tool-test-mark" d="M282 77L286 81L293 72" stroke="#C98900" stroke-width="2"/>
+  <path id="tool-patch-link" d="M249 154H267" stroke="#79AEE6" stroke-width="2" stroke-dasharray="4 5"/>
+  <path id="tool-patch" d="M267 147L279 140L291 147V161L279 168L267 161Z" fill="#DCEBFA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="tool-patch-mark" d="M273 154H285M279 148V160" stroke="#2C6CB5" stroke-width="2"/>
+</svg>

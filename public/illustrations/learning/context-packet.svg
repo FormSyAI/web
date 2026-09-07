@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path id="input-one-link" d="M66 49H91L112 76" stroke="#79AEE6" stroke-width="2" stroke-dasharray="5 6"/>
+  <path id="input-two-link" d="M66 104H84L112 101" stroke="#79AEE6" stroke-width="2" stroke-dasharray="5 6"/>
+  <path id="input-three-link" d="M67 151H91L112 128" stroke="#F3B322" stroke-width="2" stroke-dasharray="5 6"/>
+  <path id="packet-platform" d="M123 137L165 161L207 137L196 131L165 148L134 131Z" fill="#EFF6FD" stroke="#79AEE6" stroke-width="2"/>
+  <path id="packet-top" d="M112 76L165 47L218 76L165 106Z" fill="#F7FAFE" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="packet-left" d="M112 76L165 106V158L112 128Z" fill="#DCEBFA" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="packet-right" d="M165 106L218 76V128L165 158Z" fill="#79AEE6" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="packet-core" d="M139 76L165 62L191 76L165 91Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+  <path id="packet-slot" d="M130 118L151 130M130 128L151 140" stroke="#79AEE6" stroke-width="2"/>
+  <path id="input-one" d="M22 39L54 39L66 49L54 59L22 59Z" fill="#F7FAFE" stroke="#79AEE6" stroke-width="2"/>
+  <path id="input-one-mark" d="M30 49H50" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="input-two" d="M22 94H54L66 104L54 114H22Z" fill="#DCEBFA" stroke="#79AEE6" stroke-width="2"/>
+  <path id="input-two-mark" d="M30 104H50" stroke="#2C6CB5" stroke-width="2"/>
+  <path id="input-three" d="M23 141L55 141L67 151L55 161L23 161Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+  <path id="output-link" d="M218 101H248L272 84" stroke="#F3B322" stroke-width="2" stroke-dasharray="5 6"/>
+  <path id="output-node" d="M272 77L284 70L296 77V91L284 98L272 91Z" fill="#FFF1C7" stroke="#F3B322" stroke-width="2"/>
+</svg>

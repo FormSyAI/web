@@ -1104,7 +1104,7 @@
 .fw-model-card:last-child {
   border-right: 1px solid var(--fw-line);
 }
-.fw-model-card:hover {
+.fw-model-card:not(.fw-deployment-card):hover {
   box-shadow: inset 0 -4px 0 var(--fw-brand);
 }
 .fw-model-top {
@@ -1140,30 +1140,8 @@
   align-items: center;
   gap: 4px;
 }
-.fw-rail-controls {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 24px;
-}
-.fw-rail-controls button {
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  border: 1px solid var(--fw-ink);
-  background: white;
-  cursor: pointer;
-}
-.fw-rail-controls button:hover {
-  color: white;
-  background: var(--fw-ink);
-}
-
 .fw-customers {
   border-top: 1px solid var(--fw-line);
-  overflow: hidden;
   padding-top: 64px;
 }
 .fw-customers .fw-section-heading {
@@ -1173,25 +1151,21 @@
   border-bottom: 1px solid var(--fw-line);
   padding-bottom: 64px;
 }
-.fw-customer-rail {
-  width: 100%;
-  display: flex;
+.fw-scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
-  margin-top: 0;
-  padding: 48px max(32px, calc((100vw - 1392px) / 2 + 32px));
-  overflow-x: auto;
-  scrollbar-width: none;
-  scroll-snap-type: x mandatory;
+  padding-top: 48px;
+  padding-bottom: 64px;
 }
 .fw-customer-card {
-  flex: 0 0 420px;
+  min-width: 0;
   min-height: 366px;
   display: flex;
   flex-direction: column;
   padding: 30px;
   border: 1px solid var(--fw-line);
   background: var(--paper);
-  scroll-snap-align: start;
 }
 .fw-customer-logo {
   width: 100px;
@@ -1235,11 +1209,6 @@
   color: var(--fw-muted);
   font-size: 13px;
 }
-.fw-customers > .fw-rail-controls {
-  margin-top: -24px;
-  padding-bottom: 64px;
-}
-
 .fw-updates {
   border-top: 1px solid var(--fw-line);
 }
@@ -1262,31 +1231,39 @@
 .fw-update-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   margin-top: 64px;
 }
 .fw-update-card {
-  min-height: 446px;
+  min-height: 560px;
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 28px;
   overflow: hidden;
-  border-block: 1px solid var(--fw-line);
-  border-left: 1px solid var(--fw-line);
-}
-.fw-update-card:last-child {
-  border-right: 1px solid var(--fw-line);
+  color: white;
+  border: 1px solid var(--brand-blue-800);
+  background: var(--brand-blue-900);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+  scroll-margin-top: 112px;
 }
 .fw-update-image {
   position: relative;
-  height: 190px;
+  height: 176px;
   flex: 0 0 auto;
   display: grid;
   place-items: center;
   overflow: hidden;
-  margin: -24px -24px 24px;
-  padding: 48px;
-  background:
-    linear-gradient(135deg, rgb(44 108 181 / 12%), rgb(243 179 34 / 10%)), white;
+  margin: 28px 0 24px;
+  padding: 16px;
+  border: 1px solid rgb(255 255 255 / 14%);
+  background: linear-gradient(
+    145deg,
+    rgb(255 255 255 / 9%),
+    rgb(255 255 255 / 3%)
+  );
 }
 .fw-update-image img {
   object-fit: contain;
@@ -1302,15 +1279,27 @@
 }
 .fw-update-meta {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: 16px;
-  color: var(--fw-muted);
-  font-size: 12px;
+  color: var(--brand-blue-100);
+  font-family: var(--font-code);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.fw-update-meta span:first-child {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  color: var(--brand-blue-900);
+  background: var(--fw-highlight);
 }
 .fw-update-card h3 {
-  margin: 34px 0 24px;
-  font-size: 23px;
-  line-height: 1.35;
+  margin: 24px 0 14px;
+  font-size: 25px;
+  line-height: 1.3;
   letter-spacing: -0.5px;
 }
 .fw-update-card > svg {
@@ -1318,13 +1307,12 @@
 }
 .fw-update-card:hover {
   color: white;
-  background: var(--fw-brand);
+  border-color: var(--brand-blue-300);
+  box-shadow: 0 20px 44px rgb(6 20 35 / 22%);
+  transform: translateY(-4px);
 }
 .fw-update-card:hover .fw-update-meta {
   color: var(--brand-blue-100);
-}
-.fw-update-card:hover .fw-update-image img {
-  transform: scale(1.02);
 }
 
 .fw-cta {
@@ -1487,6 +1475,18 @@
   .fw-footer-grid {
     grid-template-columns: repeat(4, 1fr);
   }
+  .fw-update-grid {
+    grid-template-columns: 1fr;
+  }
+  .fw-update-card {
+    min-height: auto;
+  }
+  .fw-update-card > p {
+    min-height: 0;
+  }
+  .fw-resource-diagram {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 680px) {
@@ -1582,7 +1582,6 @@
     min-width: 82vw;
   }
   .fw-customer-card {
-    flex-basis: 82vw;
     min-height: 390px;
   }
   .fw-update-heading {
@@ -1590,12 +1589,10 @@
     flex-direction: column;
   }
   .fw-update-card {
-    min-height: 430px;
-    border-right: 1px solid var(--fw-line);
-    border-bottom: 0;
+    min-height: auto;
   }
-  .fw-update-card:last-child {
-    border-bottom: 1px solid var(--fw-line);
+  .fw-resource-diagram {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .fw-footer-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1793,11 +1790,11 @@
   border-top: 1px solid var(--fw-line);
 }
 .fw-learning-steps li {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   padding: 24px 16px;
   border-right: 1px solid var(--fw-line);
-}
-.fw-learning-steps li:first-child {
-  padding-left: 0;
 }
 .fw-learning-steps li:last-child {
   border-right: 0;
@@ -1807,10 +1804,37 @@
   color: var(--brand-blue-500);
   font: 14px var(--font-code);
 }
+.fw-learning-illustration {
+  width: 100%;
+  height: clamp(150px, 12vw, 190px);
+  display: block;
+  margin: 14px 0 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.fw-learning-steps li:nth-child(1) .fw-learning-illustration {
+  background-image: url('/illustrations/learning/eval-contract.svg');
+}
+.fw-learning-steps li:nth-child(2) .fw-learning-illustration {
+  background-image: url('/illustrations/learning/context-packet.svg');
+}
+.fw-learning-steps li:nth-child(3) .fw-learning-illustration {
+  background-image: url('/illustrations/learning/agent-run.svg');
+}
+.fw-learning-steps li:nth-child(4) .fw-learning-illustration {
+  background-image: url('/illustrations/learning/verify-feedback.svg');
+}
+.fw-learning-steps li:nth-child(5) .fw-learning-illustration {
+  background-image: url('/illustrations/learning/reusable-assets.svg');
+}
+.fw-learning .fw-section-heading > span {
+  max-width: 820px;
+}
 .fw-learning-steps h3 {
+  margin: 0 0 12px;
   font-size: 18px;
   font-weight: 550;
-  margin: 20px 0 12px;
 }
 .fw-learning-steps p {
   font: 12px/1.65 var(--font-code);
@@ -1835,21 +1859,20 @@
 .fw-scenario-card {
   display: flex;
   flex-direction: column;
-  scroll-snap-align: start;
 }
 .fw-scenario-card h3 {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 550;
-  line-height: 1.3;
+  line-height: 1.4;
   margin: 24px 0 0;
 }
 .fw-scenario-card > p {
-  font-size: 20px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.7;
   flex-grow: 0;
 }
 .fw-scenario-card > div {
-  margin-block: 12px 28px;
+  margin-block: 0 24px;
 }
 .fw-scenario-card > div > small {
   font: 12px var(--font-code);
@@ -1867,8 +1890,8 @@
   padding-top: 20px;
 }
 .fw-scenario-card footer small {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 12px;
+  line-height: 1.65;
 }
 .fw-evaluation-grid {
   display: grid;
@@ -1895,49 +1918,51 @@
 }
 .fw-resource-diagram {
   display: grid;
-  gap: 0;
-  padding: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 0;
   align-content: center;
-  background: var(--brand-blue-50);
+  border: 0;
+  background: transparent;
 }
 .fw-resource-diagram > span {
-  display: flex;
-  gap: 14px;
-  font: 14px/1.5 var(--font-code);
-  border-bottom: 1px solid var(--brand-blue-100);
-  padding: 12px 0;
-  color: var(--brand-blue-900);
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 10px;
+  border: 1px solid rgb(255 255 255 / 14%);
+  background: rgb(255 255 255 / 7%);
+  color: white;
+  font: 12px/1.35 var(--font-code);
 }
 .fw-resource-diagram small {
-  color: var(--brand-blue-500);
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  color: var(--brand-gold-300);
+  background: rgb(255 255 255 / 8%);
 }
 .fw-update-card > p {
+  min-height: 54px;
+  margin: 0;
   font-size: 16px;
   line-height: 1.7;
-  color: var(--fw-muted);
+  color: var(--brand-blue-100);
 }
-.fw-resource-summaries {
-  padding-top: 48px;
+.fw-update-body {
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1px solid rgb(255 255 255 / 14%);
 }
-.fw-resource-summaries article {
-  border-top: 1px solid var(--fw-line);
-  padding: 32px 0;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 12px 48px;
-}
-.fw-resource-summaries article > .fw-eyebrow {
-  grid-column: 1 / -1;
-}
-.fw-resource-summaries h3 {
-  font-size: 24px;
-  line-height: 1.4;
-  font-weight: 550;
-}
-.fw-resource-summaries article > p:last-child {
-  font-size: 16px;
-  line-height: 1.85;
-  color: var(--fw-muted);
+.fw-update-body p {
+  margin: 0;
+  color: rgb(255 255 255 / 72%);
+  font-size: 15px;
+  line-height: 1.75;
 }
 .fw-engagement-options {
   display: grid;
@@ -2026,10 +2051,13 @@
 }
 @media (max-width: 960px) {
   .fw-learning-steps {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
-  .fw-learning-steps li:first-child {
-    padding-left: 16px;
+  .fw-learning-steps li {
+    grid-column: span 2;
+  }
+  .fw-learning-steps li:nth-last-child(-n + 2) {
+    grid-column: span 3;
   }
   .fw-footer-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2062,6 +2090,10 @@
   .fw-learning-steps {
     grid-template-columns: 1fr 1fr;
   }
+  .fw-learning-steps li,
+  .fw-learning-steps li:nth-last-child(-n + 2) {
+    grid-column: auto;
+  }
   .fw-evaluation-grid,
   .fw-resource-summaries article,
   .fw-engagement-options {
@@ -2086,11 +2118,23 @@
     padding: 24px;
   }
 }
+@media (max-width: 480px) {
+  .fw-learning-steps {
+    grid-template-columns: 1fr;
+  }
+  .fw-learning-steps li {
+    border-right: 0;
+    border-bottom: 1px solid var(--fw-line);
+  }
+  .fw-learning-steps li:last-child {
+    border-bottom: 0;
+  }
+}
 .fw-hero-grid {
   grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
 }
 .fw-scenario-card > p {
-  margin: 24px 0;
+  margin: 18px 0;
 }
 .fw-mobile-menu {
   max-height: calc(100dvh - 120px);
@@ -2147,23 +2191,39 @@
   justify-content: flex-start;
   gap: 20px;
 }
+.fw-deployment-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 64px 0 0;
+  overflow: visible;
+  border-top: 1px solid var(--fw-line);
+  border-left: 1px solid var(--fw-line);
+}
+.fw-deployment-grid .fw-deployment-card {
+  width: auto;
+  min-width: 0;
+  flex: none;
+  border: 0;
+  border-right: 1px solid var(--fw-line);
+  border-bottom: 1px solid var(--fw-line);
+  scroll-snap-align: none;
+}
 .fw-deployment-card p {
   margin: 0;
 }
 .fw-resource-diagram {
   height: auto;
-  min-height: 228px;
+  min-height: 176px;
   place-items: stretch;
 }
 .fw-update-card:hover > p {
   color: var(--brand-blue-100);
 }
-.fw-update-card .fw-inline-link {
-  margin-top: auto;
-  padding-top: 24px;
-  min-height: 44px;
-}
 @media (max-width: 1280px) {
+  .fw-scenario-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .fw-header-inner {
     grid-template-columns: 1fr auto;
   }
@@ -2195,7 +2255,21 @@
     margin-bottom: 10px;
   }
 }
+@media (max-width: 960px) {
+  .fw-deployment-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 @media (max-width: 680px) {
+  .fw-scenario-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-top: 40px;
+  }
+  .fw-deployment-grid {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+  }
   .fw-deployment-card {
     flex-basis: min(302px, calc(100vw - 40px));
   }
@@ -2419,10 +2493,6 @@
   background: var(--fw-brand);
   border-color: var(--fw-brand);
 }
-.fw-deployment-card:hover .fw-deployment-icon {
-  background: rgb(44 108 181 / 14%);
-}
-
 .fw-hero-dots .fw-rotation-toggle {
   display: inline-flex;
   align-items: center;
