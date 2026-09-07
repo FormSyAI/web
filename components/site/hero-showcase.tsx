@@ -10,7 +10,7 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 
-function HeroSignal() {
+export function HeroSignal() {
   const { content } = useI18n();
   const bars = [
     14, 20, 18, 26, 34, 31, 39, 46, 42, 50, 57, 53, 62, 70, 66, 76, 82, 78, 88,
@@ -56,7 +56,7 @@ function HeroSignal() {
   );
 }
 
-function ContextFlywheel() {
+export function ContextFlywheel() {
   const { content } = useI18n();
   const stages = [
     ['01', 'CONTEXT'],

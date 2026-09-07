@@ -1,6 +1,7 @@
 'use client';
 
-import { ArrowRight, ChevronDown, Menu, X, Boxes } from 'lucide-react';
+import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react';
+import { DeploymentIcon } from '@/components/site/deployment-icon';
 import Image from '@/components/runtime/app-image';
 import { AppLink as Link } from '@/components/runtime/app-link';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -108,7 +109,7 @@ function MegaMenu({
         <div>
           {menu.items.map((item) => (
             <MenuLink href={item.href} onClick={onNavigate} key={item.label}>
-              <Boxes size={28} aria-hidden="true" />
+              <DeploymentIcon id={item.id} />
               {item.label}
             </MenuLink>
           ))}

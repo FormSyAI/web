@@ -1,6 +1,9 @@
+import { siteDictionaries } from './i18n';
+
 // Paired copy keeps both locales and every navigation target aligned.
 export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
   const t = (zh: string, en: string) => (locale === 'zh-CN' ? zh : en);
+  const originalHero = siteDictionaries[locale].heroSlides;
   const home = '/aurinova-reference';
   const anchor = (id: string) => `${home}#${id}`;
   const link = (zh: string, en: string, id: string) => ({
@@ -450,7 +453,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
           'MODELS & DEPLOYMENT',
           'models-deployment',
         ),
-        items: deployments.map((x) => ({ label: x.name, href: anchor(x.id) })),
+        items: deployments.map((x) => ({ id: x.id, label: x.name, href: anchor(x.id) })),
       },
       Resources: {
         kind: 'resources' as const,
@@ -475,50 +478,53 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       },
     },
     hero: {
-      eyebrow: 'FORMSY · ENTERPRISE AGENT PLATFORM',
-      title: t(
-        '让每一次 AI 编程，交付可验证的结果',
-        'Make every AI coding task a verifiable result',
-      ),
-      description: t(
-        '连接代码、文档、测试与执行反馈，为 Agent 提供任务所需的上下文、完成标准和证据，帮助团队提升工程产出、管理任务成本。',
-        'Connect code, documentation, tests and feedback. Give agents the context, acceptance criteria and evidence they need to deliver useful engineering work.',
-      ),
-      primary: link('探索 FormSy', 'Explore FormSy', 'overview'),
-      secondary: link('查看核心能力', 'Explore capabilities', 'platform'),
+      eyebrow: originalHero[0].eyebrow,
+      lines: originalHero[0].title.split('\n'),
+      title: originalHero[0].title.replace('\n', locale === 'en-US' ? ' ' : ''),
+      description: originalHero[0].description,
+      primary: {
+        label: originalHero[0].primaryCta.label,
+        href: anchor('platform'),
+      },
+      secondary: {
+        label: originalHero[0].secondaryCta.label,
+        href: anchor('resource-architecture'),
+      },
     },
     secondHero: {
-      eyebrow: 'FROM CONTEXT TO ENTERPRISE INTELLIGENCE',
-      title: t(
-        '让每一次真实工作，成为企业自己的智能',
-        'Turn real work into intelligence you own',
+      eyebrow: originalHero[1].eyebrow,
+      lines: originalHero[1].title.split('\n'),
+      title: originalHero[1].title.replace('\n', locale === 'en-US' ? ' ' : ''),
+      description: originalHero[1].description,
+      primary: {
+        label: originalHero[1].primaryCta.label,
+        href: anchor('learning-loop'),
+      },
+      secondary: {
+        label: originalHero[1].secondaryCta.label,
+        href: anchor('evaluation'),
+      },
+    },
+    banners: {
+      outcome: t(
+        '更高任务完成率，更低成功任务成本',
+        'Higher task success. Lower cost per verified task.',
       ),
-      description: t(
-        '将任务上下文、评测标准与有效经验沉淀为企业资产，让策略、技能与适合训练的专业能力持续演进。',
-        'Retain task context, evaluation criteria and useful experience as enterprise assets. Help policies, skills and suitable specialist capabilities evolve.',
+      learning: t(
+        '每一次真实工作，沉淀为企业智能资产',
+        'Turn real work into enterprise intelligence assets.',
       ),
-      primary: link(
-        '了解学习闭环',
-        'Explore the learning loop',
-        'learning-loop',
+      outcomeAlt: t(
+        '同一画布中的蓝金像素柱图：蓝色任务完成率逐步上升，金色成功任务成本逐步下降；下方连接上下文、执行和验证。',
+        'One combined pixel chart pairs rising blue task success bars with falling gold cost-per-verified-task bars, supported by context, execution and verification.',
       ),
-      secondary: link(
-        '查看部署选择',
-        'Explore deployment',
-        'models-deployment',
+      learningAlt: t(
+        '企业智能资产位于中心，Context、Eval、Trace、Policy 与选择性的 Weights 适配构成五阶段学习闭环。',
+        'Enterprise intelligence sits at the center of a five-stage loop: Context, Eval, Trace, Policy and selective Weights adaptation.',
       ),
     },
     chart: {
-      labels: [
-        t('任务与上下文', 'TASK & CONTEXT'),
-        t('执行与验证', 'EXECUTE & VERIFY'),
-        t('有效工程产出', 'VERIFIED WORK'),
-      ],
-      caption: t(
-        '任务结果与成本共同评估',
-        'Evaluate task outcomes and cost together',
-      ),
-      signals: ['CONTEXT', 'EVIDENCE', 'FINISH GATE'],
+      caption: t('概念示意 · 非实测数据', 'Illustration · not measured data'),
     },
     ecosystem: {
       title: t(

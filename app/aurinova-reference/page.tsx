@@ -4,12 +4,13 @@ import {
   ArrowLeft,
   ArrowRight,
   Boxes,
-  Check,
   GitBranch,
   Layers,
   ShieldCheck,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { DeploymentIcon } from '@/components/site/deployment-icon';
+import { FormsyBannerArt } from '@/components/site/formsy-banner-art';
 import { AppLink } from '@/components/runtime/app-link';
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { AurinovaReferenceFooter } from '@/components/site/aurinova-reference-footer';
@@ -85,11 +86,15 @@ export default function AurinovaReferencePage() {
       </a>
       <AurinovaReferenceHeader />
       <div id="fw-main">
-        <section className="fw-hero">
+        <section className="fw-hero fw-designed-hero">
           <div className="fw-shell fw-hero-grid fw-hero-slide" key={heroSlide}>
             <div className="fw-hero-copy">
               <p className="fw-eyebrow">{hero.eyebrow}</p>
-              <h1>{hero.title}</h1>
+              <h1>
+                {hero.lines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </h1>
               <p className="fw-lead">{hero.description}</p>
               <div className="fw-actions">
                 <AppLink className="fw-primary-button" href={hero.primary.href}>
@@ -104,60 +109,23 @@ export default function AurinovaReferencePage() {
               </div>
             </div>
             <div className="fw-hero-visual">
-              {heroSlide === 0 ? (
-                <figure className="fw-task-graphic">
-                  <figcaption>
-                    <span>FORMSY / TASK FLOW</span>
-                    <small>{content.ui.concept}</small>
-                  </figcaption>
-                  <div className="fw-task-stages">
-                    {content.chart.labels.map((label, i) => (
-                      <div key={label}>
-                        <span className="fw-pixel-field" aria-hidden="true">
-                          {Array.from({ length: 36 }, (_, n) => (
-                            <i
-                              key={n}
-                              className={n < [12, 24, 36][i] ? 'is-filled' : ''}
-                            />
-                          ))}
-                        </span>
-                        <strong>
-                          <small>0{i + 1}</small>
-                          {label}
-                        </strong>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="fw-signal-row">
-                    {content.chart.signals.map((label) => (
-                      <span key={label}>
-                        <Check size={14} />
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                  <p>{content.chart.caption}</p>
-                </figure>
-              ) : (
-                <figure className="fw-task-graphic fw-learning-graphic">
-                  <figcaption>
-                    <span>FORMSY / LEARNING LOOP</span>
-                    <small>{content.ui.concept}</small>
-                  </figcaption>
-                  <div className="fw-asset-flow">
-                    {['CONTEXT', 'EVAL', 'TRACE', 'POLICY / SKILL'].map(
-                      (label, i) => (
-                        <div key={label}>
-                          <span>0{i + 1}</span>
-                          <strong>{label}</strong>
-                          <ArrowRight size={22} />
-                        </div>
-                      ),
-                    )}
-                  </div>
-                  <p>{content.learning.description}</p>
-                </figure>
-              )}
+              <FormsyBannerArt
+                locale={locale}
+                variant={
+                  heroSlide === 0 ? 'verified-work' : 'enterprise-learning'
+                }
+                alt={
+                  heroSlide === 0
+                    ? content.banners.outcomeAlt
+                    : content.banners.learningAlt
+                }
+                label={
+                  heroSlide === 0
+                    ? content.banners.outcome
+                    : content.banners.learning
+                }
+                caption={content.chart.caption}
+              />
               <div className="fw-hero-dots" aria-label={content.ui.heroSlides}>
                 {[content.ui.showTaskSlide, content.ui.showLearningSlide].map(
                   (label, i) => (
@@ -286,7 +254,7 @@ export default function AurinovaReferencePage() {
                   key={item.id}
                 >
                   <div className="fw-model-top">
-                    <Boxes size={36} aria-hidden="true" />
+                    <DeploymentIcon id={item.id} />
                     <em>0{i + 1}</em>
                   </div>
                   <h3>{item.name}</h3>

@@ -18,6 +18,7 @@ React + Vite 双语品牌网站。FormSy 产品内容已迁移到 `/aurinova-ref
 | [PRODUCT.md](PRODUCT.md) | 品牌、产品定位与工作边界 |
 | [网站内容架构](docs/WEBSITE_CONTENT_ARCHITECTURE.md) | 菜单、区块、文案、内容取舍与迁移目标 |
 | [DESIGN.md](DESIGN.md) | 详细视觉规范 |
+| [Banner 设计](docs/BANNER_DESIGN.md) | 双首屏图形、SVG 素材与质量记录 |
 | [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) | token、组件和样式维护入口 |
 | [内容维护](content/README.md) | 中英文字典与修改方法 |
 | [根首页内容](docs/CURRENT_SITE_CONTENT.md) | 当前产品内容来源及索引 |
