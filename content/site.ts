@@ -80,7 +80,7 @@ export const siteContentZh = {
     {
       id: 'sovereign-intelligence',
       eyebrow: 'FROM TRACE TO ATTRIBUTABLE EVIDENCE',
-      title: '让每一次工程决策有据可查，\n让真实结果沉淀为知识',
+      title: '让每一次工程决策有据可查\n让真实结果沉淀为知识',
       description:
         '把任务、上下文、决策、行动、验证与结果连成可追溯的证据链，为归因、复用和持续学习提供基础。',
       primaryCta: { label: '了解 FormSy', href: '#platform' },

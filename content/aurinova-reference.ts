@@ -579,71 +579,166 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
         '过程关联不是因果结论；归因候选需要在限定条件下验证。',
         'Process association is not a causal conclusion; attribution candidates require validation under controlled conditions.',
       ),
+      dataDomains: {
+        eyebrow: 'AGENT CONTEXT PLATFORM',
+        titleLead: t('三大', 'Three'),
+        titleAccent: t('数据域', ' Data Domains'),
+        subtitle: t(
+          '把企业上下文、组织成可使用、可验证、可学习的三类核心数据',
+          'Organize enterprise context into three kinds of core data that can be used, verified, and learned from.',
+        ),
+        description: t(
+          'FormSy 将企业资料、Agent 执行过程与任务反馈，持续沉淀为三类关键数据：基础与轨迹数据、知识与 Context 计算数据、学习数据与模型成果。它们共同支撑当前任务的可靠完成，也为企业后续能力进化提供基础。',
+          'FormSy turns enterprise materials, Agent execution and task feedback into three key data domains: foundation and trace data, knowledge and Context compute data, and learning data and model outcomes. Together they support reliable task completion today and continued capability evolution.',
+        ),
+        domains: [
+          {
+            title: t('基础与轨迹数据', 'Foundation & trace data'),
+            detail: t(
+              '资料、Session、Run、工具结果、人工反馈',
+              'Materials, sessions, runs, tool results, and human feedback',
+            ),
+            tag: t('记录与来源', 'Record & source'),
+          },
+          {
+            title: t(
+              '知识与 Context 计算数据',
+              'Knowledge & Context compute data',
+            ),
+            detail: t(
+              '事实、规则、关系、Context、Evidence',
+              'Facts, rules, relationships, Context, and Evidence',
+            ),
+            tag: t('理解与计算', 'Understand & compute'),
+          },
+          {
+            title: t('学习数据与模型成果', 'Learning data & model outcomes'),
+            detail: t(
+              '经验、评估集、训练样本、模型成果',
+              'Experience, evaluation sets, training samples, and model outcomes',
+            ),
+            tag: t('学习与进化', 'Learn & evolve'),
+          },
+        ],
+        signals: [
+          {
+            title: t('可追溯', 'Traceable'),
+            detail: t(
+              '从来源到应用全链路可验证',
+              'Verify the full chain from source to application',
+            ),
+          },
+          {
+            title: t('可复用', 'Reusable'),
+            detail: t(
+              '沉淀为企业资产支持多场景复用',
+              'Retain enterprise assets for reuse across scenarios',
+            ),
+          },
+          {
+            title: t('可进化', 'Evolvable'),
+            detail: t(
+              '越用越智能持续提升业务价值',
+              'Improve intelligence and business value with every use',
+            ),
+          },
+        ],
+        caption: t(
+          'FROM RAW CONTEXT TO REUSABLE INTELLIGENCE',
+          'FROM RAW CONTEXT TO REUSABLE INTELLIGENCE',
+        ),
+      },
     },
     platform: {
-      eyebrow: 'CONTEXT COMPUTE · CAUSAL EVIDENCE',
-      title: t(
-        '一条数据链，连接任务理解与因果学习',
-        'One data chain from task understanding to causal learning',
+      eyebrow: 'CORE TECHNOLOGY',
+      titleLead: 'Context',
+      titleAccent: 'Compute',
+      subtitle: t(
+        '让 AI 真正理解你的业务，并可靠地完成任务',
+        'Help AI truly understand your business and reliably complete tasks',
       ),
       description: t(
-        '先计算当前任务真正需要的上下文，再把决定、行动、证据和结果组织成可验证、可复用的数据。',
-        'Compute the context a task needs, then organize decisions, actions, evidence, and outcomes into verifiable, reusable data.',
+        'Context Compute 将企业的知识、工具、执行轨迹和验证信号，计算成可行动的任务上下文，动态控制 Agent 的执行过程，并将每一次任务转化为可复用、可进化的企业能力。',
+        'Context Compute turns enterprise knowledge, tools, execution traces, and verification signals into actionable task context, dynamically controls Agent execution, and turns every task into reusable, evolvable enterprise capability.',
       ),
-      pillars: [
+      benefits: [
         {
-          id: 'context-compute',
-          index: '01',
-          audience: 'ENTERPRISE CONTEXT',
-          name: 'Context Compute',
-          description: t(
-            '为任务组织可行动、可验证的上下文。',
-            'Organize actionable, verifiable context for each task.',
+          icon: 'database',
+          title: t('更准', 'More precise'),
+          detail: t(
+            '基于真实业务上下文的精准任务理解',
+            'Precise task understanding from real business context',
           ),
-          modes: [
-            t(
-              '围绕当前任务定位相关源码与关系',
-              'Locate source and relationships for the task at hand',
-            ),
-            t(
-              '绑定任务来源、代码版本与上下文',
-              'Bind task source, code revision, and context',
-            ),
-            t(
-              '按需投影、分页交付并保留回执',
-              'Project and deliver context with paging and receipts',
-            ),
-          ],
-          primary: link('查看任务工作流', 'Explore the workflow', 'overview'),
-          secondary: link('了解学习闭环', 'Learning loop', 'learning-loop'),
         },
         {
-          id: 'evidence-learning',
-          index: '02',
-          audience: 'ATTRIBUTABLE OUTCOMES',
-          name: 'Causal Evidence & Learning',
-          description: t(
-            '把过程关联组织成归因候选，用对照与独立验证确认效果，再沉淀可复用知识。',
-            'Turn process associations into attribution candidates, validate effects through controlled comparison, then retain reusable knowledge.',
+          icon: 'shield',
+          title: t('更可靠', 'More reliable'),
+          detail: t(
+            '验证驱动的执行控制与风险防护',
+            'Verification-driven execution control and risk protection',
           ),
-          modes: [
-            t(
-              '分别记录 Evidence、Feedback、Outcome 与 Effect',
-              'Keep evidence, feedback, outcome, and effect distinct',
-            ),
-            t(
-              '保留判断、适用条件、来源与版本血缘',
-              'Preserve claims, conditions, provenance, and versions',
-            ),
-            t(
-              '区分过程关联、归因候选与对照支持',
-              'Distinguish association, attribution candidates, and controlled support',
-            ),
-          ],
-          primary: link('查看工作方式', 'See how it works', 'learning-loop'),
-          secondary: link('联系我们', 'Contact', 'engagement'),
+        },
+        {
+          icon: 'lightning',
+          title: t('更高效', 'More efficient'),
+          detail: t(
+            '少走弯路，显著降低 Token 和算力成本',
+            'Reduce detours and lower token and compute costs',
+          ),
+        },
+        {
+          icon: 'growth',
+          title: t('可进化', 'Evolvable'),
+          detail: t(
+            '任务反馈沉淀为企业专属的领域能力',
+            'Turn task feedback into enterprise-specific domain capability',
+          ),
         },
       ],
+      caption: 'TURN BUSINESS CONTEXT INTO REAL PROGRESS',
+      diagram: {
+        centerTitle: ['Context', 'Compute'],
+        labels: {
+          understand: t('理解', 'Understand'),
+          control: t('控制', 'Control'),
+          learn: t('学习', 'Learn'),
+          validate: t('验证', 'Validate'),
+        },
+        left: [
+          {
+            icon: 'documents',
+            title: t('企业知识', 'Enterprise knowledge'),
+            detail: t('文档 / 代码 / 数据', 'Docs / code / data'),
+          },
+          {
+            icon: 'tools',
+            title: t('工具与系统', 'Tools & systems'),
+            detail: t('业务系统 / API / MCP', 'Business systems / API / MCP'),
+          },
+          {
+            icon: 'users',
+            title: t('执行轨迹', 'Execution trace'),
+            detail: t('历史任务 / 反馈 / 结果', 'Past tasks / feedback / outcomes'),
+          },
+        ],
+        right: [
+          {
+            icon: 'check',
+            title: t('更可靠的', 'More reliable'),
+            detail: t('Agent 执行', 'Agent execution'),
+          },
+          {
+            icon: 'analytics',
+            title: t('可复用的', 'Reusable'),
+            detail: t('领域能力', 'Domain capability'),
+          },
+          {
+            icon: 'cube',
+            title: t('持续进化的', 'Continuously evolving'),
+            detail: t('企业智能', 'Enterprise intelligence'),
+          },
+        ],
+      },
     },
     learning: {
       eyebrow: 'THE CAUSAL EVIDENCE LOOP',
