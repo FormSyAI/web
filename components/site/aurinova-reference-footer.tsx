@@ -39,7 +39,7 @@ export function AurinovaReferenceFooter() {
         />
         <span>{content.ui.copyright}</span>
         <div>
-          <Link href="/aurinova-reference#resource-architecture">
+          <Link href="/aurinova-reference#overview">
             {content.ui.currentSite}
           </Link>
           <Link href={content.meta.contactHref}>
