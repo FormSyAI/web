@@ -15,9 +15,9 @@ export type PlatformItem = {
 
 export const siteContentZh = {
   ui: {
-    pageTitle: 'FormSy · 任务上下文与证据平台',
+    pageTitle: 'FormSy · 任务上下文与可归因证据平台',
     pageDescription:
-      '让 Coding Agent 基于任务、源码与验证证据行动，并把真实执行沉淀为可复用的工程知识。',
+      '连接任务、上下文、决策、行动与结果，为归因验证和可复用工程知识提供数据基础。',
     localeName: '中文',
     alternateLocaleName: 'EN',
     switchLanguage: 'Switch to English',
@@ -79,20 +79,20 @@ export const siteContentZh = {
   heroSlides: [
     {
       id: 'sovereign-intelligence',
-      eyebrow: 'TASK CONTEXT BEFORE ACTION',
-      title: '让 Agent 理解任务，\n让结果经得起验证',
+      eyebrow: 'FROM TRACE TO ATTRIBUTABLE EVIDENCE',
+      title: '让每一次工程决策有据可查，\n让真实结果沉淀为知识',
       description:
-        '把任务来源、代码关系、验证要求与执行证据组织成 Agent 可以直接使用的工程上下文。',
+        '把任务、上下文、决策、行动、验证与结果连成可追溯的证据链，为归因、复用和持续学习提供基础。',
       primaryCta: { label: '了解 FormSy', href: '#platform' },
       secondaryCta: { label: '查看工作方式', href: '#solutions' },
       visual: 'signal',
     },
     {
       id: 'context-to-weights',
-      eyebrow: 'EVIDENCE AFTER EXECUTION',
-      title: '每一次真实任务，\n都留下可复用的知识',
+      eyebrow: 'ASSOCIATION · ATTRIBUTION · EFFECT',
+      title: '从过程关联，\n走向经过验证的效果',
       description:
-        '把调查、决策、检查、实现与结果连接为证据链，让下一次任务少走弯路。',
+        '区分证据、反馈、结果与效果，让归因候选经过对照后再成为可复用知识。',
       primaryCta: { label: '查看证据闭环', href: '#solutions' },
       secondaryCta: { label: '探索核心能力', href: '#assets' },
       visual: 'flywheel',
@@ -134,13 +134,13 @@ export const siteContentZh = {
     {
       index: '02',
       eyebrow: 'VERIFY THE RESULT',
-      title: 'Evidence & Learning',
+      title: 'Causal Evidence & Learning',
       description:
-        '把要求、调查、检查、实现与结果保留为有来源的证据，再从真实任务中提炼可复用经验。',
+        '把决定、行动、证据与结果组织为可归因结构，再从经过验证的效果中提炼可复用经验。',
       bullets: [
-        'pytest 验收合同、独立审查与冻结',
-        '隔离验证、运行期调查与完整回执',
-        '任务证据图、经验候选与知识召回',
+        'Evidence、Feedback、Outcome 与 Effect 分开记录',
+        '过程关联、归因候选与对照支持分级表达',
+        '因果证据图、经验候选与知识召回',
       ],
       href: '#architecture',
       tone: 'light',
@@ -335,7 +335,7 @@ export const siteContentZh = {
         title: '产品',
         links: [
           { label: 'Context Compute', href: '#platform' },
-          { label: 'Evidence & Learning', href: '#platform' },
+          { label: 'Causal Evidence & Learning', href: '#platform' },
           { label: 'Capability Map', href: '#assets' },
         ],
       },

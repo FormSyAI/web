@@ -242,11 +242,11 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
     },
   ];
   const learningSteps = [
-    [t('定义完成标准', 'Define acceptance'), 'EVAL CONTRACT'],
-    [t('计算任务上下文', 'Prepare context'), 'CONTEXT PACKET'],
-    [t('Agent 执行', 'Agent execution'), 'PLAN · TOOL · PATCH'],
-    [t('验证与反馈', 'Verify & learn'), 'EVIDENCE · FINISH GATE'],
-    [t('沉淀可复用资产', 'Retain useful assets'), 'POLICY · SKILL'],
+    [t('绑定任务上下文', 'Bind task context'), 'TASK · CONTEXT'],
+    [t('记录决策与行动', 'Record decisions'), 'DECISION · ACTION'],
+    [t('关联证据与反馈', 'Link evidence'), 'EVIDENCE · FEEDBACK'],
+    [t('验证结果与效果', 'Verify outcomes'), 'OUTCOME · EFFECT'],
+    [t('沉淀可复用知识', 'Retain knowledge'), 'KNOWLEDGE · SKILL'],
   ];
   const plans = [
     {
@@ -331,7 +331,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       links: [
         [t('产品概览', 'Overview'), anchor('overview')],
         ['Context Compute', anchor('context-compute')],
-        ['Evidence & Learning', anchor('evidence-learning')],
+        ['Causal Evidence & Learning', anchor('evidence-learning')],
       ] as const,
     },
     {
@@ -354,8 +354,8 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
         'FormSy · Task context and evidence',
       ),
       pageDescription: t(
-        'FormSy 为 Coding Agent 组织任务上下文、源码证据与验证要求，并从真实任务中沉淀可复用知识。',
-        'FormSy organizes task context, source evidence, and verification requirements for coding agents, then turns real work into reusable knowledge.',
+        'FormSy 把任务、上下文、决策、行动与结果连接为可归因的工程证据，并从真实工作中沉淀可复用知识。',
+        'FormSy connects tasks, context, decisions, actions, and outcomes as attributable engineering evidence, then turns real work into reusable knowledge.',
       ),
       switchLanguage: t('切换到英文', 'Switch to Chinese'),
       alternateLocaleName: t('EN', '中文'),
@@ -546,44 +546,49 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       ],
     },
     overview: {
-      eyebrow: 'FROM ISSUE TO VERIFIED RESULT',
+      eyebrow: 'FROM TRACE TO ATTRIBUTABLE KNOWLEDGE',
       title: t(
-        '把一个工程任务，组织成可执行、可验证的工作流',
-        'Give every engineering task an executable, verifiable workflow',
+        '不是记录更多日志，而是知道什么影响了结果',
+        'Not more logs. Evidence for what shaped the outcome.',
       ),
       description: t(
-        'FormSy 把任务来源、相关代码、验收要求与执行证据连接起来，让 Agent 从可核对的上下文开始工作。',
-        'FormSy connects task sources, relevant code, acceptance requirements, and execution evidence so agents start from inspectable context.',
+        'FormSy 在固定任务、代码与验收条件下，连接当时可见的上下文、做出的决定、实际行动和最终结果。',
+        'FormSy connects the context seen, decisions made, actions taken, and outcomes observed under fixed task, code, and acceptance conditions.',
       ),
       steps: [
         t(
-          '输入：Issue、Repo、Tests 与工程规范',
-          'INPUT: Issues, repositories, tests and engineering standards',
+          '工程轨迹：Task、Context、Session 与 Commit',
+          'TRACE: Task, context, session, and commit',
         ),
         t(
-          '过程：上下文、执行状态与完成门槛',
-          'CONTROL: Context, execution state and completion gates',
+          '可归因关系：Decision、Action、Evidence 与 Feedback',
+          'ATTRIBUTION: Decision, action, evidence, and feedback',
         ),
         t(
-          '输出：补丁、完成状态与证据报告',
-          'OUTPUT: Patches, completion status and evidence reports',
+          '学习资产：Outcome、Effect、Knowledge 与 Skill',
+          'LEARNING: Outcome, effect, knowledge, and skill',
         ),
       ],
-      architecture: ['AGENT / IDE', 'TASK CONTEXT', 'EVIDENCE & KNOWLEDGE'],
+      architecture: [
+        'TASK & CONTEXT',
+        'DECISION & ACTION',
+        'EVIDENCE & OUTCOME',
+        'KNOWLEDGE & EFFECT',
+      ],
       footnote: t(
-        '理解任务，核对源码，验证结果，沉淀经验。',
-        'Understand the task, inspect the source, verify the result, retain the learning.',
+        '过程关联不是因果结论；归因候选需要在限定条件下验证。',
+        'Process association is not a causal conclusion; attribution candidates require validation under controlled conditions.',
       ),
     },
     platform: {
-      eyebrow: 'ONE CONTINUOUS TASK FLOW',
+      eyebrow: 'CONTEXT COMPUTE · CAUSAL EVIDENCE',
       title: t(
-        '先理解，再行动；完成之后，留下证据',
-        'Understand first. Act with evidence. Learn from the result.',
+        '一条数据链，连接任务理解与因果学习',
+        'One data chain from task understanding to causal learning',
       ),
       description: t(
-        'FormSy 用同一条任务链连接上下文计算、结果验证与经验沉淀。',
-        'FormSy connects context computation, result verification, and reusable learning in one task flow.',
+        '先计算当前任务真正需要的上下文，再把决定、行动、证据和结果组织成可验证、可复用的数据。',
+        'Compute the context a task needs, then organize decisions, actions, evidence, and outcomes into verifiable, reusable data.',
       ),
       pillars: [
         {
@@ -615,24 +620,24 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
         {
           id: 'evidence-learning',
           index: '02',
-          audience: 'VERIFIABLE OUTCOMES',
-          name: 'Evidence & Learning',
+          audience: 'ATTRIBUTABLE OUTCOMES',
+          name: 'Causal Evidence & Learning',
           description: t(
-            '让要求、检查、实现与结果可以追溯，并从真实任务中提炼可复用经验。',
-            'Make requirements, checks, implementation, and outcomes traceable, then refine real work into reusable experience.',
+            '把过程关联组织成归因候选，用对照与独立验证确认效果，再沉淀可复用知识。',
+            'Turn process associations into attribution candidates, validate effects through controlled comparison, then retain reusable knowledge.',
           ),
           modes: [
             t(
-              '把任务要求编译成可执行的验收检查',
-              'Compile task requirements into executable acceptance checks',
+              '分别记录 Evidence、Feedback、Outcome 与 Effect',
+              'Keep evidence, feedback, outcome, and effect distinct',
             ),
             t(
-              '用隔离验证与运行期调查核对结果',
-              'Verify results through isolated checks and runtime inquiry',
+              '保留判断、适用条件、来源与版本血缘',
+              'Preserve claims, conditions, provenance, and versions',
             ),
             t(
-              '连接证据、经验与后续任务的知识召回',
-              'Connect evidence, experience, and recall for future tasks',
+              '区分过程关联、归因候选与对照支持',
+              'Distinguish association, attribution candidates, and controlled support',
             ),
           ],
           primary: link('查看工作方式', 'See how it works', 'learning-loop'),
@@ -641,14 +646,14 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       ],
     },
     learning: {
-      eyebrow: 'THE ENTERPRISE LEARNING LOOP',
+      eyebrow: 'THE CAUSAL EVIDENCE LOOP',
       title: t(
-        '任务结束，经验继续积累',
-        'The task ends. Experience keeps growing.',
+        '从一次任务，形成可复用的因果证据',
+        'Turn one task into reusable causal evidence',
       ),
       description: t(
-        '把任务来源、调查、检查、实现与结果连接起来，让经过验证的经验服务于下一次工作。',
-        'Connect task sources, investigation, checks, implementation, and outcomes so verified experience can support the next task.',
+        '记录真实过程，提出归因候选，并只在可比验证后确认效果；未经验证的关联不会被包装成因果结论。',
+        'Record the real process, form attribution candidates, and confirm effects only after comparable validation. Unverified associations are never presented as causal conclusions.',
       ),
       steps: learningSteps,
     },
@@ -718,12 +723,12 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
     },
     engagement: {
       title: t(
-        '从一个真实任务，开始构建企业智能闭环',
-        'Start with one real task. Build an enterprise learning loop.',
+        '从一个真实任务，开始建立可归因的数据链',
+        'Start with one real task. Build an attributable data chain.',
       ),
       description: t(
-        '从一个真实工程任务开始，看看更好的上下文与证据如何改变 Agent 的工作。',
-        'Start with one real engineering task and see how better context and evidence change agent work.',
+        '连接当时可见的上下文、做出的决定、实际行动和最终结果，再用可比验证确认效果。',
+        'Connect the context seen, decisions made, actions taken, and outcomes observed—then validate effects under comparable conditions.',
       ),
       plans,
       primary: link('开始体验', 'Get started', 'overview'),

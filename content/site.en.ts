@@ -1,8 +1,8 @@
 export const siteContentEn = {
   ui: {
-    pageTitle: 'FormSy · Task Context and Evidence Platform',
+    pageTitle: 'FormSy · Task Context and Attributable Evidence',
     pageDescription:
-      'Help coding agents act on task, source, and verification evidence—and turn real execution into reusable engineering knowledge.',
+      'Connect tasks, context, decisions, actions, and outcomes to support attribution, validation, and reusable engineering knowledge.',
     localeName: 'EN',
     alternateLocaleName: '中文',
     switchLanguage: '切换到中文',
@@ -64,20 +64,21 @@ export const siteContentEn = {
   heroSlides: [
     {
       id: 'sovereign-intelligence',
-      eyebrow: 'TASK CONTEXT BEFORE ACTION',
-      title: 'Help agents understand the task.\nMake results verifiable.',
+      eyebrow: 'FROM TRACE TO ATTRIBUTABLE EVIDENCE',
+      title:
+        'Make every engineering decision traceable.\nTurn real outcomes into knowledge.',
       description:
-        'Organize task sources, code relationships, verification requirements, and execution evidence into context agents can use directly.',
+        'Connect tasks, context, decisions, actions, verification, and outcomes in one evidence chain for attribution, reuse, and continuous learning.',
       primaryCta: { label: 'Explore FormSy', href: '#platform' },
       secondaryCta: { label: 'See how it works', href: '#solutions' },
       visual: 'signal',
     },
     {
       id: 'context-to-weights',
-      eyebrow: 'EVIDENCE AFTER EXECUTION',
-      title: 'Turn every real task\ninto reusable knowledge.',
+      eyebrow: 'ASSOCIATION · ATTRIBUTION · EFFECT',
+      title: 'Move from process association\nto validated effects.',
       description:
-        'Connect investigation, decisions, checks, implementation, and outcomes so the next task starts with better evidence.',
+        'Keep evidence, feedback, outcomes, and effects distinct so attribution candidates become knowledge only after controlled validation.',
       primaryCta: { label: 'View the evidence loop', href: '#solutions' },
       secondaryCta: { label: 'Explore capabilities', href: '#assets' },
       visual: 'flywheel',
@@ -119,13 +120,13 @@ export const siteContentEn = {
     {
       index: '02',
       eyebrow: 'VERIFY THE RESULT',
-      title: 'Evidence & Learning',
+      title: 'Causal Evidence & Learning',
       description:
-        'Preserve requirements, investigation, checks, implementation, and outcomes as sourced evidence, then refine real work into reusable experience.',
+        'Organize decisions, actions, evidence, and outcomes for attribution, then refine validated effects into reusable experience.',
       bullets: [
-        'Pytest acceptance contracts, independent review, and freeze',
-        'Isolated verification, runtime inquiry, and complete receipts',
-        'Task Evidence Graph, experience candidates, and recall',
+        'Keep evidence, feedback, outcome, and effect distinct',
+        'Separate process association, attribution candidates, and controlled support',
+        'Causal evidence graphs, experience candidates, and recall',
       ],
       href: '#architecture',
       tone: 'light',
@@ -330,7 +331,7 @@ export const siteContentEn = {
         title: 'Product',
         links: [
           { label: 'Context Compute', href: '#platform' },
-          { label: 'Evidence & Learning', href: '#platform' },
+          { label: 'Causal Evidence & Learning', href: '#platform' },
           { label: 'Capability Map', href: '#assets' },
         ],
       },

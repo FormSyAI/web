@@ -1,7 +1,7 @@
 import { ToolLogo } from '@/components/site/tool-logo';
 import { Boxes, GitBranch, Layers } from 'lucide-react';
 import { useEffect } from 'react';
-import { FormsyBannerArt } from '@/components/site/formsy-banner-art';
+import { CausalEvidenceArt } from '@/components/site/causal-evidence-art';
 import { AppLink } from '@/components/runtime/app-link';
 import { useI18n } from '@/components/i18n/i18n-provider';
 import { AurinovaReferenceFooter } from '@/components/site/aurinova-reference-footer';
@@ -71,13 +71,7 @@ export default function AurinovaReferencePage() {
             </div>
             <div className="fw-hero-visual">
               <div className="fw-hero-motion">
-                <FormsyBannerArt
-                  locale={locale}
-                  variant="verified-work"
-                  alt={content.banners.outcomeAlt}
-                  label={content.banners.outcome}
-                  caption={content.chart.caption}
-                />
+                <CausalEvidenceArt locale={locale} />
               </div>
             </div>
           </div>
