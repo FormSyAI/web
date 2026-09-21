@@ -18,11 +18,11 @@ import {
 import { useI18n } from '@/components/i18n/i18n-provider';
 
 const assetIcons = {
-  TOCS: ScanLine,
-  ACF: Boxes,
-  ARCS: GitBranch,
-  POLICY: ShieldCheck,
-  TRACE: Database,
+  EXPLORE: ScanLine,
+  CONTRACT: ShieldCheck,
+  RELATION: GitBranch,
+  EPISODE: Database,
+  RECALL: Boxes,
 } as const;
 
 export function AssetCarousel() {

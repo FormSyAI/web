@@ -1,17 +1,6 @@
 import { ToolLogo } from '@/components/site/tool-logo';
-import { Button } from '@/components/ui/button';
-
-import {
-  ArrowRight,
-  Boxes,
-  GitBranch,
-  Layers,
-  ShieldCheck,
-  Pause,
-  Play,
-} from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { DeploymentIcon } from '@/components/site/deployment-icon';
+import { Boxes, GitBranch, Layers } from 'lucide-react';
+import { useEffect } from 'react';
 import { FormsyBannerArt } from '@/components/site/formsy-banner-art';
 import { AppLink } from '@/components/runtime/app-link';
 import { useI18n } from '@/components/i18n/i18n-provider';
@@ -44,65 +33,7 @@ function SectionHeading({
 export default function AurinovaReferencePage() {
   const { locale } = useI18n();
   const content = aurinovaReferenceDictionaries[locale];
-  const [heroSlide, setHeroSlide] = useState(0);
-  const [displaySlide, setDisplaySlide] = useState(0);
-  const [slidePhase, setSlidePhase] = useState('idle');
-  const [slideDirection, setSlideDirection] = useState('forward');
-  const displayedSlide = useRef(0);
-  useEffect(() => {
-    let exit: number;
-    let finish: number;
-    const frame = requestAnimationFrame(() => {
-      if (heroSlide === displayedSlide.current) {
-        setSlidePhase('idle');
-        return;
-      }
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        displayedSlide.current = heroSlide;
-        setDisplaySlide(heroSlide);
-        setSlidePhase('idle');
-        return;
-      }
-      setSlideDirection(
-        heroSlide > displayedSlide.current ? 'forward' : 'backward',
-      );
-      setSlidePhase('exit');
-      exit = window.setTimeout(() => {
-        displayedSlide.current = heroSlide;
-        setDisplaySlide(heroSlide);
-        setSlidePhase('enter');
-      }, 220);
-      finish = window.setTimeout(() => setSlidePhase('idle'), 660);
-    });
-    return () => {
-      cancelAnimationFrame(frame);
-      clearTimeout(exit);
-      clearTimeout(finish);
-    };
-  }, [heroSlide]);
-  const [rotationPaused, setRotationPaused] = useState(
-    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  );
-  const [rotationCycle, setRotationCycle] = useState(0);
-  useEffect(() => {
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const schedule = () => {
-      clearTimeout(timer);
-      if (!rotationPaused && !document.hidden) {
-        timer = setTimeout(
-          () => setHeroSlide((slide) => (slide + 1) % 2),
-          6000,
-        );
-      }
-    };
-    schedule();
-    document.addEventListener('visibilitychange', schedule);
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener('visibilitychange', schedule);
-    };
-  }, [rotationPaused, heroSlide, rotationCycle]);
-  const hero = displaySlide === 0 ? content.hero : content.secondHero;
+  const hero = content.hero;
   useEffect(() => {
     document.title = content.ui.pageTitle;
     document
@@ -116,16 +47,8 @@ export default function AurinovaReferencePage() {
       </a>
       <AurinovaReferenceHeader />
       <div id="fw-main">
-        <section
-          className="fw-hero fw-designed-hero"
-          aria-roledescription="carousel"
-          aria-label={content.ui.heroSlides}
-        >
-          <div
-            className="fw-shell fw-hero-grid"
-            data-slide-phase={slidePhase}
-            data-slide-direction={slideDirection}
-          >
+        <section className="fw-hero fw-designed-hero">
+          <div className="fw-shell fw-hero-grid">
             <div className="fw-hero-copy fw-hero-motion">
               <p className="fw-eyebrow">{hero.eyebrow}</p>
               <h1>
@@ -149,57 +72,12 @@ export default function AurinovaReferencePage() {
             <div className="fw-hero-visual">
               <div className="fw-hero-motion">
                 <FormsyBannerArt
-                  key={displaySlide}
                   locale={locale}
-                  variant={
-                    displaySlide === 0 ? 'verified-work' : 'enterprise-learning'
-                  }
-                  alt={
-                    displaySlide === 0
-                      ? content.banners.outcomeAlt
-                      : content.banners.learningAlt
-                  }
-                  label={
-                    displaySlide === 0
-                      ? content.banners.outcome
-                      : content.banners.learning
-                  }
+                  variant="verified-work"
+                  alt={content.banners.outcomeAlt}
+                  label={content.banners.outcome}
                   caption={content.chart.caption}
                 />
-              </div>
-              <div className="fw-hero-dots" aria-label={content.ui.heroSlides}>
-                {[content.ui.showTaskSlide, content.ui.showLearningSlide].map(
-                  (label, i) => (
-                    <Button
-                      variant="brand"
-                      key={label}
-                      type="button"
-                      aria-label={label}
-                      aria-pressed={heroSlide === i}
-                      onClick={() => {
-                        setHeroSlide(i);
-                        setRotationCycle((cycle) => cycle + 1);
-                      }}
-                    />
-                  ),
-                )}
-                <Button
-                  variant="brand"
-                  type="button"
-                  className="fw-rotation-toggle"
-                  aria-label={
-                    locale === 'zh-CN'
-                      ? rotationPaused
-                        ? '播放轮播'
-                        : '暂停轮播'
-                      : rotationPaused
-                        ? 'Play slideshow'
-                        : 'Pause slideshow'
-                  }
-                  onClick={() => setRotationPaused((paused) => !paused)}
-                >
-                  {rotationPaused ? <Play size={14} /> : <Pause size={14} />}
-                </Button>
               </div>
             </div>
           </div>
@@ -308,127 +186,11 @@ export default function AurinovaReferencePage() {
             ))}
           </ol>
         </section>
-        <section className="fw-models" id="models-deployment">
-          <div className="fw-shell fw-bordered-shell">
-            <SectionHeading {...content.models} />
-            <div className="fw-deployment-grid">
-              {content.models.items.map((item, i) => (
-                <article
-                  className="fw-model-card fw-deployment-card"
-                  id={item.id}
-                  key={item.id}
-                >
-                  <div className="fw-model-top">
-                    <DeploymentIcon id={item.id} />
-                    <em>0{i + 1}</em>
-                  </div>
-                  <h3>{item.name}</h3>
-                  <p>{item.description}</p>
-                  <span className="fw-deployment-tag">{item.tag}</span>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section className="fw-customers" id="solutions">
-          <div className="fw-shell fw-bordered-shell">
-            <SectionHeading {...content.scenarios} />
-          </div>
-          <div className="fw-shell fw-scenario-grid">
-            {content.scenarios.items.map((item, i) => (
-              <article
-                className="fw-customer-card fw-scenario-card"
-                id={item.id}
-                key={item.id}
-              >
-                <span className="fw-eyebrow">
-                  0{i + 1} / {item.audience}
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.problem}</p>
-                <div>
-                  <small>{content.ui.delivery}</small>
-                  <p>{item.delivery}</p>
-                </div>
-                <footer>
-                  <ShieldCheck size={24} />
-                  <span>
-                    <strong>{content.ui.evaluation}</strong>
-                    <small>{item.evaluation}</small>
-                  </span>
-                </footer>
-              </article>
-            ))}
-          </div>
-        </section>
-        <section className="fw-evaluation fw-shell" id="evaluation">
-          <SectionHeading {...content.evaluation} />
-          <div className="fw-evaluation-grid">
-            {content.evaluation.items.map((item, i) => (
-              <article key={item.title}>
-                <span>0{i + 1}</span>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </article>
-            ))}
-          </div>
-          <AppLink
-            className="fw-inline-link"
-            href={content.evaluation.link.href}
-          >
-            {content.evaluation.link.label}
-            <ArrowRight size={17} />
-          </AppLink>
-        </section>
-        <section className="fw-updates" id="resources">
-          <div className="fw-shell fw-bordered-shell">
-            <div className="fw-update-heading">
-              <SectionHeading {...content.resources} />
-            </div>
-            <div className="fw-update-grid">
-              {content.resources.items.map((item, i) => (
-                <article className="fw-update-card" id={item.id} key={item.id}>
-                  <div className="fw-update-meta">
-                    <span>0{i + 1}</span>
-                    <span>{item.type}</span>
-                  </div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <div
-                    className="fw-update-image fw-resource-diagram"
-                    aria-hidden="true"
-                  >
-                    {item.visual.map((label, i) => (
-                      <span key={label}>
-                        <small>0{i + 1}</small>
-                        {label}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="fw-update-body">
-                    <p>{item.body}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
         <section className="fw-cta" id="engagement">
           <div className="fw-cta-grid" aria-hidden="true" />
           <div className="fw-shell">
             <h2>{content.engagement.title}</h2>
             <p>{content.engagement.description}</p>
-            <div className="fw-engagement-options">
-              {content.engagement.plans.map((plan) => (
-                <AppLink
-                  href={`/aurinova-reference/pricing#${plan.id}`}
-                  key={plan.id}
-                >
-                  {plan.title}
-                  <ArrowRight size={18} />
-                </AppLink>
-              ))}
-            </div>
             <div className="fw-actions">
               <AppLink
                 className="fw-light-button"
@@ -442,17 +204,6 @@ export default function AurinovaReferencePage() {
               >
                 {content.engagement.secondary.label}
               </AppLink>
-            </div>
-            <div className="fw-pilot-process" id="pilot-process">
-              <h3>{content.engagement.processTitle}</h3>
-              <ol>
-                {content.engagement.process.map((step, i) => (
-                  <li key={step}>
-                    <span>0{i + 1}</span>
-                    {step}
-                  </li>
-                ))}
-              </ol>
             </div>
           </div>
         </section>

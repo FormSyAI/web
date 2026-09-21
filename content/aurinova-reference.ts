@@ -310,52 +310,36 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
   const navigation = [
     {
       label: t('产品', 'Product'),
+      href: anchor('overview'),
+    },
+    {
+      label: t('能力', 'Capabilities'),
       href: anchor('platform'),
-      menuKey: 'Product' as const,
     },
     {
-      label: t('解决方案', 'Solutions'),
-      href: anchor('solutions'),
-      menuKey: 'Solutions' as const,
+      label: t('工作方式', 'How it works'),
+      href: anchor('learning-loop'),
     },
     {
-      label: t('模型与部署', 'Models & deployment'),
-      href: anchor('models-deployment'),
-      menuKey: 'Models' as const,
-    },
-    { label: t('方案与定价', 'Plans & pricing'), href: `${home}/pricing` },
-    {
-      label: t('资源', 'Resources'),
-      href: anchor('resources'),
-      menuKey: 'Resources' as const,
+      label: t('联系我们', 'Contact'),
+      href: anchor('engagement'),
     },
   ];
   const footer = [
     {
       title: t('产品', 'Product'),
-      links: productLinks.map((x) => [x.label, x.href] as const),
+      links: [
+        [t('产品概览', 'Overview'), anchor('overview')],
+        ['Context Compute', anchor('context-compute')],
+        ['Evidence & Learning', anchor('evidence-learning')],
+      ] as const,
     },
     {
-      title: t('模型与部署', 'Models & deployment'),
-      links: deployments
-        .slice(0, 5)
-        .map((x) => [x.name, anchor(x.id)] as const),
-    },
-    {
-      title: t('解决方案', 'Solutions'),
-      links: scenarios.map((x) => [x.title, anchor(x.id)] as const),
-    },
-    {
-      title: t('资源', 'Resources'),
-      links: resources.map((x) => [x.title, anchor(x.id)] as const),
-    },
-    {
-      title: t('公司与合作', 'Company'),
+      title: t('AURINOVA', 'AURINOVA'),
       links: [
         [t('关于 AURINOVA', 'About AURINOVA'), anchor('about')],
-        [t('合作方式', 'Engagement options'), anchor('engagement')],
-        [t('试点流程', 'Pilot process'), anchor('pilot-process')],
-      ],
+        [t('联系我们', 'Contact'), anchor('engagement')],
+      ] as const,
     },
   ];
   return {
@@ -366,12 +350,12 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
     },
     ui: {
       pageTitle: t(
-        'AURINOVA · FormSy 企业智能平台',
-        'AURINOVA · FormSy enterprise intelligence',
+        'FormSy · 任务上下文与证据平台',
+        'FormSy · Task context and evidence',
       ),
       pageDescription: t(
-        'FormSy 连接企业知识、Agent 与模型服务，让软件工程任务可验证，让执行经验沉淀为企业智能资产。',
-        'FormSy connects enterprise knowledge, agents and model services to make engineering tasks verifiable and retain useful experience.',
+        'FormSy 为 Coding Agent 组织任务上下文、源码证据与验证要求，并从真实任务中沉淀可复用知识。',
+        'FormSy organizes task context, source evidence, and verification requirements for coding agents, then turns real work into reusable knowledge.',
       ),
       switchLanguage: t('切换到英文', 'Switch to Chinese'),
       alternateLocaleName: t('EN', '中文'),
@@ -403,8 +387,8 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       ),
       featuredResources: t('精选资料', 'Featured resources'),
       copyright: t('© 2026 AURINOVA · 锦曜新宸科技', '© 2026 AURINOVA'),
-      currentSite: t('技术架构', 'Technical architecture'),
-      officialSource: t('合作方式', 'Engagement options'),
+      currentSite: t('产品概览', 'Product overview'),
+      officialSource: t('联系我们', 'Contact'),
       previous: t('上一组', 'Previous cards'),
       next: t('下一组', 'Next cards'),
       heroSlides: t('首屏轮播', 'Hero slides'),
@@ -504,7 +488,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       },
       secondary: {
         label: originalHero[0].secondaryCta.label,
-        href: anchor('resource-architecture'),
+        href: anchor('overview'),
       },
     },
     secondHero: {
@@ -518,17 +502,17 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       },
       secondary: {
         label: originalHero[1].secondaryCta.label,
-        href: anchor('evaluation'),
+        href: anchor('platform'),
       },
     },
     banners: {
       outcome: t(
-        '更高任务完成率，更低成功任务成本',
-        'Higher task success. Lower cost per verified task.',
+        '从任务上下文，到可验证结果',
+        'From task context to verifiable results.',
       ),
       learning: t(
-        '每一次真实工作，沉淀为企业智能资产',
-        'Turn real work into enterprise intelligence assets.',
+        '每一次真实任务，都留下可复用知识',
+        'Turn every real task into reusable knowledge.',
       ),
       outcomeAlt: t(
         '同一画布中的蓝金像素柱图：蓝色任务完成率逐步上升，金色成功任务成本逐步下降；下方连接上下文、执行和验证。',
@@ -543,10 +527,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       caption: t('概念示意 · 非实测数据', 'Illustration · not measured data'),
     },
     ecosystem: {
-      title: t(
-        '连接现有工具与基础设施',
-        'Connect existing tools and infrastructure',
-      ),
+      title: t('融入现有开发工作流', 'Fits into the tools teams already use'),
       note: t(
         '架构接入示例；具体适配范围按项目确认。',
         'Architecture integration examples; compatibility is confirmed for each project.',
@@ -560,8 +541,8 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
         'Git',
         'CI / CD',
         'Jira',
-        'Kubernetes',
-        'SGLang',
+        'Pytest',
+        'GitHub',
       ],
     },
     overview: {
@@ -571,8 +552,8 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
         'Give every engineering task an executable, verifiable workflow',
       ),
       description: t(
-        'FormSy 位于 Agent、模型与企业系统之间，把任务目标、上下文和验证要求连接起来，并保留过程证据。',
-        'FormSy connects agents, models and enterprise systems with task goals, context and verification requirements, retaining evidence along the way.',
+        'FormSy 把任务来源、相关代码、验收要求与执行证据连接起来，让 Agent 从可核对的上下文开始工作。',
+        'FormSy connects task sources, relevant code, acceptance requirements, and execution evidence so agents start from inspectable context.',
       ),
       steps: [
         t(
@@ -588,26 +569,21 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
           'OUTPUT: Patches, completion status and evidence reports',
         ),
       ],
-      architecture: [
-        'AGENT / IDE',
-        'CONTEXT PLATFORM',
-        'AI RUNTIME',
-        'MODELS & COMPUTE',
-      ],
+      architecture: ['AGENT / IDE', 'TASK CONTEXT', 'EVIDENCE & KNOWLEDGE'],
       footnote: t(
-        '企业 Edge 管理上下文与任务，推理运行层连接模型和算力。',
-        'The enterprise edge manages context and tasks; the inference runtime connects models and compute.',
+        '理解任务，核对源码，验证结果，沉淀经验。',
+        'Understand the task, inspect the source, verify the result, retain the learning.',
       ),
     },
     platform: {
-      eyebrow: 'TWO CONNECTED CAPABILITIES',
+      eyebrow: 'ONE CONTINUOUS TASK FLOW',
       title: t(
-        '上下文与算力，共同服务于有效工程产出',
-        'Context and compute, aligned with useful engineering work',
+        '先理解，再行动；完成之后，留下证据',
+        'Understand first. Act with evidence. Learn from the result.',
       ),
       description: t(
-        '以 Context Compute 提升模型的有效智能，以 Workload Intelligence 管理每个成功任务的资源开销。',
-        'Improve effective model intelligence through Context Compute and manage resources per verified task through Workload Intelligence.',
+        'FormSy 用同一条任务链连接上下文计算、结果验证与经验沉淀。',
+        'FormSy connects context computation, result verification, and reusable learning in one task flow.',
       ),
       pillars: [
         {
@@ -621,50 +597,46 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
           ),
           modes: [
             t(
-              'Runtime：维护任务状态、证据与下一步动作',
-              'Runtime: maintain task state, evidence and next actions',
+              '围绕当前任务定位相关源码与关系',
+              'Locate source and relationships for the task at hand',
             ),
             t(
-              'Builder：接入代码、文档、CI 与执行轨迹',
-              'Builder: connect code, documentation, CI and execution traces',
+              '绑定任务来源、代码版本与上下文',
+              'Bind task source, code revision, and context',
             ),
             t(
-              'Warehouse：治理记忆、规范、技能与策略',
-              'Warehouse: govern memory, contracts, skills and policies',
+              '按需投影、分页交付并保留回执',
+              'Project and deliver context with paging and receipts',
             ),
           ],
           primary: link('查看任务工作流', 'Explore the workflow', 'overview'),
           secondary: link('了解学习闭环', 'Learning loop', 'learning-loop'),
         },
         {
-          id: 'workload-intelligence',
+          id: 'evidence-learning',
           index: '02',
-          audience: 'TASK-AWARE INFRASTRUCTURE',
-          name: 'Workload Intelligence',
+          audience: 'VERIFIABLE OUTCOMES',
+          name: 'Evidence & Learning',
           description: t(
-            '将模型与算力调度连接到任务结果。',
-            'Connect model and compute scheduling to task outcomes.',
+            '让要求、检查、实现与结果可以追溯，并从真实任务中提炼可复用经验。',
+            'Make requirements, checks, implementation, and outcomes traceable, then refine real work into reusable experience.',
           ),
           modes: [
             t(
-              '任务路由：选择模型、容量与上下文策略',
-              'Task routing: select models, capacity and context strategies',
+              '把任务要求编译成可执行的验收检查',
+              'Compile task requirements into executable acceptance checks',
             ),
             t(
-              'AI Gateway：组织鉴权、配额、计费与可观测性',
-              'AI Gateway: organize authentication, quotas, billing and observability',
+              '用隔离验证与运行期调查核对结果',
+              'Verify results through isolated checks and runtime inquiry',
             ),
             t(
-              'Inference Runtime：管理模型生命周期与弹性推理',
-              'Inference Runtime: manage model lifecycle and elastic inference',
+              '连接证据、经验与后续任务的知识召回',
+              'Connect evidence, experience, and recall for future tasks',
             ),
           ],
-          primary: link(
-            '查看部署选择',
-            'Explore deployment',
-            'models-deployment',
-          ),
-          secondary: link('查看合作方式', 'Engagement options', 'engagement'),
+          primary: link('查看工作方式', 'See how it works', 'learning-loop'),
+          secondary: link('联系我们', 'Contact', 'engagement'),
         },
       ],
     },
@@ -675,8 +647,8 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
         'The task ends. Experience keeps growing.',
       ),
       description: t(
-        '动态知识留在上下文，稳定流程进入策略与技能。可重复、可评测的专业能力，再选择性进入模型适配流程。',
-        'Keep dynamic knowledge in context and stable workflows in policies and skills. Repeatable, measurable capabilities may then enter model adaptation.',
+        '把任务来源、调查、检查、实现与结果连接起来，让经过验证的经验服务于下一次工作。',
+        'Connect task sources, investigation, checks, implementation, and outcomes so verified experience can support the next task.',
       ),
       steps: learningSteps,
     },
@@ -750,17 +722,13 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
         'Start with one real task. Build an enterprise learning loop.',
       ),
       description: t(
-        '围绕代码库、工作负载与部署要求，共同定义验证目标和交付范围。',
-        'Define evaluation goals and delivery scope around your repositories, workloads and deployment requirements.',
+        '从一个真实工程任务开始，看看更好的上下文与证据如何改变 Agent 的工作。',
+        'Start with one real engineering task and see how better context and evidence change agent work.',
       ),
       plans,
-      primary: link(
-        '了解试点流程',
-        'Explore the pilot process',
-        'pilot-process',
-      ),
+      primary: link('开始体验', 'Get started', 'overview'),
       secondary: {
-        label: t('比较合作方案', 'Compare engagement options'),
+        label: t('联系我们', 'Contact us'),
         href: `${home}/pricing`,
       },
       processTitle: t('试点如何开始', 'How a pilot starts'),
@@ -774,8 +742,8 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
     about: {
       title: t('关于 AURINOVA', 'About AURINOVA'),
       description: t(
-        'AURINOVA 聚焦企业 AI 的上下文、运行与持续学习能力，通过 FormSy 连接真实工作与企业智能资产。',
-        'AURINOVA focuses on context, runtime and continuous learning for enterprise AI. FormSy connects real work to enterprise intelligence assets.',
+        'AURINOVA 通过 FormSy 连接真实工程任务、可验证结果与持续积累的知识。',
+        'AURINOVA connects real engineering tasks, verifiable outcomes, and accumulating knowledge through FormSy.',
       ),
     },
     footer,
