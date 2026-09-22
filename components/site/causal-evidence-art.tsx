@@ -33,7 +33,7 @@ const stages = [
 
 const CUBE_STOPS = [125, 375, 625, 875] as const;
 const ENTRY_X = -125;
-const CUBE_CENTER_Y = 103;
+const CUBE_CENTER_Y = 84;
 const ENTRY_DELAY_MS = 900;
 const STEP_DURATION_MS = 1600;
 const TRAVEL_DURATION_MS = 950;
@@ -317,7 +317,7 @@ export function CausalEvidenceArt({ locale }: { locale: Locale }) {
       <svg
         ref={stageRef}
         className="fw-causal-cube-stage"
-        viewBox="0 0 1000 245"
+        viewBox="0 0 1000 228"
         aria-hidden="true"
       >
         <defs>
@@ -348,7 +348,7 @@ export function CausalEvidenceArt({ locale }: { locale: Locale }) {
 
           return (
             <g key={stage.code} className="fw-cube-stage" aria-hidden="true">
-              <text className="fw-cube-code" x={x} y="18" textAnchor="middle">
+              <text className="fw-cube-code" x={x} y="30" textAnchor="middle">
                 {stage.code}
               </text>
               {index === CUBE_STOPS.length - 1 ? (
@@ -360,10 +360,10 @@ export function CausalEvidenceArt({ locale }: { locale: Locale }) {
                   {cubeFaces('fw-wire-cube-faces')}
                 </g>
               )}
-              <text className="fw-cube-title" x={x} y="181" textAnchor="middle">
+              <text className="fw-cube-title" x={x} y="190" textAnchor="middle">
                 {isZh ? stage.zh : stage.en}
               </text>
-              <text className="fw-cube-detail" x={x} y="209" textAnchor="middle">
+              <text className="fw-cube-detail" x={x} y="214" textAnchor="middle">
                 {stage.detail}
               </text>
             </g>

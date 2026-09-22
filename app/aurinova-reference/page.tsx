@@ -54,7 +54,6 @@ export default function AurinovaReferencePage() {
           <section className="fw-hero">
             <div className="fw-shell fw-hero-grid">
               <div className="fw-hero-copy fw-hero-motion">
-                <p className="fw-eyebrow">{hero.eyebrow}</p>
                 <h1>
                   {hero.lines.map((line) => (
                     <span key={line}>{line}</span>
