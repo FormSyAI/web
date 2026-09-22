@@ -2,6 +2,56 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/noto-sans-sc-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/noto-sans-sc-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/noto-sans-sc-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/noto-serif-sc-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: Lora;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/lora-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: Lora;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/lora-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: Lora;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/lora-700.woff2') format('woff2');
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -47,7 +97,8 @@
   --border-control-hover: #b7cce7;
   --text-action-hover: #235995;
   --primary-hover: #245d9e;
-  --font-geist-sans: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-geist-sans: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-display: Lora, 'Noto Serif SC', 'Songti SC', 'STSong', Georgia, serif;
   --font-geist-mono: 'SFMono-Regular', Consolas, monospace;
   --shell-product: 1320px;
   --anchor-offset: 130px;

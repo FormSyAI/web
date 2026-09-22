@@ -639,10 +639,6 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
             ),
           },
         ],
-        caption: t(
-          'FROM RAW CONTEXT TO REUSABLE INTELLIGENCE',
-          'FROM RAW CONTEXT TO REUSABLE INTELLIGENCE',
-        ),
       },
     },
     platform: {
@@ -729,7 +725,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
             detail: t('领域能力', 'Domain capability'),
           },
           {
-            icon: 'cube',
+            icon: 'evolve',
             title: t('持续进化的', 'Continuously evolving'),
             detail: t('企业智能', 'Enterprise intelligence'),
           },
@@ -737,7 +733,6 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       },
     },
     learning: {
-      eyebrow: 'THE CAUSAL EVIDENCE LOOP',
       title: t(
         '从一次任务，形成可复用的因果证据',
         'Turn one task into reusable causal evidence',

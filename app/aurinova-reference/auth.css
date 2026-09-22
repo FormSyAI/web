@@ -1426,6 +1426,18 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   }
 }
 
+.auth-brand-content h2,
+.auth-panel-content > h1,
+.auth-success h1,
+.auth-legal-content h1,
+.auth-docs-content > h1,
+.auth-docs-content h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
 .auth-demo-link {
   display: block;
   margin-top: 10px;

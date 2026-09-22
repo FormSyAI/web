@@ -1827,19 +1827,19 @@
   background-size: contain;
 }
 .fw-learning-steps li:nth-child(1) .fw-learning-illustration {
-  background-image: url('/illustrations/learning/eval-contract.png?v=4');
+  background-image: url('/icons/unordered-list.svg');
 }
 .fw-learning-steps li:nth-child(2) .fw-learning-illustration {
-  background-image: url('/illustrations/learning/context-packet.png?v=4');
+  background-image: url('/icons/nodes-2.svg');
 }
 .fw-learning-steps li:nth-child(3) .fw-learning-illustration {
-  background-image: url('/illustrations/learning/agent-run.png?v=4');
+  background-image: url('/icons/file-search.svg');
 }
 .fw-learning-steps li:nth-child(4) .fw-learning-illustration {
-  background-image: url('/illustrations/learning/verify-feedback.png?v=4');
+  background-image: url('/icons/shield.svg');
 }
 .fw-learning-steps li:nth-child(5) .fw-learning-illustration {
-  background-image: url('/illustrations/learning/reusable-assets.png?v=4');
+  background-image: url('/icons/book.svg');
 }
 .fw-learning .fw-section-heading > span {
   max-width: 820px;
@@ -2497,7 +2497,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 26px 20px 24px;
+  padding: 52px 20px 24px;
   border: 1px solid rgb(141 184 227 / 28%);
   border-radius: 0;
   background: rgb(7 28 52 / 88%);
@@ -2505,8 +2505,8 @@
   text-align: center;
 }
 .fw-domain-card img {
-  width: min(100%, 160px);
-  height: 170px;
+  width: min(100%, 118px);
+  height: 126px;
   object-fit: contain;
 }
 .fw-domain-card h3 {
@@ -2584,14 +2584,6 @@
   font-weight: 650;
   line-height: 1.35;
   text-align: center;
-}
-.fw-domain-rail-item:nth-child(2) strong {
-  color: #ddd4ff;
-  background: #241c42;
-}
-.fw-domain-rail-item:nth-child(3) strong {
-  color: #b7f3f0;
-  background: #0e2e32;
 }
 .fw-data-domains-caption {
   grid-column: 1 / -1;
@@ -2691,10 +2683,10 @@
   }
   .fw-domain-card {
     min-height: 318px;
-    padding-top: 20px;
+    padding-top: 40px;
   }
   .fw-domain-card img {
-    height: 148px;
+    height: 108px;
   }
   .fw-domain-arrow {
     top: auto;
@@ -3533,7 +3525,7 @@
 .fw-context-compute-copy h2 {
   margin: 26px 0 0;
   color: #eff6ff;
-  font-size: clamp(52px, 5.1vw, 76px);
+  font-size: clamp(44px, 4.5vw, 64px);
   font-weight: 720;
   line-height: 0.98;
   letter-spacing: -0.065em;
@@ -3932,4 +3924,20 @@
     font-size: 9px;
     letter-spacing: 0.12em;
   }
+}
+
+.fw-hero h1,
+.fw-gtc h2,
+.fw-section-heading h2,
+.fw-data-domains h2,
+.fw-context-compute-copy h2,
+.fw-cta h2,
+.fw-about h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.fw-data-domains h2,
+.fw-context-compute-copy h2 {
+  line-height: 1.15;
 }

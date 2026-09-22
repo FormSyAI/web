@@ -5,11 +5,11 @@ type BannerShaderProps = {
 };
 
 /*
- * Adapted from the copyable WebGL source published at:
- * https://openshaders.com/@lcooood
+ * Nova burst for the AURINOVA banner.
  *
- * The two-pass pipeline is kept local to the site: a warped colour field is
- * rendered first, then converted into a denser rectangular glyph treatment.
+ * The field pass paints an ignition: a gold-white core, a faint shock
+ * wash, and coronal filaments that surge outward and pull back. A second
+ * pass keeps the site's rectangular glyph grain.
  */
 const VERTEX_SHADER = `#version 300 es
 void main() {
@@ -26,53 +26,40 @@ uniform float iTime;
 uniform vec3 uDarkBackground;
 out vec4 fragColor;
 
-const float HUE = 0.784962595;
-const float HUE_SPREAD = -0.185845569;
-const float HUE_TRAVEL = 1.83426464;
-const float CHROMA = 0.13627468;
-const float LIGHTNESS = 0.616213441;
-const float COLOUR_CYCLE = 0.106183872;
-const float THETA = 2.1189847;
-const float SHEAR = 0.963287175;
-const float SHRINK = 0.958471835;
-const float LAYERS = 93.0;
-const float WARP_FREQ_X = 0.410834283;
-const float WARP_FREQ_Y = 2.73448634;
-const float WARP_AMP_X = 0.122415952;
-const float WARP_AMP_Y = 0.0307484511;
-const float ASPECT_X = 2.4587791;
-const float ASPECT_Y = 0.137313738;
-const float OFFSET_X = 0.307960659;
-const float OFFSET_Y = 0.0591536984;
-const float TILT = -1.44359934;
-const float ZOOM = 1.19593573;
-const float CENTRE_X = 0.039739456;
-const float CENTRE_Y = -0.510607064;
-const float GLOW_SIZE = 0.00144975947;
-const float HIGHLIGHT_DIM = 0.22;
-const float FALLOFF = 0.456030816;
-const float VIGNETTE = 0.0562364906;
-const float FLOW_SPEED = 0.350565672;
-const float FLOW_DIRECTION = -1.0;
-const float BREATH_RATE = 0.396597177;
-const float BREATH_AMOUNT = 0.0968502313;
-const float PHASE = 48.095047;
-const float ECHO = 0.0;
-const float ECHO_SHIFT = -0.172911301;
-const float SOFTNESS = 0.00120062532;
-const float LIGHT_SWING = 0.15078932;
-const float TAU = 6.28318530718;
+const float CYCLE = 10.5;
+const vec3 GOLD = vec3(1.18, 0.78, 0.30);
+const vec3 HOT = vec3(1.28, 1.14, 0.92);
+const vec3 ICE = vec3(0.46, 0.76, 1.2);
+const vec3 DEEP = vec3(0.10, 0.30, 0.64);
 
-vec3 oklchToLinear(float L, float C, float h) {
-  float a = C * cos(h), b = C * sin(h);
-  float l_ = L + 0.3963377774 * a + 0.2158037573 * b;
-  float m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-  float s_ = L - 0.0894841775 * a - 1.2914855480 * b;
-  vec3 lms = vec3(l_, m_, s_);
-  lms = lms * lms * lms;
-  return mat3(4.0767416621, -1.2684380046, -0.0041960863,
-              -3.3077115913, 2.6097574011, -0.7034186147,
-              0.2309699292, -0.3413193965, 1.7076147010) * lms;
+float hash11(float n) {
+  return fract(sin(n * 127.1) * 43758.5453);
+}
+
+float hash21(vec2 p) {
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  f = f * f * (3.0 - 2.0 * f);
+  float a = hash21(i);
+  float b = hash21(i + vec2(1.0, 0.0));
+  float c = hash21(i + vec2(0.0, 1.0));
+  float d = hash21(i + vec2(1.0, 1.0));
+  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+float fbm(vec2 p) {
+  float value = 0.0;
+  float amplitude = 0.5;
+  for (int i = 0; i < 3; i++) {
+    value += amplitude * noise(p);
+    p = mat2(0.8, 0.6, -0.6, 0.8) * p * 2.02;
+    amplitude *= 0.5;
+  }
+  return value;
 }
 
 float blueNoise(vec2 p, float frame) {
@@ -80,49 +67,92 @@ float blueNoise(vec2 p, float frame) {
   return fract(52.9829189 * fract(0.06711056 * p.x + 0.00583715 * p.y));
 }
 
+// A wide, broken wash. No hard crest, so the blast never draws a circle.
+vec3 shockShell(float r, float ang, float age) {
+  float radius = 0.08 + age * 0.09;
+  float delta = r - radius;
+  float fade = exp(-age * 0.28) * smoothstep(0.0, 0.4, age);
+  float wash = exp(-pow(delta / 0.11, 2.0));
+  float broken = pow(0.5 + 0.5 * sin(ang * 7.0 + age * 0.6), 1.4);
+  broken *= 0.25 + 0.75 * pow(abs(sin(ang * 15.0 - age * 0.35)), 0.8);
+  return mix(GOLD, ICE, 0.45) * wash * fade * 0.16 * broken;
+}
+
+const float BURST = 4.8;
+
+// Fast surge, slow retract. Peaks just after ignition.
+float burstEnvelope(float t) {
+  float phase = fract(t / BURST);
+  float rise = smoothstep(0.0, 0.14, phase);
+  float fall = 1.0 - smoothstep(0.16, 1.0, phase);
+  return min(rise, fall);
+}
+
+float burstRays(float ang, float r, float t) {
+  const float count = 26.0;
+  float sector = (ang + 3.14159265) * count / 6.2831853;
+  float id = floor(sector);
+  float local = fract(sector) - 0.5;
+  float seed = hash11(id + 4.2);
+  float width = 0.026 + seed * 0.018;
+  float line = exp(-pow(local / width, 2.0));
+  // Three waves a third of a cycle apart. Inner rays stay short and
+  // snap back; outer rays leave later and reach farther.
+  float wave = floor(seed * 3.0);
+  float phase = fract(t / BURST + wave * 0.33);
+  float rise = smoothstep(0.0, 0.07 + wave * 0.08, phase);
+  float fall = 1.0 - smoothstep(0.12 + wave * 0.04, 0.42 + wave * 0.22, phase);
+  float envelope = min(rise, fall);
+  float layerReach = 0.22 + wave * 0.36 + fract(seed * 5.0) * 0.1;
+  float reach = 1.0 - smoothstep(0.05, 0.09 + envelope * layerReach, r);
+  float heat = 1.0 - wave * 0.16;
+  return line * reach * (0.16 + 0.84 * envelope) * heat;
+}
+
 void main() {
-  vec2 R = iResolution.xy;
-  vec2 pos = (gl_FragCoord.xy - 0.5 * R) / R.y;
-  float t = iTime * FLOW_SPEED * FLOW_DIRECTION + PHASE;
-  float breath = (-sin(iTime * BREATH_RATE * 1.5) + sin(iTime * BREATH_RATE + 1.0)) * 0.25 + 0.5;
+  vec2 resolution = iResolution.xy;
+  vec2 pos = (gl_FragCoord.xy - 0.5 * resolution) / resolution.y;
+  // Ignition sits on the product diagram, so the shell opens around it.
+  vec2 p = pos - vec2(0.0, -0.1);
+  float r = length(p);
+  float ang = atan(p.y, p.x);
+  float t = iTime + 1.6;
+  float ageA = mod(t, CYCLE);
+  float ageB = mod(t + CYCLE * 0.5, CYCLE);
+  float envelope = burstEnvelope(t);
+  float pulse = 0.92 + 0.08 * sin(t * 1.5);
 
-  vec2 u = (pos - vec2(CENTRE_X, CENTRE_Y)) * (ZOOM - breath * BREATH_AMOUNT);
-  float ct = cos(TILT), st = sin(TILT);
-  u = mat2(ct, st, -st, ct) * u;
-  mat2 fold = mat2(cos(THETA), sin(THETA), -SHEAR, cos(THETA));
+  vec3 glow = vec3(0.0);
 
-  float hue0 = HUE * TAU;
-  float hue1 = hue0 + HUE_SPREAD * TAU;
-  vec3 color = vec3(0.0);
+  vec2 nebulaCoord = p * 1.8 + vec2(t * 0.02, -t * 0.015);
+  float nebula = fbm(nebulaCoord);
+  nebula = smoothstep(0.48, 0.9, nebula) * exp(-r * 1.8);
+  glow += DEEP * nebula * 0.07;
 
-  for (float i = 1.0; i <= LAYERS; i += 1.0) {
-    u.x += -sin(u.y * WARP_FREQ_X + t + i * 0.007) * WARP_AMP_X;
-    u.y += -sin(u.x * WARP_FREQ_Y - t + i * 0.02) * WARP_AMP_Y;
-    u = fold * u * SHRINK;
+  float core = exp(-pow(r / 0.055, 2.0)) * pulse;
+  glow += HOT * core * (0.65 + envelope * 1.05);
+  glow += GOLD * exp(-pow(r / 0.11, 2.0)) * (0.16 + envelope * 0.5);
 
-    vec2 q = u - vec2(OFFSET_X + breath * 0.1, OFFSET_Y);
-    vec2 s = vec2(q.x * ASPECT_X, q.y * ASPECT_Y);
-    float glow = GLOW_SIZE / (dot(s, s) + SOFTNESS);
-#ifndef SKIP_ECHO
-    vec2 e = vec2((q.x - ECHO_SHIFT) * ASPECT_X, s.y);
-    glow += ECHO * GLOW_SIZE / (dot(e, e) + SOFTNESS);
-#endif
-    glow *= 0.25 + breath * 0.4;
+  float spikes = pow(abs(cos(ang * 8.0)), 48.0) * exp(-r * 11.0);
+  glow += HOT * spikes * (0.15 + envelope * 0.4);
 
-    float r = length(u);
-    float k = sin(i * COLOUR_CYCLE + t * 1.2 + r * HUE_TRAVEL) * 0.5 + 0.5;
-    vec3 tint = clamp(oklchToLinear(LIGHTNESS + LIGHT_SWING * k, CHROMA * (0.75 + 0.35 * k), mix(hue0, hue1, k)), 0.0, 1.0);
-    color += glow * tint * exp2(-r * FALLOFF);
-  }
+  float rays = burstRays(ang, r, t);
+  glow += mix(GOLD, ICE, smoothstep(0.1, 0.85, r)) * rays * 0.9;
 
-  vec3 x = max(color, 0.0);
-  color = (x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14);
-  color = pow(clamp(color, 0.0, 1.0), vec3(0.85, 0.92, 0.98));
-  float peak = max(color.r, max(color.g, color.b));
-  color *= 1.0 - smoothstep(0.42, 0.92, peak) * HIGHLIGHT_DIM;
-  float edge = smoothstep(0.5, 1.6, length(pos));
-  color *= 1.0 - edge * VIGNETTE;
-  color = uDarkBackground + color * (1.0 - uDarkBackground);
+  glow += shockShell(r, ang, ageA) * (0.35 + envelope * 0.65);
+  glow += shockShell(r, ang, ageB) * 0.2;
+
+  // The headline and lead sit in the upper middle. Darken that pocket
+  // and leave the shell bright toward the sides and around the diagram.
+  float pocket = smoothstep(0.0, 0.2, pos.y)
+    * (1.0 - smoothstep(0.18, 0.58, abs(pos.x)));
+  glow *= 1.0 - pocket * 0.72;
+
+  vec3 x = max(glow, 0.0);
+  glow = (x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14);
+  glow = pow(clamp(glow, 0.0, 1.0), vec3(0.94, 0.98, 1.05));
+  glow *= 1.0 - smoothstep(0.9, 1.45, r) * 0.82;
+  vec3 color = uDarkBackground + glow * (1.0 - uDarkBackground);
   color += (blueNoise(gl_FragCoord.xy, floor(iTime * 24.0)) - 0.5) / 255.0;
   fragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
 }
@@ -138,8 +168,8 @@ uniform vec3 uDarkBackground;
 uniform float uPixelRatio;
 out vec4 fragColor;
 
-const float uStrength = 1.2343297;
-const float uScale = 0.93;
+const float uStrength = 1.05;
+const float uScale = 0.76;
 const float uGlyphCount = 10.0;
 const vec3 LUMA = vec3(0.2126, 0.7152, 0.0722);
 
@@ -158,18 +188,21 @@ vec3 ascii(vec2 frag) {
   ink += sceneInk((centre + cellPx * vec2(0.3, -0.3)) / iResolution);
   ink += sceneInk((centre + cellPx * vec2(-0.3, -0.3)) / iResolution);
   ink /= 6.0;
-  float level = pow(clamp(dot(ink, LUMA) * (0.9 + 0.3 * uStrength), 0.0, 1.0), 0.9);
+  float luma = dot(ink, LUMA);
+  float presence = smoothstep(0.04, 0.12, luma);
+  float level = pow(clamp(luma * (0.9 + 0.3 * uStrength), 0.0, 1.0), 0.9);
   float glyph = floor(level * (uGlyphCount - 1.0) + 0.5);
   vec2 local = (frag - cell * cellPx) / cellPx;
   vec2 atlas = vec2((glyph + local.x) / uGlyphCount, local.y);
   float mask = texture(tGlyphs, atlas).r;
-  vec3 under = sceneInk(frag / iResolution) * 0.45;
-  return under + ink * mask;
+  vec3 under = sceneInk(frag / iResolution) * 0.34;
+  return (under + ink * mask) * presence;
 }
 
 void main() {
-  vec3 ink = ascii(gl_FragCoord.xy);
-  fragColor = vec4(clamp(uDarkBackground + ink, 0.0, 1.0), 1.0);
+  vec3 glyph = uDarkBackground + ascii(gl_FragCoord.xy);
+  vec3 raw = texture(tScene, gl_FragCoord.xy / iResolution).rgb;
+  fragColor = vec4(clamp(mix(raw, glyph, 0.7), 0.0, 1.0), 1.0);
 }
 `;
 

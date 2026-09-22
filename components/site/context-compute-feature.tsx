@@ -1,29 +1,20 @@
 import AppImage from '@/components/runtime/app-image';
-import databaseIcon from '@/icon-database.png';
-import shieldIcon from '@/icon-shield.png';
-import lightningIcon from '@/icon-lightning.png';
-import growthIcon from '@/icon-growth.png';
-import documentsIcon from '@/icon-documents.png';
-import toolsIcon from '@/icon-tools.png';
-import usersIcon from '@/icon-users.png';
-import checkIcon from '@/icon-check.png';
-import analyticsIcon from '@/icon-analytics.png';
-import cubeIcon from '@/icon-cube.png';
 
 const featureIcons: Record<string, string> = {
-  database: databaseIcon,
-  shield: shieldIcon,
-  lightning: lightningIcon,
-  growth: growthIcon,
+  database: '/icons/server-2.svg',
+  shield: '/icons/shield.svg',
+  lightning: '/icons/dial.svg',
+  growth: '/icons/stairs-up.svg',
 };
 
 const diagramIcons: Record<string, string> = {
-  documents: documentsIcon,
-  tools: toolsIcon,
-  users: usersIcon,
-  check: checkIcon,
-  analytics: analyticsIcon,
-  cube: cubeIcon,
+  documents: '/icons/files-pen.svg',
+  tools: '/icons/gear.svg',
+  users: '/icons/nodes-2.svg',
+  check: '/icons/shield.svg',
+  analytics: '/icons/layers.svg',
+  cube: '/icons/cube.svg',
+  evolve: '/icons/stairs-up.svg',
 };
 
 type ContextComputeContent = {
@@ -167,7 +158,7 @@ export function ContextComputeFeature({
               <span className="fw-context-orbit-label is-bottom">
                 {content.diagram.labels.validate}
               </span>
-              <AppImage src={cubeIcon} alt="" width={220} height={252} />
+              <AppImage src={diagramIcons.cube} alt="" width={220} height={252} />
               <strong>
                 {content.diagram.centerTitle.map((title) => (
                   <span key={title}>{title}</span>

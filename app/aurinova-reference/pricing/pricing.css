@@ -661,6 +661,16 @@
   font-size: 16px;
   line-height: 1.65;
 }
+.pr-hero h1,
+.pr-jumps h2,
+.pr-section-intro h2,
+.pr-subsection h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
 @media (max-width: 680px) {
   .pr-plan-scope > ul {
     grid-template-columns: 1fr;

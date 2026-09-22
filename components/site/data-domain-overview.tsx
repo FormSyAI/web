@@ -1,9 +1,5 @@
 import { ArrowRight } from 'lucide-react';
 import AppImage from '@/components/runtime/app-image';
-import documentsIcon from '@/icon-documents.png';
-import analyticsIcon from '@/icon-analytics.png';
-import cubeIcon from '@/icon-cube.png';
-import shieldIcon from '@/icon-shield.png';
 
 type DataDomain = {
   title: string;
@@ -24,11 +20,18 @@ export type DataDomainOverviewContent = {
   description: string;
   domains: readonly DataDomain[];
   signals: readonly DataSignal[];
-  caption: string;
 };
 
-const domainIcons = [documentsIcon, cubeIcon, analyticsIcon] as const;
-const signalIcons = [shieldIcon, documentsIcon, analyticsIcon] as const;
+const domainIcons = [
+  '/icons/files-pen.svg',
+  '/icons/cube.svg',
+  '/icons/chart.svg',
+] as const;
+const signalIcons = [
+  '/icons/file-search.svg',
+  '/icons/layers.svg',
+  '/icons/stairs-up.svg',
+] as const;
 
 export function DataDomainOverview({
   content,
@@ -72,8 +75,8 @@ export function DataDomainOverview({
                   <AppImage
                     src={domainIcons[index]}
                     alt=""
-                    width={160}
-                    height={170}
+                    width={118}
+                    height={126}
                   />
                   <h3>{domain.title}</h3>
                   <p>{domain.detail}</p>
@@ -93,7 +96,6 @@ export function DataDomainOverview({
             ))}
           </div>
         </div>
-        <p className="fw-data-domains-caption">{content.caption}</p>
       </div>
     </section>
   );

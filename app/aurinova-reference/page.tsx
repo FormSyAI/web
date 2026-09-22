@@ -16,7 +16,7 @@ function SectionHeading({
   description,
   align = 'center',
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description?: string;
   align?: 'center' | 'left';
@@ -25,7 +25,7 @@ function SectionHeading({
     <div
       className={`fw-section-heading is-${align === 'center' ? 'centered' : 'left'}`}
     >
-      <p>{eyebrow}</p>
+      {eyebrow && <p>{eyebrow}</p>}
       <h2>{title}</h2>
       {description && <span>{description}</span>}
     </div>
