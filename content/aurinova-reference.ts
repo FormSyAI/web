@@ -313,12 +313,8 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       href: anchor('overview'),
     },
     {
-      label: t('能力', 'Capabilities'),
+      label: t('技术', 'Technology'),
       href: anchor('platform'),
-    },
-    {
-      label: t('工作方式', 'How it works'),
-      href: anchor('learning-loop'),
     },
     {
       label: t('联系我们', 'Contact'),
@@ -337,7 +333,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
     {
       title: t('AURINOVA', 'AURINOVA'),
       links: [
-        [t('关于 AURINOVA', 'About AURINOVA'), anchor('about')],
+        [t('关于我们', 'About us'), anchor('about')],
         [t('联系我们', 'Contact'), anchor('engagement')],
       ] as const,
     },
@@ -466,7 +462,7 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
           href: anchor(x.id),
         })),
         company: [
-          link('关于 AURINOVA', 'About AURINOVA', 'about'),
+          link('关于我们', 'About us', 'about'),
           link('合作方式', 'Engagement options', 'engagement'),
           link('试点流程', 'Pilot process', 'pilot-process'),
         ],
@@ -840,11 +836,13 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       ],
     },
     about: {
-      title: t('关于 AURINOVA', 'About AURINOVA'),
+      title: t('关于我们', 'About us'),
       description: t(
-        'AURINOVA 通过 FormSy 连接真实工程任务、可验证结果与持续积累的知识。',
-        'AURINOVA connects real engineering tasks, verifiable outcomes, and accumulating knowledge through FormSy.',
+        '锦曜新宸科技是新一代 AI 基础设施软件公司，专注企业级 Context（AI 上下文）管理平台。我们以自研的 Context Compute 技术，将外部大模型接入企业内部知识库与业务流程，让数据不出域、能力持续积累 —— 每一次 AI 调用产生的上下文都被结构化留存、复用与进化，沉淀为企业可控、可复用的智能资产。',
+        '锦曜新宸科技 is a next-generation AI infrastructure software company focused on an enterprise Context platform. With its own Context Compute technology, it connects external models to an enterprise knowledge base and business processes, so data stays in-domain while capability keeps accumulating — the context of every AI call is structured, retained, reused, and evolved into controllable, reusable intelligence assets.',
       ),
+      addressLabel: t('公司地址', 'Address'),
+      address: '上海市徐汇区桂平路391号1号楼204',
     },
     footer,
   };

@@ -1798,9 +1798,9 @@
 .fw-learning-steps {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-top: 48px;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--fw-line);
 }
 .fw-learning-steps li {
   min-width: 0;
@@ -2043,6 +2043,15 @@
   font-size: 16px;
   line-height: 1.8;
   color: #c9cbd2;
+}
+.fw-about-address {
+  margin-top: 20px;
+}
+.fw-about-address span {
+  display: block;
+  margin-bottom: 2px;
+  color: #fff;
+  font-weight: 550;
 }
 .fw-footer-grid {
   grid-template-columns: repeat(5, minmax(0, 1fr));
