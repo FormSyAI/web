@@ -86,10 +86,13 @@ function ScrollToLocation({ location }: { location: string }) {
           /* Keep malformed fragments literal. */
         }
         const target = document.getElementById(id);
+        const reduceMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)',
+        ).matches;
         target?.scrollIntoView({
           block: 'start',
           inline: 'nearest',
-          behavior: 'instant',
+          behavior: reduceMotion ? 'instant' : 'smooth',
         });
       } else {
         window.scrollTo({ top: 0, behavior: 'instant' });
