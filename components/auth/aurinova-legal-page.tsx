@@ -25,7 +25,7 @@ export function AurinovaLegalPage({
       <header className="auth-header">
         <Link href="/aurinova-reference" aria-label={copy.shell.homeLabel}>
           <Image
-            src="/aurinova-logo.svg"
+            src="/aurinova-logo-on-dark.svg"
             alt="AURINOVA"
             width={228}
             height={39}

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path id="feedback-loop" d="M73 64C95 34 135 22 174 29C215 36 245 62 252 94M247 81L252 94L238 92" stroke="#79AEE6" stroke-width="2.5" stroke-dasharray="6 7"/>
   <path id="feedback-return" d="M246 135C222 164 181 177 141 169C103 162 74 137 67 107M72 121L67 107L81 110" stroke="#F3B322" stroke-width="2.5" stroke-dasharray="6 7"/>
   <path id="verify-platform" d="M121 142L163 166L205 142L194 136L163 153L132 136Z" fill="#EFF6FD" stroke="#79AEE6" stroke-width="2"/>

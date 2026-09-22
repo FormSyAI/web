@@ -21,7 +21,7 @@
 .models-page .cp-cards > article {
   min-width: 0;
   border: 1px solid var(--border-card);
-  background: var(--paper);
+  background: var(--card);
 }
 .models-page .cp-cards h2 {
   margin: 24px 0 14px;

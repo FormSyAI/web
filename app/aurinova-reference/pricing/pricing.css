@@ -9,15 +9,16 @@
   --fw-white: var(--paper);
   --pr-purple: var(--brand-blue-500);
   --pr-purple-deep: var(--brand-blue-900);
-  --pr-ink: var(--ink);
+  --pr-ink: var(--foreground);
   --pr-muted: var(--muted-foreground);
   --pr-line: var(--line);
+  --fw-white: var(--background);
   min-height: 100vh;
   color: var(--pr-ink);
-  background: var(--paper);
+  background: var(--background);
   font-family: var(--font-body);
   scroll-behavior: smooth;
-  scrollbar-color: var(--pr-purple) #f0f0f3;
+  scrollbar-color: var(--brand-blue-300) #0a2340;
 }
 .pr-page *,
 .pr-page *::before,
@@ -76,8 +77,10 @@
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   padding-inline: 32px;
-  border-bottom: 1px solid #e7e7eb;
-  background: rgb(255 255 255 / 96%);
+  border-bottom: 1px solid rgb(141 184 227 / 18%);
+  color: white;
+  background: rgb(3 13 28 / 76%);
+  backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
 .pr-logo {
@@ -129,7 +132,7 @@
   min-height: 42px;
   border: 1px solid var(--pr-line);
   color: var(--pr-ink);
-  background: var(--paper);
+  background: #0b2744;
 }
 .pr-button {
   min-height: 48px;
@@ -162,18 +165,21 @@
   background: var(--brand-blue-700);
 }
 .pr-button-outline {
-  background: var(--paper);
+  border-color: rgb(228 238 248 / 74%);
+  color: #eff6ff;
+  background: transparent;
 }
 .pr-button-outline:hover {
-  color: var(--paper);
-  background: var(--pr-ink);
+  color: white;
+  border-color: var(--brand-blue-300);
+  background: rgb(44 108 181 / 26%);
 }
 .pr-menu {
   display: none;
   width: 44px;
   height: 44px;
   border: 1px solid var(--pr-line);
-  background: var(--paper);
+  background: #0b2744;
 }
 .pr-mobile-nav {
   display: none;
@@ -182,7 +188,7 @@
   min-height: 480px;
   padding-top: 126px;
   padding-bottom: 74px;
-  border-inline: 1px solid #efeff2;
+  border-inline: 1px solid rgb(141 184 227 / 22%);
 }
 .pr-hero h1 {
   max-width: 900px;
@@ -361,7 +367,7 @@
   transition: background 150ms ease;
 }
 .pr-table-wrap tbody tr:hover {
-  background: #f5f1ff;
+  background: #123456;
 }
 .pr-notes {
   max-width: 1050px;
@@ -439,7 +445,7 @@
 .pr-footer-logo {
   display: inline-flex;
   padding: 6px 10px;
-  background: var(--paper);
+  background: #0b2744;
 }
 .pr-footer-logo img {
   width: 156px;
@@ -468,12 +474,12 @@
     display: grid;
     padding: 16px 32px 28px;
     border-bottom: 1px solid var(--pr-line);
-    background: var(--paper);
+    background: #06182d;
     box-shadow: 0 18px 36px rgb(20 10 40 / 12%);
   }
   .pr-mobile-nav a {
     padding: 14px 0;
-    border-bottom: 1px solid #eeeef2;
+    border-bottom: 1px solid rgb(141 184 227 / 22%);
     font-weight: 600;
   }
   .pr-jumps {

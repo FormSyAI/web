@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import Image from '@/components/runtime/app-image';
 import { AppLink as Link } from '@/components/runtime/app-link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useSession } from '@/components/auth/session-provider';
 import { useI18n } from '@/components/i18n/i18n-provider';
@@ -11,7 +11,6 @@ import { aurinovaReferenceDictionaries } from '@/content/aurinova-reference.i18n
 
 export function AurinovaReferenceHeader({
   current,
-  dark = false,
 }: {
   current?: 'pricing';
   dark?: boolean;
@@ -20,40 +19,11 @@ export function AurinovaReferenceHeader({
   const { status: sessionStatus } = useSession();
   const content = aurinovaReferenceDictionaries[locale];
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isLightSurface, setIsLightSurface] = useState(false);
   const isCurrent = (href: string) =>
     current === 'pricing' && href.includes('pricing');
 
-  useEffect(() => {
-    if (!dark) {
-      setIsLightSurface(false);
-      return undefined;
-    }
-
-    const banner = document.querySelector('.fw-banner-assembly');
-    if (!banner || !('IntersectionObserver' in window)) {
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsLightSurface(!entry?.isIntersecting),
-      { rootMargin: '-73px 0px 0px 0px' },
-    );
-    observer.observe(banner);
-
-    return () => observer.disconnect();
-  }, [dark]);
-
-  const headerClassName = [
-    'fw-header',
-    dark ? 'fw-header--dark' : '',
-    isLightSurface ? 'is-light' : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
-  const logoSrc = dark && !isLightSurface
-    ? '/aurinova-logo-on-dark.svg'
-    : content.meta.headerLogo;
+  const headerClassName = ['fw-header', 'fw-header--dark'].join(' ');
+  const logoSrc = '/aurinova-logo-on-dark.svg';
 
   return (
     <header className={headerClassName}>

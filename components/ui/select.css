@@ -10,7 +10,7 @@
   border: 1px solid var(--border-control);
   border-radius: 0;
   background: var(--paper);
-  color: var(--text-console);
+  color: #14283f;
   font: inherit;
   text-align: left;
   cursor: pointer;
@@ -43,9 +43,9 @@
 .ui-select-popup {
   min-width: var(--anchor-width);
   max-width: calc(100vw - 24px);
-  border: 1px solid var(--border-control);
+  border: 1px solid #d2dce8;
   background: var(--paper);
-  color: var(--text-console);
+  color: #14283f;
   font-family: var(--font-body);
   font-size: var(--text-label);
   box-shadow: 0 6px 20px rgb(20 40 63 / 10%);
@@ -70,7 +70,7 @@
   color: var(--primary);
 }
 .ui-select-item[data-highlighted] {
-  background: var(--surface-console);
+  background: #f3f7fc;
   color: var(--primary);
 }
 .ui-select-item[data-disabled] {

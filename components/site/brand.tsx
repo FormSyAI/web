@@ -19,7 +19,7 @@ export function Brand({ inverse = false }: BrandProps) {
     >
       <Image
         className="brand-logo"
-        src="/aurinova-logo.svg"
+        src="/aurinova-logo-on-dark.svg"
         alt="AURINOVA"
         width={1142}
         height={204}

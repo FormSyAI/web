@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path id="orbit" d="M61 102C61 61 104 29 160 29C216 29 259 61 259 102C259 143 216 174 160 174C104 174 61 143 61 102Z" stroke="#79AEE6" stroke-width="2" stroke-dasharray="6 8"/>
   <path id="agent-platform" d="M119 139L160 163L201 139L190 133L160 150L130 133Z" fill="#EFF6FD" stroke="#79AEE6" stroke-width="2"/>
   <path id="agent-top" d="M111 74L160 47L209 74L160 102Z" fill="#F7FAFE" stroke="#2C6CB5" stroke-width="2"/>

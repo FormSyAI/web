@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200" viewBox="0 0 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path id="connector-left" d="M46 115H68L88 96" stroke="#79AEE6" stroke-width="2" stroke-dasharray="5 6"/>
   <path id="connector-right" d="M206 70L232 83H274" stroke="#F3B322" stroke-width="2" stroke-dasharray="5 6"/>
   <path id="contract-platform" d="M99 138L150 166L201 138L190 132L150 154L110 132Z" fill="#EFF6FD" stroke="#79AEE6" stroke-width="2"/>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 8 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="200" viewBox="0 8 320 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path id="asset-link-one" d="M198 72H247L268 61" stroke="#79AEE6" stroke-width="2" stroke-dasharray="5 7"/>
   <path id="asset-link-two" d="M198 105H252L278 109" stroke="#79AEE6" stroke-width="2" stroke-dasharray="5 7"/>
   <path id="asset-link-three" d="M194 132H238L264 155" stroke="#F3B322" stroke-width="2" stroke-dasharray="5 7"/>

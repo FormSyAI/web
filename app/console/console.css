@@ -1,5 +1,24 @@
 .cs-app,
 .cs-gate {
+  color-scheme: light;
+  --text-console: #14283f;
+  --text-console-muted: #62748a;
+  --text-action: #455b73;
+  --border-console: #e0e7ef;
+  --surface-console: #f3f7fc;
+  --surface-sidebar: #f9fbfd;
+  --text-success: #277959;
+  --surface-success: #f1f9f4;
+  --border-success: #d6eadf;
+  --text-error: #b54540;
+  --surface-error: #fff5f4;
+  --border-error: #efdbd8;
+  --border-control: #d2dce8;
+  --border-card: #dce5f0;
+  --background: #ffffff;
+  --foreground: #14283f;
+  --card: #ffffff;
+  --paper: #ffffff;
   --cs-blue: var(--brand-blue-500);
   --cs-ink: var(--text-console);
   --cs-muted: var(--text-console-muted);
@@ -290,7 +309,7 @@
 }
 .cs-table-scroll td {
   padding: 15px 22px;
-  border-bottom: 1px solid #edf1f6;
+  border-bottom: 1px solid var(--cs-line);
   vertical-align: middle;
 }
 .cs-table-scroll td small {
@@ -478,7 +497,7 @@
   justify-content: space-between;
   gap: 24px;
   padding: 13px 0;
-  border-bottom: 1px solid #e9eef5;
+  border-bottom: 1px solid var(--cs-line);
   font-size: 12px;
 }
 .cs-details dt {
@@ -636,7 +655,7 @@
 .cs-audit-row {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eef2f6;
+  border-bottom: 1px solid var(--cs-line);
   padding: 12px 0;
   color: var(--cs-muted);
   font-size: var(--text-caption);
