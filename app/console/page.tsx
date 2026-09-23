@@ -329,10 +329,10 @@ export default function ConsolePage() {
     <main className="cs-gate">
       <Link href="/">
         <Image
-          src={withBasePath('/aurinova-logo.svg')}
+          src={withBasePath('/aurinova-logo-0923-on-light.svg')}
           alt="AURINOVA"
-          width={220}
-          height={38}
+          width={270}
+          height={35}
         />
       </Link>
       <section className="cs-card">

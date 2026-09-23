@@ -56,16 +56,9 @@ export function AurinovaReferenceHeader({
         </nav>
         <div className="fw-header-actions">
           <LanguageSwitcher labels={content.ui} />
-          {sessionStatus === 'authenticated' ? (
+          {sessionStatus === 'authenticated' && (
             <Link className="fw-primary-button" href="/console/usage">
               {locale === 'zh-CN' ? '进入控制台' : 'Console'}
-            </Link>
-          ) : (
-            <Link
-              className="fw-primary-button"
-              href="/aurinova-reference/signup"
-            >
-              {content.ui.signup}
             </Link>
           )}
           <Button

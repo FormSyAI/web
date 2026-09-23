@@ -5,6 +5,7 @@
   --auth-soft: #0c2744;
   --auth-blue: var(--brand-blue-500);
   --auth-blue-deep: var(--brand-blue-700);
+  --auth-link: var(--brand-blue-300);
   min-height: 100dvh;
   overflow-x: hidden;
   color: var(--auth-ink);
@@ -60,7 +61,7 @@ html:has(.auth-page)::-webkit-scrollbar-thumb,
 }
 
 .auth-header img {
-  width: clamp(168px, 13vw, 216px);
+  width: clamp(210px, 17vw, 280px);
   height: auto;
 }
 
@@ -180,12 +181,12 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   height: 17px;
   flex: 0 0 auto;
   margin-top: 3px;
-  color: var(--auth-blue);
+  color: var(--auth-link);
   transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .auth-benefits a:hover {
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
 }
 
 .auth-benefits a:hover svg {
@@ -238,7 +239,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 }
 
 .auth-testimonial footer span {
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 0.78rem;
   font-weight: 700;
@@ -295,7 +296,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 }
 
 .auth-brand-links a:hover {
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   text-decoration: underline;
 }
 
@@ -386,7 +387,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   margin-right: 8px;
   padding-inline: 14px;
   border-left: 1px solid var(--auth-line);
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
 }
 
 .auth-submit svg {
@@ -412,7 +413,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 
 .auth-secondary-options a:hover,
 .auth-secondary-options button:hover {
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
 }
 
 .auth-wechat-panel {
@@ -439,7 +440,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 }
 
 .auth-qr-button:hover {
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   border-color: var(--auth-blue);
   background: var(--card);
 }
@@ -478,7 +479,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   margin: 0 0 20px;
   padding: 10px 12px;
   border: 1px solid rgb(141 184 227 / 36%);
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   background: var(--auth-soft);
   font-size: 0.82rem;
   line-height: 1.5;
@@ -524,7 +525,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 }
 
 .auth-back:hover {
-  color: var(--auth-blue);
+  color: var(--auth-link);
 }
 
 .auth-back svg {
@@ -632,7 +633,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 }
 
 .auth-password-toggle:hover {
-  color: var(--auth-blue);
+  color: var(--auth-link);
 }
 
 .auth-password-toggle svg {
@@ -654,7 +655,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 }
 
 .auth-password-heading a {
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   font-size: 0.86rem;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -821,7 +822,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   gap: 10px;
   padding: 0 22px;
   border: 1px solid var(--auth-line);
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   font-weight: 650;
   text-decoration: none;
 }
@@ -839,7 +840,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 .auth-switch-path a,
 .auth-selected-email button,
 .auth-terms a {
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -961,7 +962,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   min-height: 44px;
   padding: 8px 14px;
   border: 1px solid var(--auth-blue);
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   background: var(--card);
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 0.78rem;
@@ -1005,7 +1006,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 }
 
 .auth-consent a {
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -1078,7 +1079,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   min-height: 46px;
   margin-top: 12px;
   border-radius: 0;
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
 }
 
 .auth-terms {
@@ -1095,7 +1096,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 .auth-switch-path a:hover,
 .auth-selected-email button:hover,
 .auth-consent a:hover {
-  color: var(--auth-blue);
+  color: var(--auth-link);
 }
 
 .auth-legal-page {
@@ -1113,7 +1114,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   margin: 20px 0 0;
   padding: 12px 14px;
   border: 1px solid rgb(141 184 227 / 36%);
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   background: var(--auth-soft);
   font-size: 0.88rem;
   line-height: 1.5;
@@ -1221,7 +1222,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
 }
 
 .auth-endpoint-list span {
-  color: var(--auth-blue-deep);
+  color: var(--auth-link);
   font-size: 0.73rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -1335,7 +1336,7 @@ html[lang='zh-CN'] .auth-brand-content h2 {
   }
 
   .auth-header img {
-    width: 154px;
+    width: 188px;
   }
 
   .auth-header .language-switcher {

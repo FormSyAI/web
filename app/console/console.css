@@ -76,12 +76,12 @@
 .cs-brand {
   display: flex;
   flex-direction: column;
-  padding: 0 12px;
+  padding: 0 8px;
   gap: 10px;
   margin-bottom: 28px;
 }
 .cs-brand img {
-  width: 168px;
+  width: 176px;
   height: auto;
 }
 .cs-brand > span {
@@ -795,7 +795,7 @@
     margin-left: var(--console-sidebar-width);
   }
   .cs-brand img {
-    width: 160px;
+    width: 168px;
   }
   .cs-summary-grid,
   .cs-two-column,

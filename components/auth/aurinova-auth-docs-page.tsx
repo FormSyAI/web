@@ -18,10 +18,10 @@ export function AurinovaAuthDocsPage() {
       <header className="auth-header">
         <Link href="/aurinova-reference" aria-label={copy.shell.homeLabel}>
           <Image
-            src="/aurinova-logo-on-dark.svg"
+            src="/aurinova-logo-0923-on-dark.svg"
             alt="AURINOVA"
-            width={228}
-            height={39}
+            width={280}
+            height={36}
             priority
           />
         </Link>

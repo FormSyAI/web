@@ -48,10 +48,10 @@ export function ConsoleLayout({
       >
         <Link className="cs-brand" href={`${demoRoot}/usage`}>
           <Image
-            src={withBasePath('/aurinova-logo.svg')}
+            src={withBasePath('/aurinova-logo-0923-on-light.svg')}
             alt="AURINOVA"
-            width={168}
-            height={29}
+            width={176}
+            height={23}
           />
           <span>FORMSY CONSOLE</span>
         </Link>

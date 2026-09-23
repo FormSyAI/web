@@ -129,20 +129,6 @@ export default function AurinovaReferencePage() {
           <div className="fw-shell">
             <h2>{content.engagement.title}</h2>
             <p>{content.engagement.description}</p>
-            <div className="fw-actions">
-              <AppLink
-                className="fw-light-button"
-                href={content.engagement.primary.href}
-              >
-                {content.engagement.primary.label}
-              </AppLink>
-              <AppLink
-                className="fw-dark-outline-button"
-                href={content.engagement.secondary.href}
-              >
-                {content.engagement.secondary.label}
-              </AppLink>
-            </div>
           </div>
         </section>
       </div>
