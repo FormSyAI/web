@@ -89,7 +89,7 @@ const jobs: Job[] = [
   {
     id: 'agent-platform-backend-engineer',
     department: { zh: 'AI研发部', en: 'AI R&D' },
-    title: { zh: 'Agent 平台后端工程师', en: 'Agent Platform Backend Engineer' },
+    title: { zh: 'Agent Infra 开发工程师', en: 'Agent Infra Development Engineer' },
     summary: {
       zh: '负责 Agent 数据平台与多智能体编排平台的设计和研发，建设企业级知识库与 RAG 检索链路。',
       en: 'Design and build the agent data platform and multi-agent orchestration platform, including enterprise knowledge bases and RAG pipelines.',
