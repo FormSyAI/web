@@ -3102,8 +3102,8 @@
   color: rgb(228 238 248 / 82%);
 }
 .fw-designed-hero .fw-causal-art {
-  background: rgb(7 28 52 / 88%);
-  border-color: rgb(141 184 227 / 36%);
+  background: rgb(0 0 0 / 60%);
+  border: 0;
 }
 .fw-designed-hero .fw-hero-grid {
   position: relative;
