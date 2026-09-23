@@ -10,6 +10,7 @@ const routes = [
   'aurinova-reference',
   'aurinova-reference/coding-plan',
   'aurinova-reference/models',
+  'aurinova-reference/careers',
   'aurinova-reference/pricing',
   'aurinova-reference/login',
   'aurinova-reference/login/email',

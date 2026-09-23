@@ -122,7 +122,7 @@ void main() {
   float t = iTime + 2.4;
   float ageA = mod(t, CYCLE);
   float ageB = mod(t + CYCLE * 0.5, CYCLE);
-  float flash = exp(-ageA * 3.2) * 0.65 + exp(-ageB * 3.2) * 0.28;
+  float flash = exp(-ageA * 3.2) * 0.38 + exp(-ageB * 3.2) * 0.15;
   float pulse = 0.9 + 0.1 * sin(t * 1.6);
 
   vec3 glow = vec3(0.0);
@@ -138,7 +138,7 @@ void main() {
   float bloom = exp(-r * r * 10.0) * flash;
   glow += mix(ICE, GOLD, exp(-r * 5.5)) * corona * 0.16;
   glow += mix(GOLD, HOT, 0.7) * core * (0.85 + flash);
-  glow += HOT * bloom * 0.2;
+  glow += HOT * bloom * 0.13;
 
   float spin = ang + t * 0.05;
   float warp = sin(spin * 3.0 + fbm(vec2(spin * 1.15, t * 0.1)) * 2.0);
@@ -157,6 +157,7 @@ void main() {
   glow += GOLD * sparks * 0.22;
 
   glow *= mix(1.0, 0.38, smoothstep(-0.02, 0.34, pos.y));
+  glow *= 0.82;
 
   vec3 x = max(glow, 0.0);
   glow = (x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14);

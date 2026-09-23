@@ -10,6 +10,7 @@ const routeAliases: Record<string, string> = {
   '/demo/console': '/demo/console/usage',
   '/': '/aurinova-reference',
   '/fireworks-reference': '/aurinova-reference',
+  '/careers': '/aurinova-reference/careers',
   '/login': '/aurinova-reference/login',
   '/pricing': '/aurinova-reference/pricing',
   '/signup': '/aurinova-reference/signup',
@@ -21,6 +22,9 @@ const routeComponents: Record<string, React.ComponentType> = {
   ),
   '/aurinova-reference/models': lazy(
     () => import('@/app/aurinova-reference/models/page'),
+  ),
+  '/aurinova-reference/careers': lazy(
+    () => import('@/app/aurinova-reference/careers/page'),
   ),
   '/original-home': lazy(() => import('@/app/page')),
   '/aurinova-reference': lazy(() => import('@/app/aurinova-reference/page')),

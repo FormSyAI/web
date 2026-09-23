@@ -20,18 +20,6 @@ export function AurinovaReferenceFooter() {
           {content.about.address}
         </p>
       </div>
-      <div className="fw-shell fw-footer-grid">
-        {content.footer.map((group) => (
-          <div className="fw-footer-group" key={group.title}>
-            <h3>{group.title}</h3>
-            {group.links.map(([label, href]) => (
-              <Link href={href} key={label}>
-                {label}
-              </Link>
-            ))}
-          </div>
-        ))}
-      </div>
       <div className="fw-shell fw-footer-bottom">
         <Image
           className="fw-footer-site-logo"

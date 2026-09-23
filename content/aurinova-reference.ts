@@ -319,29 +319,22 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
     {
       label: t('联系我们', 'Contact'),
       href: anchor('engagement'),
-    },
-  ];
-  const footer = [
-    {
-      title: t('产品', 'Product'),
-      links: [
-        [t('产品概览', 'Overview'), anchor('overview')],
-        ['Context Compute', anchor('context-compute')],
-        ['Causal Evidence & Learning', anchor('evidence-learning')],
-      ] as const,
-    },
-    {
-      title: t('AURINOVA', 'AURINOVA'),
-      links: [
-        [t('关于我们', 'About us'), anchor('about')],
-        [t('联系我们', 'Contact'), anchor('engagement')],
-      ] as const,
+      children: [
+        {
+          label: t('加入我们', 'Join us'),
+          href: '/aurinova-reference/careers',
+          description: t(
+            '探索 AI 研发部当前开放的职位，欢迎邮件投递简历。',
+            'Explore open roles in AI R&D and apply by email.',
+          ),
+        },
+      ],
     },
   ];
   return {
     meta: {
-      headerLogo: '/aurinova-logo-0923-on-dark.svg?v=all-white-20260923',
-      footerLogo: '/aurinova-logo-0923-on-dark.svg?v=all-white-20260923',
+      headerLogo: '/aurinova-logo-0923-on-dark.svg?v=gold-star-20260923',
+      footerLogo: '/aurinova-logo-0923-on-dark.svg?v=gold-star-20260923',
       contactHref: anchor('engagement'),
     },
     ui: {
@@ -808,14 +801,6 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       items: resources,
     },
     engagement: {
-      title: t(
-        '从一个真实任务，开始建立可归因的数据链',
-        'Start with one real task. Build an attributable data chain.',
-      ),
-      description: t(
-        '连接当时可见的上下文、做出的决定、实际行动和最终结果，再用可比验证确认效果。',
-        'Connect the context seen, decisions made, actions taken, and outcomes observed—then validate effects under comparable conditions.',
-      ),
       plans,
       primary: link('开始体验', 'Get started', 'overview'),
       secondary: {
@@ -839,7 +824,6 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
       addressLabel: t('公司地址', 'Address'),
       address: '上海市徐汇区桂平路391号1号楼204',
     },
-    footer,
   };
 }
 

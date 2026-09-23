@@ -124,13 +124,7 @@ export default function AurinovaReferencePage() {
             ))}
           </ol>
         </section>
-        <section className="fw-cta" id="engagement">
-          <div className="fw-cta-grid" aria-hidden="true" />
-          <div className="fw-shell">
-            <h2>{content.engagement.title}</h2>
-            <p>{content.engagement.description}</p>
-          </div>
-        </section>
+        <section id="engagement" />
       </div>
       <AurinovaReferenceFooter />
     </main>
