@@ -36,10 +36,10 @@ export function AurinovaReferenceFooter() {
         <Image
           className="fw-footer-site-logo"
           src={content.meta.footerLogo}
-          width={228}
-          height={52}
+          width={270}
+          height={35}
           unoptimized
-          alt="AURINOVA"
+          alt="AURINOVA 锦曜新宸"
         />
         <span>{content.ui.copyright}</span>
         <div>

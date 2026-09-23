@@ -340,8 +340,8 @@ export function createAurinovaContent(locale: 'en-US' | 'zh-CN') {
   ];
   return {
     meta: {
-      headerLogo: '/aurinova-logo.svg',
-      footerLogo: '/aurinova-logo.svg',
+      headerLogo: '/aurinova-logo-0923-on-dark.svg?v=all-white-20260923',
+      footerLogo: '/aurinova-logo-0923-on-dark.svg?v=all-white-20260923',
       contactHref: anchor('engagement'),
     },
     ui: {

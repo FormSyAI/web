@@ -23,7 +23,7 @@ export function AurinovaReferenceHeader({
     current === 'pricing' && href.includes('pricing');
 
   const headerClassName = ['fw-header', 'fw-header--dark'].join(' ');
-  const logoSrc = '/aurinova-logo-on-dark.svg';
+  const logoSrc = content.meta.headerLogo;
 
   return (
     <header className={headerClassName}>
@@ -36,11 +36,11 @@ export function AurinovaReferenceHeader({
           <Image
             className="fw-site-logo"
             src={logoSrc}
-            width={228}
-            height={39}
+            width={270}
+            height={35}
             priority
             unoptimized
-            alt="AURINOVA"
+            alt="AURINOVA 锦曜新宸"
           />
         </Link>
         <nav aria-label={content.ui.navigationLabel}>

@@ -117,8 +117,9 @@
   width: fit-content;
 }
 .fw-site-logo {
-  width: 228px;
-  height: 39px;
+  width: 270px;
+  max-width: calc(100vw - 94px);
+  height: auto;
   object-fit: contain;
 }
 .fw-brand strong {
@@ -1409,10 +1410,10 @@
   font-size: 12px;
 }
 .fw-footer-site-logo {
-  width: 228px;
-  height: 52px;
+  width: 270px;
+  max-width: 100%;
+  height: auto;
   background: transparent;
-  filter: brightness(0) invert(1);
   object-fit: contain;
 }
 .fw-footer-bottom > div:last-child {
@@ -3305,7 +3306,7 @@
   max-width: none;
   margin: 24px auto 0;
   text-align: center;
-  white-space: nowrap;
+  text-wrap: balance;
 }
 .fw-designed-hero .fw-actions {
   justify-content: center;
