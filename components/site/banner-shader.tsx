@@ -7,9 +7,9 @@ type BannerShaderProps = {
 /*
  * Nova burst for the AURINOVA banner.
  *
- * The field pass paints an ignition: a gold-white core, a faint shock
- * wash, and coronal filaments that surge outward and pull back. A second
- * pass keeps the site's rectangular glyph grain.
+ * The field pass paints an ignition: a gold-white core, ice-blue shock
+ * shells, coronal filaments, and ejecta. A second pass keeps the site's
+ * rectangular glyph grain so the burst still reads as a data field.
  */
 const VERTEX_SHADER = `#version 300 es
 void main() {
@@ -67,91 +67,102 @@ float blueNoise(vec2 p, float frame) {
   return fract(52.9829189 * fract(0.06711056 * p.x + 0.00583715 * p.y));
 }
 
-// A wide, broken wash. No hard crest, so the blast never draws a circle.
+// Hard crest, gold inner lip, blue outer wash. The wake stays in a
+// thin band behind the front so the burst never fills the hero.
 vec3 shockShell(float r, float ang, float age) {
-  float radius = 0.08 + age * 0.09;
+  float wobble = sin(ang * 5.0 + age * 1.6) * 0.016 * age
+    + sin(ang * 12.0 - age * 0.7) * 0.008 * age;
+  float radius = 0.045 + age * 0.092 + wobble;
+  float width = 0.011 + age * 0.0032;
   float delta = r - radius;
-  float fade = exp(-age * 0.28) * smoothstep(0.0, 0.4, age);
-  float wash = exp(-pow(delta / 0.11, 2.0));
-  float broken = pow(0.5 + 0.5 * sin(ang * 7.0 + age * 0.6), 1.4);
-  broken *= 0.25 + 0.75 * pow(abs(sin(ang * 15.0 - age * 0.35)), 0.8);
-  return mix(GOLD, ICE, 0.45) * wash * fade * 0.16 * broken;
+  float fade = exp(-age * 0.23) * smoothstep(0.0, 0.28, age);
+  float knots = 0.55 + 0.7 * pow(0.5 + 0.5 * sin(ang * 7.0 + age * 2.2), 5.0);
+  float crest = exp(-pow(delta / width, 2.0));
+  float front = exp(-pow(max(delta, 0.0) / (width * 1.7), 2.0));
+  float lip = exp(-pow(max(-delta, 0.0) / (width * 1.05), 2.0));
+  float wake = exp(-pow(max(-delta, 0.0) / 0.042, 2.0));
+  float streaks = pow(abs(sin(ang * 16.0 - r * 5.0 + age * 0.8)), 4.0);
+
+  vec3 color = ICE * front * fade * 0.42 * knots;
+  color += HOT * crest * fade * 0.72 * knots;
+  color += GOLD * lip * fade * 0.48 * knots;
+  color += mix(DEEP, ICE, streaks) * wake * fade * 0.16;
+  return color;
 }
 
-const float BURST = 4.8;
-
-// Fast surge, slow retract. Peaks just after ignition.
-float burstEnvelope(float t) {
-  float phase = fract(t / BURST);
-  float rise = smoothstep(0.0, 0.14, phase);
-  float fall = 1.0 - smoothstep(0.16, 1.0, phase);
-  return min(rise, fall);
-}
-
-float burstRays(float ang, float r, float t) {
-  const float count = 26.0;
-  float sector = (ang + 3.14159265) * count / 6.2831853;
-  float id = floor(sector);
-  float local = fract(sector) - 0.5;
-  float seed = hash11(id + 4.2);
-  float width = 0.026 + seed * 0.018;
-  float line = exp(-pow(local / width, 2.0));
-  // Three waves a third of a cycle apart. Inner rays stay short and
-  // snap back; outer rays leave later and reach farther.
-  float wave = floor(seed * 3.0);
-  float phase = fract(t / BURST + wave * 0.33);
-  float rise = smoothstep(0.0, 0.07 + wave * 0.08, phase);
-  float fall = 1.0 - smoothstep(0.12 + wave * 0.04, 0.42 + wave * 0.22, phase);
-  float envelope = min(rise, fall);
-  float layerReach = 0.22 + wave * 0.36 + fract(seed * 5.0) * 0.1;
-  float reach = 1.0 - smoothstep(0.05, 0.09 + envelope * layerReach, r);
-  float heat = 1.0 - wave * 0.16;
-  return line * reach * (0.16 + 0.84 * envelope) * heat;
+float ejecta(vec2 p, float t) {
+  float acc = 0.0;
+  for (int i = 0; i < 16; i++) {
+    float id = float(i);
+    float seed = hash11(id + 2.3);
+    float seed2 = hash11(id + 11.7);
+    float age = mod(t - seed * CYCLE, CYCLE);
+    float life = age / CYCLE;
+    float dir = id * 2.39996323 + seed * 0.55;
+    dir += sin(t * 0.32 + seed * 12.0) * 0.14;
+    float rad = 0.03 + age * (0.085 + seed2 * 0.15);
+    vec2 heading = vec2(cos(dir), sin(dir));
+    vec2 head = heading * rad;
+    float fade = smoothstep(0.0, 0.07, life) * smoothstep(1.0, 0.18, life);
+    float twinkle = 0.58 + 0.42 * sin(t * (4.2 + seed * 6.0) + seed * 40.0);
+    float headDist = length(p - head);
+    acc += exp(-headDist * headDist / 0.00026) * fade * twinkle;
+    float tailDist = length(p - head + heading * (0.028 + life * 0.045));
+    acc += exp(-tailDist * tailDist / 0.00085) * fade * 0.32;
+  }
+  return acc;
 }
 
 void main() {
   vec2 resolution = iResolution.xy;
   vec2 pos = (gl_FragCoord.xy - 0.5 * resolution) / resolution.y;
-  // Ignition sits on the product diagram, so the shell opens around it.
-  vec2 p = pos - vec2(0.0, -0.1);
+  vec2 p = pos - vec2(0.02, -0.18);
   float r = length(p);
   float ang = atan(p.y, p.x);
-  float t = iTime + 1.6;
+  float t = iTime + 2.4;
   float ageA = mod(t, CYCLE);
   float ageB = mod(t + CYCLE * 0.5, CYCLE);
-  float envelope = burstEnvelope(t);
-  float pulse = 0.92 + 0.08 * sin(t * 1.5);
+  float flash = exp(-ageA * 3.2) * 0.65 + exp(-ageB * 3.2) * 0.28;
+  float pulse = 0.9 + 0.1 * sin(t * 1.6);
 
   vec3 glow = vec3(0.0);
 
-  vec2 nebulaCoord = p * 1.8 + vec2(t * 0.02, -t * 0.015);
-  float nebula = fbm(nebulaCoord);
-  nebula = smoothstep(0.48, 0.9, nebula) * exp(-r * 1.8);
-  glow += DEEP * nebula * 0.07;
+  vec2 nebulaCoord = p * 1.7 + vec2(t * 0.03, -t * 0.02);
+  float nebula = fbm(nebulaCoord + fbm(nebulaCoord * 1.8 + t * 0.04) * 0.45);
+  nebula = smoothstep(0.42, 0.92, nebula) * exp(-r * 1.15);
+  glow += DEEP * nebula * 0.1;
+  glow += ICE * nebula * 0.035;
 
-  float core = exp(-pow(r / 0.055, 2.0)) * pulse;
-  glow += HOT * core * (0.65 + envelope * 1.05);
-  glow += GOLD * exp(-pow(r / 0.11, 2.0)) * (0.16 + envelope * 0.5);
+  float corona = exp(-r * r * 14.0) * pulse;
+  float core = exp(-r * r * 90.0) * pulse;
+  float bloom = exp(-r * r * 10.0) * flash;
+  glow += mix(ICE, GOLD, exp(-r * 5.5)) * corona * 0.16;
+  glow += mix(GOLD, HOT, 0.7) * core * (0.85 + flash);
+  glow += HOT * bloom * 0.2;
 
-  float spikes = pow(abs(cos(ang * 8.0)), 48.0) * exp(-r * 11.0);
-  glow += HOT * spikes * (0.15 + envelope * 0.4);
+  float spin = ang + t * 0.05;
+  float warp = sin(spin * 3.0 + fbm(vec2(spin * 1.15, t * 0.1)) * 2.0);
+  float fineRays = pow(abs(sin(spin * 10.0 + warp * 1.8)), 16.0);
+  float broadRays = pow(0.5 + 0.5 * sin(spin * 5.0 - t * 0.2), 4.0);
+  float rays = (fineRays * 0.85 + broadRays * 0.16) * exp(-r * 3.4);
+  rays *= 0.65 + flash;
+  glow += mix(GOLD, ICE, 0.5) * rays * 0.42;
 
-  float rays = burstRays(ang, r, t);
-  glow += mix(GOLD, ICE, smoothstep(0.1, 0.85, r)) * rays * 0.9;
+  glow += shockShell(r, ang, ageA);
+  glow += shockShell(r, ang, ageB) * 0.72;
+  glow += shockShell(r, ang, mod(t * 0.38 + 4.0, 18.0)) * 0.16;
 
-  glow += shockShell(r, ang, ageA) * (0.35 + envelope * 0.65);
-  glow += shockShell(r, ang, ageB) * 0.2;
+  float sparks = ejecta(p, t);
+  glow += HOT * sparks * 0.55;
+  glow += GOLD * sparks * 0.22;
 
-  // The headline and lead sit in the upper middle. Darken that pocket
-  // and leave the shell bright toward the sides and around the diagram.
-  float pocket = smoothstep(0.0, 0.2, pos.y)
-    * (1.0 - smoothstep(0.18, 0.58, abs(pos.x)));
-  glow *= 1.0 - pocket * 0.72;
+  glow *= mix(1.0, 0.38, smoothstep(-0.02, 0.34, pos.y));
 
   vec3 x = max(glow, 0.0);
   glow = (x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14);
   glow = pow(clamp(glow, 0.0, 1.0), vec3(0.94, 0.98, 1.05));
-  glow *= 1.0 - smoothstep(0.9, 1.45, r) * 0.82;
+  float edge = smoothstep(0.42, 1.45, length(pos));
+  glow *= 1.0 - edge * 0.72;
   vec3 color = uDarkBackground + glow * (1.0 - uDarkBackground);
   color += (blueNoise(gl_FragCoord.xy, floor(iTime * 24.0)) - 0.5) / 255.0;
   fragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
@@ -188,21 +199,18 @@ vec3 ascii(vec2 frag) {
   ink += sceneInk((centre + cellPx * vec2(0.3, -0.3)) / iResolution);
   ink += sceneInk((centre + cellPx * vec2(-0.3, -0.3)) / iResolution);
   ink /= 6.0;
-  float luma = dot(ink, LUMA);
-  float presence = smoothstep(0.04, 0.12, luma);
-  float level = pow(clamp(luma * (0.9 + 0.3 * uStrength), 0.0, 1.0), 0.9);
+  float level = pow(clamp(dot(ink, LUMA) * (0.9 + 0.3 * uStrength), 0.0, 1.0), 0.9);
   float glyph = floor(level * (uGlyphCount - 1.0) + 0.5);
   vec2 local = (frag - cell * cellPx) / cellPx;
   vec2 atlas = vec2((glyph + local.x) / uGlyphCount, local.y);
   float mask = texture(tGlyphs, atlas).r;
-  vec3 under = sceneInk(frag / iResolution) * 0.34;
-  return (under + ink * mask) * presence;
+  vec3 under = sceneInk(frag / iResolution) * 0.5;
+  return under + ink * mask;
 }
 
 void main() {
-  vec3 glyph = uDarkBackground + ascii(gl_FragCoord.xy);
-  vec3 raw = texture(tScene, gl_FragCoord.xy / iResolution).rgb;
-  fragColor = vec4(clamp(mix(raw, glyph, 0.7), 0.0, 1.0), 1.0);
+  vec3 ink = ascii(gl_FragCoord.xy);
+  fragColor = vec4(clamp(uDarkBackground + ink, 0.0, 1.0), 1.0);
 }
 `;
 
